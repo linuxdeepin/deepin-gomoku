@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="394px" height="242px" viewBox="0 0 394 242" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>弹窗背景</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#A6FCD6" offset="0%"></stop>
+            <stop stop-color="#246267" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0.3" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-3" x="0.6064371" y="0.286197165" width="370" height="218" rx="18"></rect>
+        <filter x="-4.1%" y="-6.9%" width="109.2%" height="115.6%" filterUnits="objectBoundingBox" id="filter-5">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="2" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-6">
+            <stop stop-color="#EED58C" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="50%" cy="25.2410013%" fx="50%" fy="25.2410013%" r="63.403353%" id="radialGradient-8">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FEFEFE" offset="27.3459914%"></stop>
+            <stop stop-color="#B1B1B1" offset="100%"></stop>
+        </radialGradient>
+        <circle id="path-9" cx="15" cy="15" r="15"></circle>
+        <filter x="-28.3%" y="-25.0%" width="163.3%" height="163.3%" filterUnits="objectBoundingBox" id="filter-10">
+            <feOffset dx="1" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter2"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter2" result="shadowOffsetOuter2"></feOffset>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0" type="matrix" in="shadowOffsetOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-26.7%" y="-23.3%" width="160.0%" height="160.0%" filterUnits="objectBoundingBox" id="filter-11">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="-3" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.783476456   0 0 0 0 0.783476456   0 0 0 0 0.783476456  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <radialGradient cx="50%" cy="25.2410013%" fx="50%" fy="25.2410013%" r="61.849441%" id="radialGradient-12">
+            <stop stop-color="#969696" offset="0%"></stop>
+            <stop stop-color="#060606" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="50%" y1="24.6242407%" x2="50%" y2="100%" id="linearGradient-13">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#212121" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-14" cx="15" cy="16" r="15"></circle>
+        <filter x="-25.0%" y="-21.7%" width="156.7%" height="156.7%" filterUnits="objectBoundingBox" id="filter-15">
+            <feOffset dx="1" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter2"></feOffset>
+            <feComposite in="shadowOffsetOuter2" in2="SourceAlpha" operator="out" result="shadowOffsetOuter2"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.3 0" type="matrix" in="shadowOffsetOuter2" result="shadowMatrixOuter2"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="shadowMatrixOuter2"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-23.3%" y="-20.0%" width="153.3%" height="153.3%" filterUnits="objectBoundingBox" id="filter-16">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="-3" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.408898395   0 0 0 0 0.408898395   0 0 0 0 0.408898395  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-17">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="66.7014105%" x2="50%" y2="100%" id="linearGradient-18">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2选择棋子" transform="translate(-752.000000, -419.000000)">
+            <g id="选择弹窗备份" transform="translate(761.000000, 428.000000)">
+                <g id="弹窗背景" transform="translate(0.393563, 0.713803)">
+                    <mask id="mask-4" fill="white">
+                        <use xlink:href="#path-3"></use>
+                    </mask>
+                    <g id="矩形">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-3"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <rect stroke-opacity="0.1" stroke="#000000" stroke-width="1" x="0.1064371" y="-0.213802835" width="371" height="219" rx="18"></rect>
+                        <rect stroke="url(#linearGradient-2)" stroke-width="4" stroke-linejoin="square" x="2.6064371" y="2.28619717" width="366" height="214" rx="18"></rect>
+                    </g>
+                    <path d="M186.504425,-27.9249151 L470.389265,8.75503147 L367.24957,167.459088 L119.177668,300.703186 L-116.154472,160.922498 L186.504425,-27.9249151 Z" id="路径-3" stroke="url(#linearGradient-7)" stroke-width="4" fill="url(#linearGradient-6)" opacity="0.154146" mask="url(#mask-4)" transform="translate(176.899397, 136.500000) rotate(-11.000000) translate(-176.899397, -136.500000) "></path>
+                    <g id="编组" mask="url(#mask-4)">
+                        <g transform="translate(115.606437, 98.286197)" id="椭圆形备份">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                            <use fill="url(#radialGradient-8)" fill-rule="evenodd" xlink:href="#path-9"></use>
+                            <use fill="black" fill-opacity="1" filter="url(#filter-11)" xlink:href="#path-9"></use>
+                        </g>
+                    </g>
+                    <g id="编组" mask="url(#mask-4)">
+                        <g transform="translate(267.606437, 97.286197)">
+                            <g id="椭圆形">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-15)" xlink:href="#path-14"></use>
+                                <use fill="url(#radialGradient-12)" fill-rule="evenodd" xlink:href="#path-14"></use>
+                                <use fill="black" fill-opacity="1" filter="url(#filter-16)" xlink:href="#path-14"></use>
+                                <circle stroke="url(#linearGradient-13)" stroke-width="1" stroke-linejoin="square" cx="15" cy="16" r="14.5"></circle>
+                            </g>
+                            <path d="M28.9621624,14.962817 C28.9872404,15.3052703 29,15.6511451 29,16 C29,23.7319865 22.7319865,30 15,30 C7.2680135,30 1,23.7319865 1,16 C1,15.6511451 1.01275961,15.3052703 1.0378376,14.962817 C1.56824265,21.6927577 7.61665901,27 15,27 C22.3024317,27 28.2990356,21.8084377 28.9427866,15.183265 Z" id="形状结合" fill="url(#linearGradient-17)" opacity="0.1"></path>
+                            <circle id="椭圆形" fill="url(#linearGradient-18)" opacity="0.15" cx="14.5" cy="6.5" r="6.5"></circle>
+                            <path d="M15,1 C22.4887618,1 28.6957606,6.48787935 29.8187787,13.6614202 C26.9023683,8.49133719 21.3589069,5 15,5 C8.64068122,5 3.09691358,8.49178951 0.181386558,13.662679 C1.30366379,6.48838828 7.51089101,1 15,1 Z" id="形状结合" fill="#FFFFFF" opacity="0.095781"></path>
+                        </g>
+                    </g>
+                    <text id="请选择您的棋子颜色" mask="url(#mask-4)" font-family="STYuanti-SC-Bold, Yuanti SC" font-size="24" font-weight="bold" fill="#02412C">
+                        <tspan x="77.6064371" y="63.2861972">请选择您的棋子颜色</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
