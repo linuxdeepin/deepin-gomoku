@@ -34,6 +34,14 @@ public:
 
 private:
     void initUI();
+    void paintTitleBar(QWidget *titlebar);
+
+    // QObject interface
+public:
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
+private:
+    DTitlebar *mTitleBar = nullptr;
 };
 
 #endif // GOMOKUMAINWINDOW_H

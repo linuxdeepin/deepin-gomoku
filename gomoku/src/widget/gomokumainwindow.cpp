@@ -23,6 +23,7 @@
 #include <DWidgetUtil>
 #include <DWidget>
 #include <DTitlebar>
+#include <DFrame>
 
 #include <QPushButton>
 #include <QHBoxLayout>
@@ -36,11 +37,6 @@ gomokumainwindow::gomokumainwindow(QWidget *parent)
     setContentsMargins(QMargins(0, 0, 0, 0));
 
     setWindowTitle(tr("deepin-gomoku"));
-    setAutoFillBackground(true);
-    setAttribute(Qt::WA_TranslucentBackground);
-    setAttribute(Qt::WA_NoSystemBackground);
-//    setWindowFlags(Qt::FramelessWindowHint);
-    setWindowOpacity(1);
 
     initUI();
 
@@ -49,13 +45,14 @@ gomokumainwindow::gomokumainwindow(QWidget *parent)
 
 gomokumainwindow::~gomokumainwindow()
 {
-
+    delete mTitleBar;
 }
 
+//初始化界面
 void gomokumainwindow::initUI()
 {
     DWidget *maincentralWidget = new DWidget(this);
-    QHBoxLayout *mainlayout = new QHBoxLayout(this);
+    QHBoxLayout *mainlayout = new QHBoxLayout();
 
     //background
     QPixmap backgroundImage(":/resources/background.svg");
@@ -64,27 +61,49 @@ void gomokumainwindow::initUI()
     palette.setBrush(QPalette::Background, QBrush(backgroundImage));
     setPalette(palette);
 
-    DTitlebar *tbar = titlebar();
+    mTitleBar = titlebar();
+    mTitleBar->setFrameShape(DFrame::NoFrame);
+    mTitleBar->installEventFilter(this);
     //目前系统中没有游戏的图标，先这样设置
-    tbar->setIcon(QIcon(":/resources/logo.svg"));
-    tbar->setAutoFillBackground(true);
-    tbar->setWindowOpacity(1);
-    tbar->setAttribute(Qt::WA_TranslucentBackground);
-    tbar->setBackgroundTransparent(true);
-    DPalette pa(tbar->palette());
-    QLinearGradient linearGradient;
-    QColor topColor("#232323");
-    topColor.setAlphaF(0.5);
-    linearGradient.setColorAt(0, topColor);
-    QColor bottomColor("#1C1C1C");
-    bottomColor.setAlphaF(0.5);
-    linearGradient.setColorAt(1, bottomColor);
-    pa.setBrush(DPalette::Background, linearGradient);
-//    pa.setBrush(DPalette::Normal, DPalette::Dark, linearGradient);
-    tbar->setPalette(pa);
-
+    mTitleBar->setIcon(QIcon(":/resources/logo.svg"));
+    mTitleBar->setAutoFillBackground(true);
+    mTitleBar->setAttribute(Qt::WA_TranslucentBackground);
+    mTitleBar->setWindowOpacity(0.5);
+    mTitleBar->setBackgroundTransparent(true);
+    mTitleBar->setMenuVisible(false);
 
     maincentralWidget->setLayout(mainlayout);
     setCentralWidget(maincentralWidget);
     setFixedSize(QSize(widgetWidth, widgetHeight));
+}
+
+//绘制titlebar背景
+void gomokumainwindow::paintTitleBar(QWidget *titlebar)
+{
+    QPainter painter(titlebar);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.save();
+    QLinearGradient linearGradient;
+    QColor topColor("#232323");
+    topColor.setAlphaF(0.3);
+    QColor bottomColor("#1C1C1C");
+    bottomColor.setAlphaF(0.3);
+    linearGradient.setColorAt(0, topColor);
+    linearGradient.setColorAt(1, bottomColor);
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(linearGradient);
+    painter.fillRect(titlebar->rect(), linearGradient);
+    painter.drawRect(titlebar->rect());
+    painter.restore();
+}
+
+//过滤titlebar绘制事件
+bool gomokumainwindow::eventFilter(QObject *watched, QEvent *event)
+{
+    if (watched == mTitleBar) {
+        if (event->type() == QEvent::Paint) {
+            paintTitleBar(mTitleBar);
+        }
+    }
+    return QWidget::eventFilter(watched, event);
 }
