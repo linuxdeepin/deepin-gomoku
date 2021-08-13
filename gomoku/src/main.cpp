@@ -32,6 +32,7 @@ DWIDGET_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+
 //    PERF_PRINT_BEGIN("POINT-01", "");
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
     //适配deepin-turbo启动加速
