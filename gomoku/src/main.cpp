@@ -56,8 +56,6 @@ int main(int argc, char *argv[])
         app->setApplicationName("deepin-gomoku");
         app->loadTranslator();
         app->setApplicationVersion("1.1.1");
-        //固定深色模式
-        DGuiApplicationHelper::instance()->setPaletteType(DGuiApplicationHelper::DarkType);
 
         QIcon t_icon = QIcon::fromTheme("deepin-gomoku");
         app->setProductIcon(t_icon);

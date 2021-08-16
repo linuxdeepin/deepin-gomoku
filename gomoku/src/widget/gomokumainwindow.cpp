@@ -19,17 +19,21 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gomokumainwindow.h"
+#include "checkerboard.h"
+#include "constants.h"
+#include "buttonwidget/btstartpause.h"
+#include "buttonwidget/btreplay.h"
+#include "checkerboardwidget/checkerboardview.h"
+#include "checkerboardwidget/checkerboardscene.h"
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QPushButton>
 
 #include <DWidgetUtil>
 #include <DWidget>
 #include <DTitlebar>
 #include <DFrame>
-
-#include <QPushButton>
-#include <QHBoxLayout>
-
-const int widgetWidth = 1024;
-const int widgetHeight = 768;
 
 gomokumainwindow::gomokumainwindow(QWidget *parent)
     : DMainWindow(parent)
@@ -51,9 +55,6 @@ gomokumainwindow::~gomokumainwindow()
 //初始化界面
 void gomokumainwindow::initUI()
 {
-    DWidget *maincentralWidget = new DWidget(this);
-    QHBoxLayout *mainlayout = new QHBoxLayout();
-
     //background
     QPixmap backgroundImage(":/resources/background.svg");
     DPalette palette;
@@ -64,35 +65,39 @@ void gomokumainwindow::initUI()
     mTitleBar = titlebar();
     mTitleBar->setFrameShape(DFrame::NoFrame);
     mTitleBar->installEventFilter(this);
-    //目前系统中没有游戏的图标，先这样设置
+//    //目前系统中没有游戏的图标，先这样设置
     mTitleBar->setIcon(QIcon(":/resources/logo.svg"));
     mTitleBar->setAutoFillBackground(true);
     mTitleBar->setAttribute(Qt::WA_TranslucentBackground);
-    mTitleBar->setWindowOpacity(0.5);
     mTitleBar->setBackgroundTransparent(true);
-    mTitleBar->setMenuVisible(false);
 
-    maincentralWidget->setLayout(mainlayout);
-    setCentralWidget(maincentralWidget);
+    checkerboardview *wcheckerBoard = new checkerboardview(this);
+    wcheckerBoard->setFixedSize(widgetWidth, widgetHeight - titlebar()->height());
+    wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    checkerboardscene *scene = new checkerboardscene();
+    scene->setSceneRect(0, 0, widgetWidth, widgetHeight - titlebar()->height());
+    wcheckerBoard->setScene(scene);
+
+    setCentralWidget(wcheckerBoard);
     setFixedSize(QSize(widgetWidth, widgetHeight));
 }
 
 //绘制titlebar背景
 void gomokumainwindow::paintTitleBar(QWidget *titlebar)
 {
+    DGuiApplicationHelper::ColorType themtype = DGuiApplicationHelper::instance()->themeType();
+    QColor broundColor;
+    if (themtype == DGuiApplicationHelper::ColorType::DarkType) {
+        broundColor = titlebar->palette().color(QPalette::Normal, QPalette::Dark);
+    } else if (themtype == DGuiApplicationHelper::ColorType::LightType) {
+        broundColor = titlebar->palette().color(QPalette::Normal, QPalette::Light);
+    }
     QPainter painter(titlebar);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.save();
-    QLinearGradient linearGradient;
-    QColor topColor("#232323");
-    topColor.setAlphaF(0.3);
-    QColor bottomColor("#1C1C1C");
-    bottomColor.setAlphaF(0.3);
-    linearGradient.setColorAt(0, topColor);
-    linearGradient.setColorAt(1, bottomColor);
+    broundColor.setAlphaF(0.5);
     painter.setPen(Qt::NoPen);
-    painter.setBrush(linearGradient);
-    painter.fillRect(titlebar->rect(), linearGradient);
+    painter.setBrush(broundColor);
     painter.drawRect(titlebar->rect());
     painter.restore();
 }
@@ -105,5 +110,5 @@ bool gomokumainwindow::eventFilter(QObject *watched, QEvent *event)
             paintTitleBar(mTitleBar);
         }
     }
-    return QWidget::eventFilter(watched, event);
+    return DMainWindow::eventFilter(watched, event);
 }
