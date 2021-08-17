@@ -31,7 +31,7 @@ chessitem::chessitem(QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , backgroundPix(":/resources/black_chess.svg")
 {
-
+    setAcceptHoverEvents(true);
 }
 
 //设置棋子
@@ -45,6 +45,7 @@ void chessitem::setCurrentchess(int chesstype)
 void chessitem::setchessStatus(bool chessstatus)
 {
     chessStatus = chessstatus;
+    update();
 }
 
 //获取是否有棋子
@@ -117,4 +118,30 @@ QRectF chessitem::boundingRect() const
         int startHPoint = (chess_size - hover_size) / 2;
         return QRectF(startHPoint, startHPoint, hover_size, hover_size);
     }
+}
+
+void chessitem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    setHoverStatus(true);
+    QGraphicsItem::hoverEnterEvent(event);
+}
+
+void chessitem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    setHoverStatus(false);
+    QGraphicsItem::hoverLeaveEvent(event);
+}
+
+void chessitem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
+void chessitem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    if (contains(event->pos())) {
+        setchessStatus(true);
+        setCurrentchess(1);
+    }
+    QGraphicsItem::mouseReleaseEvent(event);
 }

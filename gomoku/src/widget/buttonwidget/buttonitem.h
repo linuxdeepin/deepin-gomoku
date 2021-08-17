@@ -18,31 +18,15 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef CHECKERBOARDSCENE_H
-#define CHECKERBOARDSCENE_H
+#ifndef BUTTONITEM_H
+#define BUTTONITEM_H
 
-#include "chesswidget/chessitem.h"
+#include <QGraphicsPixmapItem>
 
-#include <QGraphicsScene>
-
-class checkerboardscene : public QGraphicsScene
+class buttonitem : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 public:
-    checkerboardscene(QObject *parent = nullptr);
-    ~checkerboardscene() override;
-
-    void setchessType(int chess = 0);
-    void setchessPoint(int row, int col);
-private:
-    void initCheckerboard();
-    void initStartAndStop();
-private:
-    QVector<QVector<chessitem *>> chessItemList{};
-    chessitem *currentItem = nullptr;
-    int chessType = 1;
-    int clickPosRow = 0; //点击的行
-    int clickPosCol = 0; // 点击的列
+    buttonitem(QGraphicsItem *parent = nullptr);
 };
 
-#endif // CHECKERBOARDSCENE_H
+#endif // BUTTONITEM_H

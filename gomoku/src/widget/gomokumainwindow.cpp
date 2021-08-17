@@ -19,13 +19,12 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gomokumainwindow.h"
-#include "checkerboard.h"
 #include "constants.h"
 #include "buttonwidget/btstartpause.h"
 #include "buttonwidget/btreplay.h"
-#include "checkerboardwidget/checkerboardview.h"
 #include "checkerboardwidget/checkerboardscene.h"
 
+#include <QGraphicsView>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
@@ -71,12 +70,16 @@ void gomokumainwindow::initUI()
     mTitleBar->setAttribute(Qt::WA_TranslucentBackground);
     mTitleBar->setBackgroundTransparent(true);
 
-    checkerboardview *wcheckerBoard = new checkerboardview(this);
+    QGraphicsView *wcheckerBoard = new QGraphicsView(this);
+    wcheckerBoard->setStyleSheet("background: transparent;border:0px");
+    wcheckerBoard->setWindowFlags(Qt::FramelessWindowHint);
+    wcheckerBoard->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    wcheckerBoard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     wcheckerBoard->setFixedSize(widgetWidth, widgetHeight - titlebar()->height());
     wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    checkerboardscene *scene = new checkerboardscene();
-    scene->setSceneRect(0, 0, widgetWidth, widgetHeight - titlebar()->height());
-    wcheckerBoard->setScene(scene);
+    checkerboardscene *checkerboardScene = new checkerboardscene();
+    checkerboardScene->setSceneRect(0, 0, widgetWidth, widgetHeight - titlebar()->height());
+    wcheckerBoard->setScene(checkerboardScene);
 
     setCentralWidget(wcheckerBoard);
     setFixedSize(QSize(widgetWidth, widgetHeight));

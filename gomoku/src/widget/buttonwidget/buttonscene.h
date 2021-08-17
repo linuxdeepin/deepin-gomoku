@@ -18,26 +18,14 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#include "checkerboardview.h"
-#include "checkerboardscene.h"
+#ifndef BUTTONSCENE_H
+#define BUTTONSCENE_H
 
-#include <QHBoxLayout>
-#include <QtDebug>
-#include <QMouseEvent>
 
-#define BACKGROUND_MARGIN 40 //棋盘边距
-#define LINE_NUM 13 //棋盘线条数
-#define PIECES_SIZE 44 //棋盘格子宽度
-
-checkerboardview::checkerboardview(QWidget *parent)
-    : QGraphicsView(parent)
-    , backgroundImage(":/resources/checkerboard.svg")
+class buttonscene
 {
-//    setFixedSize(backgroundImage.size());
-//    setAutoFillBackground(true);
-    setStyleSheet("background: transparent;border:0px");
-    setWindowFlags(Qt::FramelessWindowHint);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setMouseTracking(true);
-}
+public:
+    buttonscene();
+};
+
+#endif // BUTTONSCENE_H

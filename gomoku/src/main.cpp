@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include <gomokumainwindow.h>
+#include "environments.h"
 
 #include <DApplication>
 #include <DMainWindow>
@@ -55,10 +56,13 @@ int main(int argc, char *argv[])
         app->setOrganizationName("deepin");
         app->setApplicationName("deepin-gomoku");
         app->loadTranslator();
-        app->setApplicationVersion("1.1.1");
+        app->setApplicationVersion(VERSION);
 
         QIcon t_icon = QIcon::fromTheme("deepin-gomoku");
         app->setProductIcon(t_icon);
+        app->setProductName(QApplication::translate("GomokuWindow", "Gomoku"));
+        app->setApplicationDescription(QApplication::translate("GomokuWindow", "Gomoku is a small chess game for two players."));
+
 
         //命令行参数
         QCommandLineParser _commandLine; //建立命令行解析

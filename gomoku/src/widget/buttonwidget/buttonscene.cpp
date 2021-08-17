@@ -18,35 +18,9 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef CHECKERBOARD_H
-#define CHECKERBOARD_H
+#include "buttonscene.h"
 
-#include <DWidget>
-#include <DPalette>
-#include <QGraphicsView>
-
-DWIDGET_USE_NAMESPACE
-DGUI_USE_NAMESPACE
-
-class checkerboard : public QGraphicsView
+buttonscene::buttonscene()
 {
-public:
-    explicit checkerboard(QWidget *parent = nullptr);
-    ~checkerboard() override;
 
-private:
-    void initBackground();
-
-    // QWidget interface
-protected:
-    void paintEvent(QPaintEvent *event) override;
-
-    // QWidget interface
-protected:
-    void mouseMoveEvent(QMouseEvent *event) override;
-private:
-    int clickPosRow = 0;
-    int clickPosCol  = 0;
-};
-
-#endif // CHECKERBOARD_H
+}

@@ -18,18 +18,10 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef CHECKERBOARDVIEW_H
-#define CHECKERBOARDVIEW_H
+#include "buttonitem.h"
 
-#include <QGraphicsView>
-
-class checkerboardview : public QGraphicsView
+buttonitem::buttonitem(QGraphicsItem *parent)
+    : QGraphicsPixmapItem(parent)
 {
-public:
-    checkerboardview(QWidget *parent = nullptr);
-
-private:
-    QPixmap backgroundImage;
-};
-
-#endif // CHECKERVOARDVIEW_H
+    setPixmap(QPixmap(":/resources/button.svg"));
+}

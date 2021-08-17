@@ -20,6 +20,7 @@
    */
 #include "checkerboardscene.h"
 #include "checkerboarditem.h"
+#include "buttonwidget/buttonitem.h"
 #include <constants.h>
 
 #include <QDebug>
@@ -29,6 +30,18 @@
 
 checkerboardscene::checkerboardscene(QObject *parent)
     : QGraphicsScene(parent)
+{
+    initCheckerboard();
+//    initStartAndStop();
+}
+
+checkerboardscene::~checkerboardscene()
+{
+    chessItemList.clear();
+}
+
+//初始化棋盘
+void checkerboardscene::initCheckerboard()
 {
     checkerboarditem *cbitem = new checkerboarditem();
     cbitem->setPos(22, 6);
@@ -44,12 +57,13 @@ checkerboardscene::checkerboardscene(QObject *parent)
         }
         chessItemList.append(pieceItems);
     }
-    setchessPoint(4, 4);
 }
 
-checkerboardscene::~checkerboardscene()
+void checkerboardscene::initStartAndStop()
 {
-    chessItemList.clear();
+    buttonitem *buttonItem = new buttonitem();
+    buttonItem->setPos(764, 283);
+    addItem(buttonItem);
 }
 
 void checkerboardscene::setchessType(int chess)
@@ -64,46 +78,4 @@ void checkerboardscene::setchessPoint(int row, int col)
     chessItemList.at(realRow).at(realCol)->setHoverStatus(false);
     chessItemList.at(realRow).at(realCol)->setchessStatus(true);
     chessItemList.at(realRow).at(realCol)->setCurrentchess(1);
-}
-
-void checkerboardscene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
-{
-    QTransform transform;
-    qreal posX = event->scenePos().x();
-    qreal posY = event->scenePos().y();
-    QPointF currentPoint(posX, posY);
-    chessitem *item = dynamic_cast<chessitem *>(itemAt(currentPoint, transform));
-    for (int i = 0; i < line_num; i++) {
-        for (int j = 0; j < line_num; j++) {
-            if (chessItemList.at(i).at(j) == item && !item->getchessStatus()) {
-                clickPosRow = i + 1;
-                clickPosCol = j + 1;
-                currentItem = item;
-                currentItem->setHoverStatus(true);
-                currentItem->setCurrentchess(chessType);
-            } else {
-                if (!chessItemList.at(i).at(j)->getchessStatus()) {
-                    chessItemList.at(i).at(j)->setHoverStatus(false);
-                    chessItemList.at(i).at(j)->setCurrentchess(0);
-                }
-            }
-        }
-    }
-
-    QGraphicsScene::mouseMoveEvent(event);
-}
-
-
-void checkerboardscene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    QTransform transform;
-    qreal posX = event->scenePos().x();
-    qreal posY = event->scenePos().y();
-    QPointF currentPoint(posX, posY);
-    chessitem *item = dynamic_cast<chessitem *>(itemAt(currentPoint, transform));
-    if (currentItem != nullptr && currentItem == item) {
-        currentItem->setchessStatus(true);
-        currentItem->setCurrentchess(chessType);
-    }
-    QGraphicsScene::mouseReleaseEvent(event);
 }
