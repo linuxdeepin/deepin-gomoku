@@ -9,5 +9,9 @@
         <file>resources/icon/stop.svg</file>
         <file>resources/black_chess.svg</file>
         <file>resources/white_chess.svg</file>
+        <file>resources/function_button/hover.svg</file>
+        <file>resources/function_button/normal.svg</file>
+        <file>resources/function_button/press.svg</file>
+        <file>resources/desktop/deepin-gomoku.svg</file>
     </qresource>
 </RCC>

@@ -27,7 +27,7 @@
 #include <QtDebug>
 #include <QImageReader>
 
-chessitem::chessitem(QGraphicsItem *parent)
+ChessItem::ChessItem(QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , backgroundPix(":/resources/black_chess.svg")
 {
@@ -35,38 +35,38 @@ chessitem::chessitem(QGraphicsItem *parent)
 }
 
 //设置棋子
-void chessitem::setCurrentchess(int chesstype)
+void ChessItem::setCurrentchess(int chesstype)
 {
     chessType = chesstype;
     update();
 }
 
 //设置是否有棋子
-void chessitem::setchessStatus(bool chessstatus)
+void ChessItem::setchessStatus(bool chessstatus)
 {
     chessStatus = chessstatus;
     update();
 }
 
 //获取是否有棋子
-bool chessitem::getchessStatus()
+bool ChessItem::getchessStatus()
 {
     return chessStatus;
 }
 
 //设置hover状态
-void chessitem::setHoverStatus(bool hoverstate)
+void ChessItem::setHoverStatus(bool hoverstate)
 {
     hoverStatus = hoverstate;
 }
 
 //获取是否有hover状态
-bool chessitem::getHoverStatus()
+bool ChessItem::getHoverStatus()
 {
     return hoverStatus;
 }
 
-void chessitem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
@@ -108,7 +108,7 @@ void chessitem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->restore();
 }
 
-QRectF chessitem::boundingRect() const
+QRectF ChessItem::boundingRect() const
 {
     if (chessStatus) {
         //棋子大小
@@ -120,24 +120,24 @@ QRectF chessitem::boundingRect() const
     }
 }
 
-void chessitem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     setHoverStatus(true);
     QGraphicsItem::hoverEnterEvent(event);
 }
 
-void chessitem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+void ChessItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     setHoverStatus(false);
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
-void chessitem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-void chessitem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (contains(event->pos())) {
         setchessStatus(true);

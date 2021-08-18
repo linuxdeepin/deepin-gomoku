@@ -20,24 +20,7 @@
    */
 #include "btreplay.h"
 
-#include <QHBoxLayout>
-
-#include <DLabel>
-
-btreplay::btreplay(QWidget *parent)
-    : buttonbase(parent)
+BTReplay::BTReplay(QGraphicsItem *parent)
+    : ButtonItem(parent)
 {
-    QPixmap replayButton(":/resources/icon/replay.svg");
-    DLabel *pixLabel = new DLabel(this);
-    pixLabel->setPixmap(replayButton);
-
-    DLabel *textLabel = new DLabel(this);
-    textLabel->setText("重玩");
-
-    QHBoxLayout *SPLayout = new QHBoxLayout(this);
-    SPLayout->addSpacing(30);
-    SPLayout->addWidget(pixLabel);
-    SPLayout->addWidget(textLabel);
-    SPLayout->addSpacing(40);
-    setLayout(SPLayout);
 }

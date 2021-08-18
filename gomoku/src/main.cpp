@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
         app->setAutoActivateWindows(true);
 
-        gomokumainwindow ww;
+        GomokuMainWindow ww;
 //        ww.slotTheme(DApplicationHelper::instance()->themeType());
         ww.show();
 

@@ -21,12 +21,32 @@
 #ifndef BUTTONITEM_H
 #define BUTTONITEM_H
 
-#include <QGraphicsPixmapItem>
+#include <QGraphicsItem>
+#include <QGraphicsSceneMouseEvent>
+#include <QPainter>
+#include <QDebug>
 
-class buttonitem : public QGraphicsPixmapItem
+class ButtonItem : public QGraphicsItem
 {
 public:
-    buttonitem(QGraphicsItem *parent = nullptr);
+    ButtonItem(QGraphicsItem *parent = nullptr);
+
+    // QGraphicsItem interface
+public:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    // QGraphicsItem interface
+protected:
+    void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
+    void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+
+private:
+    QPixmap backgrounePix;
+    bool hoverStatus = false;
+    bool pressStatus = false;
 };
 
 #endif // BUTTONITEM_H

@@ -20,8 +20,54 @@
    */
 #include "buttonitem.h"
 
-buttonitem::buttonitem(QGraphicsItem *parent)
-    : QGraphicsPixmapItem(parent)
+ButtonItem::ButtonItem(QGraphicsItem *parent)
+    : QGraphicsItem(parent)
+    , backgrounePix(":/resources/function_button/normal.svg")
 {
-    setPixmap(QPixmap(":/resources/button.svg"));
+    setAcceptHoverEvents(true);
+}
+
+QRectF ButtonItem::boundingRect() const
+{
+    return QRectF(0, 0, backgrounePix.width(), backgrounePix.height());
+}
+
+void ButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->save();
+    painter->setPen(Qt::NoPen);
+    painter->setBrush(backgrounePix);
+    painter->drawRect(boundingRect());
+    painter->restore();
+}
+
+void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+{
+    backgrounePix = QPixmap(":/resources/function_button/hover.svg");
+    QGraphicsItem::hoverEnterEvent(event);
+}
+
+void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
+{
+    backgrounePix = QPixmap(":/resources/function_button/normal.svg");
+    QGraphicsItem::hoverLeaveEvent(event);
+}
+
+void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    event->accept();
+    backgrounePix = QPixmap(":/resources/function_button/press.svg");
+    update();
+}
+
+void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    if (contains(event->pos()))
+        backgrounePix = QPixmap(":/resources/function_button/normal.svg");
+    QGraphicsItem::mouseReleaseEvent(event);
+    update();
 }

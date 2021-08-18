@@ -20,43 +20,34 @@
    */
 #include "btstartpause.h"
 
-#include <QHBoxLayout>
-#include <QMouseEvent>
-
-btstartpause::btstartpause(QWidget *parent)
-    : buttonbase(parent)
-    , startPix(":/resources/icon/begin.svg")
-    , stopPix(":/resources/icon/stop.svg")
-{
-    setMouseTracking(true);
-    pixLabel = new DLabel(this);
-    pixLabel->setPixmap(startPix);
-
-    DLabel *textLabel = new DLabel(this);
-    textLabel->setText("开始/暂停");
-
-    QHBoxLayout *SPLayout = new QHBoxLayout(this);
-    SPLayout->addSpacing(30);
-    SPLayout->addWidget(pixLabel);
-    SPLayout->addWidget(textLabel);
-    SPLayout->addSpacing(40);
-    setLayout(SPLayout);
-}
-
-btstartpause::~btstartpause()
+BTStartPause::BTStartPause(QGraphicsItem *parent)
+    : ButtonItem(parent)
 {
 }
 
-void btstartpause::mouseRelease()
+BTStartPause::~BTStartPause()
 {
-    if (mouseReleaseStatus) {
-        if (isStart) {
-            pixLabel->setPixmap(stopPix);
-            isStart = false;
-        } else {
-            pixLabel->setPixmap(startPix);
-            isStart = true;
-        }
-    }
 }
 
+QRectF BTStartPause::boundingRect() const
+{
+    return ButtonItem::boundingRect();
+}
+
+void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
+    ButtonItem::paint(painter, option, widget);
+
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->save();
+    painter->setPen(Qt::NoPen);
+    painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/begin.svg"));
+    painter->restore();
+}
+
+void BTStartPause::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
+    ButtonItem::mouseReleaseEvent(event);
+}

@@ -75,3 +75,18 @@ target_link_libraries(${PROJECT_NAME}
     ${Qt5DBus_LIBRARIES}
     ${DFrameworkdbus_LIBRARIES}
 )
+
+set(CMAKE_INSTALL_PREFIX /usr)
+
+# Install files
+#install(TARGETS deepin-gomoku DESTINATION bin)
+
+#install(DIRECTORY ${APP_RES_DIR}/deepin-gomoku
+#        DESTINATION /usr/share/deepin-manual/manual-assets/application/)
+#install(FILES ${APP_DESKTOP} DESTINATION share/applications)
+
+install(FILES ${APP_DESKTOP} DESTINATION share/applications)
+install(FILES assets/deepin-gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES assets/resources/desktop/deepin-gomoku.svg
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps/)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

@@ -34,7 +34,7 @@
 #include <DTitlebar>
 #include <DFrame>
 
-gomokumainwindow::gomokumainwindow(QWidget *parent)
+GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     : DMainWindow(parent)
 {
     setContentsMargins(QMargins(0, 0, 0, 0));
@@ -46,13 +46,13 @@ gomokumainwindow::gomokumainwindow(QWidget *parent)
     Dtk::Widget::moveToCenter(this);
 }
 
-gomokumainwindow::~gomokumainwindow()
+GomokuMainWindow::~GomokuMainWindow()
 {
     delete mTitleBar;
 }
 
 //初始化界面
-void gomokumainwindow::initUI()
+void GomokuMainWindow::initUI()
 {
     //background
     QPixmap backgroundImage(":/resources/background.svg");
@@ -77,7 +77,7 @@ void gomokumainwindow::initUI()
     wcheckerBoard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     wcheckerBoard->setFixedSize(widgetWidth, widgetHeight - titlebar()->height());
     wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    checkerboardscene *checkerboardScene = new checkerboardscene();
+    CheckerboardScene *checkerboardScene = new CheckerboardScene();
     checkerboardScene->setSceneRect(0, 0, widgetWidth, widgetHeight - titlebar()->height());
     wcheckerBoard->setScene(checkerboardScene);
 
@@ -86,7 +86,7 @@ void gomokumainwindow::initUI()
 }
 
 //绘制titlebar背景
-void gomokumainwindow::paintTitleBar(QWidget *titlebar)
+void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
 {
     DGuiApplicationHelper::ColorType themtype = DGuiApplicationHelper::instance()->themeType();
     QColor broundColor;
@@ -106,7 +106,7 @@ void gomokumainwindow::paintTitleBar(QWidget *titlebar)
 }
 
 //过滤titlebar绘制事件
-bool gomokumainwindow::eventFilter(QObject *watched, QEvent *event)
+bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched == mTitleBar) {
         if (event->type() == QEvent::Paint) {

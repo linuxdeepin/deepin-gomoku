@@ -20,7 +20,7 @@
    */
 #include "checkerboardscene.h"
 #include "checkerboarditem.h"
-#include "buttonwidget/buttonitem.h"
+#include "buttonwidget/btstartpause.h"
 #include <constants.h>
 
 #include <QDebug>
@@ -28,29 +28,29 @@
 #include <QTransform>
 #include <QTime>
 
-checkerboardscene::checkerboardscene(QObject *parent)
+CheckerboardScene::CheckerboardScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     initCheckerboard();
-//    initStartAndStop();
+    initStartAndStop();
 }
 
-checkerboardscene::~checkerboardscene()
+CheckerboardScene::~CheckerboardScene()
 {
     chessItemList.clear();
 }
 
 //初始化棋盘
-void checkerboardscene::initCheckerboard()
+void CheckerboardScene::initCheckerboard()
 {
-    checkerboarditem *cbitem = new checkerboarditem();
+    CheckerboardItem *cbitem = new CheckerboardItem();
     cbitem->setPos(22, 6);
     addItem(cbitem);
 
     for (int i = 0; i < line_num; i++) {
-        QVector<chessitem *> pieceItems;
+        QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_num; j++) {
-            chessitem *chess = new chessitem();
+            ChessItem *chess = new ChessItem();
             chess->setPos(105 - 22 + 44 * j, 89 - 22 + 44 * i);
             pieceItems.append(chess);
             addItem(chess);
@@ -59,19 +59,19 @@ void checkerboardscene::initCheckerboard()
     }
 }
 
-void checkerboardscene::initStartAndStop()
+void CheckerboardScene::initStartAndStop()
 {
-    buttonitem *buttonItem = new buttonitem();
-    buttonItem->setPos(764, 283);
+    BTStartPause *buttonItem = new BTStartPause();
+    buttonItem->setPos(764, 195 + 6);
     addItem(buttonItem);
 }
 
-void checkerboardscene::setchessType(int chess)
+void CheckerboardScene::setchessType(int chess)
 {
     chessType = chess;
 }
 
-void checkerboardscene::setchessPoint(int row, int col)
+void CheckerboardScene::setchessPoint(int row, int col)
 {
     int realRow = row - 1;
     int realCol = col - 1;

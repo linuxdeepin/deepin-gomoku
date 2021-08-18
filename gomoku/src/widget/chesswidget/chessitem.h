@@ -23,10 +23,10 @@
 
 #include <QGraphicsItem>
 
-class chessitem : public QGraphicsItem
+class ChessItem : public QGraphicsItem
 {
 public:
-    chessitem(QGraphicsItem *parent = nullptr);
+    ChessItem(QGraphicsItem *parent = nullptr);
 
     //set chess type
     void setCurrentchess(int chesstype);

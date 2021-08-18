@@ -25,23 +25,23 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
-checkerboarditem::checkerboarditem(QGraphicsItem *parent)
+CheckerboardItem::CheckerboardItem(QGraphicsItem *parent)
     : QGraphicsPixmapItem(parent)
 {
     setPixmap(QPixmap(":/resources/checkerboard.svg"));
 }
 
-checkerboarditem::~checkerboarditem()
+CheckerboardItem::~CheckerboardItem()
 {
 }
 
-QRectF checkerboarditem::boundingRect() const
+QRectF CheckerboardItem::boundingRect() const
 {
     QRect pixRect = pixmap().rect();
     return QRectF(0, 0, pixRect.width(), pixRect.height());
 }
 
-void checkerboarditem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);

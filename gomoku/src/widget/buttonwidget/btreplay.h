@@ -21,12 +21,12 @@
 #ifndef BTREPLAY_H
 #define BTREPLAY_H
 
-#include "buttonbase.h"
+#include "buttonitem.h"
 
-class btreplay : public buttonbase
+class BTReplay : public ButtonItem
 {
 public:
-    btreplay(QWidget *parent = nullptr);
+    BTReplay(QGraphicsItem *parent = nullptr);
 };
 
 #endif // BTREPLAY_H

@@ -25,12 +25,12 @@
 
 #include <QGraphicsScene>
 
-class checkerboardscene : public QGraphicsScene
+class CheckerboardScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    checkerboardscene(QObject *parent = nullptr);
-    ~checkerboardscene() override;
+    CheckerboardScene(QObject *parent = nullptr);
+    ~CheckerboardScene() override;
 
     void setchessType(int chess = 0);
     void setchessPoint(int row, int col);
@@ -38,8 +38,8 @@ private:
     void initCheckerboard();
     void initStartAndStop();
 private:
-    QVector<QVector<chessitem *>> chessItemList{};
-    chessitem *currentItem = nullptr;
+    QVector<QVector<ChessItem *>> chessItemList{};
+    ChessItem *currentItem = nullptr;
     int chessType = 1;
     int clickPosRow = 0; //点击的行
     int clickPosCol = 0; // 点击的列

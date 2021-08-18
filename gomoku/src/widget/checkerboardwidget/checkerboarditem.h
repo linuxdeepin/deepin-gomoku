@@ -23,11 +23,11 @@
 
 #include <QGraphicsPixmapItem>
 
-class checkerboarditem : public QGraphicsPixmapItem
+class CheckerboardItem : public QGraphicsPixmapItem
 {
 public:
-    checkerboarditem(QGraphicsItem *parent = nullptr);
-    ~checkerboarditem() override;
+    CheckerboardItem(QGraphicsItem *parent = nullptr);
+    ~CheckerboardItem() override;
 
     // QGraphicsItem interface
 public:

@@ -25,12 +25,12 @@
 
 DWIDGET_USE_NAMESPACE
 
-class gomokumainwindow : public DMainWindow
+class GomokuMainWindow : public DMainWindow
 {
     Q_OBJECT
 public:
-    explicit gomokumainwindow(QWidget *parent = nullptr);
-    ~gomokumainwindow() override;
+    explicit GomokuMainWindow(QWidget *parent = nullptr);
+    ~GomokuMainWindow() override;
 
 private:
     void initUI();

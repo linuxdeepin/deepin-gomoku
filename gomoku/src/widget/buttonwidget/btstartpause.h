@@ -21,25 +21,22 @@
 #ifndef BTSTARTPAUSE_H
 #define BTSTARTPAUSE_H
 
-#include "buttonbase.h"
+#include "buttonitem.h"
 
-#include <DLabel>
-
-class btstartpause : public buttonbase
+class BTStartPause : public ButtonItem
 {
 public:
-    btstartpause(QWidget *parent = nullptr);
-    ~btstartpause();
+    BTStartPause(QGraphicsItem *parent = nullptr);
+    ~BTStartPause() override;
 
-    // QWidget interface
+    // QGraphicsItem interface
+public:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    // QGraphicsItem interface
 protected:
-private:
-    void mouseRelease() override;
-private:
-    DLabel *pixLabel = nullptr;
-    bool isStart = true;
-    QPixmap startPix;
-    QPixmap stopPix;
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 };
 
 #endif // BTSTARTPAUSE_H
