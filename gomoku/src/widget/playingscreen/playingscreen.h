@@ -18,15 +18,24 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef BTREPLAY_H
-#define BTREPLAY_H
+#ifndef PLAYINGSCREEN_H
+#define PLAYINGSCREEN_H
 
-#include "buttonitem.h"
+#include <QGraphicsItem>
 
-class BTReplay : public ButtonItem
+class PlayingScreen : public QGraphicsItem
 {
 public:
-    BTReplay(QGraphicsItem *parent = nullptr);
+    explicit PlayingScreen(QGraphicsItem *parent = nullptr);
+
+    void setCurrentPlay(bool player);
+
+public:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+private:
+    bool currentPlayer = false;
 };
 
-#endif // BTREPLAY_H
+#endif // PLAYINGSCREEN_H

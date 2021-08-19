@@ -18,29 +18,25 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef GOMOKUMAINWINDOW_H
-#define GOMOKUMAINWINDOW_H
+#ifndef BTREPLAY_H
+#define BTREPLAY_H
 
-#include <DMainWindow>
+#include "buttonitem.h"
+#include <QObject>
 
-DWIDGET_USE_NAMESPACE
-
-class GomokuMainWindow : public DMainWindow
+class BTReplay : public ButtonItem
 {
     Q_OBJECT
 public:
-    explicit GomokuMainWindow(QWidget *parent = nullptr);
-    ~GomokuMainWindow() override;
-
-private:
-    void initUI();
-    void paintTitleBar(QWidget *titlebar);
+    explicit BTReplay(QGraphicsItem *parent = nullptr);
+    ~BTReplay() override;
 
 public:
-    bool eventFilter(QObject *watched, QEvent *event) override;
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    DTitlebar *mTitleBar = nullptr;
+    void buttonFunction() override;
 };
 
-#endif // GOMOKUMAINWINDOW_H
+#endif // BTREPLAY_H

@@ -18,24 +18,14 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef CHECKERBOARDITEM_H
-#define CHECKERBOARDITEM_H
+#ifndef BTMUSICCONTROL_H
+#define BTMUSICCONTROL_H
 
-#include <QGraphicsPixmapItem>
 
-class CheckerboardItem : public QGraphicsPixmapItem
+class btmusiccontrol
 {
 public:
-    CheckerboardItem(QGraphicsItem *parent = nullptr);
-    ~CheckerboardItem() override;
-
-    // QGraphicsItem interface
-public:
-    QRectF boundingRect() const override;
-
-    // QGraphicsItem interface
-public:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    btmusiccontrol();
 };
 
-#endif // CHECKERBOARDITEM_H
+#endif // BTMUSICCONTROL_H

@@ -18,36 +18,23 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#include "btstartpause.h"
+#ifndef BTMUSICCONTROL_H
+#define BTMUSICCONTROL_H
 
-BTStartPause::BTStartPause(QGraphicsItem *parent)
-    : ButtonItem(parent)
+#include "buttonitem.h"
+
+class BTMusicControl : public ButtonItem
 {
-}
+public:
+    explicit BTMusicControl(QGraphicsItem *parent = nullptr);
+    ~BTMusicControl() override;
 
-BTStartPause::~BTStartPause()
-{
-}
+public:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-QRectF BTStartPause::boundingRect() const
-{
-    return ButtonItem::boundingRect();
-}
+private:
+    void buttonFunction() override;
+};
 
-void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-    ButtonItem::paint(painter, option, widget);
-
-    painter->setRenderHint(QPainter::Antialiasing);
-    painter->save();
-    painter->setPen(Qt::NoPen);
-    painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/begin.svg"));
-    painter->restore();
-}
-
-void BTStartPause::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
-{
-    ButtonItem::mouseReleaseEvent(event);
-}
+#endif // BTMUSICCONTROL_H

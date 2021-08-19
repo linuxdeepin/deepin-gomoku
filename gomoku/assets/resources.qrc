@@ -13,5 +13,15 @@
         <file>resources/function_button/normal.svg</file>
         <file>resources/function_button/press.svg</file>
         <file>resources/desktop/deepin-gomoku.svg</file>
+        <file>resources/icon/voice.svg</file>
+        <file>resources/icon/voiceoff.svg</file>
+        <file>resources/playingscreen/ai_notplay.svg</file>
+        <file>resources/playingscreen/ai_playing.svg</file>
+        <file>resources/playingscreen/anotherplayer.svg</file>
+        <file>resources/playingscreen/currentplayer.svg</file>
+        <file>resources/playingscreen/user_notplay.svg</file>
+        <file>resources/playingscreen/user_playing.svg</file>
+        <file>resources/playingscreen/chess_white.svg</file>
+        <file>resources/playingscreen/chess_black.svg</file>
     </qresource>
 </RCC>

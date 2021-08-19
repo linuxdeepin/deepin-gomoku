@@ -18,25 +18,22 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef BTSTARTPAUSE_H
-#define BTSTARTPAUSE_H
+#ifndef CHECKERBOARDITEM_H
+#define CHECKERBOARDITEM_H
 
-#include "buttonitem.h"
+#include <QGraphicsPixmapItem>
 
-class BTStartPause : public ButtonItem
+class CheckerboardItem : public QGraphicsPixmapItem
 {
 public:
-    BTStartPause(QGraphicsItem *parent = nullptr);
-    ~BTStartPause() override;
+    explicit CheckerboardItem(QGraphicsItem *parent = nullptr);
+    ~CheckerboardItem() override;
 
-    // QGraphicsItem interface
 public:
     QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    // QGraphicsItem interface
-protected:
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+public:
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 };
 
-#endif // BTSTARTPAUSE_H
+#endif // CHECKERBOARDITEM_H

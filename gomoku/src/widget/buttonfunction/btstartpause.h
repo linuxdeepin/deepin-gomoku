@@ -18,9 +18,23 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#include "btreplay.h"
+#ifndef BTSTARTPAUSE_H
+#define BTSTARTPAUSE_H
 
-BTReplay::BTReplay(QGraphicsItem *parent)
-    : ButtonItem(parent)
+#include "buttonitem.h"
+
+class BTStartPause : public ButtonItem
 {
-}
+public:
+    explicit BTStartPause(QGraphicsItem *parent = nullptr);
+    ~BTStartPause() override;
+
+public:
+    QRectF boundingRect() const override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+private:
+    void buttonFunction() override;
+};
+
+#endif // BTSTARTPAUSE_H

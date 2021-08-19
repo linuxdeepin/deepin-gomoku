@@ -18,29 +18,9 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef GOMOKUMAINWINDOW_H
-#define GOMOKUMAINWINDOW_H
+#include "btmusiccontrol.h"
 
-#include <DMainWindow>
-
-DWIDGET_USE_NAMESPACE
-
-class GomokuMainWindow : public DMainWindow
+btmusiccontrol::btmusiccontrol()
 {
-    Q_OBJECT
-public:
-    explicit GomokuMainWindow(QWidget *parent = nullptr);
-    ~GomokuMainWindow() override;
 
-private:
-    void initUI();
-    void paintTitleBar(QWidget *titlebar);
-
-public:
-    bool eventFilter(QObject *watched, QEvent *event) override;
-
-private:
-    DTitlebar *mTitleBar = nullptr;
-};
-
-#endif // GOMOKUMAINWINDOW_H
+}

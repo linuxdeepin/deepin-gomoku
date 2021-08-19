@@ -20,9 +20,9 @@
    */
 #include "gomokumainwindow.h"
 #include "constants.h"
-#include "buttonwidget/btstartpause.h"
-#include "buttonwidget/btreplay.h"
-#include "checkerboardwidget/checkerboardscene.h"
+#include "buttonfunction/btstartpause.h"
+#include "buttonfunction/btreplay.h"
+#include "checkerboard/checkerboardscene.h"
 
 #include <QGraphicsView>
 #include <QHBoxLayout>

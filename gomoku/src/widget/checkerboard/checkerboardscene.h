@@ -21,7 +21,7 @@
 #ifndef CHECKERBOARDSCENE_H
 #define CHECKERBOARDSCENE_H
 
-#include "chesswidget/chessitem.h"
+#include "chess/chessitem.h"
 
 #include <QGraphicsScene>
 
@@ -29,14 +29,17 @@ class CheckerboardScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    CheckerboardScene(QObject *parent = nullptr);
+    explicit CheckerboardScene(QObject *parent = nullptr);
     ~CheckerboardScene() override;
 
     void setchessType(int chess = 0);
     void setchessPoint(int row, int col);
+
 private:
     void initCheckerboard();
-    void initStartAndStop();
+    void initFunctionButton();
+    void initPlayingScreen();
+
 private:
     QVector<QVector<ChessItem *>> chessItemList{};
     ChessItem *currentItem = nullptr;

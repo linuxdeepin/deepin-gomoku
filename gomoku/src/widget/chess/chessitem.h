@@ -26,7 +26,7 @@
 class ChessItem : public QGraphicsItem
 {
 public:
-    ChessItem(QGraphicsItem *parent = nullptr);
+    explicit ChessItem(QGraphicsItem *parent = nullptr);
 
     //set chess type
     void setCurrentchess(int chesstype);
@@ -40,7 +40,6 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
 
-    // QGraphicsItem interface
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;

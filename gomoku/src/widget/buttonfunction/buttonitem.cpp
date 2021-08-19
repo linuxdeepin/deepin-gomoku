@@ -27,6 +27,11 @@ ButtonItem::ButtonItem(QGraphicsItem *parent)
     setAcceptHoverEvents(true);
 }
 
+ButtonItem::~ButtonItem()
+{
+
+}
+
 QRectF ButtonItem::boundingRect() const
 {
     return QRectF(0, 0, backgrounePix.width(), backgrounePix.height());
@@ -45,18 +50,21 @@ void ButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->restore();
 }
 
+//设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     backgrounePix = QPixmap(":/resources/function_button/hover.svg");
     QGraphicsItem::hoverEnterEvent(event);
 }
 
+//设置正常图片
 void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     backgrounePix = QPixmap(":/resources/function_button/normal.svg");
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
+//设置鼠标点击图片
 void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     event->accept();
@@ -64,10 +72,19 @@ void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     update();
 }
 
+//鼠标点击释放，设置图片
 void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (contains(event->pos()))
+    if (contains(event->pos())) {
         backgrounePix = QPixmap(":/resources/function_button/normal.svg");
+        mouseReleased = !mouseReleased;
+        buttonFunction();
+    }
     QGraphicsItem::mouseReleaseEvent(event);
     update();
+}
+
+//按钮功能虚函数
+void ButtonItem::buttonFunction()
+{
 }

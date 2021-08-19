@@ -20,8 +20,11 @@
    */
 #include "checkerboardscene.h"
 #include "checkerboarditem.h"
-#include "buttonwidget/btstartpause.h"
-#include <constants.h>
+#include "buttonfunction/btstartpause.h"
+#include "buttonfunction/btreplay.h"
+#include "buttonfunction/btmusiccontrol.h"
+#include "playingscreen/playingscreen.h"
+#include "constants.h"
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -32,7 +35,8 @@ CheckerboardScene::CheckerboardScene(QObject *parent)
     : QGraphicsScene(parent)
 {
     initCheckerboard();
-    initStartAndStop();
+    initPlayingScreen();
+    initFunctionButton();
 }
 
 CheckerboardScene::~CheckerboardScene()
@@ -47,11 +51,14 @@ void CheckerboardScene::initCheckerboard()
     cbitem->setPos(22, 6);
     addItem(cbitem);
 
+    QGraphicsItemGroup *itemGroup = new QGraphicsItemGroup();
+
     for (int i = 0; i < line_num; i++) {
         QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_num; j++) {
             ChessItem *chess = new ChessItem();
             chess->setPos(105 - 22 + 44 * j, 89 - 22 + 44 * i);
+            itemGroup->addToGroup(chess);
             pieceItems.append(chess);
             addItem(chess);
         }
@@ -59,11 +66,28 @@ void CheckerboardScene::initCheckerboard()
     }
 }
 
-void CheckerboardScene::initStartAndStop()
+//初始化功能按钮
+void CheckerboardScene::initFunctionButton()
 {
-    BTStartPause *buttonItem = new BTStartPause();
-    buttonItem->setPos(764, 195 + 6);
-    addItem(buttonItem);
+    BTStartPause *buttonStartPause = new BTStartPause();
+    buttonStartPause->setPos(764, 235 + 6);
+    addItem(buttonStartPause);
+
+    BTReplay *buttonReplay = new BTReplay();
+    buttonReplay->setPos(764, 315 + 6);
+    addItem(buttonReplay);
+
+    BTMusicControl *buttonMusicControl = new BTMusicControl();
+    buttonMusicControl->setPos(764, 590 + 6);
+    addItem(buttonMusicControl);
+}
+
+//初始化下棋详情
+void CheckerboardScene::initPlayingScreen()
+{
+    PlayingScreen *playingScreen = new PlayingScreen();
+    playingScreen->setPos(710, 6);
+    addItem(playingScreen);
 }
 
 void CheckerboardScene::setchessType(int chess)

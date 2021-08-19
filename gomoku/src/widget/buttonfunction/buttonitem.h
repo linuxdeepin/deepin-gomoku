@@ -25,28 +25,31 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QDebug>
+#include <QObject>
 
-class ButtonItem : public QGraphicsItem
+class ButtonItem : public QObject, public QGraphicsItem
 {
 public:
-    ButtonItem(QGraphicsItem *parent = nullptr);
+    explicit ButtonItem(QGraphicsItem *parent = nullptr);
+    ~ButtonItem() override;
 
-    // QGraphicsItem interface
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
-    // QGraphicsItem interface
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
+    virtual void buttonFunction();
+
+    bool mouseReleased = false; //鼠标是否释放
 private:
-    QPixmap backgrounePix;
-    bool hoverStatus = false;
-    bool pressStatus = false;
+    QPixmap backgrounePix; //背景图片
+    bool hoverStatus = false; //hover状态标志
+    bool pressStatus = false; //鼠标点击状态标志
 };
 
 #endif // BUTTONITEM_H
