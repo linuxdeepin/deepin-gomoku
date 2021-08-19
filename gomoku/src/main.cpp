@@ -26,11 +26,13 @@
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
 #include <DApplicationSettings>
+#include <DLog>
 
 #include <QAccessible>
 #include <QCommandLineParser>
 
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
@@ -73,8 +75,12 @@ int main(int argc, char *argv[])
         _commandLine.process(*app);
 
         app->setAutoActivateWindows(true);
+        //log输出到控制台
+        DLogManager::registerConsoleAppender();
+        //log输出到日志文件
+        DLogManager::registerFileAppender();
         //保存主题
-        DApplicationSettings saveTheme;
+        DApplicationSettings applicationset(app);
 
         GomokuMainWindow ww;
 //        ww.slotTheme(DApplicationHelper::instance()->themeType());
