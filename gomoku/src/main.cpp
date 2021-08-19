@@ -25,6 +25,7 @@
 #include <DMainWindow>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
+#include <DApplicationSettings>
 
 #include <QAccessible>
 #include <QCommandLineParser>
@@ -72,6 +73,8 @@ int main(int argc, char *argv[])
         _commandLine.process(*app);
 
         app->setAutoActivateWindows(true);
+        //保存主题
+        DApplicationSettings saveTheme;
 
         GomokuMainWindow ww;
 //        ww.slotTheme(DApplicationHelper::instance()->themeType());
