@@ -22,7 +22,6 @@
 #define BTREPLAY_H
 
 #include "buttonitem.h"
-#include <QObject>
 
 class BTReplay : public ButtonItem
 {
@@ -34,6 +33,9 @@ public:
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+signals:
+    void signalbuttonReplay(); //游戏重玩信号
 
 private:
     void buttonFunction() override;

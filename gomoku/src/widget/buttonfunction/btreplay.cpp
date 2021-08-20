@@ -63,4 +63,5 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 void BTReplay::buttonFunction()
 {
     //重玩功能
+    emit signalbuttonReplay();
 }

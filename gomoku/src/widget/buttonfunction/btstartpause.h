@@ -25,10 +25,13 @@
 
 class BTStartPause : public ButtonItem
 {
+    Q_OBJECT
 public:
     explicit BTStartPause(QGraphicsItem *parent = nullptr);
     ~BTStartPause() override;
-
+signals:
+    void signalGameStart(); //游戏开始信号
+    void signalGameStop(); //游戏暂停信号
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

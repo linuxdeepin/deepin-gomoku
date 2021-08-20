@@ -69,4 +69,11 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 void BTStartPause::buttonFunction()
 {
     //开始暂停功能
+    if (mouseReleased) {
+        //暂停游戏
+        emit signalGameStop();
+    } else {
+        //开始游戏
+        emit signalGameStart();
+    }
 }

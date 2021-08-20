@@ -22,6 +22,12 @@
 #define CHECKERBOARDSCENE_H
 
 #include "chess/chessitem.h"
+#include "checkerboarditem.h"
+#include "buttonfunction/btstartpause.h"
+#include "buttonfunction/btreplay.h"
+#include "buttonfunction/btmusiccontrol.h"
+#include "playingscreen/playingscreen.h"
+#include "constants.h"
 
 #include <QGraphicsScene>
 
@@ -37,15 +43,27 @@ public:
 
 private:
     void initCheckerboard();
+    void initChess();
     void initFunctionButton();
     void initPlayingScreen();
 
+private slots:
+    void slotreplayFunction();
+
+    void slotGameStop();
+    void slotGameStart();
+
 private:
-    QVector<QVector<ChessItem *>> chessItemList{};
-    ChessItem *currentItem = nullptr;
+    QVector<QVector<ChessItem *>> chessItemList{}; //棋子数组
+    CheckerboardItem *cbitem = nullptr; //棋盘item
+    BTStartPause *buttonStartPause = nullptr; //开始、暂停按钮
+    BTReplay *buttonReplay = nullptr; //重玩按钮
+    BTMusicControl *buttonMusicControl = nullptr; //音乐控制按钮
+    PlayingScreen *playingScreen = nullptr; //对局显示
     int chessType = 1;
     int clickPosRow = 0; //点击的行
     int clickPosCol = 0; // 点击的列
+    bool gameStatus = true; //游戏状态
 };
 
 #endif // CHECKERBOARDSCENE_H

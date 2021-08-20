@@ -23,8 +23,9 @@
 
 #include <QGraphicsItem>
 
-class ChessItem : public QGraphicsItem
+class ChessItem : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
 public:
     explicit ChessItem(QGraphicsItem *parent = nullptr);
 
@@ -36,6 +37,11 @@ public:
 
     void setHoverStatus(bool hoverstate);
     bool getHoverStatus();
+
+public slots:
+    void slotGameStart();
+    void slotGameStop();
+
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
     QRectF boundingRect() const override;
@@ -45,13 +51,13 @@ protected:
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
+
 private:
     QPixmap backgroundPix;
-    double chessPosX = 0;
-    double chessPosY = 0;
-    int chessType = 0;
-    bool hoverStatus = false;
-    bool chessStatus = false;
+    int chessType = 0; //棋子颜色
+    bool hoverStatus = false; //hover状态标志
+    bool chessStatus = false; //是否有棋子标志
+    bool gameStatus = true; //是否暂停
 };
 
 #endif // chessITEM_H

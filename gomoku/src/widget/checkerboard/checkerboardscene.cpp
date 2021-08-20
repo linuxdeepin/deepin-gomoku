@@ -19,12 +19,6 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "checkerboardscene.h"
-#include "checkerboarditem.h"
-#include "buttonfunction/btstartpause.h"
-#include "buttonfunction/btreplay.h"
-#include "buttonfunction/btmusiccontrol.h"
-#include "playingscreen/playingscreen.h"
-#include "constants.h"
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -33,32 +27,62 @@
 
 CheckerboardScene::CheckerboardScene(QObject *parent)
     : QGraphicsScene(parent)
+    , cbitem(new CheckerboardItem)
+    , buttonStartPause(new BTStartPause)
+    , buttonReplay(new BTReplay)
+    , buttonMusicControl(new BTMusicControl)
+    , playingScreen(new PlayingScreen)
 {
     initCheckerboard();
+    initChess();
     initPlayingScreen();
     initFunctionButton();
+    connect(buttonStartPause, &BTStartPause::signalGameStop, this, &CheckerboardScene::slotGameStop);
+    connect(buttonStartPause, &BTStartPause::signalGameStart, this, &CheckerboardScene::slotGameStart);
 }
 
 CheckerboardScene::~CheckerboardScene()
 {
     chessItemList.clear();
+    if (cbitem != nullptr) {
+        delete cbitem;
+        cbitem = nullptr;
+    }
+    if (buttonStartPause != nullptr) {
+        delete buttonStartPause;
+        buttonStartPause = nullptr;
+    }
+    if (buttonReplay != nullptr) {
+        delete buttonReplay;
+        buttonReplay = nullptr;
+    }
+    if (buttonMusicControl != nullptr) {
+        delete buttonMusicControl;
+        buttonMusicControl = nullptr;
+    }
+    if (playingScreen != nullptr) {
+        delete playingScreen;
+        playingScreen = nullptr;
+    }
 }
 
 //初始化棋盘
 void CheckerboardScene::initCheckerboard()
 {
-    CheckerboardItem *cbitem = new CheckerboardItem();
     cbitem->setPos(22, 6);
     addItem(cbitem);
+}
 
-    QGraphicsItemGroup *itemGroup = new QGraphicsItemGroup();
-
+//初始化棋子
+void CheckerboardScene::initChess()
+{
     for (int i = 0; i < line_num; i++) {
         QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_num; j++) {
             ChessItem *chess = new ChessItem();
+            connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);
+            connect(buttonStartPause, &BTStartPause::signalGameStart, chess, &ChessItem::slotGameStart);
             chess->setPos(105 - 22 + 44 * j, 89 - 22 + 44 * i);
-            itemGroup->addToGroup(chess);
             pieceItems.append(chess);
             addItem(chess);
         }
@@ -69,15 +93,13 @@ void CheckerboardScene::initCheckerboard()
 //初始化功能按钮
 void CheckerboardScene::initFunctionButton()
 {
-    BTStartPause *buttonStartPause = new BTStartPause();
     buttonStartPause->setPos(764, 235 + 6);
     addItem(buttonStartPause);
 
-    BTReplay *buttonReplay = new BTReplay();
     buttonReplay->setPos(764, 315 + 6);
+    connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::slotreplayFunction);
     addItem(buttonReplay);
 
-    BTMusicControl *buttonMusicControl = new BTMusicControl();
     buttonMusicControl->setPos(764, 590 + 6);
     addItem(buttonMusicControl);
 }
@@ -85,9 +107,35 @@ void CheckerboardScene::initFunctionButton()
 //初始化下棋详情
 void CheckerboardScene::initPlayingScreen()
 {
-    PlayingScreen *playingScreen = new PlayingScreen();
     playingScreen->setPos(710, 6);
     addItem(playingScreen);
+}
+
+//重玩游戏
+void CheckerboardScene::slotreplayFunction()
+{
+    if (gameStatus) {
+        for (int i = 0; i < line_num; i++) {
+            for (int j = 0; j < line_num; j++) {
+                removeItem(chessItemList.at(i).at(j));
+            }
+        }
+        chessItemList.clear();
+
+        initChess();
+    }
+}
+
+//开始游戏
+void CheckerboardScene::slotGameStop()
+{
+    gameStatus = false;
+}
+
+//暂停游戏
+void CheckerboardScene::slotGameStart()
+{
+    gameStatus = true;
 }
 
 void CheckerboardScene::setchessType(int chess)

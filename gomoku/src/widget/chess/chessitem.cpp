@@ -74,9 +74,10 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QColor chessColor;
     QPixmap chessPixmap;
     painter->setRenderHints(QPainter::Antialiasing);
-    painter->save();
-    painter->setPen(Qt::NoPen);
+
     if (chessStatus) {
+        painter->save();
+        painter->setPen(Qt::NoPen);
         if (chessType == 2) {
             chessPixmap = QPixmap(":/resources/white_chess.svg");
         } else if (chessType == 1) {
@@ -84,7 +85,10 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
         painter->setBrush(chessPixmap);
         painter->drawEllipse(boundingRect());
+        painter->restore();
     } else {
+        painter->save();
+        painter->setPen(Qt::NoPen);
         if (hoverStatus) {
             QColor backColor("000000");
             backColor.setAlphaF(0.2);
@@ -104,8 +108,8 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->restore();
         }
         painter->drawEllipse(QRect(16, 16, 12, 12));
+        painter->restore();
     }
-    painter->restore();
 }
 
 QRectF ChessItem::boundingRect() const
@@ -122,7 +126,9 @@ QRectF ChessItem::boundingRect() const
 
 void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    setHoverStatus(true);
+    if (gameStatus) {
+        setHoverStatus(true);
+    }
     QGraphicsItem::hoverEnterEvent(event);
 }
 
@@ -139,9 +145,21 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (contains(event->pos())) {
+    if (gameStatus && contains(event->pos())) {
         setchessStatus(true);
         setCurrentchess(1);
     }
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+//开始游戏
+void ChessItem::slotGameStart()
+{
+    gameStatus = true;
+}
+
+//暂停游戏
+void ChessItem::slotGameStop()
+{
+    gameStatus = false;
 }
