@@ -59,13 +59,11 @@ struct Situatuion {
 
 class ArtificialIntelligence
 {
-public:
-    ArtificialIntelligence();
-
-    //根据当前棋局形式，返回计算出的最佳位置
-    Position getPosition(const int chessState[15][15], int color);
-
 private:
+    //棋盘长宽
+    static const int ROW = 13; //行
+    static const int COL = 13; //列
+
     //制定评分等级
     static const int LEVEL1 = 100000; //五连珠
     static const int LEVEL2 = 10000; //活四或双眠四或眠四活三
@@ -89,22 +87,28 @@ private:
     static const int EMPTY = 0; //没有落子空白
 
     //计算当前位置的分数
-    int getChessScore(const int chessState[15][15], int color, Position Position);
+    int getChessScore(const int chessState[ROW][COL], int color, Position Position);
 
     //获取某个方向上的棋局类型
-    int getChessType(const int chessState[15][15], int color, Position position, int direction);
+    int getChessType(const int chessState[ROW][COL], int color, Position position, int direction);
 
     //根据统计好的棋局形势计算该位置的分数
     int getScore(Situatuion situation);
 
     //获取某个方向上的9个棋子
-    void getChess(int chess[9], const int chessState[15][15], int color, Position position, int direction);
+    void getChess(int chess[9], const int chessState[ROW][COL], int color, Position position, int direction);
 
     //判断某个方向上的棋子类型
     int judgeChessType(const int chess[9]);
 
     //计算出用户分数数组和AI分数数组中的最大值,由此决定进攻还是防守
-    Position maxScore(int AIScore[15][15], int userScore[15][15]);
+    Position maxScore(const int AIScore[ROW][COL], const int userScore[ROW][COL]);
+public:
+    ArtificialIntelligence();
+
+    //根据当前棋局形式，返回计算出的最佳位置
+    Position getPosition(const int chessState[ROW][COL], int color);
+
 };
 
 #endif // ARTIFICIALINTELLIGENCE_H

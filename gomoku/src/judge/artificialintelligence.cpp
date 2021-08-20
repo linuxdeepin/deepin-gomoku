@@ -27,17 +27,18 @@ ArtificialIntelligence::ArtificialIntelligence()
 
 
 //根据当前棋局形式判断最佳落子位置
-Position ArtificialIntelligence::getPosition(const int (*chessState)[15], int color)
+Position ArtificialIntelligence::getPosition(const int chessState[ROW][COL], int color)
 {
     //创建用来记录分数的数组
-    int AIScore[15][15] = {0}; //记录AI的分数
-    int userScore[15][15] = {0}; //记录用户分数
+    int AIScore[ROW][COL] = {0}; //记录AI的分数
+    int userScore[ROW][COL] = {0}; //记录用户分数
+    int userColor; //对手颜色
 
     //如果AI先手且棋盘没有落子，AI第一次落子在中心交点处
     int flag = 0; //退出双层循环
     int i = 0, j = 0;
-    for (i = 0; i < 15; i++) {
-        for (j = 0; j < 15; j++) {
+    for (i = 0; i < ROW; i++) {
+        for (j = 0; j < COL; j++) {
             if (chessState[i][j] > 0) { //棋盘已经落子
                 flag = 1;
                 break;
@@ -47,15 +48,22 @@ Position ArtificialIntelligence::getPosition(const int (*chessState)[15], int co
             break;
         }
     }
-    if (i == 15 && j == 15) { //遍历了整个棋盘，没有落子
-        Position position = {7, 7}; //ai先手落子位置是最中心交点
+    if (i == ROW && j == COL) { //遍历了整个棋盘，没有落子
+        Position position = {ROW / 2, COL / 2}; //ai先手落子位置是最中心交点
         return position;
+    }
+
+    //判断用户棋子颜色
+    if (color == BLACKCHESS) {
+        userColor = WHITECHESS;
+    } else {
+        userColor = BLACKCHESS;
     }
 
     //不是先手第一次落子，开始计算最佳落子位置
     //遍历整个棋盘
-    for (i = 0; i < 15; i++) {
-        for (j = 0; j < 15; j++) {
+    for (i = 0; i < ROW; i++) {
+        for (j = 0; j < COL; j++) {
             Position position; //当前位置
             int score; //当前位置的分数
             position.x = i;
@@ -65,15 +73,8 @@ Position ArtificialIntelligence::getPosition(const int (*chessState)[15], int co
             score = getChessScore(chessState, color, position);
             AIScore[i][j] = score;
 
-            //判断用户棋子颜色
-            if (color == BLACKCHESS) {
-                color = WHITECHESS;
-            } else {
-                color = BLACKCHESS;
-            }
-
             //获取用户分数
-            score = getChessScore(chessState, color, position);
+            score = getChessScore(chessState, userColor, position);
             userScore[i][j] = score;
         }
     }
@@ -81,7 +82,7 @@ Position ArtificialIntelligence::getPosition(const int (*chessState)[15], int co
 }
 
 //计算当前位置的分数
-int ArtificialIntelligence::getChessScore(const int (*chessState)[15], int color, Position position)
+int ArtificialIntelligence::getChessScore(const int chessState[ROW][COL], int color, Position position)
 {
     Situatuion situation = {0};
 
@@ -190,7 +191,7 @@ int ArtificialIntelligence::getScore(Situatuion situation)
 }
 
 //计算某个方向上的棋局形势
-int ArtificialIntelligence::getChessType(const int (*chessState)[15], int color, Position position, int direction)
+int ArtificialIntelligence::getChessType(const int chessState[ROW][COL], int color, Position position, int direction)
 {
     int type = 0; //棋局类型
     int chess[9] = {0}; //存储一个方向上的9个棋子
@@ -204,7 +205,7 @@ int ArtificialIntelligence::getChessType(const int (*chessState)[15], int color,
 }
 
 //收集某个方向上的9个棋子
-void ArtificialIntelligence::getChess(int chess[9], const int (*chessState)[15], int color, Position position, int direction)
+void ArtificialIntelligence::getChess(int chess[9], const int chessState[ROW][COL], int color, Position position, int direction)
 {
     //出界时设置为对手颜色
     int userColor;
@@ -232,7 +233,7 @@ void ArtificialIntelligence::getChess(int chess[9], const int (*chessState)[15],
         //右边四个棋子，遇到边界时记为对手棋子
         for (int i = position.x, j = 1; j <= 4; j++) {
             int col = position.y + j;
-            if (col > 14) {
+            if (col > (COL - 1)) {
                 for (;j <= 4; j++) {
                     chess[4 + j] = userColor;
                 }
@@ -256,7 +257,7 @@ void ArtificialIntelligence::getChess(int chess[9], const int (*chessState)[15],
         //下边四个棋子，遇到边界记为对手棋子
         for (int j = position.y, i = 1; i <= 4; i++) {
             int row = position.x + i;
-            if (row > 14) {
+            if (row > (ROW - 1)) {
                 for (; i <= 4; i++) {
                     chess[4 + i] = userColor;
                 }
@@ -270,7 +271,7 @@ void ArtificialIntelligence::getChess(int chess[9], const int (*chessState)[15],
         for (int i = 1, j = 1; i <= 4; j++, i++) {
             int row = position.x + i;
             int col = position.y - j;
-            if (row > 14 || col < 0) {
+            if (row > (ROW - 1) || col < 0) {
                 for (;i <= 4; i++) {
                     chess[4 - i] = userColor;
                 }
@@ -282,7 +283,7 @@ void ArtificialIntelligence::getChess(int chess[9], const int (*chessState)[15],
         for (int i = 1, j = 1; i <= 4; i++, j++) {
             int row = position.x - i;
             int col = position.y + j;
-            if (row < 0 || col > 14) {
+            if (row < 0 || col > (COL - 1)) {
                 for (; i <= 4; i++) {
                     chess[4 + i] = userColor;
                 }
@@ -308,7 +309,7 @@ void ArtificialIntelligence::getChess(int chess[9], const int (*chessState)[15],
         for (int i = 1, j = 1; i <= 4; j++, i++) {
             int row = position.x + i;
             int col = position.y + j;
-            if (col > 14 || row > 14) {
+            if (col > (COL - 1) || row > (ROW - 1)) {
                 for (;i <= 4;i++) {
                     chess[4 + i] = userColor;
                 }
@@ -349,7 +350,7 @@ int ArtificialIntelligence::judgeChessType(const int chess[9])
     }
 
     //统计右边四个棋子
-    for (int i = 0; i <= 4; i++) {
+    for (int i = 1; i <= 4; i++) {
         if (chess[4 + i] == myColor) {
             count++;
         } else {
@@ -432,7 +433,7 @@ int ArtificialIntelligence::judgeChessType(const int chess[9])
 
     }
 
-    //二连s
+    //二连
     if (count == 2) {
         //记录二连两边各三个位置
         int leftColor1 = chess[left - 1];
@@ -447,6 +448,10 @@ int ArtificialIntelligence::judgeChessType(const int chess[9])
                 return SLEEP3;//眠三
             } else if (leftColor1 == EMPTY && rightColor1 == EMPTY) {
                 return ALIVE2;// 002200形式 活二
+            } else if (leftColor1 == userColor && rightColor1 == userColor) {
+                return  SAFETY; // 102201
+            } else if (leftColor1 == userColor || rightColor1 == userColor) {
+                return SLEEP2; // 102200 002201
             }
 
             if ((rightColor1 == myColor && rightColor2 == userColor) ||
@@ -575,7 +580,7 @@ int ArtificialIntelligence::judgeChessType(const int chess[9])
 }
 
 //从AI评分数组和用户评分数组中统计出最佳落子位置，决定进攻还是防守
-Position ArtificialIntelligence::maxScore(int (*AIScore)[15], int (*userScore)[15])
+Position ArtificialIntelligence::maxScore(const int AIScore[ROW][COL], const int userScore[ROW][COL])
 {
     Position position; //最佳落子位置
     int AIMaxScore = 0; //AI最大分数
@@ -588,8 +593,8 @@ Position ArtificialIntelligence::maxScore(int (*AIScore)[15], int (*userScore)[1
     std::vector<Position> userMaxPositions; //存储用户评分最高的位置
 
     //ai数组中的最大值，最大值可能有多个
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 15; j++) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
             if (AIScore[i][j] == AIMaxScore) { //将最大值的位置全部存储
                 position.x = i;
                 position.y = j;
@@ -606,8 +611,8 @@ Position ArtificialIntelligence::maxScore(int (*AIScore)[15], int (*userScore)[1
     }
 
     //用户数组中的最大值
-    for (int i = 0; i < 15; i++) {
-        for (int j = 0; j < 15; j++) {
+    for (int i = 0; i < ROW; i++) {
+        for (int j = 0; j < COL; j++) {
             if (userScore[i][j] == userMaxScore) { //将最大值的位置全部存储
                 position.x = i;
                 position.y = j;
