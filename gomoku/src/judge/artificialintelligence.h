@@ -21,10 +21,11 @@
 #ifndef ARTIFICIALINTELLIGENCE_H
 #define ARTIFICIALINTELLIGENCE_H
 
-//计算出的最佳位置的返回形式
+#include "constants.h"
+
 struct Position {
-    int x; //行
-    int y; //列
+    int x;
+    int y;
 };
 
 //棋局形式
@@ -40,6 +41,14 @@ enum ChessFrom {
     JUMP2, //冲二
     SLEEP2, //眠二
     SAFETY, //安全没有威胁
+};
+
+//判断方向
+enum Direction {
+    HORIZONTAL,//横向
+    VERTICAL, //竖向
+    NORTHEAST,//右上左下
+    NORTHWEST, //左上右下
 };
 
 //当前位置的形式，对各类棋型进行统计后比较
@@ -60,10 +69,6 @@ struct Situatuion {
 class ArtificialIntelligence
 {
 private:
-    //棋盘长宽
-    static const int ROW = 13; //行
-    static const int COL = 13; //列
-
     //制定评分等级
     static const int LEVEL1 = 100000; //五连珠
     static const int LEVEL2 = 10000; //活四或双眠四或眠四活三
@@ -81,33 +86,29 @@ private:
     static const int LEVEL14 = 1; //安全
     static const int LEVEL15 = 0; //已有棋子
 
-    //记录棋盘棋子状态
-    static const int BLACKCHESS = 1; //黑色棋子
-    static const int WHITECHESS = 2; //白色棋子
-    static const int EMPTY = 0; //没有落子空白
 
     //计算当前位置的分数
-    int getChessScore(const int chessState[ROW][COL], int color, Position Position);
+    int getChessScore(const int chessState[line_row][line_col], int color, Position Position);
 
     //获取某个方向上的棋局类型
-    int getChessType(const int chessState[ROW][COL], int color, Position position, int direction);
+    ChessFrom getChessType(const int chessState[line_row][line_col], int color, Position position, int direction);
 
     //根据统计好的棋局形势计算该位置的分数
     int getScore(Situatuion situation);
 
     //获取某个方向上的9个棋子
-    void getChess(int chess[9], const int chessState[ROW][COL], int color, Position position, int direction);
+    void getChess(int chess[9], const int chessState[line_row][line_col], int color, Position position, int direction);
 
     //判断某个方向上的棋子类型
-    int judgeChessType(const int chess[9]);
+    ChessFrom judgeChessType(const int chess[9]);
 
     //计算出用户分数数组和AI分数数组中的最大值,由此决定进攻还是防守
-    Position maxScore(const int AIScore[ROW][COL], const int userScore[ROW][COL]);
+    Position maxScore(const int AIScore[line_row][line_col], const int userScore[line_row][line_col]);
 public:
     ArtificialIntelligence();
 
     //根据当前棋局形式，返回计算出的最佳位置
-    Position getPosition(const int chessState[ROW][COL], int color);
+    Position getPosition(const int chessState[line_row][line_col], int color);
 
 };
 

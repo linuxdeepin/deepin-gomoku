@@ -18,21 +18,42 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef CHESSJUDGERESULT_H
-#define CHESSJUDGERESULT_H
+#ifndef GAMECONTROL_H
+#define GAMECONTROL_H
 
+#include <QObject>
+#include "artificialintelligence.h"
 
-class ChessJudgeResult
+class GameControl : public QObject
 {
+    Q_OBJECT
 public:
-    //棋盘长宽
-    static const int ROW = 13;
-    static const int COL = 13;
+    explicit GameControl(int AIColor, int userColor, QObject *parent = nullptr);
+    ~GameControl();
 
-    ChessJudgeResult();
+    //开始游戏
+    void startGame();
+
+signals:
+    void AIPlayChess(Chess chess); //电脑下棋
+    void gameOver(ChessResult result); //返回游戏结束标志
+
+public slots:
+    //接受主页面绘制完成棋子的信号
+    void chessCompleted(Chess chess);
+
+private:
+    int AIColor; //电脑颜色
+    int userColor; //用户颜色
+    int chessState[line_row][line_col] = {0}; //棋盘状态数组
+    bool AIPlaying; //ai下棋
+
+    ArtificialIntelligence *AI;
+
+    //下棋函数，棋局判断和下棋者判断
+    void playChess(Chess chess);
 
     //判断棋局结果
-    int judgeResult(const int chessState[ROW][COL], int lastRow, int lastCol);
+    ChessResult judgeResult(Chess chess);
 };
-
-#endif // CHESSJUDGERESULT_H
+#endif // GAMECONTROL_H

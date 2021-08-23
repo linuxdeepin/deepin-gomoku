@@ -18,23 +18,80 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#include "chessjudgeresult.h"
+#include "gamecontrol.h"
 
-ChessJudgeResult::ChessJudgeResult()
+GameControl::GameControl(int AIColor, int userColor, QObject *parent) : QObject(parent)
 {
+    this->AIColor = AIColor;
+    this->userColor = userColor;
+    this->AI = new ArtificialIntelligence();
+
+    if (AIColor == chess_black) {
+        AIPlaying = true;
+    } else {
+        AIPlaying = false;
+    }
+}
+
+GameControl::~GameControl()
+{
+    if (AI != nullptr){
+        delete  AI;
+        AI = nullptr;
+    }
 
 }
 
-int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, int lastCol)
+//开始游戏
+void GameControl::startGame()
 {
-    int color = chessState[lastRow][lastRow]; // 记录最后一次落子的颜色
+    Chess chess(-1, -1, 0); //还没有落子
+    playChess(chess);
+}
+
+//槽函数同步数据
+void GameControl::chessCompleted(Chess chess)
+{
+    chessState[chess.x][chess.y] = chess.color; //更新数组状态，同步数据
+    playChess(chess); //开始下棋
+}
+
+//下棋
+void GameControl::playChess(Chess chess)
+{
+    ChessResult result;
+    if ((result = judgeResult(chess)) == playing) { //游戏正在进行中
+        if (AIPlaying) {
+            Position AIpos = AI->getPosition(chessState, AIColor); //AI计算最佳落子位置
+            Chess chess(AIpos.x, AIpos.y, AIColor);
+            emit AIPlayChess(chess); //发送AI下棋信号
+        }
+        AIPlaying = !AIPlaying; //下一位下棋者
+    } else {
+        emit gameOver(result); //游戏结束，发送结束状态
+    }
+}
+
+//判断棋局形式
+ChessResult GameControl::judgeResult(Chess chess)
+{
+    int lastRow = chess.x;
+    int lastCol = chess.y;
+    int color = chess.color; // 记录最后一次落子的颜色
+    ChessResult result; //胜利形式
     int count = 0; // 统计连起来的棋子数目
     int left = 0, right = 0, top = 0, button = 0; //记录下该位置的上下左右边界，用来判断出界问题
+
+    //游戏刚开始
+    if (lastCol == -1 && lastRow == -1) {
+        return playing;
+    }
+
     //判断是否达成平局
     int flag = 0;
     int i = 0, j = 0;
-    for (i = 0; i < ROW; i++) {
-        for (j = 0; j < COL; j++) {
+    for (i = 0; i < line_row; i++) {
+        for (j = 0; j < line_col; j++) {
             if (chessState[i][j] == 0) { //有位置没落子，不存在平局
                 flag = 1;
                 break;
@@ -44,18 +101,24 @@ int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, i
             break;
         }
     }
-    if (i == ROW && j == COL) {
-        return -1; //平局
+    if (i == line_row && j == line_col) {
+        return tie; //平局
+    }
+
+    if (color == chess_black) {
+        result = black_win;
+    } else {
+        result = white_win;
     }
 
     //横向判断
     left  = (lastCol - 4) < 0 ? 0 : (lastCol - 4); //左边出界时记为0
-    right = (lastCol + 4) > (COL - 1) ? (COL - 1) : (lastCol + 4); //右边出界时为12
+    right = (lastCol + 4) > (line_col - 1) ? (line_col - 1) : (lastCol + 4); //右边出界时为12
     for (i = lastRow, j = left; j <= right; j++) {
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
-                return color; //五连珠胜利
+                return result; //五连珠胜利
             }
         } else {
             count = 0; //断开重新计数
@@ -65,12 +128,12 @@ int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, i
     //纵向判断
     count = 0;
     top = (lastRow - 4) < 0 ? 0 : (lastRow - 4); //上边出界时记为0
-    button = (lastRow + 4) > (ROW - 1) ? (ROW - 1) : (lastRow + 4); //下边边出界时记为12
+    button = (lastRow + 4) > (line_row - 1) ? (line_row - 1) : (lastRow + 4); //下边边出界时记为12
     for (i = top, j = lastCol; i <= button; i++) {
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
-                return color;
+                return result;
             }
         } else {
             count = 0;
@@ -81,25 +144,25 @@ int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, i
    count  = 0;
    top = lastRow - 4; //行的最小值
    right = lastCol + 4; //列的最大值
-   if (top < 0 || left > (COL - 1)) { //右上出界
-       if (lastRow < (COL - 1 - lastCol)) {//判断行先出界还是列先出界
+   if (top < 0 || left > (line_col - 1)) { //右上出界
+       if (lastRow < (line_col - 1 - lastCol)) {//判断行先出界还是列先出界
            top = 0; //行出界
            right = lastRow + lastRow; //行几步出界，列就几步
        } else {
-           right = COL - 1;
-           top = lastRow - (COL - 1 - lastCol);//列几步出界，行就几步
+           right = line_col - 1;
+           top = lastRow - (line_col - 1 - lastCol);//列几步出界，行就几步
        }
    }
     //左下
     button = lastRow + 4;//行最大值
     left = lastCol - 4; //列最小值
-    if (left < 0 || button > (ROW - 1)) { //左下出界
-        if (left < (ROW - 1 - lastRow)) { //列先出界
+    if (left < 0 || button > (line_row - 1)) { //左下出界
+        if (left < (line_row - 1 - lastRow)) { //列先出界
             left = 0;
             button = lastRow + lastCol;
         } else {
-            button = ROW - 1;
-            left = lastRow - (ROW - 1 - lastRow);
+            button = line_row - 1;
+            left = lastRow - (line_row - 1 - lastRow);
         }
     }
     //统计棋子数目
@@ -107,7 +170,7 @@ int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, i
         if (chessState[i][j] == color) {
             count++;
             if (count == 5){
-                return color;
+                return result;
             }
         } else {
             count = 0;
@@ -130,13 +193,13 @@ int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, i
     //右下
     right = lastCol + 4; //列最大值
     button  = lastRow + 4; //行最大值
-    if (right > (COL - 1) || button > (ROW - 1)) { //右下出界
+    if (right > (line_col - 1) || button > (line_row - 1)) { //右下出界
         if (lastCol < lastRow) { //行先出界
-            button = ROW - 1;
-            right = lastCol + (ROW - 1 - lastRow);
+            button = line_row - 1;
+            right = lastCol + (line_row - 1 - lastRow);
         } else {
-            right = COL - 1;
-            button = lastRow + (COL - 1 - lastCol);
+            right = line_col - 1;
+            button = lastRow + (line_col - 1 - lastCol);
         }
     }
     //统计棋子数目
@@ -144,11 +207,14 @@ int ChessJudgeResult::judgeResult(const int chessState[ROW][COL], int lastRow, i
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
-                return color;
+                return result;
             }
         } else {
             count = 0;
         }
     }
-    return 0; //游戏还在继续
+    return playing; //游戏还在继续
 }
+
+
+
