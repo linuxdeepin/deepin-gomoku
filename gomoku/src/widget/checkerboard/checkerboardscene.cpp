@@ -76,15 +76,18 @@ void CheckerboardScene::initCheckerboard()
 //初始化棋子
 void CheckerboardScene::initChess()
 {
-    for (int i = 0; i < line_num; i++) {
+    for (int i = 0; i < line_row; i++) {
         QVector<ChessItem *> pieceItems;
-        for (int j = 0; j < line_num; j++) {
-            ChessItem *chess = new ChessItem();
+        for (int j = 0; j < line_col; j++) {
+            ChessItem *chess = new ChessItem(userChessType);
+            connect(this, &CheckerboardScene::signalGameOver, chess, &ChessItem::signalGameOver);
             connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);
             connect(buttonStartPause, &BTStartPause::signalGameStart, chess, &ChessItem::slotGameStart);
+            connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);
             chess->setPos(105 - 22 + 44 * j, 89 - 22 + 44 * i);
             pieceItems.append(chess);
             addItem(chess);
+            chessHasPaint[i][j] = false;
         }
         chessItemList.append(pieceItems);
     }
@@ -115,9 +118,10 @@ void CheckerboardScene::initPlayingScreen()
 void CheckerboardScene::slotreplayFunction()
 {
     if (gameStatus) {
-        for (int i = 0; i < line_num; i++) {
-            for (int j = 0; j < line_num; j++) {
+        for (int i = 0; i < line_row; i++) {
+            for (int j = 0; j < line_col; j++) {
                 removeItem(chessItemList.at(i).at(j));
+                chessHasPaint[i][j] = false;
             }
         }
         chessItemList.clear();
@@ -138,16 +142,42 @@ void CheckerboardScene::slotGameStart()
     gameStatus = true;
 }
 
-void CheckerboardScene::setchessType(int chess)
+//判断当前绘制的item，保存坐标
+void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
 {
-    chessType = chess;
+    int cRow = 0;
+    int cCol = 0;
+    for (int i = 0; i < line_row; i++) {
+        for (int j = 0; j < line_col; j++) {
+            if (chessItemList.at(i).at(j) == cItem && !chessHasPaint[i][j]) {
+                chessHasPaint[i][j] = true;
+                cRow = i;
+                cCol = j;
+                Chess chess(cRow, cCol, cItem->getChessColor());
+                emit signalCurrentPoint(chess);
+            }
+        }
+    }
 }
 
-void CheckerboardScene::setchessPoint(int row, int col)
+//设置棋子颜色
+void CheckerboardScene::setchessType(int chess)
 {
-    int realRow = row - 1;
-    int realCol = col - 1;
-    chessItemList.at(realRow).at(realCol)->setHoverStatus(false);
+    userChessType = chess;
+}
+
+//绘制棋子
+void CheckerboardScene::setchessPoint(Chess chess)
+{
+    int realRow = chess.x;
+    int realCol = chess.y;
+    qInfo() << realRow << realCol;// 查看AI落子位置
+    chessItemList.at(realRow).at(realCol)->setCurrentchess(chess.color);
     chessItemList.at(realRow).at(realCol)->setchessStatus(true);
-    chessItemList.at(realRow).at(realCol)->setCurrentchess(1);
+}
+
+//绘制AI棋子
+void CheckerboardScene::slotPaintAIChess(Chess chess)
+{
+    setchessPoint(chess);
 }

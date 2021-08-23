@@ -21,6 +21,9 @@
 #ifndef GOMOKUMAINWINDOW_H
 #define GOMOKUMAINWINDOW_H
 
+#include "checkerboard/checkerboardscene.h"
+#include "judge/gamecontrol.h"
+
 #include <DMainWindow>
 
 DWIDGET_USE_NAMESPACE
@@ -32,15 +35,17 @@ public:
     explicit GomokuMainWindow(QWidget *parent = nullptr);
     ~GomokuMainWindow() override;
 
-private:
-    void initUI();
-    void paintTitleBar(QWidget *titlebar);
-
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
+    void initUI();
+    void initGame();
+    void paintTitleBar(QWidget *titlebar);
+
+private:
     DTitlebar *mTitleBar = nullptr;
+    CheckerboardScene *checkerboardScene = nullptr;
 };
 
 #endif // GOMOKUMAINWINDOW_H

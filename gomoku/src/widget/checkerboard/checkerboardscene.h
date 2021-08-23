@@ -39,7 +39,14 @@ public:
     ~CheckerboardScene() override;
 
     void setchessType(int chess = 0);
-    void setchessPoint(int row, int col);
+    void setchessPoint(Chess chess);
+
+public slots:
+    void slotPaintAIChess(Chess chess);
+
+signals:
+    void signalCurrentPoint(Chess chess); //发送当前棋子坐标
+    void signalGameOver();
 
 private:
     void initCheckerboard();
@@ -49,18 +56,19 @@ private:
 
 private slots:
     void slotreplayFunction();
-
     void slotGameStop();
     void slotGameStart();
+    void slotCPaintItem(ChessItem *cItem);
 
 private:
     QVector<QVector<ChessItem *>> chessItemList{}; //棋子数组
+    bool chessHasPaint[13][13] = {{false}}; //每个位置是否绘制棋子
     CheckerboardItem *cbitem = nullptr; //棋盘item
     BTStartPause *buttonStartPause = nullptr; //开始、暂停按钮
     BTReplay *buttonReplay = nullptr; //重玩按钮
     BTMusicControl *buttonMusicControl = nullptr; //音乐控制按钮
     PlayingScreen *playingScreen = nullptr; //对局显示
-    int chessType = 1;
+    int userChessType = chess_black; //棋子颜色
     int clickPosRow = 0; //点击的行
     int clickPosCol = 0; // 点击的列
     bool gameStatus = true; //游戏状态

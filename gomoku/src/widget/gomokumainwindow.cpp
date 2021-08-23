@@ -20,9 +20,6 @@
    */
 #include "gomokumainwindow.h"
 #include "constants.h"
-#include "buttonfunction/btstartpause.h"
-#include "buttonfunction/btreplay.h"
-#include "checkerboard/checkerboardscene.h"
 
 #include <QGraphicsView>
 #include <QHBoxLayout>
@@ -33,6 +30,7 @@
 #include <DWidget>
 #include <DTitlebar>
 #include <DFrame>
+#include <DDialog>
 
 GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -42,6 +40,7 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     setWindowTitle(tr("deepin-gomoku"));
 
     initUI();
+    initGame();
 
     Dtk::Widget::moveToCenter(this);
 }
@@ -77,12 +76,30 @@ void GomokuMainWindow::initUI()
     wcheckerBoard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     wcheckerBoard->setFixedSize(widgetWidth, widgetHeight - titlebar()->height());
     wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    CheckerboardScene *checkerboardScene = new CheckerboardScene();
+    checkerboardScene = new CheckerboardScene();
     checkerboardScene->setSceneRect(0, 0, widgetWidth, widgetHeight - titlebar()->height());
     wcheckerBoard->setScene(checkerboardScene);
 
     setCentralWidget(wcheckerBoard);
     setFixedSize(QSize(widgetWidth, widgetHeight));
+}
+
+//初始化游戏
+void GomokuMainWindow::initGame()
+{
+    GameControl *gameControl = new GameControl(chess_white, chess_black);
+    connect(checkerboardScene, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);
+    connect(gameControl, &GameControl::AIPlayChess, checkerboardScene, &CheckerboardScene::slotPaintAIChess);
+    connect(gameControl, &GameControl::gameOver, checkerboardScene, &CheckerboardScene::signalGameOver);
+    connect(gameControl, &GameControl::gameOver, this, [] {
+        //失败弹出,暂时效果
+        DDialog promptDialog;
+        promptDialog.addButton(tr("OK", "button"));
+        promptDialog.setIcon(QIcon::fromTheme("uss_warning"));
+        promptDialog.setMessage("game over");
+        promptDialog.exec();
+    });
+    gameControl->startGame();
 }
 
 //绘制titlebar背景

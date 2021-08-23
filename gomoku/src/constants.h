@@ -30,7 +30,7 @@ struct Chess {
 };
 
 //棋局形势
-enum ChessResult{
+enum ChessResult {
     black_win,
     white_win,
     tie, //平局
@@ -41,7 +41,6 @@ const int widgetWidth = 1024; //界面宽度
 const int widgetHeight = 768; //界面高度
 
 const int backgrond_margin = 40; //棋盘边距
-const int line_num = 13;
 const int line_row = 13; //棋盘线长
 const int line_col = 13; //棋盘线宽
 const int chess_size = 44; //棋盘格子宽度

@@ -27,16 +27,18 @@ class ChessItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
 public:
-    explicit ChessItem(QGraphicsItem *parent = nullptr);
+    explicit ChessItem(int userChessColor, QGraphicsItem *parent = nullptr);
 
     //set chess type
     void setCurrentchess(int chesstype);
+    int getChessColor();
 
     void setchessStatus(bool chessstatus);
     bool getchessStatus();
 
-    void setHoverStatus(bool hoverstate);
-    bool getHoverStatus();
+signals:
+    void signalCPaintItem(ChessItem *item); //当前绘制的item
+    void signalGameOver();
 
 public slots:
     void slotGameStart();
@@ -52,12 +54,17 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
+private slots:
+    void slotGameOver();
+
 private:
     QPixmap backgroundPix;
     int chessType = 0; //棋子颜色
+    int userChessType = 0; //玩家棋子颜色
     bool hoverStatus = false; //hover状态标志
     bool chessStatus = false; //是否有棋子标志
     bool gameStatus = true; //是否暂停
+    bool gameOver = false; //游戏结束
 };
 
 #endif // chessITEM_H

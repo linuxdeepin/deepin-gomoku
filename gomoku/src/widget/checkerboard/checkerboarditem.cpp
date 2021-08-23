@@ -25,6 +25,8 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
+const int line_num = 13;
+
 CheckerboardItem::CheckerboardItem(QGraphicsItem *parent)
     : QGraphicsPixmapItem(parent)
 {
@@ -56,7 +58,8 @@ void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->save();
     QPen pen;
     QColor penColor("#000000");
-    penColor.setAlphaF(0.25);
+//    penColor.setAlphaF(0.6); // 不带线棋盘透明度
+    penColor.setAlphaF(0.25); //带线棋盘透明度
     pen.setColor(penColor);
     painter->setPen(pen);
     for (int i = 0; i < line_num; i++) {
@@ -77,8 +80,8 @@ void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
             painter->setBrush(QColor("#86582E"));
             painter->drawEllipse((static_cast<int>(boundingRect().width()) / 2) - 4,
                                  (static_cast<int>(boundingRect().height()) / 2) - 4,
-                                 8,
-                                 8);
+                                 10,
+                                 10);
             painter->restore();
         }
     }

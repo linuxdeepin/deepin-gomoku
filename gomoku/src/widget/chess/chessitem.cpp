@@ -27,18 +27,25 @@
 #include <QtDebug>
 #include <QImageReader>
 
-ChessItem::ChessItem(QGraphicsItem *parent)
+ChessItem::ChessItem(int userChessColor, QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , backgroundPix(":/resources/black_chess.svg")
+    , userChessType(userChessColor)
 {
     setAcceptHoverEvents(true);
+    connect(this, &ChessItem::signalGameOver, this, &ChessItem::slotGameOver);
 }
 
 //设置棋子
 void ChessItem::setCurrentchess(int chesstype)
 {
     chessType = chesstype;
-    update();
+}
+
+//获取棋子颜色
+int ChessItem::getChessColor()
+{
+    return chessType;
 }
 
 //设置是否有棋子
@@ -52,18 +59,6 @@ void ChessItem::setchessStatus(bool chessstatus)
 bool ChessItem::getchessStatus()
 {
     return chessStatus;
-}
-
-//设置hover状态
-void ChessItem::setHoverStatus(bool hoverstate)
-{
-    hoverStatus = hoverstate;
-}
-
-//获取是否有hover状态
-bool ChessItem::getHoverStatus()
-{
-    return hoverStatus;
 }
 
 void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -86,6 +81,7 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setBrush(chessPixmap);
         painter->drawEllipse(boundingRect());
         painter->restore();
+        emit signalCPaintItem(this);
     } else {
         painter->save();
         painter->setPen(Qt::NoPen);
@@ -126,15 +122,15 @@ QRectF ChessItem::boundingRect() const
 
 void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    if (gameStatus) {
-        setHoverStatus(true);
+    if (!gameOver && gameStatus) {
+        hoverStatus = true;
     }
     QGraphicsItem::hoverEnterEvent(event);
 }
 
 void ChessItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-    setHoverStatus(false);
+    hoverStatus = false;
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
@@ -145,11 +141,17 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (gameStatus && contains(event->pos())) {
+    if (hoverStatus && !chessStatus) {
+        setCurrentchess(userChessType);
         setchessStatus(true);
-        setCurrentchess(1);
     }
     QGraphicsItem::mouseReleaseEvent(event);
+}
+
+//游戏结束
+void ChessItem::slotGameOver()
+{
+    gameOver = true;
 }
 
 //开始游戏

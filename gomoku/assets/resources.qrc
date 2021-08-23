@@ -23,5 +23,6 @@
         <file>resources/playingscreen/user_playing.svg</file>
         <file>resources/playingscreen/chess_white.svg</file>
         <file>resources/playingscreen/chess_black.svg</file>
+        <file>resources/checkerboard_noline.svg</file>
     </qresource>
 </RCC>
