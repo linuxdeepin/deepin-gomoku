@@ -19,27 +19,39 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gamecontrol.h"
-
 #include <QDebug>
-
 GameControl::GameControl(int AIColor, int userColor, QObject *parent) : QObject(parent)
 {
     this->AIColor = AIColor;
     this->userColor = userColor;
     this->AI = new ArtificialIntelligence();
 
-    if (AIColor == chess_black) {
-        AIPlaying = true;
-    } else {
-        AIPlaying = false;
-    }
+    initGame();//初始化游戏
 }
 
 GameControl::~GameControl()
 {
-    if (AI != nullptr) {
+    if (AI != nullptr){
         delete  AI;
         AI = nullptr;
+    }
+
+}
+
+//初始化游戏
+void GameControl::initGame() {
+    //初始胡数组
+    for (int i = 0; i < line_row; i++) {
+        for (int j = 0; j < line_col; j++) {
+            chessState[i][j] = 0;
+        }
+    }
+
+    //当前下棋者
+    if (AIColor == chess_black) {
+        AIPlaying = true;
+    } else {
+        AIPlaying = false;
     }
 }
 
@@ -53,9 +65,14 @@ void GameControl::startGame()
 //槽函数同步数据
 void GameControl::chessCompleted(Chess chess)
 {
-    qInfo() << "chessInfo: " << chess.x << chess.y << chess.color;
     chessState[chess.x][chess.y] = chess.color; //更新数组状态，同步数据
     playChess(chess); //开始下棋
+}
+
+//重置游戏
+void GameControl::resetGame()
+{
+    initGame();//初始化游戏
 }
 
 //下棋
@@ -72,7 +89,6 @@ void GameControl::playChess(Chess chess)
     } else {
         emit gameOver(result); //游戏结束，发送结束状态
     }
-    qInfo() << "chess result " << result;
 }
 
 //判断棋局形式
@@ -144,18 +160,18 @@ ChessResult GameControl::judgeResult(Chess chess)
     }
 
     //左下右上判断
-    count  = 0;
-    top = lastRow - 4; //行的最小值
-    right = lastCol + 4; //列的最大值
-    if (top < 0 || left > (line_col - 1)) { //右上出界
-        if (lastRow < (line_col - 1 - lastCol)) {//判断行先出界还是列先出界
-            top = 0; //行出界
-            right = lastRow + lastRow; //行几步出界，列就几步
-        } else {
-            right = line_col - 1;
-            top = lastRow - (line_col - 1 - lastCol);//列几步出界，行就几步
-        }
-    }
+   count  = 0;
+   top = lastRow - 4; //行的最小值
+   right = lastCol + 4; //列的最大值
+   if (top < 0 || right > (line_col - 1)) { //右上出界
+       if (lastRow < (line_col - 1 - lastCol)) {//判断行先出界还是列先出界
+           top = 0; //行出界
+           right = lastRow + lastCol; //行几步出界，列就几步
+       } else {
+           right = line_col - 1;
+           top = lastRow - (line_col - 1 - lastCol);//列几步出界，行就几步
+       }
+   }
     //左下
     button = lastRow + 4;//行最大值
     left = lastCol - 4; //列最小值
@@ -169,10 +185,10 @@ ChessResult GameControl::judgeResult(Chess chess)
         }
     }
     //统计棋子数目
-    for (i = top, j = left; i < button; i++, j--) {
+    for (i = top, j = right; i <= button; i++, j--) {
         if (chessState[i][j] == color) {
             count++;
-            if (count == 5) {
+            if (count == 5){
                 return result;
             }
         } else {
@@ -206,7 +222,7 @@ ChessResult GameControl::judgeResult(Chess chess)
         }
     }
     //统计棋子数目
-    for (i = top, j = left; i < button; i++, j++) {
+    for (i = top, j = left; i <= button; i++, j++) {
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {

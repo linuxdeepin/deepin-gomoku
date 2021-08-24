@@ -175,14 +175,14 @@ int ArtificialIntelligence::getScore(Situatuion situation)
     if (alive2 >= 2) {
         return LEVEL9; //双活二
     }
+    if (situation.sleep3 >= 1) {
+        return LEVEL10; //眠三
+    }
     if (situation.alive2 >= 1) {
-        return LEVEL10; //活二
+        return LEVEL11; //活二
     }
     if (situation.jump2 >= 1) {
-        return LEVEL11; //冲二
-    }
-    if (situation.sleep3 >= 1) {
-        return LEVEL12; //眠三
+        return LEVEL12; //冲二
     }
     if (situation.sleep2 >= 1) {
         return LEVEL13; //眠二
@@ -381,7 +381,7 @@ ChessFrom ArtificialIntelligence::judgeChessType(const int chess[9])
     if (count == 3) {
         //记录下断开位置旁边的位置的棋子颜色，用来判断这个三连能否有五连的机会
         int leftColor1  = chess[left - 1];
-        int rightColor1 = chess[right -1 ];
+        int rightColor1 = chess[right + 1];
 
         //三连珠两边位置都空，有五连珠的机会
         if (leftColor == chess_none && rightColor == chess_none) {
@@ -591,6 +591,7 @@ Position ArtificialIntelligence::maxScore(const int AIScore[line_row][line_col],
     */
     std::vector<Position> AIMaxPositions; //存储AI评分最高的位置
     std::vector<Position> userMaxPositions; //存储用户评分最高的位置
+    std::vector<Position> allMaxPosition; //双方都是最大值的位置
 
     //ai数组中的最大值，最大值可能有多个
     for (int i = 0; i < line_row; i++) {
@@ -632,20 +633,36 @@ Position ArtificialIntelligence::maxScore(const int AIScore[line_row][line_col],
     if (AIMaxScore >= userMaxScore) { //进攻
         int tempScore = 0;
         for (auto it : AIMaxPositions) {
-            if (userScore[it.x][it.y] >= tempScore) { //从AI的最大值中挑选用户也最大的位置
+            if (userScore[it.x][it.y] == tempScore) { //从AI的最大值中挑选用户也最大的位置
+                allMaxPosition.push_back(it);
+            }
+            if (userScore[it.x][it.y] > tempScore) {
                 tempScore = userScore[it.x][it.y];
-                position = it;
+                allMaxPosition.clear();
+                allMaxPosition.push_back(it);
             }
         }
-        return position;
     } else { //防守
         int tempScore = 0;
         for (auto it : userMaxPositions) {
-            if (AIScore[it.x][it.y] >= tempScore) { //从用户的最大值中挑选AI也最大的位置
+            if (AIScore[it.x][it.y] == tempScore) { //从用户的最大值中挑选AI也最大的位置
+                allMaxPosition.push_back(it);
+            }
+            if (AIScore[it.x][it.y] > tempScore) {
                 tempScore = AIScore[it.x][it.y];
-                position = it;
+                allMaxPosition.clear();
+                allMaxPosition.push_back(it);
             }
         }
-        return position;
     }
+
+    //判断最大值数目
+    if (allMaxPosition.size() == 1) {
+        position = allMaxPosition[0];
+    } else {
+        srand(static_cast<unsigned>(time(nullptr)));
+        int index = rand() % allMaxPosition.size();
+        position = allMaxPosition[index];
+    }
+    return position;
 }

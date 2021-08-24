@@ -39,16 +39,21 @@ signals:
     void gameOver(ChessResult result); //返回游戏结束标志
 
 public slots:
-    //接受主页面绘制完成棋子的信号
+    //接受主页面绘制完成棋子的槽函数
     void chessCompleted(Chess chess);
+
+    //重置游戏
+    void resetGame();
 
 private:
     int AIColor; //电脑颜色
     int userColor; //用户颜色
-    int chessState[line_row][line_col] = {0}; //棋盘状态数组
+    int chessState[line_row][line_col]; //棋盘状态数组
     bool AIPlaying; //ai下棋
 
     ArtificialIntelligence *AI;
+
+    void initGame(); //初始化数组
 
     //下棋函数，棋局判断和下棋者判断
     void playChess(Chess chess);

@@ -22,6 +22,8 @@
 #define ARTIFICIALINTELLIGENCE_H
 
 #include "constants.h"
+#include <ctime>
+#include <iostream>
 
 struct Position {
     int x;
@@ -79,9 +81,9 @@ private:
     static const int LEVEL7 = 100; //活三
     static const int LEVEL8 = 90; //冲三
     static const int LEVEL9 = 50; //双活二
-    static const int LEVEL10 = 10; //活二
-    static const int LEVEL11 = 9; //冲二
-    static const int LEVEL12 = 5; //眠三
+    static const int LEVEL10 = 10; //眠三
+    static const int LEVEL11 = 9; //活二
+    static const int LEVEL12 = 5; //冲二
     static const int LEVEL13 = 2; //眠二
     static const int LEVEL14 = 1; //安全
     static const int LEVEL15 = 0; //已有棋子
