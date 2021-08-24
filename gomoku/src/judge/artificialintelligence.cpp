@@ -157,7 +157,7 @@ int ArtificialIntelligence::getScore(Situatuion situation)
     if (alive3 >= 2) {
         return LEVEL3; //双活三
     }
-    if (situation.sleep3 >= 1 && situation.alive3 >= 1) {
+    if (situation.sleep3 >= 1 && alive3 >= 1) {
         return LEVEL4; //眠三活三
     }
     if (situation.sleep4 >= 1) {
