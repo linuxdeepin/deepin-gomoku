@@ -78,8 +78,8 @@ void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
             painter->save();
             painter->setPen("#86582E");
             painter->setBrush(QColor("#86582E"));
-            painter->drawEllipse((static_cast<int>(boundingRect().width()) / 2) - 4,
-                                 (static_cast<int>(boundingRect().height()) / 2) - 4,
+            painter->drawEllipse((static_cast<int>(boundingRect().width()) / 2) - 5,
+                                 (static_cast<int>(boundingRect().height()) / 2) - 5,
                                  10,
                                  10);
             painter->restore();

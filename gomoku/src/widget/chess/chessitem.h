@@ -38,11 +38,12 @@ public:
 
 signals:
     void signalCPaintItem(ChessItem *item); //当前绘制的item
-    void signalGameOver();
 
 public slots:
     void slotGameStart();
     void slotGameStop();
+    void slotGameOver();
+    void slotIsAIPlaying(bool AIPlaying);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -54,9 +55,6 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
-private slots:
-    void slotGameOver();
-
 private:
     QPixmap backgroundPix;
     int chessType = 0; //棋子颜色
@@ -65,6 +63,7 @@ private:
     bool chessStatus = false; //是否有棋子标志
     bool gameStatus = true; //是否暂停
     bool gameOver = false; //游戏结束
+    bool isAIPlaying = false;
 };
 
 #endif // chessITEM_H

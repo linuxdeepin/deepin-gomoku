@@ -46,7 +46,9 @@ public slots:
 
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
+    void signalIsAIPlaying(bool AIPlaying);
     void signalGameOver();
+    void signalRestGame();
 
 private:
     void initCheckerboard();

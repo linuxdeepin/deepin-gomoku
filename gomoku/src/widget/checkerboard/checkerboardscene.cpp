@@ -23,7 +23,6 @@
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
 #include <QTransform>
-#include <QTime>
 
 CheckerboardScene::CheckerboardScene(QObject *parent)
     : QGraphicsScene(parent)
@@ -34,7 +33,6 @@ CheckerboardScene::CheckerboardScene(QObject *parent)
     , playingScreen(new PlayingScreen)
 {
     initCheckerboard();
-    initChess();
     initPlayingScreen();
     initFunctionButton();
     connect(buttonStartPause, &BTStartPause::signalGameStop, this, &CheckerboardScene::slotGameStop);
@@ -80,10 +78,11 @@ void CheckerboardScene::initChess()
         QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_col; j++) {
             ChessItem *chess = new ChessItem(userChessType);
-            connect(this, &CheckerboardScene::signalGameOver, chess, &ChessItem::signalGameOver);
-            connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);
-            connect(buttonStartPause, &BTStartPause::signalGameStart, chess, &ChessItem::slotGameStart);
-            connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);
+            connect(this, &CheckerboardScene::signalGameOver, chess, &ChessItem::slotGameOver);//游戏结束
+            connect(this, &CheckerboardScene::signalIsAIPlaying, chess, &ChessItem::slotIsAIPlaying);//当前旗手
+            connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);//暂停游戏
+            connect(buttonStartPause, &BTStartPause::signalGameStart, chess, &ChessItem::slotGameStart);//开始游戏
+            connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);//落子坐标,判断输赢
             chess->setPos(105 - 22 + 44 * j, 89 - 22 + 44 * i);
             pieceItems.append(chess);
             addItem(chess);
@@ -96,13 +95,16 @@ void CheckerboardScene::initChess()
 //初始化功能按钮
 void CheckerboardScene::initFunctionButton()
 {
+    //开始/暂停游戏
     buttonStartPause->setPos(764, 235 + 6);
     addItem(buttonStartPause);
 
+    //重玩游戏
     buttonReplay->setPos(764, 315 + 6);
     connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::slotreplayFunction);
     addItem(buttonReplay);
 
+    //音乐控制
     buttonMusicControl->setPos(764, 590 + 6);
     addItem(buttonMusicControl);
 }
@@ -110,6 +112,7 @@ void CheckerboardScene::initFunctionButton()
 //初始化下棋详情
 void CheckerboardScene::initPlayingScreen()
 {
+    //棋盘
     playingScreen->setPos(710, 6);
     addItem(playingScreen);
 }
@@ -125,8 +128,8 @@ void CheckerboardScene::slotreplayFunction()
             }
         }
         chessItemList.clear();
-
         initChess();
+        emit signalRestGame();//通知游戏控制,重置游戏
     }
 }
 
@@ -164,6 +167,7 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
 void CheckerboardScene::setchessType(int chess)
 {
     userChessType = chess;
+    initChess();
 }
 
 //绘制棋子

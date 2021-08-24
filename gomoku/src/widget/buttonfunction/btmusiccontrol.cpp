@@ -72,4 +72,5 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 void BTMusicControl::buttonFunction()
 {
     //控制音乐
+    emit signalMusic();
 }

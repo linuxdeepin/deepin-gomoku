@@ -87,10 +87,13 @@ void GomokuMainWindow::initUI()
 //初始化游戏
 void GomokuMainWindow::initGame()
 {
-    GameControl *gameControl = new GameControl(chess_white, chess_black);
-    connect(checkerboardScene, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);
-    connect(gameControl, &GameControl::AIPlayChess, checkerboardScene, &CheckerboardScene::slotPaintAIChess);
-    connect(gameControl, &GameControl::gameOver, checkerboardScene, &CheckerboardScene::signalGameOver);
+    GameControl *gameControl = new GameControl(chess_black, chess_white);
+    checkerboardScene->setchessType(chess_white);//设置玩家棋子颜色
+    connect(checkerboardScene, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
+    connect(checkerboardScene, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
+    connect(gameControl, &GameControl::AIPlayChess, checkerboardScene, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
+    connect(gameControl, &GameControl::isAIPlaying, checkerboardScene, &CheckerboardScene::signalIsAIPlaying);//通知棋子,当前旗手
+    connect(gameControl, &GameControl::gameOver, checkerboardScene, &CheckerboardScene::signalGameOver);//游戏结束
     connect(gameControl, &GameControl::gameOver, this, [] {
         //失败弹出,暂时效果
         DDialog promptDialog;
@@ -99,7 +102,7 @@ void GomokuMainWindow::initGame()
         promptDialog.setMessage("game over");
         promptDialog.exec();
     });
-    gameControl->startGame();
+    gameControl->startGame();//开始游戏
 }
 
 //绘制titlebar背景

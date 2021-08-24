@@ -25,6 +25,7 @@
 
 class BTMusicControl : public ButtonItem
 {
+    Q_OBJECT
 public:
     explicit BTMusicControl(QGraphicsItem *parent = nullptr);
     ~BTMusicControl() override;
@@ -32,6 +33,9 @@ public:
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+signals:
+    void signalMusic();
 
 private:
     void buttonFunction() override;

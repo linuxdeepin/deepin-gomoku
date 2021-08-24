@@ -36,6 +36,7 @@ public:
 
 signals:
     void AIPlayChess(Chess chess); //电脑下棋
+    void isAIPlaying(bool AIPlaying); //谁在下棋
     void gameOver(ChessResult result); //返回游戏结束标志
 
 public slots:

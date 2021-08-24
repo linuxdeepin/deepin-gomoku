@@ -33,7 +33,6 @@ ChessItem::ChessItem(int userChessColor, QGraphicsItem *parent)
     , userChessType(userChessColor)
 {
     setAcceptHoverEvents(true);
-    connect(this, &ChessItem::signalGameOver, this, &ChessItem::slotGameOver);
 }
 
 //设置棋子
@@ -124,6 +123,9 @@ void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     if (!gameOver && gameStatus) {
         hoverStatus = true;
+        //当前位置没有棋子,设置棋子颜色
+        if (!chessStatus)
+            setCurrentchess(userChessType);
     }
     QGraphicsItem::hoverEnterEvent(event);
 }
@@ -141,10 +143,11 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (hoverStatus && !chessStatus) {
-        setCurrentchess(userChessType);
-        setchessStatus(true);
-    }
+    if (!isAIPlaying)
+        //玩家下棋才能落子
+        if (hoverStatus && !chessStatus) {
+            setchessStatus(true);
+        }
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
@@ -152,6 +155,12 @@ void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 void ChessItem::slotGameOver()
 {
     gameOver = true;
+}
+
+//判断旗手
+void ChessItem::slotIsAIPlaying(bool AIPlaying)
+{
+    isAIPlaying = AIPlaying;
 }
 
 //开始游戏
