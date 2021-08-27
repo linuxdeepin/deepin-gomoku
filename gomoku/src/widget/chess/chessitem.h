@@ -36,6 +36,8 @@ public:
     void setchessStatus(bool chessstatus);
     bool getchessStatus();
 
+    int getChessPlayer();
+
 signals:
     void signalCPaintItem(ChessItem *item); //当前绘制的item
 

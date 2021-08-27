@@ -29,6 +29,7 @@
 
 class ButtonItem : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
 public:
     explicit ButtonItem(QGraphicsItem *parent = nullptr);
     ~ButtonItem() override;
@@ -36,6 +37,9 @@ public:
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+public slots:
+    void slotStartGame();
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
@@ -45,7 +49,8 @@ protected:
 
     virtual void buttonFunction();
 
-    bool mouseReleased = false; //鼠标是否释放
+    bool mouseReleased = true; //鼠标是否释放
+    bool gamePlaying = false;
 private:
     QPixmap backgrounePix; //背景图片
     bool hoverStatus = false; //hover状态标志

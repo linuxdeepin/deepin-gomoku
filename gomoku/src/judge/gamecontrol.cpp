@@ -20,6 +20,7 @@
    */
 #include "gamecontrol.h"
 #include <QDebug>
+#include <QTimer>
 GameControl::GameControl(int AIColor, int userColor, QObject *parent) : QObject(parent)
 {
     this->AIColor = AIColor;
@@ -54,6 +55,10 @@ void GameControl::initGame()
     } else {
         AIPlaying = false;
     }
+    if (gameReset)
+        gameReset = false;
+
+    initGameStatus = true;
 }
 
 //开始游戏
@@ -73,6 +78,7 @@ void GameControl::chessCompleted(Chess chess)
 //重置游戏
 void GameControl::resetGame()
 {
+    gameReset = true; //设置重玩的标志
     initGame();//初始化游戏
     startGame(); //开始游戏
 }
@@ -83,14 +89,39 @@ void GameControl::playChess(Chess chess)
     ChessResult result;
     if ((result = judgeResult(chess)) == playing) { //游戏正在进行中
         emit isAIPlaying(AIPlaying); //发送旗手信号
-        if (AIPlaying) {
-            Position AIpos = AI->getPosition(chessState, AIColor); //AI计算最佳落子位置
-            Chess  chess(AIpos.x, AIpos.y, AIColor);
-            emit AIPlayChess(chess); //发送AI下棋信号
+        setAIChess();
+    } else {
+        emit gameOver(result); //游戏结束，发送结束状态
+    }
+}
+
+//AI下棋
+void GameControl::setAIChess()
+{
+    bool currentGameStatus = gameReset; //记录当前是否重玩游戏
+    if (!gameReset) { //没有重置游戏
+        if (AIPlaying) { //AI下棋
+            if (initGameStatus) { //如果是初始化,则减少延时时间
+                QTimer::singleShot(100, this, [ = ] {
+                    Position AIpos = AI->getPosition(chessState, AIColor); //AI计算最佳落子位置
+                    Chess  chess(AIpos.x, AIpos.y, AIColor);
+                    emit AIPlayChess(chess); //发送AI下棋信号
+                });
+                initGameStatus = false;
+            } else {
+                //延时函数,AI思考时间(方便显示回合信息)
+                QTimer::singleShot(888, this, [ = ] {
+                    Position AIpos = AI->getPosition(chessState, AIColor); //AI计算最佳落子位置
+                    Chess  chess(AIpos.x, AIpos.y, AIColor);
+                    if (!currentGameStatus && !AIPlaying)
+                        emit AIPlayChess(chess); //发送AI下棋信号
+                });
+            }
         }
         AIPlaying = !AIPlaying; //下一位下棋者
     } else {
-        emit gameOver(result); //游戏结束，发送结束状态
+        //重置重玩游戏的标志
+        gameReset = false;
     }
 }
 

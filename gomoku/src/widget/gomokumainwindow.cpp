@@ -87,8 +87,9 @@ void GomokuMainWindow::initUI()
 //初始化游戏
 void GomokuMainWindow::initGame()
 {
-    GameControl *gameControl = new GameControl(chess_black, chess_white);
-    checkerboardScene->setchessType(chess_white);//设置玩家棋子颜色
+    GameControl *gameControl = new GameControl(chess_white, chess_black);
+    checkerboardScene->setchessType(chess_black);//设置玩家棋子颜色
+    checkerboardScene->startGame();
     connect(checkerboardScene, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
     connect(checkerboardScene, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
     connect(gameControl, &GameControl::AIPlayChess, checkerboardScene, &CheckerboardScene::slotPaintAIChess);//绘制AI落子

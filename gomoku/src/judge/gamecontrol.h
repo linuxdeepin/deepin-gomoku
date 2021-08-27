@@ -51,6 +51,8 @@ private:
     int userColor; //用户颜色
     int chessState[line_row][line_col]; //棋盘状态数组
     bool AIPlaying; //ai下棋
+    bool gameReset = false; //重玩游戏标志
+    bool initGameStatus = false; //初始化游戏
 
     ArtificialIntelligence *AI;
 
@@ -61,5 +63,8 @@ private:
 
     //判断棋局结果
     ChessResult judgeResult(Chess chess);
+
+private slots:
+    void setAIChess();
 };
 #endif // GAMECONTROL_H

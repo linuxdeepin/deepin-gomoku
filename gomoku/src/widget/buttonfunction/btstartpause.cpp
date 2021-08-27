@@ -44,9 +44,9 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->save();
     painter->setPen(Qt::NoPen);
     if (mouseReleased) {
-        painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/stop.svg"));
-    } else {
         painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/begin.svg"));
+    } else {
+        painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/stop.svg"));
     }
     painter->restore();
 
@@ -58,9 +58,9 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->setFont(font);
     painter->setPen(QColor("#024526"));
     if (mouseReleased) {
-        painter->drawText(QPointF(80, 40), "暂停");
-    } else {
         painter->drawText(QPointF(80, 40), "开始");
+    } else {
+        painter->drawText(QPointF(80, 40), "暂停");
     }
     painter->restore();
 }

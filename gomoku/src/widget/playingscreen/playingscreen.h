@@ -22,20 +22,29 @@
 #define PLAYINGSCREEN_H
 
 #include <QGraphicsItem>
+#include <QObject>
 
-class PlayingScreen : public QGraphicsItem
+class PlayingScreen : public QObject, public QGraphicsItem
 {
+    Q_OBJECT
 public:
     explicit PlayingScreen(QGraphicsItem *parent = nullptr);
+    ~PlayingScreen() override;
 
     void setCurrentPlay(bool player);
+    void setCurrentChessColor(bool AIPlaying, int chesscolor);
 
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+public slots:
+    void slotStartGame();
+
 private:
-    bool currentPlayer = false;
+    bool AIPlayer = false; //旗手
+    bool gamePlaying = false; //游戏是否开始
+    int currentChessColro = 0; //棋子颜色
 };
 
 #endif // PLAYINGSCREEN_H

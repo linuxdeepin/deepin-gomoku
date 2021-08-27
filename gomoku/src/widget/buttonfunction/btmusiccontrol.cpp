@@ -23,7 +23,6 @@
 BTMusicControl::BTMusicControl(QGraphicsItem *parent)
     : ButtonItem(parent)
 {
-
 }
 
 BTMusicControl::~BTMusicControl()

@@ -30,7 +30,7 @@
 ChessItem::ChessItem(int userChessColor, QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , backgroundPix(":/resources/black_chess.svg")
-    , userChessType(userChessColor)
+    , chessType(userChessColor)
 {
     setAcceptHoverEvents(true);
 }
@@ -60,6 +60,12 @@ bool ChessItem::getchessStatus()
     return chessStatus;
 }
 
+//获取当前旗手
+int ChessItem::getChessPlayer()
+{
+    return isAIPlaying;
+}
+
 void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
@@ -72,9 +78,9 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     if (chessStatus) {
         painter->save();
         painter->setPen(Qt::NoPen);
-        if (chessType == 2) {
+        if (chessType == chess_white) {
             chessPixmap = QPixmap(":/resources/white_chess.svg");
-        } else if (chessType == 1) {
+        } else if (chessType == chess_black) {
             chessPixmap = QPixmap(":/resources/black_chess.svg");
         }
         painter->setBrush(chessPixmap);
@@ -92,9 +98,9 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             //绘制白点或黑点
             painter->save();
             painter->setPen(Qt::NoPen);
-            if (chessType == 2) {
+            if (chessType == chess_white) {
                 chessColor = Qt::white;
-            } else if (chessType == 1) {
+            } else if (chessType == chess_black) {
                 chessColor = Qt::black;
                 chessColor.setAlphaF(0.7);
             }
@@ -122,10 +128,11 @@ QRectF ChessItem::boundingRect() const
 void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     if (!gameOver && gameStatus) {
-        hoverStatus = true;
-        //当前位置没有棋子,设置棋子颜色
-        if (!chessStatus)
-            setCurrentchess(userChessType);
+        //当前位置没有棋子,并且非AI下棋设置棋子颜色
+        if (!chessStatus && !isAIPlaying) {
+            hoverStatus = true;
+            setCurrentchess(chessType);
+        }
     }
     QGraphicsItem::hoverEnterEvent(event);
 }
@@ -143,11 +150,10 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (!isAIPlaying)
-        //玩家下棋才能落子
-        if (hoverStatus && !chessStatus) {
-            setchessStatus(true);
-        }
+    //玩家下棋才能落子
+    if (contains(event->pos()) && hoverStatus && !chessStatus) {
+        setchessStatus(true);
+    }
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
