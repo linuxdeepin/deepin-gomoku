@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(deepin-gomoku)
+project(com.deepin.gomoku)
 
 #compile flags
 if (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -58,4 +58,4 @@ qt5_create_translation(DTNG_QM_FILES
      
  set(CMAKE_INSTALL_PREFIX /usr)
  file(GLOB APP_QM_FILES "translations/*.qm")
- install(FILES ${APP_QM_FILES} DESTINATION share/deepin-gomoku/translations)
+ install(FILES ${APP_QM_FILES} DESTINATION share/com.deepin.gomoku/translations)

@@ -1,11 +1,11 @@
-Source: deepin-gomoku
+Source: com.deepin.gomoku
 Section: utils
 Priority: optional
 Maintainer: Deepin Packages Builder <packages@deepin.com>
 Build-Depends: debhelper (>= 11),cmake, pkg-config, qtbase5-dev, qtchooser (>= 55-gc9562a1-1~),qt5-qmake, libdtkwidget-dev, qttools5-dev-tools, libqt5svg5-dev, qttools5-dev,libgtest-dev, libgmock-dev 
 Standards-Version: 4.3.0
 
-Package: deepin-gomoku
+Package: com.deepin.gomoku
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description:Gomoku is a small chess game for two players.

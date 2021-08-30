@@ -7,8 +7,8 @@ endif ()
 
 #common resource names
 set(APP_RES_DIR "assets")
-set(APP_BIN_NAME "deepin-gomoku")
-set(APP_DESKTOP "${APP_RES_DIR}/deepin-gomoku.desktop")
+set(APP_BIN_NAME "com.deepin.gomoku")
+set(APP_DESKTOP "${APP_RES_DIR}/com.deepin.gomoku.desktop")
 set(APP_QRC "${APP_RES_DIR}/resources.qrc")
 
 project(${APP_BIN_NAME})
@@ -86,7 +86,7 @@ set(CMAKE_INSTALL_PREFIX /usr)
 #install(FILES ${APP_DESKTOP} DESTINATION share/applications)
 
 install(FILES ${APP_DESKTOP} DESTINATION share/applications)
-install(FILES assets/deepin-gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
-install(FILES assets/resources/desktop/deepin-gomoku.svg
+install(FILES assets/com.deepin.gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES assets/resources/desktop/com.deepin.gomoku.svg
             DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps/)
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

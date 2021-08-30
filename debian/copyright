@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: deepin-gomoku
-Source: https://github.com/linuxdeepin/deepin-gomoku
+Upstream-Name: com.deepin.gomoku
+Source: https://github.com/linuxdeepin/com.deepin.gomoku
 
 Files: *
 Copyright: 2017 Deepin Technology Co., Ltd.

@@ -57,11 +57,11 @@ int main(int argc, char *argv[])
     if (DGuiApplicationHelper::setSingleInstance(app->applicationName(), DGuiApplicationHelper::UserScope)) {
 //        QAccessible::installFactory(accessibleFactory);
         app->setOrganizationName("deepin");
-        app->setApplicationName("deepin-gomoku");
+        app->setApplicationName("com.deepin.gomoku");
         app->loadTranslator();
         app->setApplicationVersion(VERSION);
 
-        QIcon t_icon = QIcon::fromTheme("deepin-gomoku");
+        QIcon t_icon = QIcon::fromTheme("com.deepin.gomoku");
         app->setProductIcon(t_icon);
         app->setProductName(QApplication::translate("GomokuWindow", "Gomoku"));
         app->setApplicationDescription(QApplication::translate("GomokuWindow", "Gomoku is a small chess game for two players."));

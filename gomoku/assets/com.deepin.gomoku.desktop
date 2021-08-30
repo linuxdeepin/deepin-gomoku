@@ -1,0 +1,11 @@
+[Desktop Entry]
+Categories=Qt
+Exec=/usr/bin/com.deepin.gomoku %F
+GenericName=Gomoku
+Icon=com.deepin.gomoku
+Keywords=gomoku;game;deepin;
+Name=com.deepin.gomoku
+StartupNotify=true
+TryExec=/usr/bin/com.deepin.gomoku
+Type=Application
+X-Deepin-Vendor=user-custom
