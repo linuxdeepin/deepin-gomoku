@@ -22,6 +22,8 @@
 
 BTStartPause::BTStartPause(QGraphicsItem *parent)
     : ButtonItem(parent)
+    , beginPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/begin.svg"))
+    , stopPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/stop.svg"))
 {
 }
 
@@ -40,13 +42,18 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    qreal rectWidth = this->boundingRect().width();
+    qreal rectHeight = this->boundingRect().height();
+
     painter->setRenderHint(QPainter::Antialiasing);
     painter->save();
     painter->setPen(Qt::NoPen);
     if (mouseReleased) {
-        painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/begin.svg"));
+        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                            beginPixmap);
     } else {
-        painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/stop.svg"));
+        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                            stopPixmap);
     }
     painter->restore();
 
@@ -58,9 +65,11 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     painter->setFont(font);
     painter->setPen(QColor("#024526"));
     if (mouseReleased) {
-        painter->drawText(QPointF(80, 40), "开始");
+        painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                          "开始");
     } else {
-        painter->drawText(QPointF(80, 40), "暂停");
+        painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                          "暂停");
     }
     painter->restore();
 }

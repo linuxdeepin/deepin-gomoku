@@ -22,6 +22,8 @@
 
 BTMusicControl::BTMusicControl(QGraphicsItem *parent)
     : ButtonItem(parent)
+    , voicePixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/voice.svg"))
+    , voiceOffPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/voiceoff.svg"))
 {
 }
 
@@ -41,15 +43,20 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    qreal rectWidth = this->boundingRect().width();
+    qreal rectHeight = this->boundingRect().height();
+
     painter->setRenderHint(QPainter::Antialiasing);
 
     painter->save();
     painter->setPen(Qt::NoPen);
     //声音控制图片
     if (mouseReleased) {
-        painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/voiceoff.svg"));
+        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                            voiceOffPixmap);
     } else {
-        painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/voice.svg"));
+        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                            voicePixmap);
     }
     painter->restore();
 
@@ -60,9 +67,11 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     painter->setFont(font);
     painter->setPen(QColor("#024526"));
     if (mouseReleased) {
-        painter->drawText(QPointF(60, 40), "开启音乐");
+        painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
+                          "开启音乐");
     } else {
-        painter->drawText(QPointF(60, 40), "关闭音乐");
+        painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
+                          "关闭音乐");
     }
     painter->restore();
 }

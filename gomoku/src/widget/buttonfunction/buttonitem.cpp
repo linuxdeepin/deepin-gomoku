@@ -22,7 +22,10 @@
 
 ButtonItem::ButtonItem(QGraphicsItem *parent)
     : QGraphicsItem(parent)
-    , backgrounePix(":/resources/function_button/normal.svg")
+    , backgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/normal.svg"))
+    , normalBackgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/normal.svg"))
+    , hoverBackgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/hover.svg"))
+    , PressBackgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/press.svg"))
 {
     setAcceptHoverEvents(true);
 }
@@ -34,7 +37,8 @@ ButtonItem::~ButtonItem()
 
 QRectF ButtonItem::boundingRect() const
 {
-    return QRectF(0, 0, backgrounePix.width(), backgrounePix.height());
+    //按钮rect大小
+    return QRectF(0, 0, 200, 60);
 }
 
 void ButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -45,8 +49,7 @@ void ButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->setRenderHint(QPainter::Antialiasing);
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->setBrush(backgrounePix);
-    painter->drawRect(boundingRect());
+    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
     painter->restore();
 }
 
@@ -63,14 +66,14 @@ void ButtonItem::slotStartGame()
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    backgrounePix = QPixmap(":/resources/function_button/hover.svg");
+    backgrounePix = hoverBackgrounePix;
     QGraphicsItem::hoverEnterEvent(event);
 }
 
 //设置正常图片
 void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
-    backgrounePix = QPixmap(":/resources/function_button/normal.svg");
+    backgrounePix =  normalBackgrounePix;
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
@@ -78,7 +81,7 @@ void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     event->accept();
-    backgrounePix = QPixmap(":/resources/function_button/press.svg");
+    backgrounePix = PressBackgrounePix;
     update();
 }
 
@@ -86,7 +89,7 @@ void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (contains(event->pos())) {
-        backgrounePix = QPixmap(":/resources/function_button/normal.svg");
+        backgrounePix =  normalBackgrounePix;
         //游戏开始后,才可以使用按钮
         if (gamePlaying) {
             mouseReleased = !mouseReleased;

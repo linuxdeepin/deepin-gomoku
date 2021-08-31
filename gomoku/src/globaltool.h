@@ -18,32 +18,30 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef BTSTARTPAUSE_H
-#define BTSTARTPAUSE_H
+#ifndef GLOBALTOOL_H
+#define GLOBALTOOL_H
 
-#include "buttonitem.h"
+#include <QPixmap>
+#include <QWidget>
+#include <QIcon>
+#include <QApplication>
+#include <QImageReader>
 
-class BTStartPause : public ButtonItem
+class Globaltool
 {
-    Q_OBJECT
 public:
-    explicit BTStartPause(QGraphicsItem *parent = nullptr);
-    ~BTStartPause() override;
-
-signals:
-    void signalGameStart(); //游戏开始信号
-    void signalGameStop(); //游戏暂停信号
-
-public:
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
-private:
-    void buttonFunction() override;
-
-private:
-    QPixmap beginPixmap; //开始按钮图片
-    QPixmap stopPixmap; //暂停按钮图片
+    Globaltool();
+    ~Globaltool();
+    static Globaltool *getGlobaltool();
+    //去除图片锯齿, 可以拉伸大小, 可留做全局功能函数
+    /**
+     * @brief getDpiPixmap 去除图片锯齿,
+     * @param size 需要的图片大小
+     * @param filename 图片路径
+     * @param w 父窗口
+     * @return 图片
+     */
+    static QPixmap getDpiPixmap(QSize size, const QString filename, QWidget *w);
 };
 
-#endif // BTSTARTPAUSE_H
+#endif // GLOBALTOOL_H

@@ -21,9 +21,13 @@
 #ifndef CHECKERBOARDITEM_H
 #define CHECKERBOARDITEM_H
 
-#include <QGraphicsPixmapItem>
+#include <DHiDPIHelper>
 
-class CheckerboardItem : public QGraphicsPixmapItem
+#include <QGraphicsItem>
+
+DWIDGET_USE_NAMESPACE
+
+class CheckerboardItem : public QGraphicsItem
 {
 public:
     explicit CheckerboardItem(QGraphicsItem *parent = nullptr);
@@ -34,6 +38,9 @@ public:
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+private:
+    QPixmap  checkerboardPixmap; //背景图片
 };
 
 #endif // CHECKERBOARDITEM_H

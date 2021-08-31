@@ -28,9 +28,9 @@
 const int line_num = 13;
 
 CheckerboardItem::CheckerboardItem(QGraphicsItem *parent)
-    : QGraphicsPixmapItem(parent)
+    : QGraphicsItem(parent)
+    , checkerboardPixmap(DHiDPIHelper::loadNxPixmap(":/resources/checkerboard.svg"))
 {
-    setPixmap(QPixmap(":/resources/checkerboard.svg"));
 }
 
 CheckerboardItem::~CheckerboardItem()
@@ -39,8 +39,8 @@ CheckerboardItem::~CheckerboardItem()
 
 QRectF CheckerboardItem::boundingRect() const
 {
-    QRect pixRect = pixmap().rect();
-    return QRectF(0, 0, pixRect.width(), pixRect.height());
+    //设置棋盘大小
+    return QRectF(0, 0, 640, 640);
 }
 
 void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -51,8 +51,7 @@ void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     painter->setRenderHint(QPainter::Antialiasing);
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->setBrush(pixmap());
-    painter->drawRect(boundingRect());
+    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), checkerboardPixmap);
     painter->restore();
 
     painter->save();
@@ -63,23 +62,25 @@ void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
     pen.setColor(penColor);
     painter->setPen(pen);
     for (int i = 0; i < line_num; i++) {
+        //655为实测宽度
         //横线
         painter->drawLine(backgrond_margin,
                           backgrond_margin + chess_size + chess_size * i,
-                          static_cast<int>(boundingRect().width()) - backgrond_margin,
+                          655,
                           backgrond_margin + chess_size + chess_size * i);
         //竖线
         painter->drawLine(backgrond_margin + chess_size + chess_size * i,
                           backgrond_margin,
                           backgrond_margin + chess_size + chess_size * i,
-                          static_cast<int>(boundingRect().height() - backgrond_margin));
+                          655);
         if (i == line_num / 2) {
             //天元点绘制
             painter->save();
             painter->setPen("#86582E");
             painter->setBrush(QColor("#86582E"));
-            painter->drawEllipse((static_cast<int>(boundingRect().width()) / 2) - 5,
-                                 (static_cast<int>(boundingRect().height()) / 2) - 5,
+            //6为偏移量,调整位置
+            painter->drawEllipse(backgrond_margin + chess_size + chess_size * i - 6,
+                                 backgrond_margin + chess_size + chess_size * i - 6,
                                  10,
                                  10);
             painter->restore();

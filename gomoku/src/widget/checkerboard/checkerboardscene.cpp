@@ -24,7 +24,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTransform>
 
-CheckerboardScene::CheckerboardScene(QObject *parent)
+CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent)
     : QGraphicsScene(parent)
     , cbitem(new CheckerboardItem)
     , buttonStartPause(new BTStartPause)
@@ -33,6 +33,8 @@ CheckerboardScene::CheckerboardScene(QObject *parent)
     , playingScreen(new PlayingScreen)
     , AIChess(-1, -1, 0)
 {
+    //设置scene大小
+    setSceneRect(x, y, width, height);
     initCheckerboard();
     initPlayingScreen();
     initFunctionButton();
@@ -47,6 +49,12 @@ CheckerboardScene::CheckerboardScene(QObject *parent)
 
 CheckerboardScene::~CheckerboardScene()
 {
+    for (int i = 0; i < line_row; i++) {
+        for (int j = 0; j < line_col; j++) {
+            removeItem(chessItemList.at(i).at(j));
+            delete chessItemList.at(i).at(j);
+        }
+    }
     chessItemList.clear();
     if (cbitem != nullptr) {
         delete cbitem;
@@ -73,7 +81,8 @@ CheckerboardScene::~CheckerboardScene()
 //初始化棋盘
 void CheckerboardScene::initCheckerboard()
 {
-    cbitem->setPos(22, 6);
+
+    cbitem->setPos(this->width() * CheckerboardPosWidth, this->height() * CheckerboardPosHeight);
     addItem(cbitem);
 }
 
@@ -89,7 +98,10 @@ void CheckerboardScene::initChess()
             connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);//暂停游戏
             connect(buttonStartPause, &BTStartPause::signalGameStart, chess, &ChessItem::slotGameStart);//开始游戏
             connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);//落子坐标,判断输赢
-            chess->setPos(105 - 22 + 44 * j, 89 - 22 + 44 * i);
+            //整个棋盘左上角点,加上偏移量到达绘制区域,减去棋格半径是以棋子所在rect左上角为圆点绘制棋子
+            //循环添加每个位置棋子
+            chess->setPos(this->width() * lefttopChessPosWidth + chessOffset  - chess_size / 2 + chess_size * j,
+                          this->height() * lefttopChessPosHeight + chessOffset  - chess_size / 2 + chess_size * i);
             pieceItems.append(chess);
             addItem(chess);
             chessHasPaint[i][j] = false;
@@ -102,16 +114,15 @@ void CheckerboardScene::initChess()
 void CheckerboardScene::initFunctionButton()
 {
     //开始/暂停游戏
-    buttonStartPause->setPos(764, 235 + 6);
+    buttonStartPause->setPos(this->width() * buttonPosWidth, this->height() * buttonStartPausePosHeight);
     addItem(buttonStartPause);
-
     //重玩游戏
-    buttonReplay->setPos(764, 315 + 6);
+    buttonReplay->setPos(this->width() * buttonPosWidth, this->height() * buttonReplayPosHeight);
     connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::slotreplayFunction);
     addItem(buttonReplay);
 
     //音乐控制
-    buttonMusicControl->setPos(764, 590 + 6);
+    buttonMusicControl->setPos(this->width() * buttonPosWidth, this->height() * buttonMusicControlPosHeight);
     addItem(buttonMusicControl);
 }
 
@@ -119,7 +130,7 @@ void CheckerboardScene::initFunctionButton()
 void CheckerboardScene::initPlayingScreen()
 {
     //棋盘
-    playingScreen->setPos(710, 6);
+    playingScreen->setPos(this->width() * playingScreenPosWidth, this->height() * playingScreenPosHeight);
     addItem(playingScreen);
 }
 
@@ -141,6 +152,7 @@ void CheckerboardScene::slotreplayFunction()
         for (int i = 0; i < line_row; i++) {
             for (int j = 0; j < line_col; j++) {
                 removeItem(chessItemList.at(i).at(j));
+                chessItemList.at(i).at(j)->deleteLater();
                 chessHasPaint[i][j] = false;
             }
         }

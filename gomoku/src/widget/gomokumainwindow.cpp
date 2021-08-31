@@ -19,7 +19,6 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gomokumainwindow.h"
-#include "constants.h"
 
 #include <QGraphicsView>
 #include <QHBoxLayout>
@@ -35,6 +34,7 @@
 GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     : DMainWindow(parent)
 {
+    setFixedSize(QSize(widgetWidth, widgetHeight));
     setContentsMargins(QMargins(0, 0, 0, 0));
 
     setWindowTitle(tr("deepin-gomoku"));
@@ -54,7 +54,7 @@ GomokuMainWindow::~GomokuMainWindow()
 void GomokuMainWindow::initUI()
 {
     //background
-    QPixmap backgroundImage(":/resources/background.svg");
+    QPixmap backgroundImage = DHiDPIHelper::loadNxPixmap(":/resources/background.svg");
     DPalette palette;
     palette.setColor(DPalette::Background, Qt::transparent);
     palette.setBrush(QPalette::Background, QBrush(backgroundImage));
@@ -74,14 +74,13 @@ void GomokuMainWindow::initUI()
     wcheckerBoard->setWindowFlags(Qt::FramelessWindowHint);
     wcheckerBoard->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     wcheckerBoard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    wcheckerBoard->setFixedSize(widgetWidth, widgetHeight - titlebar()->height());
+    wcheckerBoard->setFixedSize(this->width(), this->height() - titlebar()->height());
     wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
-    checkerboardScene = new CheckerboardScene();
-    checkerboardScene->setSceneRect(0, 0, widgetWidth, widgetHeight - titlebar()->height());
+
+    checkerboardScene = new CheckerboardScene(0, 0, this->width(), this->height() - titlebar()->height());
     wcheckerBoard->setScene(checkerboardScene);
 
     setCentralWidget(wcheckerBoard);
-    setFixedSize(QSize(widgetWidth, widgetHeight));
 }
 
 //初始化游戏

@@ -21,7 +21,11 @@
 #ifndef CHESSITEM_H
 #define CHESSITEM_H
 
+#include <DHiDPIHelper>
+
 #include <QGraphicsItem>
+
+DWIDGET_USE_NAMESPACE
 
 class ChessItem : public QObject, public QGraphicsItem
 {
@@ -58,7 +62,8 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-    QPixmap backgroundPix;
+    QPixmap chessWhitePixmap; //白色棋子图片
+    QPixmap chessBlackPixmap; //黑色棋子图片
     int chessType = 0; //棋子颜色
     int userChessType = 0; //玩家棋子颜色
     bool hoverStatus = false; //hover状态标志

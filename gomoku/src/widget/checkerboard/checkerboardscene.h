@@ -35,7 +35,7 @@ class CheckerboardScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    explicit CheckerboardScene(QObject *parent = nullptr);
+    explicit CheckerboardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent = nullptr);
     ~CheckerboardScene() override;
 
     void setchessType(int chess = 0);
@@ -79,6 +79,18 @@ private:
     bool playChess = false; //是否是AI下棋
     bool AIChessStatus = false; //暂停游戏时,AI是否下棋
     Chess AIChess; //保存当前棋子位置
+    //以下位置参数,根据UI图得来
+    const qreal lefttopChessPosWidth = 0.02; //左上角第一个棋子位置占整个scene宽度比例
+    const qreal lefttopChessPosHeight = 0.007; //左上角第一个棋子位置占整个scene高度比例
+    const int chessOffset = 83; //棋子位置偏移量
+    const qreal buttonPosWidth = 0.74; //功能按钮位置占整个scene宽度比例
+    const qreal buttonStartPausePosHeight = 0.333;  //开始暂停功能按钮位置占整个scene高度比例
+    const qreal buttonReplayPosHeight = 0.444; //重玩功能按钮位置占整个scene高度比例
+    const qreal buttonMusicControlPosHeight = 0.765; //音乐功能按钮位置占整个scene高度比例
+    const qreal playingScreenPosWidth = 0.7; //对局详情位置占整个scene宽度比例
+    const qreal playingScreenPosHeight = 0.005; //对局详情位置占整个scene高度比例
+    const qreal CheckerboardPosWidth = 0.02; //棋盘位置占整个scene宽度比例
+    const qreal CheckerboardPosHeight = 0.007; //棋盘位置占整个scene高度比例
 };
 
 #endif // CHECKERBOARDSCENE_H

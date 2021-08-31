@@ -26,6 +26,14 @@
 
 PlayingScreen::PlayingScreen(QGraphicsItem *parent)
     : QGraphicsItem(parent)
+    , currentPlayer(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/currentplayer.svg"))
+    , aiPlaying(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/ai_playing.svg"))
+    , userPlaying(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/user_playing.svg"))
+    , chessBlack(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/chess_black.svg"))
+    , chessWhite(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/chess_white.svg"))
+    , anotherPlayer(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/anotherplayer.svg"))
+    , userNotPlay(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/user_notplay.svg"))
+    , aiNotPlay(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/ai_notplay.svg"))
 {
 
 }
@@ -47,6 +55,7 @@ void PlayingScreen::setCurrentChessColor(bool AIPlaying, int chesscolor)
 
 QRectF PlayingScreen::boundingRect() const
 {
+    //对局详情所在rect大小
     return QRectF(0, 0, 265, 200);
 }
 
@@ -54,6 +63,9 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 {
     Q_UNUSED(option);
     Q_UNUSED(widget);
+
+    qreal rectWidth = this->boundingRect().width();
+    qreal rectHeight = this->boundingRect().height();
 
     painter->setRenderHint(QPainter::Antialiasing);
 
@@ -66,37 +78,37 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         painter->setFont(font);
         painter->setPen(QColor("#ffdb9e"));
         if (AIPlayer) {
-            painter->drawText(QPointF(60, 70), "小U正在思考...");
+            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight), "小U正在思考...");
         } else {
-            painter->drawText(QPointF(60, 70), "您的回合！");
+            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight), "您的回合！");
         }
         painter->restore();
 
         painter->save();
         painter->setPen(Qt::NoPen);
         //当前旗手
-        painter->drawPixmap(QPointF(30, 104), QPixmap(":/resources/playingscreen/currentplayer.svg"));
+        painter->drawPixmap(QPointF(rectWidth * currentPlayerPosWidth, rectHeight * currentPlayerPosHeight), currentPlayer);
         if (AIPlayer) {
-            painter->drawPixmap(QPointF(85, 118), QPixmap(":/resources/playingscreen/ai_playing.svg"));
+            painter->drawPixmap(QPointF(rectWidth * aiPlayingPosWidth, rectHeight * aiPlayingPosHeight), aiPlaying);
         } else {
-            painter->drawPixmap(QPointF(85, 116), QPixmap(":/resources/playingscreen/user_playing.svg"));
+            painter->drawPixmap(QPointF(rectWidth * userPlayingPosWidth, rectHeight * userPlayingPosHeight), userPlaying);
         }
         if (currentChessColro == chess_black) {
-            painter->drawPixmap(QPointF(122, 158), QPixmap(":/resources/playingscreen/chess_black.svg"));
+            painter->drawPixmap(QPointF(rectWidth * currentPlayerChessPosWidth, rectHeight * currentPlayerchessPosHeight), chessBlack);
         } else {
-            painter->drawPixmap(QPointF(122, 158), QPixmap(":/resources/playingscreen/chess_white.svg"));
+            painter->drawPixmap(QPointF(rectWidth * currentPlayerChessPosWidth, rectHeight * currentPlayerchessPosHeight), chessWhite);
         }
         //另一方旗手
-        painter->drawPixmap(QPointF(176, 120), QPixmap(":/resources/playingscreen/anotherplayer.svg"));
+        painter->drawPixmap(QPointF(rectWidth * anotherPlayerPosWidth, rectHeight * anotherPlayerPosHeight), anotherPlayer);
         if (AIPlayer) {
-            painter->drawPixmap(QPointF(191, 130), QPixmap(":/resources/playingscreen/user_notplay.svg"));
+            painter->drawPixmap(QPointF(rectWidth * userNotPlayPosWidth, rectHeight * userNotPlayPosHeight), userNotPlay);
         } else {
-            painter->drawPixmap(QPointF(190, 132), QPixmap(":/resources/playingscreen/ai_notplay.svg"));
+            painter->drawPixmap(QPointF(rectWidth * aiNotPlayPosWidth, rectHeight * aiNotPlayPosHeight), aiNotPlay);
         }
         if (currentChessColro == chess_black) {
-            painter->drawPixmap(QPointF(224, 158), QPixmap(":/resources/playingscreen/chess_white.svg"));
+            painter->drawPixmap(QPointF(rectWidth * anotherPlayerChessPosWidth, rectHeight * anotherPlayerChessPosHeight), chessWhite);
         } else {
-            painter->drawPixmap(QPointF(224, 158), QPixmap(":/resources/playingscreen/chess_black.svg"));
+            painter->drawPixmap(QPointF(rectWidth * anotherPlayerChessPosWidth, rectHeight * anotherPlayerChessPosHeight), chessBlack);
         }
 
         painter->restore();
@@ -108,7 +120,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         welcomeFont.setBold(true);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
-        painter->drawText(QPointF(60, 78), "欢迎来到五子棋");
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1), "欢迎来到五子棋");
         painter->restore();
 
         painter->save();
@@ -117,7 +129,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         startFont1.setBold(true);
         painter->setFont(startFont1);
         painter->setPen(QColor("#ffffff"));
-        painter->drawText(QPointF(64, 142), "点击下面的开始按钮");
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth2, rectHeight * sWelcomePosHeight2), "点击下面的开始按钮");
         painter->restore();
 
         painter->save();
@@ -126,7 +138,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         startFont2.setBold(true);
         painter->setFont(startFont2);
         painter->setPen(QColor("#ffffff"));
-        painter->drawText(QPointF(64, 170), "来下棋吧~");
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth3, rectHeight * sWelcomePosHeight3), "来下棋吧~");
         painter->restore();
     }
 }

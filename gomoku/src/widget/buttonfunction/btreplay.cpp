@@ -22,6 +22,7 @@
 
 BTReplay::BTReplay(QGraphicsItem *parent)
     : ButtonItem(parent)
+    , replayPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/replay.svg"))
 {
 }
 
@@ -41,11 +42,15 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    qreal rectWidth = this->boundingRect().width();
+    qreal rectHeight = this->boundingRect().height();
+
     painter->setRenderHint(QPainter::Antialiasing);
 
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->drawPixmap(QPointF(30, 20), QPixmap(":/resources/icon/replay.svg"));
+    painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                        replayPixmap);
     painter->restore();
 
     painter->save();
@@ -55,7 +60,8 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     font.setBold(true);
     painter->setFont(font);
     painter->setPen(QColor("#024526"));
-    painter->drawText(QPointF(80, 40), "重玩");
+    painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                      "重玩");
     painter->restore();
 }
 

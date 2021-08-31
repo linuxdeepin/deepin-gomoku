@@ -29,7 +29,8 @@
 
 ChessItem::ChessItem(int userChessColor, QGraphicsItem *parent)
     : QGraphicsItem(parent)
-    , backgroundPix(":/resources/black_chess.svg")
+    , chessWhitePixmap(DHiDPIHelper::loadNxPixmap(":/resources/white_chess.svg"))
+    , chessBlackPixmap(DHiDPIHelper::loadNxPixmap(":/resources/black_chess.svg"))
     , chessType(userChessColor)
 {
     setAcceptHoverEvents(true);
@@ -79,12 +80,11 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->save();
         painter->setPen(Qt::NoPen);
         if (chessType == chess_white) {
-            chessPixmap = QPixmap(":/resources/white_chess.svg");
+            chessPixmap = chessWhitePixmap;
         } else if (chessType == chess_black) {
-            chessPixmap = QPixmap(":/resources/black_chess.svg");
+            chessPixmap = chessBlackPixmap;
         }
-        painter->setBrush(chessPixmap);
-        painter->drawEllipse(boundingRect());
+        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), chessPixmap);
         painter->restore();
         emit signalCPaintItem(this);
     } else {
@@ -105,9 +105,15 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 chessColor.setAlphaF(0.7);
             }
             painter->setBrush(chessColor);
+            //绘制hover状态
+            //19为圆点所在的rect左上角坐标,6为圆点半径
+            //此坐标根据棋子要显示的位置得来
             painter->drawEllipse(QRect(19, 19, 6, 6));
             painter->restore();
         }
+        //绘制hover外层的阴影效果
+        //16为圆点所在的rect左上角坐标,12为圆点半径
+        //此坐标根据棋子要显示的位置得来
         painter->drawEllipse(QRect(16, 16, 12, 12));
         painter->restore();
     }
@@ -118,18 +124,18 @@ QRectF ChessItem::boundingRect() const
     if (chessStatus) {
         //棋子大小
         return QRectF(0, 0, chess_size, chess_size);
-    } else {
-        //可落子范围
-        int startHPoint = (chess_size - hover_size) / 2;
-        return QRectF(startHPoint, startHPoint, hover_size, hover_size);
     }
+    //可落子范围
+    int startHPoint = (chess_size - hover_size) / 2;
+    return QRectF(startHPoint, startHPoint, hover_size, hover_size);
+
 }
 
 void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
     if (!gameOver && gameStatus) {
         //当前位置没有棋子,并且非AI下棋设置棋子颜色
-        if (!chessStatus && !isAIPlaying) {
+        if (!chessStatus && !getChessPlayer()) {
             hoverStatus = true;
             setCurrentchess(chessType);
         }
@@ -151,7 +157,7 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     //玩家下棋才能落子
-    if (contains(event->pos()) && hoverStatus && !chessStatus) {
+    if (contains(event->pos()) && hoverStatus) {
         setchessStatus(true);
     }
     QGraphicsItem::mouseReleaseEvent(event);
