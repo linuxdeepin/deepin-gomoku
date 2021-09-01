@@ -88,20 +88,17 @@ void GomokuMainWindow::initGame()
 {
     GameControl *gameControl = new GameControl(chess_white, chess_black);
     checkerboardScene->setchessType(chess_black);//设置玩家棋子颜色
+    userChess = chess_black;
     checkerboardScene->startGame();
     connect(checkerboardScene, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
     connect(checkerboardScene, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
+    connect(checkerboardScene, &CheckerboardScene::signalMusicControl, this, [ = ](bool musicControl) {
+        musicControlStatus = musicControl;
+    });//游戏音效控制
     connect(gameControl, &GameControl::AIPlayChess, checkerboardScene, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
     connect(gameControl, &GameControl::isAIPlaying, checkerboardScene, &CheckerboardScene::signalIsAIPlaying);//通知棋子,当前旗手
     connect(gameControl, &GameControl::gameOver, checkerboardScene, &CheckerboardScene::signalGameOver);//游戏结束
-    connect(gameControl, &GameControl::gameOver, this, [] {
-        //失败弹出,暂时效果
-        DDialog promptDialog;
-        promptDialog.addButton(tr("OK", "button"));
-        promptDialog.setIcon(QIcon::fromTheme("uss_warning"));
-        promptDialog.setMessage("game over");
-        promptDialog.exec();
-    });
+    connect(gameControl, &GameControl::gameOver, this, &GomokuMainWindow::slotPopupResult);
     gameControl->startGame();//开始游戏
 }
 
@@ -123,6 +120,50 @@ void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
     painter.setBrush(broundColor);
     painter.drawRect(titlebar->rect());
     painter.restore();
+}
+
+void GomokuMainWindow::playWinMusic()
+{
+    if (musicControlStatus)
+        QSound::play(":/resources/music/win.wav");
+}
+
+void GomokuMainWindow::playFailMusic()
+{
+    if (musicControlStatus)
+        QSound::play(":/resources/music/fail.wav");
+}
+
+void GomokuMainWindow::slotPopupResult(ChessResult result)
+{
+    //失败弹出,暂时效果
+    DDialog promptDialog;
+    promptDialog.addButton(tr("OK", "button"));
+    promptDialog.setIcon(QIcon::fromTheme("uss_warning"));
+    //判断用户棋子颜色
+    if (userChess == chess_black) {
+        //判断是哪个颜色的棋子赢了
+        if (result == black_win) {
+            //胜利弹窗
+            promptDialog.setMessage("win");
+            //播放胜利音效
+            playWinMusic();
+        } else if (result == white_win) {
+            //失败弹窗
+            playFailMusic();
+            //播放失败音效
+
+        }
+    } else if (userChess == chess_white) {
+        if (result == black_win) {
+            promptDialog.setMessage("fail");
+            playFailMusic();
+        } else if (result == white_win) {
+            promptDialog.setMessage("win");
+            playWinMusic();
+        }
+    }
+    promptDialog.exec();
 }
 
 //过滤titlebar绘制事件

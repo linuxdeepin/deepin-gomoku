@@ -55,7 +55,7 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
 find_package(Qt5DBus REQUIRED)
-find_package(Qt5Svg REQUIRED)
+find_package(Qt5 COMPONENTS Multimedia REQUIRED)
 find_package(DtkWidget REQUIRED)
 find_package(DtkGui REQUIRED)
 
@@ -74,6 +74,7 @@ target_link_libraries(${PROJECT_NAME}
     ${Qt5Svg_LIBRARIES}
     ${Qt5DBus_LIBRARIES}
     ${DFrameworkdbus_LIBRARIES}
+    Qt5::Multimedia
 )
 
 set(CMAKE_INSTALL_PREFIX /usr)

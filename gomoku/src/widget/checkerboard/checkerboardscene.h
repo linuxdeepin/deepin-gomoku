@@ -44,6 +44,7 @@ public:
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
     void signalIsAIPlaying(bool AIPlaying);
+    void signalMusicControl(bool musicControl);//音效控制信号
     void signalGameOver();
     void signalRestGame();
     void signalStartGame();

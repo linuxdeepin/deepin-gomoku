@@ -24,5 +24,10 @@
         <file>resources/playingscreen/chess_black.svg</file>
         <file>resources/checkerboard_noline.svg</file>
         <file>resources/desktop/com.deepin.gomoku.svg</file>
+        <file>resources/chessselected/selectchess.svg</file>
+        <file>resources/chessselected/closebutton.svg</file>
+        <file>resources/music/chessone.wav</file>
+        <file>resources/music/win.wav</file>
+        <file>resources/music/fail.wav</file>
     </qresource>
 </RCC>

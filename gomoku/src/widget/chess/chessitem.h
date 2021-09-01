@@ -24,6 +24,7 @@
 #include <DHiDPIHelper>
 
 #include <QGraphicsItem>
+#include <QtMultimedia/QSound>
 
 DWIDGET_USE_NAMESPACE
 
@@ -50,6 +51,11 @@ public slots:
     void slotGameStop();
     void slotGameOver();
     void slotIsAIPlaying(bool AIPlaying);
+    /**
+     * @brief slotMusicControl 音效控制槽函数
+     * @param musicControl 是否打开音效
+     */
+    void slotMusicControl(bool musicControl);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -70,7 +76,8 @@ private:
     bool chessStatus = false; //是否有棋子标志
     bool gameStatus = true; //是否暂停
     bool gameOver = false; //游戏结束
-    bool isAIPlaying = false;
+    bool isAIPlaying = false; //是否为ai下棋
+    bool musicControlStatue = true; //游戏音效控制状态
 };
 
 #endif // chessITEM_H

@@ -42,10 +42,27 @@ private:
     void initUI();
     void initGame();
     void paintTitleBar(QWidget *titlebar);
+    /**
+     * @brief playWinMusic 播放胜利音乐
+     */
+    void playWinMusic();
+    /**
+     * @brief playFailMusic 播放失败音乐
+     */
+    void playFailMusic();
+
+private slots:
+    /**
+     * @brief slotPopupResult 游戏结果弹窗
+     * @param result 游戏结果
+     */
+    void slotPopupResult(ChessResult result);
 
 private:
     DTitlebar *mTitleBar = nullptr;
     CheckerboardScene *checkerboardScene = nullptr;
+    int userChess; //用户棋子颜色
+    bool musicControlStatus = true; //是否可以播放音乐
 };
 
 #endif // GOMOKUMAINWINDOW_H

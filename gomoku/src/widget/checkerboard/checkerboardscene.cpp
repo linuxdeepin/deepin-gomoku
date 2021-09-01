@@ -40,6 +40,7 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
     initFunctionButton();
     connect(buttonStartPause, &BTStartPause::signalGameStop, this, &CheckerboardScene::slotGameStop);
     connect(buttonStartPause, &BTStartPause::signalGameStart, this, &CheckerboardScene::slotGameStart);
+    connect(buttonMusicControl, &BTMusicControl::signalMusic, this, &CheckerboardScene::signalMusicControl);//音效控制
 
     connect(this, &CheckerboardScene::signalStartGame, buttonStartPause, &ButtonItem::slotStartGame);
     connect(this, &CheckerboardScene::signalStartGame, buttonReplay, &ButtonItem::slotStartGame);
@@ -97,6 +98,7 @@ void CheckerboardScene::initChess()
             connect(this, &CheckerboardScene::signalIsAIPlaying, chess, &ChessItem::slotIsAIPlaying);//当前旗手
             connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);//暂停游戏
             connect(buttonStartPause, &BTStartPause::signalGameStart, chess, &ChessItem::slotGameStart);//开始游戏
+            connect(buttonMusicControl, &BTMusicControl::signalMusic, chess, &ChessItem::slotMusicControl);//游戏音效
             connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);//落子坐标,判断输赢
             //整个棋盘左上角点,加上偏移量到达绘制区域,减去棋格半径是以棋子所在rect左上角为圆点绘制棋子
             //循环添加每个位置棋子
