@@ -40,6 +40,7 @@ public:
 
     void setchessType(int chess = 0);
     void startGame();
+    void stopGAme();
 
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标

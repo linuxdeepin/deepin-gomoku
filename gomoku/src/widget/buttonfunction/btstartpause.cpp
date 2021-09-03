@@ -31,6 +31,18 @@ BTStartPause::~BTStartPause()
 {
 }
 
+/**
+ * @brief BTStartPause::setStopStatus 设置游戏暂停状态
+ */
+void BTStartPause::setStopStatus()
+{
+    //修改按钮图片
+    mouseReleased = true;
+    //更新功能
+    buttonFunction();
+    update();
+}
+
 QRectF BTStartPause::boundingRect() const
 {
     return ButtonItem::boundingRect();

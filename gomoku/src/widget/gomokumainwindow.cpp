@@ -196,3 +196,15 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
     }
     return DMainWindow::eventFilter(watched, event);
 }
+
+/**
+ * @brief GomokuMainWindow::changeEvent
+ */
+void GomokuMainWindow::changeEvent(QEvent *event)
+{
+    if (event->type() != QEvent::WindowStateChange) return;
+    if (this->windowState() == Qt::WindowMinimized) {
+        checkerboardScene->stopGAme();
+    }
+    DMainWindow::changeEvent(event);
+}

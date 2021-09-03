@@ -30,6 +30,8 @@ public:
     explicit BTStartPause(QGraphicsItem *parent = nullptr);
     ~BTStartPause() override;
 
+    void setStopStatus();
+
 signals:
     void signalGameStart(); //游戏开始信号
     void signalGameStop(); //游戏暂停信号

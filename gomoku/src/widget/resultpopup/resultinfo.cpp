@@ -48,6 +48,10 @@ void Resultinfo::setResult(bool result)
     }
 }
 
+/**
+ * @brief Resultinfo::paintEvent 绘图事件
+ * @param event
+ */
 void Resultinfo::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);

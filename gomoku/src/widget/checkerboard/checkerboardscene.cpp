@@ -219,6 +219,14 @@ void CheckerboardScene::startGame()
     emit signalStartGame();
 }
 
+/**
+ * @brief CheckerboardScene::stopGAme 暂停游戏
+ */
+void CheckerboardScene::stopGAme()
+{
+    buttonStartPause->setStopStatus();
+}
+
 //绘制AI棋子
 void CheckerboardScene::slotPaintAIChess(Chess chess)
 {

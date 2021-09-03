@@ -41,6 +41,9 @@ public:
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
+protected:
+    void changeEvent(QEvent *event) override;
+
 private:
     void initUI();
     void initGame();
