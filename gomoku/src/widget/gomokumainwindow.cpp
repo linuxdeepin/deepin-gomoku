@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gomokumainwindow.h"
+#include "resultpopup/resultpopup.h"
 
 #include <QGraphicsView>
 #include <QHBoxLayout>
@@ -40,7 +41,6 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     setWindowTitle(tr("deepin-gomoku"));
 
     initUI();
-    initGame();
 
     Dtk::Widget::moveToCenter(this);
 }
@@ -48,6 +48,28 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
 GomokuMainWindow::~GomokuMainWindow()
 {
     delete mTitleBar;
+}
+
+/**
+ * @brief GomokuMainWindow::connectSelectChess 连接棋子选择界面的一些信号
+ * @param selectChess 棋子选择界面
+ */
+void GomokuMainWindow::connectSelectChess(Selectchess *selectChess)
+{
+    //设置用户和ai棋子颜色
+    connect(selectChess, &Selectchess::signalSelectWhiteChess, this, [ = ] {
+        userChess = chess_white;
+        aiChess = chess_black;
+    });
+    connect(selectChess, &Selectchess::signalSelectBlackChess, this, [ = ] {
+        userChess = chess_black;
+        aiChess = chess_white;
+    });
+    //开始游戏,并关闭弹窗
+    connect(selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
+        initGame();
+        selectChess->close();
+    });
 }
 
 //初始化界面
@@ -86,9 +108,8 @@ void GomokuMainWindow::initUI()
 //初始化游戏
 void GomokuMainWindow::initGame()
 {
-    GameControl *gameControl = new GameControl(chess_white, chess_black);
-    checkerboardScene->setchessType(chess_black);//设置玩家棋子颜色
-    userChess = chess_black;
+    GameControl *gameControl = new GameControl(aiChess, userChess);
+    checkerboardScene->setchessType(userChess);//设置玩家棋子颜色
     checkerboardScene->startGame();
     connect(checkerboardScene, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
     connect(checkerboardScene, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
@@ -137,33 +158,32 @@ void GomokuMainWindow::playFailMusic()
 void GomokuMainWindow::slotPopupResult(ChessResult result)
 {
     //失败弹出,暂时效果
-    DDialog promptDialog;
-    promptDialog.addButton(tr("OK", "button"));
-    promptDialog.setIcon(QIcon::fromTheme("uss_warning"));
+    Resultpopup *resultPopUp = new Resultpopup(this) ;
+    connect(resultPopUp, &Resultpopup::signalGameAgain, checkerboardScene, &CheckerboardScene::slotreplayFunction);
     //判断用户棋子颜色
     if (userChess == chess_black) {
         //判断是哪个颜色的棋子赢了
         if (result == black_win) {
             //胜利弹窗
-            promptDialog.setMessage("win");
+            resultPopUp->setHasWin(true);
             //播放胜利音效
             playWinMusic();
         } else if (result == white_win) {
             //失败弹窗
-            playFailMusic();
+            resultPopUp->setHasWin(false);
             //播放失败音效
-
+            playFailMusic();
         }
     } else if (userChess == chess_white) {
         if (result == black_win) {
-            promptDialog.setMessage("fail");
+            resultPopUp->setHasWin(false);
             playFailMusic();
         } else if (result == white_win) {
-            promptDialog.setMessage("win");
+            resultPopUp->setHasWin(true);
             playWinMusic();
         }
     }
-    promptDialog.exec();
+    resultPopUp->popupShow();
 }
 
 //过滤titlebar绘制事件

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="394px" height="242px" viewBox="0 0 394 242" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 7</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#A6FCD6" offset="0%"></stop>
+            <stop stop-color="#246267" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0.3" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-3" x="0.6064371" y="0.286197165" width="370" height="218" rx="18"></rect>
+        <filter x="-4.1%" y="-6.9%" width="109.2%" height="115.6%" filterUnits="objectBoundingBox" id="filter-5">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="2" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-6">
+            <stop stop-color="#EED58C" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="7胜利" transform="translate(-752.000000, -432.000000)">
+            <g id="胜利弹窗" transform="translate(761.000000, 335.000000)">
+                <g id="胜利背景" transform="translate(0.393563, 0.000000)">
+                    <g id="编组-7" transform="translate(0.000000, 106.713803)">
+                        <mask id="mask-4" fill="white">
+                            <use xlink:href="#path-3"></use>
+                        </mask>
+                        <g id="矩形">
+                            <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-3"></use>
+                            <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                            <rect stroke-opacity="0.1" stroke="#000000" stroke-width="1" x="0.1064371" y="-0.213802835" width="371" height="219" rx="18"></rect>
+                            <rect stroke="url(#linearGradient-2)" stroke-width="4" stroke-linejoin="square" x="2.6064371" y="2.28619717" width="366" height="214" rx="18"></rect>
+                        </g>
+                        <path d="M353,1.999 C357.418278,1.999 361.418278,3.789861 364.313708,6.6852915 C367.209139,9.580722 369,13.580722 369,17.999 L369,17.999 L369,119.834963 L364.659517,130.5698 L260.06403,215.999858 L3,215.999858 L3,110.120261 L119.098002,1.999 Z" id="路径" stroke="url(#linearGradient-7)" stroke-width="4" fill="url(#linearGradient-6)" opacity="0.154146"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

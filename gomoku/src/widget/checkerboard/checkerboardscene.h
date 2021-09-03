@@ -51,6 +51,7 @@ signals:
 
 public slots:
     void slotPaintAIChess(Chess chess);
+    void slotreplayFunction();
 
 private:
     void initCheckerboard();
@@ -60,7 +61,6 @@ private:
     void setAIChess(Chess chess);
 
 private slots:
-    void slotreplayFunction();
     void slotGameStop();
     void slotGameStart();
     void slotCPaintItem(ChessItem *cItem);

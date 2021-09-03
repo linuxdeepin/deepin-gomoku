@@ -23,6 +23,7 @@
 
 #include "checkerboard/checkerboardscene.h"
 #include "judge/gamecontrol.h"
+#include "selectchess/selectchess.h"
 
 #include <DMainWindow>
 
@@ -34,6 +35,8 @@ class GomokuMainWindow : public DMainWindow
 public:
     explicit GomokuMainWindow(QWidget *parent = nullptr);
     ~GomokuMainWindow() override;
+
+    void connectSelectChess(Selectchess *selectChess);
 
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
@@ -62,6 +65,7 @@ private:
     DTitlebar *mTitleBar = nullptr;
     CheckerboardScene *checkerboardScene = nullptr;
     int userChess; //用户棋子颜色
+    int aiChess; //ai棋子颜色
     bool musicControlStatus = true; //是否可以播放音乐
 };
 

@@ -3,7 +3,6 @@
         <file>resources/background.svg</file>
         <file>resources/logo.svg</file>
         <file>resources/checkerboard.svg</file>
-        <file>resources/button.svg</file>
         <file>resources/icon/begin.svg</file>
         <file>resources/icon/replay.svg</file>
         <file>resources/icon/stop.svg</file>
@@ -29,5 +28,24 @@
         <file>resources/music/chessone.wav</file>
         <file>resources/music/win.wav</file>
         <file>resources/music/fail.wav</file>
+        <file>resources/resultpopup/background_fail.svg</file>
+        <file>resources/resultpopup/background_win.svg</file>
+        <file>resources/resultpopup/close.svg</file>
+        <file>resources/resultpopup/win_rest_press.svg</file>
+        <file>resources/resultpopup/win_rest_normal.svg</file>
+        <file>resources/resultpopup/win_rest_hover.svg</file>
+        <file>resources/resultpopup/fail_rest_press.svg</file>
+        <file>resources/resultpopup/fail_rest_normal.svg</file>
+        <file>resources/resultpopup/fail_rest_hover.svg</file>
+        <file>resources/resultpopup/anain_hover.svg</file>
+        <file>resources/resultpopup/again_press.svg</file>
+        <file>resources/resultpopup/again_normal.svg</file>
+        <file>resources/chessselected/selectbase.svg</file>
+        <file>resources/chessselected/radio_unchecked.svg</file>
+        <file>resources/chessselected/radio_checked.svg</file>
+        <file>resources/chessselected/radio_hover.svg</file>
+        <file>resources/chessselected/button_press.svg</file>
+        <file>resources/chessselected/button_normal.svg</file>
+        <file>resources/chessselected/button_hover.svg</file>
     </qresource>
 </RCC>
