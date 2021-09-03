@@ -53,10 +53,10 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     //声音控制图片
     if (mouseReleased) {
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                            voiceOffPixmap);
+                            voicePixmap);
     } else {
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                            voicePixmap);
+                            voiceOffPixmap);
     }
     painter->restore();
 
@@ -68,10 +68,10 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     painter->setPen(QColor("#024526"));
     if (mouseReleased) {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          "开启音乐");
+                          "关闭音乐");
     } else {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          "关闭音乐");
+                          "开启音乐");
     }
     painter->restore();
 }
@@ -80,5 +80,5 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 void BTMusicControl::buttonFunction()
 {
     //控制音乐
-    emit signalMusic(!mouseReleased);
+    emit signalMusic(mouseReleased);
 }

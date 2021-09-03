@@ -110,7 +110,7 @@ void Buttonagain::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setPointSize(20);
+    font.setPointSize(14);
     painter.setPen("#492c04");
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Play Again"));

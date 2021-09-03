@@ -53,16 +53,6 @@ void ButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->restore();
 }
 
-void ButtonItem::slotStartGame()
-{
-    //开始游戏
-    gamePlaying = true;
-    //更新按钮状态
-    update();
-    //按钮状态反转
-    mouseReleased = !mouseReleased;
-}
-
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
@@ -90,11 +80,8 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (contains(event->pos())) {
         backgrounePix =  normalBackgrounePix;
-        //游戏开始后,才可以使用按钮
-        if (gamePlaying) {
-            mouseReleased = !mouseReleased;
-            buttonFunction();
-        }
+        mouseReleased = !mouseReleased;
+        buttonFunction();
     }
     QGraphicsItem::mouseReleaseEvent(event);
     update();

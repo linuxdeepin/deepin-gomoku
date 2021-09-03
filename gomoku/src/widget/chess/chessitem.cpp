@@ -159,6 +159,7 @@ void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     //玩家下棋才能落子
     if (contains(event->pos()) && hoverStatus) {
         setchessStatus(true);
+        qInfo() << __FUNCTION__ <<  "music play statues: " << musicControlStatue;
         if (musicControlStatue) {
             //播放落子音效
             QSound::play(":/resources/music/chessone.wav");

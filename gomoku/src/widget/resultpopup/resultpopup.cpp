@@ -75,10 +75,10 @@ void Resultpopup::initUI()
     labelLayout->addStretch();
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
+    buttonLayout->addStretch(10);
     buttonLayout->addWidget(buttonRest);
-    buttonLayout->addSpacing(10);
     buttonLayout->addWidget(buttonAgain);
-    buttonLayout->addSpacing(2);
+    buttonLayout->addStretch(10);
 
     mainLayout->addSpacing(110);
     mainLayout->addLayout(closeLayout);
@@ -86,7 +86,7 @@ void Resultpopup::initUI()
     mainLayout->addLayout(labelLayout);
     mainLayout->addSpacing(20);
     mainLayout->addLayout(buttonLayout);
-    mainLayout->addSpacing(10);
+    mainLayout->addSpacing(14);
     setLayout(mainLayout);
 }
 

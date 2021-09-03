@@ -46,6 +46,7 @@ signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
     void signalIsAIPlaying(bool AIPlaying);
     void signalMusicControl(bool musicControl);//音效控制信号
+    void signalGameStart();
     void signalGameOver();
     void signalRestGame();
     void signalStartGame();
@@ -55,15 +56,19 @@ public slots:
     void slotreplayFunction();
 
 private:
+    void initGame();
     void initCheckerboard();
     void initChess();
     void initFunctionButton();
     void initPlayingScreen();
     void setAIChess(Chess chess);
+    void playWinMusic();
+    void playFailMusic();
 
 private slots:
     void slotGameStop();
     void slotGameStart();
+    void slotPopupResult(ChessResult result);
     void slotCPaintItem(ChessItem *cItem);
 
 private:
@@ -77,7 +82,11 @@ private:
     int userChessType = chess_black; //棋子颜色
     int clickPosRow = 0; //点击的行
     int clickPosCol = 0; // 点击的列
-    bool gameStatus = true; //游戏状态
+    int userChess; //用户棋子颜色
+    int aiChess; //ai棋子颜色
+    bool musicControlStatus = true; //是否可以播放音乐
+    bool gameStatus = false; //游戏状态
+    bool seleceChessPopup = true; //是否弹出选择棋子弹窗
     bool playChess = false; //是否是AI下棋
     bool AIChessStatus = false; //暂停游戏时,AI是否下棋
     Chess AIChess; //保存当前棋子位置

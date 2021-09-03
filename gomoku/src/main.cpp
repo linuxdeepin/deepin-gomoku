@@ -20,7 +20,6 @@
    */
 #include <gomokumainwindow.h>
 #include "environments.h"
-#include "selectchess/selectchess.h"
 
 #include <DApplication>
 #include <DMainWindow>
@@ -84,10 +83,9 @@ int main(int argc, char *argv[])
         DApplicationSettings applicationset(app);
 
         GomokuMainWindow ww;
-        Selectchess *selectChess = new Selectchess;
-        ww.connectSelectChess(selectChess);
+//        Selectchess *selectChess = new Selectchess;
+//        ww.connectSelectChess(selectChess);
         ww.show();
-        selectChess->selectChessShow();
 
         return app->exec();
     }
