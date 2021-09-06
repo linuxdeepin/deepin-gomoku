@@ -39,7 +39,6 @@ QRectF BTMusicControl::boundingRect() const
 
 void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    ButtonItem::paint(painter, option, widget);
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
@@ -48,15 +47,32 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     painter->setRenderHint(QPainter::Antialiasing);
 
+    //如果是第一次进入游戏, 置灰按钮
+    if (firstStartGame) {
+        painter->save();
+        painter->setPen(Qt::NoPen);
+        painter->setOpacity(0.4); //设置图片透明度
+        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()),
+                            QPixmap(":/resources/function_button/normal.svg"));
+        painter->restore();
+    } else {
+        painter->save();
+        painter->setPen(Qt::NoPen);
+        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+        painter->restore();
+    }
+
     painter->save();
     painter->setPen(Qt::NoPen);
+    if (firstStartGame)
+        painter->setOpacity(0.4); //设置图片透明度
     //声音控制图片
     if (mouseReleased) {
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                            voicePixmap);
+                            voiceOffPixmap);
     } else {
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                            voiceOffPixmap);
+                            voicePixmap);
     }
     painter->restore();
 
@@ -66,14 +82,26 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     font.setBold(true);
     painter->setFont(font);
     painter->setPen(QColor("#024526"));
+    if (firstStartGame)
+        painter->setOpacity(0.4); //设置图片透明度
     if (mouseReleased) {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          "关闭音乐");
+                          tr("Open Music"));
     } else {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          "开启音乐");
+                          tr("Close Music"));
     }
     painter->restore();
+}
+
+/**
+ * @brief BTReplay::setNotFirstGame 设置是否第一次开始游戏
+ */
+void BTMusicControl::setNotFirstGame()
+{
+    firstStartGame = false;
+    mouseReleased = false;
+    update();
 }
 
 //按钮功能

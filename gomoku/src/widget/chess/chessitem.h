@@ -47,7 +47,7 @@ signals:
     void signalCPaintItem(ChessItem *item); //当前绘制的item
 
 public slots:
-    void slotGameStart();
+    void slotGameContinue();
     void slotGameStop();
     void slotGameOver();
     void slotIsAIPlaying(bool AIPlaying);

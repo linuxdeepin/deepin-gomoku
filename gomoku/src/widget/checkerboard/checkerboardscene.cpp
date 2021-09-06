@@ -19,9 +19,6 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "checkerboardscene.h"
-#include "selectchess/selectchess.h"
-#include "resultpopup/resultpopup.h"
-#include "gamecontrol.h"
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -34,6 +31,8 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
     , buttonReplay(new BTReplay)
     , buttonMusicControl(new BTMusicControl)
     , playingScreen(new PlayingScreen)
+    , gameControl(new GameControl(aiChessColor, userChessColor))
+    , selectChess(new Selectchess)
     , AIChess(-1, -1, 0)
 {
     //设置scene大小
@@ -41,11 +40,11 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
     initCheckerboard();
     initPlayingScreen();
     initFunctionButton();
-    connect(buttonStartPause, &BTStartPause::signalGameStop, this, &CheckerboardScene::slotGameStop);
+    initGame();
     connect(buttonStartPause, &BTStartPause::signalGameStart, this, &CheckerboardScene::slotGameStart);
+    connect(buttonStartPause, &BTStartPause::signalGameStop, this, &CheckerboardScene::slotGameStop);
+    connect(buttonStartPause, &BTStartPause::signalGameContinue, this, &CheckerboardScene::slotGameContinue);
     connect(buttonMusicControl, &BTMusicControl::signalMusic, this, &CheckerboardScene::signalMusicControl);//音效控制
-
-    connect(this, &CheckerboardScene::signalStartGame, playingScreen, &PlayingScreen::slotStartGame);
 }
 
 CheckerboardScene::~CheckerboardScene()
@@ -93,11 +92,11 @@ void CheckerboardScene::initChess()
     for (int i = 0; i < line_row; i++) {
         QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_col; j++) {
-            ChessItem *chess = new ChessItem(userChessType);
+            ChessItem *chess = new ChessItem(userChessColor);
             connect(this, &CheckerboardScene::signalGameOver, chess, &ChessItem::slotGameOver);//游戏结束
             connect(this, &CheckerboardScene::signalIsAIPlaying, chess, &ChessItem::slotIsAIPlaying);//当前旗手
             connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);//暂停游戏
-            connect(this, &CheckerboardScene::signalGameStart, chess, &ChessItem::slotGameStart);//开始游戏
+            connect(this, &CheckerboardScene::signalGameContinue, chess, &ChessItem::slotGameContinue);//继续游戏
             connect(buttonMusicControl, &BTMusicControl::signalMusic, chess, &ChessItem::slotMusicControl);//游戏音效
             connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);//落子坐标,判断输赢
             //整个棋盘左上角点,加上偏移量到达绘制区域,减去棋格半径是以棋子所在rect左上角为圆点绘制棋子
@@ -147,40 +146,28 @@ void CheckerboardScene::setAIChess(Chess chess)
 }
 
 /**
- * @brief playWinMusic 播放胜利音乐
+ * @brief CheckerboardScene::slotGameStart 开始游戏, 选择棋子
  */
-void CheckerboardScene::playWinMusic()
+void CheckerboardScene::slotGameStart()
 {
-    if (musicControlStatus)
-        QSound::play(":/resources/music/win.wav");
-}
-
-/**
- * @brief playFailMusic 播放失败音乐
- */
-void CheckerboardScene::playFailMusic()
-{
-    if (musicControlStatus)
-        QSound::play(":/resources/music/fail.wav");
+    emit signalSelectChessPopup();
 }
 
 //重玩游戏
 void CheckerboardScene::slotreplayFunction()
 {
     qInfo() << __FUNCTION__ << "game status:" << gameStatus;
-    if (gameStatus) {
-        for (int i = 0; i < line_row; i++) {
-            for (int j = 0; j < line_col; j++) {
-                removeItem(chessItemList.at(i).at(j));
-                chessItemList.at(i).at(j)->deleteLater();
-                chessHasPaint[i][j] = false;
-            }
+    for (int i = 0; i < line_row; i++) {
+        for (int j = 0; j < line_col; j++) {
+            removeItem(chessItemList.at(i).at(j));
+            chessItemList.at(i).at(j)->deleteLater();
+            chessHasPaint[i][j] = false;
         }
-        chessItemList.clear();
-        initChess();
-        playingScreen->setCurrentChessColor(false, userChessType);//重置回合信息显示
-        emit signalRestGame();//通知游戏控制,重置游戏
     }
+    chessItemList.clear();
+    initChess();
+    playingScreen->setCurrentChessColor(false, userChessColor);//重置回合信息显示
+    emit signalRestGame();//通知游戏控制,重置游戏
 }
 
 /**
@@ -188,9 +175,6 @@ void CheckerboardScene::slotreplayFunction()
  */
 void CheckerboardScene::initGame()
 {
-    GameControl *gameControl = new GameControl(aiChess, userChess);
-    setchessType(userChess);//设置玩家棋子颜色
-    startGame();
     connect(this, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
     connect(this, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
     connect(this, &CheckerboardScene::signalMusicControl, this, [ = ](bool musicControl) {
@@ -199,8 +183,7 @@ void CheckerboardScene::initGame()
     connect(gameControl, &GameControl::AIPlayChess, this, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
     connect(gameControl, &GameControl::isAIPlaying, this, &CheckerboardScene::signalIsAIPlaying);//通知棋子,当前旗手
     connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::signalGameOver);//游戏结束
-    connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::slotPopupResult);
-    gameControl->startGame();//开始游戏
+    connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::signalPopupResult);
 }
 
 //暂停游戏
@@ -210,29 +193,10 @@ void CheckerboardScene::slotGameStop()
 }
 
 //开始游戏
-void CheckerboardScene::slotGameStart()
+void CheckerboardScene::slotGameContinue()
 {
-    Selectchess *selectChess = new Selectchess();
-    if (seleceChessPopup) {
-        //设置用户和ai棋子颜色
-        connect(selectChess, &Selectchess::signalSelectWhiteChess, this, [ = ] {
-            userChess = chess_white;
-            aiChess = chess_black;
-        });
-        connect(selectChess, &Selectchess::signalSelectBlackChess, this, [ = ] {
-            userChess = chess_black;
-            aiChess = chess_white;
-        });
-        //开始游戏,并关闭弹窗
-        connect(selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
-            initGame();
-            selectChess->close();
-        });
-        selectChess->selectChessShow();
-        seleceChessPopup = false;
-    }
     gameStatus = true;
-    emit signalGameStart();
+    emit signalGameContinue();
     //如果AI已经下棋,绘制AI棋子
     if (AIChessStatus) {
         setAIChess(AIChess);
@@ -241,38 +205,36 @@ void CheckerboardScene::slotGameStart()
 }
 
 /**
- * @brief CheckerboardScene::slotPopupResult 游戏结束弹窗
- * @param result 结果
+ * @brief CheckerboardScene::slotSelsectChessOK 选择完棋子
  */
-void CheckerboardScene::slotPopupResult(ChessResult result)
+void CheckerboardScene::selsectChessOK()
 {
-    //失败弹出,暂时效果
-    Resultpopup *resultPopUp = new Resultpopup() ;
-    connect(resultPopUp, &Resultpopup::signalGameAgain, this, &CheckerboardScene::slotreplayFunction);
-    //判断用户棋子颜色
-    if (userChess == chess_black) {
-        //判断是哪个颜色的棋子赢了
-        if (result == black_win) {
-            //胜利弹窗
-            resultPopUp->setHasWin(true);
-            //播放胜利音效
-            playWinMusic();
-        } else if (result == white_win) {
-            //失败弹窗
-            resultPopUp->setHasWin(false);
-            //播放失败音效
-            playFailMusic();
-        }
-    } else if (userChess == chess_white) {
-        if (result == black_win) {
-            resultPopUp->setHasWin(false);
-            playFailMusic();
-        } else if (result == white_win) {
-            resultPopUp->setHasWin(true);
-            playWinMusic();
-        }
-    }
-    resultPopUp->popupShow();
+    //使能功能按钮
+    buttonStartPause->setNotFirstGame();
+    buttonReplay->setNotFirstGame();
+    buttonMusicControl->setNotFirstGame();
+//    emit signalGameContinue(); //继续游戏
+    emit signalCloSelectPopup(); //关闭弹窗
+    startGame(); //开始游戏
+    gameStatus = true;
+}
+
+/**
+ * @brief CheckerboardScene::getMusicPlay 是否可以播放音乐
+ * @return
+ */
+bool CheckerboardScene::getMusicPlay()
+{
+    return musicControlStatus;
+}
+
+/**
+ * @brief CheckerboardScene::getUserChessColor 获取用户棋子颜色
+ * @return
+ */
+int CheckerboardScene::getUserChessColor()
+{
+    return userChessColor;
 }
 
 //判断当前绘制的item，保存坐标
@@ -299,18 +261,21 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
     }
 }
 
-//设置棋子颜色
-void CheckerboardScene::setchessType(int chess)
-{
-    userChessType = chess;
-    initChess();
-    playingScreen->setCurrentChessColor(false, userChessType);
-}
-
-//开始游戏
+/**
+ * @brief CheckerboardScene::startGame 开始游戏
+ */
 void CheckerboardScene::startGame()
 {
-    emit signalStartGame();
+    gameControl->setChessColor(aiChessColor, userChessColor);//设置玩家棋子颜色
+    initChess();
+    //根据用户选择棋子颜色, 设置对局详情
+    if (userChessColor == chess_black) {
+        playingScreen->setCurrentChessColor(false, userChessColor);
+    } else if (userChessColor == chess_white) {
+        playingScreen->setCurrentChessColor(true, userChessColor);
+    }
+    playingScreen->slotStartGame();
+    gameControl->startGame();//开始游戏
 }
 
 /**
@@ -319,6 +284,17 @@ void CheckerboardScene::startGame()
 void CheckerboardScene::stopGAme()
 {
     buttonStartPause->setStopStatus();
+}
+
+/**
+ * @brief CheckerboardScene::setSelectChess 设置棋子颜色
+ * @param userColor 用户棋子颜色
+ * @param aiColor ai棋子颜色
+ */
+void CheckerboardScene::setSelectChess(int userColor, int aiColor)
+{
+    userChessColor = userColor;
+    aiChessColor = aiColor;
 }
 
 //绘制AI棋子

@@ -43,6 +43,16 @@ void BTStartPause::setStopStatus()
     update();
 }
 
+/**
+ * @brief BTStartPause::setFirstGameStatus 设置是否第一次开始游戏
+ */
+void BTStartPause::setNotFirstGame()
+{
+    firstStartGame = false;
+    mouseReleased = false;
+    update();
+}
+
 QRectF BTStartPause::boundingRect() const
 {
     return ButtonItem::boundingRect();
@@ -50,7 +60,6 @@ QRectF BTStartPause::boundingRect() const
 
 void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    ButtonItem::paint(painter, option, widget);
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
@@ -58,14 +67,25 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     qreal rectHeight = this->boundingRect().height();
 
     painter->setRenderHint(QPainter::Antialiasing);
+
     painter->save();
     painter->setPen(Qt::NoPen);
-    if (mouseReleased) {
+    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+    painter->restore();
+
+    painter->save();
+    painter->setPen(Qt::NoPen);
+    if (firstStartGame) {
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
                             beginPixmap);
     } else {
-        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                            stopPixmap);
+        if (mouseReleased) {
+            painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                                beginPixmap);
+        } else {
+            painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                                stopPixmap);
+        }
     }
     painter->restore();
 
@@ -76,12 +96,17 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     font.setBold(true);
     painter->setFont(font);
     painter->setPen(QColor("#024526"));
-    if (mouseReleased) {
+    if (firstStartGame) {
         painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
-                          "开始");
+                          tr("Start"));
     } else {
-        painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
-                          "暂停");
+        if (mouseReleased) {
+            painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                              tr("Continue"));
+        } else {
+            painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                              tr("Stop"));
+        }
     }
     painter->restore();
 }
@@ -89,10 +114,15 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 //按钮功能
 void BTStartPause::buttonFunction()
 {
-    //开始暂停功能
-    if (mouseReleased) {
-        //暂停游戏
-        emit signalGameStop();
+    if (!firstStartGame) {
+        //开始暂停功能
+        if (mouseReleased) {
+            //暂停游戏
+            emit signalGameStop();
+        } else {
+            //继续游戏
+            emit signalGameContinue();
+        }
     } else {
         //开始游戏
         emit signalGameStart();

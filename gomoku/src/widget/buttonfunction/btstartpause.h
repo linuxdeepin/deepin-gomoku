@@ -35,10 +35,13 @@ public:
 signals:
     void signalGameStart(); //游戏开始信号
     void signalGameStop(); //游戏暂停信号
+    void signalGameContinue(); //游戏继续信号
 
 public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+    void setNotFirstGame() override;
 
 private:
     void buttonFunction() override;

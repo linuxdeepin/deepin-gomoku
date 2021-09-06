@@ -186,8 +186,10 @@ void ChessItem::slotMusicControl(bool musicControl)
     musicControlStatue = musicControl;
 }
 
-//开始游戏
-void ChessItem::slotGameStart()
+/**
+ * @brief ChessItem::slotGameContinue 继续游戏
+ */
+void ChessItem::slotGameContinue()
 {
     gameStatus = true;
 }

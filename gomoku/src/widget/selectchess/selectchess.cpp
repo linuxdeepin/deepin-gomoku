@@ -21,9 +21,9 @@
 #include "selectchess.h"
 #include "../resultpopup/closepopup.h"
 #include "selectinfo.h"
-#include "selectbutton.h"
 #include "determinebutton.h"
 #include "chessselected.h"
+#include "constants.h"
 
 #include <QPainter>
 #include <QVBoxLayout>
@@ -36,6 +36,8 @@ DWIDGET_USE_NAMESPACE
 Selectchess::Selectchess(QWidget *parent)
     : QDialog(parent)
     , backgroundPixmap(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase.svg"))
+    , selectLButton(new Selectbutton)
+    , selectRButton(new Selectbutton)
 {
     setFixedSize(371, 219);
     setAttribute(Qt::WA_TranslucentBackground);
@@ -66,25 +68,11 @@ void Selectchess::initUI()
     seleceInfoLayout->addStretch();
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    Selectbutton *selectLButton = new Selectbutton();
-    Chessselected *LChessSelected = new Chessselected(2);
-    Selectbutton *selectRButton = new Selectbutton();
-    Chessselected *RchessSelected = new Chessselected(1);
+
+    Chessselected *LChessSelected = new Chessselected(chess_white);
+    Chessselected *RchessSelected = new Chessselected(chess_black);
+    selectRButton->setChecked(true);
     //选择的那个颜色棋子, 发送信号
-    connect(selectLButton, &Selectbutton::released, this, [ = ] {
-        if (selectLButton->isChecked())
-        {
-            chessHasSelected = true;
-            emit signalSelectWhiteChess();
-        }
-    });
-    connect(selectRButton, &Selectbutton::released, this, [ = ] {
-        if (selectRButton->isChecked())
-        {
-            chessHasSelected = true;
-            emit signalSelectBlackChess();
-        }
-    });
     buttonLayout->addStretch(70);
     buttonLayout->addWidget(selectLButton);
     buttonLayout->addWidget(LChessSelected);
@@ -114,8 +102,7 @@ void Selectchess::initUI()
 void Selectchess::slotButtonOKClicked()
 {
     //如果选择了棋子颜色, 发送信号, 否则不发送
-    if (chessHasSelected)
-        emit signalButtonOKClicked();
+    emit signalButtonOKClicked();
 }
 
 /**
@@ -124,6 +111,45 @@ void Selectchess::slotButtonOKClicked()
 void Selectchess::selectChessShow()
 {
     this->exec();
+}
+
+/**
+ * @brief Selectchess::setSelectChess 设置选择的棋子颜色
+ * @param chessColor 棋子颜色
+ */
+void Selectchess::setSelectChess(int chessColor)
+{
+    //用户选择的棋子颜色
+    selectChessColor = chessColor;
+    //根据用户选择的棋子颜色, 设置不同按钮使能
+    if (selectChessColor == chess_white) {
+        selectLButton->setCheckable(true);
+    } else if (selectChessColor == chess_black) {
+        selectRButton->setCheckable(true);
+    }
+}
+
+/**
+ * @brief Selectchess::getSelsectChess 获取选择的棋子颜色
+ * @return 棋子颜色
+ */
+int Selectchess::getSelsectChess()
+{
+    //根据按钮选择, 设置棋子颜色
+    if (selectLButton->isChecked()) {
+        selectChessColor = chess_white;
+    } else if (selectRButton->isChecked()) {
+        selectChessColor = chess_black;
+    }
+    return selectChessColor;
+}
+
+/**
+ * @brief Selectchess::closeSelectPopup 关闭弹窗
+ */
+void Selectchess::slotCloseSelectPopup()
+{
+    this->close();
 }
 
 /**

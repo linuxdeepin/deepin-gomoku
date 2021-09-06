@@ -19,6 +19,8 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gomokumainwindow.h"
+#include "selectchess/selectchess.h"
+#include "resultpopup/resultpopup.h"
 
 #include "exitdialog/exitdialog.h"
 
@@ -81,6 +83,8 @@ void GomokuMainWindow::initUI()
 
     checkerboardScene = new CheckerboardScene(0, 0, this->width(), this->height() - titlebar()->height());
     wcheckerBoard->setScene(checkerboardScene);
+    connect(checkerboardScene, &CheckerboardScene::signalSelectChessPopup, this, &GomokuMainWindow::slotSelectChessPopup);
+    connect(checkerboardScene, &CheckerboardScene::signalPopupResult, this, &GomokuMainWindow::slotPopupResult);
 
     setCentralWidget(wcheckerBoard);
 }
@@ -105,6 +109,24 @@ void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
     painter.restore();
 }
 
+/**
+ * @brief playFailMusic 播放失败音乐
+ */
+void GomokuMainWindow::playWinMusic()
+{
+    if (checkerboardScene->getMusicPlay())
+        QSound::play(":/resources/music/win.wav");
+}
+
+/**
+ * @brief playWinMusic 播放胜利音乐
+ */
+void GomokuMainWindow::playFailMusic()
+{
+    if (checkerboardScene->getMusicPlay())
+        QSound::play(":/resources/music/fail.wav");
+}
+
 //过滤titlebar绘制事件
 bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
@@ -114,6 +136,65 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
         }
     }
     return DMainWindow::eventFilter(watched, event);
+}
+
+/**
+ * @brief GomokuMainWindow::slotSelectChessPopup 选择棋子弹窗
+ */
+void GomokuMainWindow::slotSelectChessPopup()
+{
+    Selectchess *selectChess = new Selectchess(this);
+    connect(selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
+        int userChessColor = selectChess->getSelsectChess();
+        if (userChessColor == chess_white)
+        {
+            checkerboardScene->setSelectChess(chess_white, chess_black);
+        } else if (userChessColor == chess_black)
+        {
+            checkerboardScene->setSelectChess(chess_black, chess_white);
+        }
+        checkerboardScene->selsectChessOK();
+    });
+    connect(checkerboardScene, &CheckerboardScene::signalCloSelectPopup, selectChess, &Selectchess::slotCloseSelectPopup);
+    selectChess->selectChessShow();
+    delete selectChess;
+}
+
+/**
+ * @brief CheckerboardScene::slotPopupResult 游戏结束弹窗
+ * @param result 结果
+ */
+void GomokuMainWindow::slotPopupResult(ChessResult result)
+{
+    //失败弹出,暂时效果
+    Resultpopup *resultPopUp = new Resultpopup(this) ;
+    connect(resultPopUp, &Resultpopup::signalGameAgain, checkerboardScene, &CheckerboardScene::slotreplayFunction);
+    int userChessColor = checkerboardScene->getUserChessColor();
+    //判断用户棋子颜色
+    if (userChessColor == chess_black) {
+        //判断是哪个颜色的棋子赢了
+        if (result == black_win) {
+            //胜利弹窗
+            resultPopUp->setHasWin(true);
+            //播放胜利音效
+            playWinMusic();
+        } else if (result == white_win) {
+            //失败弹窗
+            resultPopUp->setHasWin(false);
+            //播放失败音效
+            playFailMusic();
+        }
+    } else if (userChessColor == chess_white) {
+        if (result == black_win) {
+            resultPopUp->setHasWin(false);
+            playFailMusic();
+        } else if (result == white_win) {
+            resultPopUp->setHasWin(true);
+            playWinMusic();
+        }
+    }
+    resultPopUp->popupShow();
+    delete resultPopUp;
 }
 
 /**

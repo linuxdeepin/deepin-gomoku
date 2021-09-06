@@ -21,6 +21,8 @@
 #ifndef SELECTCHESS_H
 #define SELECTCHESS_H
 
+#include "selectbutton.h"
+
 #include <QDialog>
 #include <QObject>
 
@@ -31,11 +33,16 @@ public:
     explicit Selectchess(QWidget *parent = nullptr);
 
     void selectChessShow();
+    void setSelectChess(int chessColor);
+    int getSelsectChess();
 
 signals:
     void signalSelectWhiteChess();
     void signalSelectBlackChess();
     void signalButtonOKClicked();
+
+public slots:
+    void slotCloseSelectPopup();
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -48,7 +55,10 @@ private slots:
 
 private:
     QPixmap backgroundPixmap; //背景图片
+    int selectChessColor = 0; //选择的棋子颜色
     bool chessHasSelected = false; //是否选择了棋子
+    Selectbutton *selectLButton = nullptr; //左边选项
+    Selectbutton *selectRButton = nullptr; //右边选项
 };
 
 #endif // SELECTCHESS_H

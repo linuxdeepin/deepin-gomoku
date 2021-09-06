@@ -34,6 +34,9 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+
+    void setNotFirstGame() override;
+
 signals:
     void signalbuttonReplay(); //游戏重玩信号
 

@@ -33,6 +33,7 @@ public:
 
     //开始游戏
     void startGame();
+    void setChessColor(int ai, int user);
 
 signals:
     void AIPlayChess(Chess chess); //电脑下棋

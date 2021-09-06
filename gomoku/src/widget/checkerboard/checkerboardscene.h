@@ -27,7 +27,9 @@
 #include "buttonfunction/btreplay.h"
 #include "buttonfunction/btmusiccontrol.h"
 #include "playingscreen/playingscreen.h"
+#include "selectchess/selectchess.h"
 #include "constants.h"
+#include "gamecontrol.h"
 
 #include <QGraphicsScene>
 
@@ -38,18 +40,22 @@ public:
     explicit CheckerboardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent = nullptr);
     ~CheckerboardScene() override;
 
-    void setchessType(int chess = 0);
-    void startGame();
     void stopGAme();
+    void setSelectChess(int userColor, int aiColor);
+    void selsectChessOK();
+    bool getMusicPlay();
+    int getUserChessColor();
 
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
     void signalIsAIPlaying(bool AIPlaying);
     void signalMusicControl(bool musicControl);//音效控制信号
-    void signalGameStart();
+    void signalGameContinue();
     void signalGameOver();
     void signalRestGame();
-    void signalStartGame();
+    void signalCloSelectPopup();
+    void signalSelectChessPopup();
+    void signalPopupResult(ChessResult result);
 
 public slots:
     void slotPaintAIChess(Chess chess);
@@ -62,13 +68,12 @@ private:
     void initFunctionButton();
     void initPlayingScreen();
     void setAIChess(Chess chess);
-    void playWinMusic();
-    void playFailMusic();
+    void startGame();
 
 private slots:
-    void slotGameStop();
     void slotGameStart();
-    void slotPopupResult(ChessResult result);
+    void slotGameStop();
+    void slotGameContinue();
     void slotCPaintItem(ChessItem *cItem);
 
 private:
@@ -79,14 +84,16 @@ private:
     BTReplay *buttonReplay = nullptr; //重玩按钮
     BTMusicControl *buttonMusicControl = nullptr; //音乐控制按钮
     PlayingScreen *playingScreen = nullptr; //对局显示
-    int userChessType = chess_black; //棋子颜色
+    int userChessColor = 0; //用户棋子颜色
+    int aiChessColor = 0; //ai棋子颜色
+    GameControl *gameControl = nullptr; //游戏控制
+    Selectchess *selectChess = nullptr; //棋子选择
+//    int userChessType = chess_black; //棋子颜色
     int clickPosRow = 0; //点击的行
     int clickPosCol = 0; // 点击的列
-    int userChess; //用户棋子颜色
-    int aiChess; //ai棋子颜色
     bool musicControlStatus = true; //是否可以播放音乐
     bool gameStatus = false; //游戏状态
-    bool seleceChessPopup = true; //是否弹出选择棋子弹窗
+//    bool seleceChessPopup = true; //是否弹出选择棋子弹窗
     bool playChess = false; //是否是AI下棋
     bool AIChessStatus = false; //暂停游戏时,AI是否下棋
     Chess AIChess; //保存当前棋子位置

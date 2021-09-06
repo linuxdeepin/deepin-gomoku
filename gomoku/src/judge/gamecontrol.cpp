@@ -26,8 +26,6 @@ GameControl::GameControl(int AIColor, int userColor, QObject *parent) : QObject(
     this->AIColor = AIColor;
     this->userColor = userColor;
     this->AI = new ArtificialIntelligence();
-
-    initGame();//初始化游戏
 }
 
 GameControl::~GameControl()
@@ -64,8 +62,20 @@ void GameControl::initGame()
 //开始游戏
 void GameControl::startGame()
 {
+    initGame();
     Chess chess(-1, -1, 0); //还没有落子
     playChess(chess);
+}
+
+/**
+ * @brief GameControl::setChessColor 设置用户和ai棋子颜色
+ * @param aiColor ai棋子颜色
+ * @param userColor 用户棋子颜色
+ */
+void GameControl::setChessColor(int ai, int user)
+{
+    AIColor = ai;
+    userColor = user;
 }
 
 //槽函数同步数据

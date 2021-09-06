@@ -37,6 +37,10 @@ public:
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
+public slots:
+    void slotSelectChessPopup();
+    void slotPopupResult(ChessResult result);
+
 protected:
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
@@ -44,6 +48,8 @@ protected:
 private:
     void initUI();
     void paintTitleBar(QWidget *titlebar);
+    void playWinMusic();
+    void playFailMusic();
 
 private:
     DTitlebar *mTitleBar = nullptr;

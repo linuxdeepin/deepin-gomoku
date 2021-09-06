@@ -26,13 +26,15 @@
 #include <QDebug>
 
 Selectbutton::Selectbutton(QWidget *parent)
-    : QRadioButton(parent)
+    : QPushButton(parent)
     , selectNormal(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/radio_unchecked.svg"))
     , selectHover(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/radio_hover.svg"))
     , selectPress(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/radio_checked.svg"))
     , currentStatus(selectNormal)
 {
     setFixedSize(30, 30);
+    //可选
+    setCheckable(true);
     //互斥
     setAutoExclusive(true);
 }

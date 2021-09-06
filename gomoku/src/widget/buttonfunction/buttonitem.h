@@ -42,7 +42,6 @@ public:
 
 public:
     QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
@@ -51,16 +50,18 @@ protected:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
     virtual void buttonFunction();
+    virtual void setNotFirstGame();
 
     bool mouseReleased = true; //鼠标是否释放
     bool gamePlaying = false;
+    bool firstStartGame = true; //是否第一次开始游戏
     //以下位置参数,根据UI图得来
     const qreal pixmapPosWidth = 0.147; //按钮图标位置占整个scene宽度比例
     const qreal pixmapPosHeight = 0.3125; //按钮图标位置占整个scene高度比例
     const qreal textPosWidth = 0.3921; //按钮文字位置占整个scene宽度比例
     const qreal textPosHeight = 0.625; //按钮文字位置占整个scene高度比例
-private:
     QPixmap backgrounePix; //需要显示的背景图片
+private:
     QPixmap normalBackgrounePix; //正常的背景图片
     QPixmap hoverBackgrounePix; //hover状态的背景图片
     QPixmap PressBackgrounePix; //press状态的背景图片

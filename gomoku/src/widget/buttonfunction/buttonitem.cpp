@@ -41,18 +41,6 @@ QRectF ButtonItem::boundingRect() const
     return QRectF(0, 0, 200, 60);
 }
 
-void ButtonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
-
-    painter->setRenderHint(QPainter::Antialiasing);
-    painter->save();
-    painter->setPen(Qt::NoPen);
-    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
-    painter->restore();
-}
-
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
@@ -89,5 +77,12 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 //按钮功能虚函数
 void ButtonItem::buttonFunction()
+{
+}
+
+/**
+ * @brief ButtonItem::setNotFirstGame 设置是否第一次开始游戏
+ */
+void ButtonItem::setNotFirstGame()
 {
 }

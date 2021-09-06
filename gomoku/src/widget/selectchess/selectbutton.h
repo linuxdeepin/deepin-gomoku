@@ -23,11 +23,11 @@
 
 #include <DWidget>
 
-#include <QRadioButton>
+#include <QPushButton>
 
 DWIDGET_USE_NAMESPACE
 
-class Selectbutton : public QRadioButton
+class Selectbutton : public QPushButton
 {
 public:
     Selectbutton(QWidget *parent = nullptr);

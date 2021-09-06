@@ -34,6 +34,8 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    void setNotFirstGame() override;
+
 signals:
     void signalMusic(bool musicControl);
 

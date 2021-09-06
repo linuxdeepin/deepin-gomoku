@@ -56,7 +56,7 @@ void PlayingScreen::setCurrentChessColor(bool AIPlaying, int chesscolor)
 QRectF PlayingScreen::boundingRect() const
 {
     //对局详情所在rect大小
-    return QRectF(0, 0, 265, 200);
+    return QRectF(0, 0, 300, 200);
 }
 
 void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -74,13 +74,14 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         painter->save();
         QFont font;
         font.setPointSize(16);
-        font.setBold(true);
         painter->setFont(font);
         painter->setPen(QColor("#ffdb9e"));
         if (AIPlayer) {
-            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight), "小U正在思考...");
+            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight),
+                              tr("I'm thinking ..."));
         } else {
-            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight), "您的回合！");
+            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight),
+                              tr("Place your chess piece..."));
         }
         painter->restore();
 
@@ -120,7 +121,8 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         welcomeFont.setBold(true);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1), "欢迎来到五子棋");
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1),
+                          tr("Welcome to Gomoku!"));
         painter->restore();
 
         painter->save();
@@ -129,7 +131,8 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         startFont1.setBold(true);
         painter->setFont(startFont1);
         painter->setPen(QColor("#ffffff"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth2, rectHeight * sWelcomePosHeight2), "点击下面的开始按钮");
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth2, rectHeight * sWelcomePosHeight2),
+                          tr("Click the start button below"));
         painter->restore();
 
         painter->save();
@@ -138,7 +141,8 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         startFont2.setBold(true);
         painter->setFont(startFont2);
         painter->setPen(QColor("#ffffff"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth3, rectHeight * sWelcomePosHeight3), "来下棋吧~");
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth3, rectHeight * sWelcomePosHeight3),
+                          tr("to play chess~"));
         painter->restore();
     }
 }
