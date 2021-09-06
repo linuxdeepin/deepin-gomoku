@@ -37,6 +37,12 @@ enum ChessResult {
     playing, //游戏继续中
 };
 
+//退出弹框的按钮类型
+enum BTType {
+    BTExit,
+    BTCancel,
+};
+
 const int widgetWidth = 1024; //界面宽度
 const int widgetHeight = 768; //界面高度
 

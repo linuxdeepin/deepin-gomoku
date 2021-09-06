@@ -1,9 +1,9 @@
 /*
    * Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
    *
-   * Author:     zhengxiaokang <zhengxiaokang@uniontech.com>
+   * Author:     liyucheng <liyucheng@uniontech.com>
    *
-   * Maintainer: zhengxiaokang <zhengxiaokang@uniontech.com>
+   * Maintainer:  liyucheng <liyucheng@uniontech.com>
    *
    * This program is free software: you can redistribute it and/or modify
    * it under the terms of the GNU General Public License as published by
@@ -18,36 +18,22 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef GOMOKUMAINWINDOW_H
-#define GOMOKUMAINWINDOW_H
+#ifndef EXITLABEL_H
+#define EXITLABEL_H
 
-#include "checkerboard/checkerboardscene.h"
-
-#include <DMainWindow>
+#include <QWidget>
+#include <DLabel>
 
 DWIDGET_USE_NAMESPACE
-
-class GomokuMainWindow : public DMainWindow
+class ExitLabel : public DLabel
 {
     Q_OBJECT
 public:
-    explicit GomokuMainWindow(QWidget *parent = nullptr);
-    ~GomokuMainWindow() override;
+    explicit ExitLabel(QWidget *parent = nullptr);
 
-public:
-    bool eventFilter(QObject *watched, QEvent *event) override;
+signals:
 
-protected:
-    void changeEvent(QEvent *event) override;
-    void closeEvent(QCloseEvent *event) override;
-
-private:
-    void initUI();
-    void paintTitleBar(QWidget *titlebar);
-
-private:
-    DTitlebar *mTitleBar = nullptr;
-    CheckerboardScene *checkerboardScene = nullptr;
+public slots:
 };
 
-#endif // GOMOKUMAINWINDOW_H
+#endif // EXITLABEL_H

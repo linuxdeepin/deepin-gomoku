@@ -47,5 +47,12 @@
         <file>resources/chessselected/button_press.svg</file>
         <file>resources/chessselected/button_normal.svg</file>
         <file>resources/chessselected/button_hover.svg</file>
+        <file>resources/exitdialog/cancel-hover.svg</file>
+        <file>resources/exitdialog/cancel-normal.svg</file>
+        <file>resources/exitdialog/cancel-press.svg</file>
+        <file>resources/exitdialog/exit-hover.svg</file>
+        <file>resources/exitdialog/exit-normal.svg</file>
+        <file>resources/exitdialog/exit-press.svg</file>
+        <file>resources/exitdialog/close-dialog.svg</file>
     </qresource>
 </RCC>

@@ -1,9 +1,9 @@
 /*
    * Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
    *
-   * Author:     zhengxiaokang <zhengxiaokang@uniontech.com>
+   * Author:     liyucheng <liyucheng@uniontech.com>
    *
-   * Maintainer: zhengxiaokang <zhengxiaokang@uniontech.com>
+   * Maintainer:  liyucheng <liyucheng@uniontech.com>
    *
    * This program is free software: you can redistribute it and/or modify
    * it under the terms of the GNU General Public License as published by
@@ -18,36 +18,36 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef GOMOKUMAINWINDOW_H
-#define GOMOKUMAINWINDOW_H
+#ifndef CANCELBUTTON_H
+#define CANCELBUTTON_H
 
-#include "checkerboard/checkerboardscene.h"
-
-#include <DMainWindow>
+#include <QWidget>
+#include <QPixmap>
+#include <DWidget>
 
 DWIDGET_USE_NAMESPACE
-
-class GomokuMainWindow : public DMainWindow
+class CancelButton : public QWidget
 {
     Q_OBJECT
 public:
-    explicit GomokuMainWindow(QWidget *parent = nullptr);
-    ~GomokuMainWindow() override;
-
-public:
-    bool eventFilter(QObject *watched, QEvent *event) override;
-
-protected:
-    void changeEvent(QEvent *event) override;
-    void closeEvent(QCloseEvent *event) override;
+    explicit CancelButton(QWidget *parent = nullptr);
 
 private:
-    void initUI();
-    void paintTitleBar(QWidget *titlebar);
+    void mouseReleaseEvent(QMouseEvent *event);
+    void enterEvent(QEvent *event);
+    void leaveEvent(QEvent *event);
+    void paintEvent(QPaintEvent *event);
+    void mousePressEvent(QMouseEvent *event);
 
 private:
-    DTitlebar *mTitleBar = nullptr;
-    CheckerboardScene *checkerboardScene = nullptr;
+    QPixmap buttonNormal;
+    QPixmap buttonHover;
+    QPixmap buttonPress;
+    QPixmap currentPixmap;
+
+signals:
+    void signalButtonOKClicked();
+public slots:
 };
 
-#endif // GOMOKUMAINWINDOW_H
+#endif // CANCELBUTTON_H

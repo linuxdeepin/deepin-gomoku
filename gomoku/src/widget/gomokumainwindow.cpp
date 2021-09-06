@@ -20,6 +20,8 @@
    */
 #include "gomokumainwindow.h"
 
+#include "exitdialog/exitdialog.h"
+
 #include <QGraphicsView>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -29,6 +31,7 @@
 #include <DWidget>
 #include <DTitlebar>
 #include <DFrame>
+#include <QCloseEvent>
 #include <DDialog>
 
 GomokuMainWindow::GomokuMainWindow(QWidget *parent)
@@ -123,4 +126,20 @@ void GomokuMainWindow::changeEvent(QEvent *event)
         checkerboardScene->stopGAme();
     }
     DMainWindow::changeEvent(event);
+}
+
+/**
+ * @brief GomokuMainWindow::closeEvent 关闭事件
+ * @param event
+ */
+void GomokuMainWindow::closeEvent(QCloseEvent *event)
+{
+    ExitDialog *exitDialog = new ExitDialog(this);
+    exitDialog->exec();
+
+    if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
+        event->accept(); //事件接受
+    } else {
+        event->ignore(); //事件忽略
+    }
 }

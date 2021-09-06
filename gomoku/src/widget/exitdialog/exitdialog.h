@@ -1,9 +1,9 @@
 /*
    * Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
    *
-   * Author:     zhengxiaokang <zhengxiaokang@uniontech.com>
+   * Author:     liyucheng <liyucheng@uniontech.com>
    *
-   * Maintainer: zhengxiaokang <zhengxiaokang@uniontech.com>
+   * Maintainer:  liyucheng <liyucheng@uniontech.com>
    *
    * This program is free software: you can redistribute it and/or modify
    * it under the terms of the GNU General Public License as published by
@@ -18,36 +18,38 @@
    * You should have received a copy of the GNU General Public License
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
-#ifndef GOMOKUMAINWINDOW_H
-#define GOMOKUMAINWINDOW_H
+#ifndef EXITDIALOG_H
+#define EXITDIALOG_H
 
-#include "checkerboard/checkerboardscene.h"
-
-#include <DMainWindow>
-
-DWIDGET_USE_NAMESPACE
-
-class GomokuMainWindow : public DMainWindow
+#include <QWidget>
+#include <DDialog>
+#include <QPixmap>
+#include <QMessageBox>
+#include "constants.h"
+class ExitDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit GomokuMainWindow(QWidget *parent = nullptr);
-    ~GomokuMainWindow() override;
+    explicit ExitDialog(QWidget *parent = nullptr);
+    inline BTType getResult() {return result;}
+    inline void setResult(BTType r) {result = r;}
 
 public:
-    bool eventFilter(QObject *watched, QEvent *event) override;
+    BTType result; //用于区分那个按钮的点击，让主界面退出游戏
 
-protected:
-    void changeEvent(QEvent *event) override;
-    void closeEvent(QCloseEvent *event) override;
+private:
+   QPixmap backgroundQPixmap;
 
 private:
     void initUI();
-    void paintTitleBar(QWidget *titlebar);
+    void paintEvent(QPaintEvent *event);
 
-private:
-    DTitlebar *mTitleBar = nullptr;
-    CheckerboardScene *checkerboardScene = nullptr;
+signals:
+
+public slots:
+   void soltDialogClose();
+   void soltGameExit();
+
 };
 
-#endif // GOMOKUMAINWINDOW_H
+#endif // EXITDIALOG_H
