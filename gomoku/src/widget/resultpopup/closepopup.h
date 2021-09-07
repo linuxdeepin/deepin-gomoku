@@ -39,9 +39,13 @@ protected:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseReleaseEvent(QMouseEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
-
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 private:
-    QPixmap closePixmap; //关闭图片
+    QPixmap buttonNormal;
+    QPixmap buttonHover;
+    QPixmap buttonPress;
+    QPixmap currentPixmap;
 };
 
 #endif // CLOSEPOPUP_H

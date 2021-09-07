@@ -54,5 +54,8 @@
         <file>resources/exitdialog/exit-normal.svg</file>
         <file>resources/exitdialog/exit-press.svg</file>
         <file>resources/exitdialog/close-dialog.svg</file>
+        <file>resources/resultpopup/press.svg</file>
+        <file>resources/resultpopup/hover.svg</file>
+        <file>resources/resultpopup/normal.svg</file>
     </qresource>
 </RCC>

@@ -220,7 +220,7 @@ ChessResult GameControl::judgeResult(Chess chess)
     button = lastRow + 4;//行最大值
     left = lastCol - 4; //列最小值
     if (left < 0 || button > (line_row - 1)) { //左下出界
-        if (left < (line_row - 1 - lastRow)) { //列先出界
+        if (lastCol < (line_row - 1 - lastRow)) { //列先出界
             left = 0;
             button = lastRow + lastCol;
         } else {

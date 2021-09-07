@@ -36,8 +36,6 @@ ExitDialog::ExitDialog(QWidget *parent)
     , backgroundQPixmap(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg"))
 {
     setFixedSize(371, 219); //弹窗尺寸大小
-//    setContentsMargins(0, 0, 0, 0);
-//    setAttribute(Qt::WA_DeleteOnClose);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint); //取消标题栏
 
@@ -45,8 +43,7 @@ ExitDialog::ExitDialog(QWidget *parent)
 }
 
 /**
- * @brief ExitDialog::initUI
- * 初始化ui界面
+ * @brief ExitDialog::initUI  初始化ui界面
  */
 void ExitDialog::initUI()
 {
@@ -61,7 +58,6 @@ void ExitDialog::initUI()
         this->close();
     });
 
-    closeButton->setFixedSize(34,34);//关闭按钮的大小
 
     titleLayout->addStretch();
     titleLayout->addWidget(closeButton);
@@ -99,8 +95,7 @@ void ExitDialog::initUI()
 }
 
 /**
- * @brief ExitDialog::soltDialogClose
- * 槽函数：处理取消按钮和关闭dialog的信号
+ * @brief ExitDialog::soltDialogClose 槽函数：处理取消按钮和关闭dialog的信号
  */
 void ExitDialog::soltDialogClose() {
     setResult(BTType::BTCancel); //将状态设置为取消
@@ -108,14 +103,17 @@ void ExitDialog::soltDialogClose() {
 }
 
 /**
- * @brief ExitDialog::soltGameExit
- * 槽函数：处理退出游戏的信号
+ * @brief ExitDialog::soltGameExit 槽函数：处理退出游戏的信号
  */
 void ExitDialog::soltGameExit() {
     setResult(BTType::BTExit); //将状态设置为退出
     this->done(0);
 }
 
+/**
+ * @brief ExitDialog::paintEvent 重写绘画事件
+ * @param event
+ */
 void ExitDialog::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);

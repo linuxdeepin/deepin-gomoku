@@ -28,10 +28,12 @@
 
 Closepopup::Closepopup(QWidget *parent)
     : DWidget(parent)
-    , closePixmap(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/close.svg"))
+    ,buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/normal.svg"))
+    ,buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/hover.svg"))
+    ,buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/press.svg"))
 {
-    //设置大小
-    setFixedSize(35, 35);
+    setFixedSize(buttonNormal.size());
+    currentPixmap = buttonNormal;
 }
 
 /**
@@ -40,7 +42,9 @@ Closepopup::Closepopup(QWidget *parent)
  */
 void Closepopup::mousePressEvent(QMouseEvent *event)
 {
-    DWidget::mousePressEvent(event);
+    currentPixmap = buttonPress;
+    DWidget::mouseReleaseEvent(event);
+    update();
 }
 
 /**
@@ -49,9 +53,33 @@ void Closepopup::mousePressEvent(QMouseEvent *event)
  */
 void Closepopup::mouseReleaseEvent(QMouseEvent *event)
 {
+    currentPixmap = buttonNormal;
     if (this->rect().contains(event->pos()))
         emit signalCloseClicked();
     DWidget::mouseReleaseEvent(event);
+    update();
+}
+/**
+ * @brief Closepopup::enterEvent
+ * @param event
+ */
+void Closepopup::enterEvent(QEvent *event)
+{
+    currentPixmap = buttonHover;
+    DWidget::enterEvent(event);
+    update();
+}
+
+/**
+ * @brief Closepopup::leaveEvent
+ * @param event
+ * 移出事件
+ */
+void Closepopup::leaveEvent(QEvent *event)
+{
+    currentPixmap = buttonNormal;
+    DWidget::leaveEvent(event);
+    update();
 }
 
 /**
@@ -64,7 +92,7 @@ void Closepopup::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.save();
     painter.setPen(Qt::NoPen);
-    painter.drawPixmap(this->rect(), closePixmap);
+    painter.drawPixmap(this->rect(), currentPixmap);
     painter.restore();
     DWidget::paintEvent(event);
 }
