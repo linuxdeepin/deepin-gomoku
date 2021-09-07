@@ -42,6 +42,15 @@ public:
      * @return 图片
      */
     static QPixmap getDpiPixmap(QSize size, const QString filename, QWidget *w);
+
+    /**
+     * @brief AutoFeed 对字符串进行手动换行
+     * @param text 字符串
+     * @param fontSize 字体大小
+     * @param textWidth 容纳字符的最大宽度
+     * @return
+     */
+    static QString AutoFeed(const QString &text, const int fontSize, const int textWidth);
 };
 
 #endif // GLOBALTOOL_H

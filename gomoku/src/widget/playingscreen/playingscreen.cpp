@@ -20,6 +20,7 @@
    */
 #include "playingscreen.h"
 #include "constants.h"
+#include "globaltool.h"
 
 #include <QPainter>
 #include <QDebug>
@@ -82,16 +83,25 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         //游戏开始后
         painter->save();
         QFont font;
-        font.setPointSize(16);
+        font.setFamily("Yuanti SC");
+        font.setWeight(QFont::Black);
+        font.setPointSize(20);
         painter->setFont(font);
         painter->setPen(QColor("#ffdb9e"));
+        QString playerText;
         if (AIPlayer) {
-            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight),
-                              tr("I'm thinking ..."));
+            playerText = Globaltool::AutoFeed(tr("I'm thinking ..."), 20,
+                                              static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
         } else {
-            painter->drawText(QPointF(rectWidth * chessPlayingTextPosWidth, rectHeight * chessPlayingTextPosHeight),
-                              tr("Place your chess piece..."));
+            playerText = Globaltool::AutoFeed(tr("Place your chess piece..."), 20,
+                                              static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
         }
+        painter->drawText(QRect(static_cast<int>(rectWidth * chessPlayingTextPosWidth),
+                                static_cast<int>(rectHeight * chessPlayingTextPosHeight),
+                                static_cast<int>(rectWidth),
+                                static_cast<int>(rectHeight)),
+                          Qt::AlignLeft | Qt::TextWordWrap,
+                          playerText);
         painter->restore();
 
         painter->save();
@@ -126,8 +136,9 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         //游戏还未开始
         painter->save();
         QFont welcomeFont;
+        welcomeFont.setFamily("Yuanti SC");
+        welcomeFont.setWeight(QFont::Black);
         welcomeFont.setPointSize(20);
-        welcomeFont.setBold(true);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
         painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1),
@@ -136,26 +147,25 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
         painter->save();
         QFont startFont1;
+        startFont1.setFamily("Yuanti SC");
+        startFont1.setWeight(QFont::Black);
         startFont1.setPointSize(16);
-        startFont1.setBold(true);
         painter->setFont(startFont1);
         painter->setPen(QColor("#ffffff"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth2, rectHeight * sWelcomePosHeight2),
-                          tr("Click the start button below"));
-        painter->restore();
-
-        painter->save();
-        QFont startFont2;
-        startFont2.setPointSize(16);
-        startFont2.setBold(true);
-        painter->setFont(startFont2);
-        painter->setPen(QColor("#ffffff"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth3, rectHeight * sWelcomePosHeight3),
-                          tr("to play chess~"));
+        QString str = Globaltool::AutoFeed(tr("Click the start button below to play chess~"), 16,
+                                           static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));;
+        painter->drawText(QRect(static_cast<int>(rectWidth * sWelcomePosWidth2),
+                                static_cast<int>(rectHeight * sWelcomePosHeight2),
+                                static_cast<int>(rectWidth),
+                                static_cast<int>(rectHeight)),
+                          Qt::AlignLeft | Qt::TextWordWrap,
+                          str);
         painter->restore();
     } else if (gameOverStatus) {
         painter->save();
         QFont gameOverFont;
+        gameOverFont.setFamily("Yuanti SC");
+        gameOverFont.setWeight(QFont::Black);
         gameOverFont.setPointSize(20);
         gameOverFont.setBold(true);
         painter->setFont(gameOverFont);

@@ -24,10 +24,10 @@
 #include <DHiDPIHelper>
 
 ExitButton::ExitButton(QWidget *parent)
-    :DWidget(parent)
-    ,buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-normal.svg"))
-    ,buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-hover.svg"))
-    ,buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-press.svg"))
+    : DWidget(parent)
+    , buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-normal.svg"))
+    , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-hover.svg"))
+    , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-press.svg"))
 {
     setFixedSize(160, 42); //设置按钮大小
     currentPixmap = buttonNormal;
@@ -99,7 +99,7 @@ void ExitButton::paintEvent(QPaintEvent *event)
     font.setPointSize(15); //按钮字体大小
     painter.setPen("#492c04"); //字体颜色
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("退 出"));
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Exit"));
     painter.restore();
     DWidget::paintEvent(event);
 }

@@ -48,6 +48,12 @@ int ChessItem::getChessColor()
     return chessType;
 }
 
+void ChessItem::setHasPrintChess()
+{
+    chessHasPrint = true;
+    update();
+}
+
 //设置是否有棋子
 void ChessItem::setchessStatus(bool chessstatus)
 {
@@ -74,6 +80,7 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     QColor chessColor;
     QPixmap chessPixmap;
+    QPixmap chessPixmapNow;
     painter->setRenderHints(QPainter::Antialiasing);
 
     if (chessStatus) {
@@ -81,10 +88,17 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(Qt::NoPen);
         if (chessType == chess_white) {
             chessPixmap = chessWhitePixmap;
+            chessPixmapNow = QPixmap(":/resources/chess_white_now.svg");
+
         } else if (chessType == chess_black) {
             chessPixmap = chessBlackPixmap;
+            chessPixmapNow = QPixmap(":/resources/chess_balck_now.svg");
         }
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), chessPixmap);
+        if (chessHasPrint) {
+            painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), chessPixmap);
+        } else {
+            painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), chessPixmapNow);
+        }
         painter->restore();
         emit signalCPaintItem(this);
     } else {
@@ -121,13 +135,14 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 QRectF ChessItem::boundingRect() const
 {
-    if (chessStatus) {
-        //棋子大小
-        return QRectF(0, 0, chess_size, chess_size);
-    }
-    //可落子范围
-    int startHPoint = (chess_size - hover_size) / 2;
-    return QRectF(startHPoint, startHPoint, hover_size, hover_size);
+    //暂时调整大小,以增大可落子识别区域
+//    if (chessStatus) {
+    //棋子大小
+    return QRectF(0, 0, chess_size, chess_size);
+//    }
+//    //可落子范围
+//    int startHPoint = (chess_size - hover_size) / 2;
+//    return QRectF(startHPoint, startHPoint, hover_size, hover_size);
 
 }
 

@@ -24,7 +24,7 @@ Selectinfo::Selectinfo(QWidget *parent)
     : DLabel(parent)
 {
     //设置大小
-    setFixedSize(216, 33);
+    setFixedSize(216, 35);
 }
 
 /**

@@ -24,8 +24,10 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
 {
 
     setWordWrap(true);
-    setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    setText(tr("游戏正在进行中，\n您确认要退出吗？"));
+    setMinimumWidth(204);
+    setMinimumHeight(66);
+    setText(tr("Are you sure want to exit the game?"));
+    setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 
     QPalette palCancel;
     palCancel.setColor(QPalette::WindowText, QColor("#024526"));

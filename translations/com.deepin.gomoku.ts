@@ -4,12 +4,12 @@
 <context>
     <name>BTMusicControl</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="89"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="90"/>
         <source>Open Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="92"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="93"/>
         <source>Close Music</source>
         <translation type="unfinished"></translation>
     </message>
@@ -61,7 +61,7 @@
     <name>CancelButton</name>
     <message>
         <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="105"/>
-        <source>取 消</source>
+        <source>Keep Playing</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -77,16 +77,15 @@
     <name>ExitButton</name>
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="102"/>
-        <source>退 出</source>
+        <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ExitLabel</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="28"/>
-        <source>游戏正在进行中，
-您确认要退出吗？</source>
+        <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="29"/>
+        <source>Are you sure want to exit the game?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -114,32 +113,32 @@
 <context>
     <name>PlayingScreen</name>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="90"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="92"/>
         <source>I&apos;m thinking ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="93"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="95"/>
         <source>Place your chess piece...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="134"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="137"/>
         <source>Welcome to Gomoku!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="144"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="148"/>
         <source>Click the start button below</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="154"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="160"/>
         <source>to play chess~</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="164"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="172"/>
         <source>Game Over!</source>
         <translation type="unfinished"></translation>
     </message>

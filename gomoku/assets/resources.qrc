@@ -57,5 +57,7 @@
         <file>resources/resultpopup/press.svg</file>
         <file>resources/resultpopup/hover.svg</file>
         <file>resources/resultpopup/normal.svg</file>
+        <file>resources/chess_balck_now.svg</file>
+        <file>resources/chess_white_now.svg</file>
     </qresource>
 </RCC>

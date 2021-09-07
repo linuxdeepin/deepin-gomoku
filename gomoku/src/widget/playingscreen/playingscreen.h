@@ -61,7 +61,7 @@ private:
     QPixmap aiNotPlay; //ai没有下棋
     //以下位置参数,根据UI图得来
     const qreal chessPlayingTextPosWidth = 0.1764; //当前下棋提示语位置占整个scene宽度比例
-    const qreal chessPlayingTextPosHeight = 0.35; //当前下棋提示语位置占整个scene宽度比例
+    const qreal chessPlayingTextPosHeight = 0.1; //当前下棋提示语位置占整个scene宽度比例
     const qreal currentPlayerPosWidth = 0.1332; //当前旗手位置占整个scene宽度比例
     const qreal currentPlayerPosHeight = 0.52; //当前旗手位置占整个scene宽度比例
     const qreal aiPlayingPosWidth = 0.3207; //ai下棋位置占整个scene宽度比例

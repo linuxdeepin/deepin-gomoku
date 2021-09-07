@@ -284,6 +284,11 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
                 }
                 playingScreen->setCurrentChessColor(chessPlayer, chessColor);
                 emit signalCurrentPoint(chess);
+                if (clickPosRow != -1 && clickPosCol != -1) {
+                    chessItemList.at(clickPosRow).at(clickPosCol)->setHasPrintChess();
+                }
+                clickPosRow = i;
+                clickPosCol = j;
             }
         }
     }

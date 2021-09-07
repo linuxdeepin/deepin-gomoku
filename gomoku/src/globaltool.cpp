@@ -20,6 +20,10 @@
    */
 #include "globaltool.h"
 
+#include <DFontSizeManager>
+
+DWIDGET_USE_NAMESPACE
+
 Globaltool::Globaltool()
 {
 }
@@ -62,4 +66,40 @@ QPixmap Globaltool::getDpiPixmap(QSize size, const QString filename, QWidget *w)
         }
     }
     return pixmap;
+}
+
+QString Globaltool::AutoFeed(const QString &text, const int fontSize, const int textWidth)
+{
+    QString strText = text;
+    QString resultStr = nullptr;
+    QFont labelF;
+    labelF.setFamily("Yuanti SC");
+    labelF.setWeight(QFont::Black);
+    labelF.setPointSize(fontSize);
+    QFontMetrics fm(labelF);
+    int titlewidth = fm.width(strText);
+    QStringList strList;
+    QString str;
+    strList.clear();
+
+    if (titlewidth < textWidth) {
+        strList.append(strText);
+        resultStr += strText;
+    } else {
+        for (int i = 0; i < strText.count(); i++) {
+            str += strText.at(i);
+
+            if (fm.width(str) > textWidth) {
+                str.remove(str.count() - 1, 1);
+                strList.append(str);
+                resultStr += str + "\n";
+                str.clear();
+                --i;
+            }
+        }
+        strList.append(str);
+        resultStr += str;
+    }
+
+    return resultStr;
 }

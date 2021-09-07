@@ -63,8 +63,7 @@ void BTStartPause::setGameOverStatus(bool gameover)
  */
 bool BTStartPause::getButtonStatus()
 {
-    bool buttonStatus = mouseReleased;
-    return buttonStatus;
+    return mouseReleased;
 }
 
 /**
@@ -91,6 +90,7 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     qreal rectWidth = this->boundingRect().width();
     qreal rectHeight = this->boundingRect().height();
     QFont font;
+    font.setFamily("Yuanti SC");
     font.setPointSize(16);
     font.setBold(true);
 

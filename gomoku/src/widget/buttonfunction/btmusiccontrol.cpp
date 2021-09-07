@@ -78,6 +78,7 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     painter->save();
     QFont font;
+    font.setFamily("Yuanti SC");
     font.setPointSize(16);
     font.setBold(true);
     painter->setFont(font);

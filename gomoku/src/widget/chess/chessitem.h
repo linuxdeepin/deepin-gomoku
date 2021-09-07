@@ -37,7 +37,7 @@ public:
     //set chess type
     void setCurrentchess(int chesstype);
     int getChessColor();
-
+    void setHasPrintChess();
     void setchessStatus(bool chessstatus);
     bool getchessStatus();
 
@@ -78,6 +78,7 @@ private:
     bool gameOver = false; //游戏结束
     bool isAIPlaying = false; //是否为ai下棋
     bool musicControlStatue = true; //游戏音效控制状态
+    bool chessHasPrint = false; //
 };
 
 #endif // chessITEM_H

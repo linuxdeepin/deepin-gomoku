@@ -25,10 +25,10 @@
 #include <QDebug>
 
 CancelButton::CancelButton(QWidget *parent)
-    :DWidget(parent)
-    ,buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-normal.svg"))
-    ,buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-hover.svg"))
-    ,buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-press.svg"))
+    : DWidget(parent)
+    , buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-normal.svg"))
+    , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-hover.svg"))
+    , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-press.svg"))
 {
     setFixedSize(160, 42); //设置尺寸
     currentPixmap = buttonNormal;
@@ -54,7 +54,7 @@ void CancelButton::mousePressEvent(QMouseEvent *event)
 void CancelButton::mouseReleaseEvent(QMouseEvent *event)
 {
     currentPixmap = buttonNormal;
-    if (this->rect().contains(event->pos())){
+    if (this->rect().contains(event->pos())) {
         emit signalButtonOKClicked();
     }
 
@@ -102,7 +102,7 @@ void CancelButton::paintEvent(QPaintEvent *event)
     font.setPointSize(15); //按钮字体大小
     painter.setPen("#492c04"); //字体颜色
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("取 消"));
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Keep Playing"));
     painter.restore();
     DWidget::paintEvent(event);
 }

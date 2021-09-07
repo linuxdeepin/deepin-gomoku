@@ -92,8 +92,8 @@ private:
     GameControl *gameControl = nullptr; //游戏控制
     Selectchess *selectChess = nullptr; //棋子选择
 //    int userChessType = chess_black; //棋子颜色
-    int clickPosRow = 0; //点击的行
-    int clickPosCol = 0; // 点击的列
+    int clickPosRow = -1; //点击的行
+    int clickPosCol = -1; // 点击的列
     bool musicControlStatus = true; //是否可以播放音乐
     bool gameStatus = false; //游戏状态
 //    bool seleceChessPopup = true; //是否弹出选择棋子弹窗
