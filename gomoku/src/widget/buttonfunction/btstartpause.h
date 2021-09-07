@@ -30,7 +30,9 @@ public:
     explicit BTStartPause(QGraphicsItem *parent = nullptr);
     ~BTStartPause() override;
 
-    void setStopStatus();
+    void setButtonStatus(bool status);
+    void setGameOverStatus(bool gameover);
+    bool getButtonStatus();
 
 signals:
     void signalGameStart(); //游戏开始信号
@@ -49,6 +51,7 @@ private:
 private:
     QPixmap beginPixmap; //开始按钮图片
     QPixmap stopPixmap; //暂停按钮图片
+    bool gameOverStatus = false; //游戏结束标志
 };
 
 #endif // BTSTARTPAUSE_H

@@ -37,6 +37,7 @@ public:
 
     void setCurrentPlay(bool player);
     void setCurrentChessColor(bool AIPlaying, int chesscolor);
+    void setGameOverStatus();
 
 public:
     QRectF boundingRect() const override;
@@ -48,6 +49,7 @@ public slots:
 private:
     bool AIPlayer = false; //旗手
     bool gamePlaying = false; //游戏是否开始
+    bool gameOverStatus = false; //游戏结束标志
     int currentChessColro = 0; //棋子颜色
     QPixmap currentPlayer; //当前旗手
     QPixmap aiPlaying; //ai正在下棋

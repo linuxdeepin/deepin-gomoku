@@ -24,6 +24,7 @@
 #include "checkerboard/checkerboardscene.h"
 
 #include <DMainWindow>
+#include <DFrame>
 
 DWIDGET_USE_NAMESPACE
 
@@ -37,10 +38,6 @@ public:
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
-public slots:
-    void slotSelectChessPopup();
-    void slotPopupResult(ChessResult result);
-
 protected:
     void changeEvent(QEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
@@ -50,8 +47,17 @@ private:
     void paintTitleBar(QWidget *titlebar);
     void playWinMusic();
     void playFailMusic();
+    void viewtransparentFrame();
+
+private slots:
+    void slotSelectChessPopup();
+    void slotReplayPopup();
+    void slotReplayFunction();
+    void slotPopupResult(ChessResult result);
 
 private:
+    int userChessColor = 1; //用户选择棋子颜色, 默认为黑色
+    DFrame *m_transparentFrame = nullptr; //视图阴影
     DTitlebar *mTitleBar = nullptr;
     CheckerboardScene *checkerboardScene = nullptr;
 };

@@ -40,11 +40,14 @@ public:
     explicit CheckerboardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent = nullptr);
     ~CheckerboardScene() override;
 
+    int getUserChessColor();
+    bool getMusicPlay();
     void stopGAme();
+    void startGame();
     void setSelectChess(int userColor, int aiColor);
     void selsectChessOK();
-    bool getMusicPlay();
-    int getUserChessColor();
+    void replayFunction();
+    void setStartPauseStatus();
 
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
@@ -55,11 +58,11 @@ signals:
     void signalRestGame();
     void signalCloSelectPopup();
     void signalSelectChessPopup();
+    void signalReplayFunction();
     void signalPopupResult(ChessResult result);
 
 public slots:
     void slotPaintAIChess(Chess chess);
-    void slotreplayFunction();
 
 private:
     void initGame();
@@ -68,12 +71,12 @@ private:
     void initFunctionButton();
     void initPlayingScreen();
     void setAIChess(Chess chess);
-    void startGame();
 
 private slots:
     void slotGameStart();
     void slotGameStop();
     void slotGameContinue();
+    void slotGameOver(ChessResult result);
     void slotCPaintItem(ChessItem *cItem);
 
 private:
@@ -96,7 +99,9 @@ private:
 //    bool seleceChessPopup = true; //是否弹出选择棋子弹窗
     bool playChess = false; //是否是AI下棋
     bool AIChessStatus = false; //暂停游戏时,AI是否下棋
+    bool gameReplay = false; //游戏是否重玩
     Chess AIChess; //保存当前棋子位置
+
     //以下位置参数,根据UI图得来
     const qreal lefttopChessPosWidth = 0.02; //左上角第一个棋子位置占整个scene宽度比例
     const qreal lefttopChessPosHeight = 0.007; //左上角第一个棋子位置占整个scene高度比例

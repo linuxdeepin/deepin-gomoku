@@ -32,15 +32,39 @@ BTStartPause::~BTStartPause()
 }
 
 /**
- * @brief BTStartPause::setStopStatus 设置游戏暂停状态
+ * @brief BTStartPause::setStopStatus 设置按钮状态
  */
-void BTStartPause::setStopStatus()
+void BTStartPause::setButtonStatus(bool status)
 {
     //修改按钮图片
-    mouseReleased = true;
-    //更新功能
-    buttonFunction();
+    mouseReleased = status;
+    if (!firstStartGame) {
+        //更新功能
+        buttonFunction();
+    }
     update();
+}
+
+/**
+ * @brief BTStartPause::setGameOverStatus 设置游戏结束标志
+ */
+void BTStartPause::setGameOverStatus(bool gameover)
+{
+    gameOverStatus = gameover;
+    if (!gameOverStatus) {
+        firstStartGame = true;
+    }
+    update();
+}
+
+/**
+ * @brief BTStartPause::getButtonStatus 获取按钮当前状态
+ * @return
+ */
+bool BTStartPause::getButtonStatus()
+{
+    bool buttonStatus = mouseReleased;
+    return buttonStatus;
 }
 
 /**
@@ -50,6 +74,7 @@ void BTStartPause::setNotFirstGame()
 {
     firstStartGame = false;
     mouseReleased = false;
+    buttonFunction();
     update();
 }
 
@@ -65,50 +90,63 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
     qreal rectWidth = this->boundingRect().width();
     qreal rectHeight = this->boundingRect().height();
+    QFont font;
+    font.setPointSize(16);
+    font.setBold(true);
 
     painter->setRenderHint(QPainter::Antialiasing);
 
-    painter->save();
-    painter->setPen(Qt::NoPen);
-    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
-    painter->restore();
-
-    painter->save();
-    painter->setPen(Qt::NoPen);
-    if (firstStartGame) {
+    if (gameOverStatus) {
+        painter->save();
+        painter->setPen(Qt::NoPen);
+        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()),
+                            QPixmap(":/resources/function_button/normal.svg"));
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
                             beginPixmap);
+        painter->setFont(font);
+        painter->setPen(QColor("#024526"));
+        painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                          tr("Start"));
+        painter->restore();
     } else {
-        if (mouseReleased) {
+        painter->save();
+        painter->setPen(Qt::NoPen);
+        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+        painter->restore();
+
+        painter->save();
+        painter->setPen(Qt::NoPen);
+        if (firstStartGame) {
             painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
                                 beginPixmap);
         } else {
-            painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                                stopPixmap);
+            if (mouseReleased) {
+                painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                                    beginPixmap);
+            } else {
+                painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                                    stopPixmap);
+            }
         }
-    }
-    painter->restore();
+        painter->restore();
 
-    painter->save();
-    QFont font;
-    font.setFamily("Yuanti SC");
-    font.setPointSize(16);
-    font.setBold(true);
-    painter->setFont(font);
-    painter->setPen(QColor("#024526"));
-    if (firstStartGame) {
-        painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
-                          tr("Start"));
-    } else {
-        if (mouseReleased) {
+        painter->save();
+        painter->setFont(font);
+        painter->setPen(QColor("#024526"));
+        if (firstStartGame) {
             painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
-                              tr("Continue"));
+                              tr("Start"));
         } else {
-            painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
-                              tr("Stop"));
+            if (mouseReleased) {
+                painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                                  tr("Continue"));
+            } else {
+                painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                                  tr("Stop"));
+            }
         }
+        painter->restore();
     }
-    painter->restore();
 }
 
 //按钮功能

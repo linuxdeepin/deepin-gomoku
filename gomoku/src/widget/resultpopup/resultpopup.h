@@ -39,6 +39,7 @@ public:
 
 signals:
     void signalGameAgain();
+    void signalHaveRest();
 
 protected:
     void paintEvent(QPaintEvent *event) override;

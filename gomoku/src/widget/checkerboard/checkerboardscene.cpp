@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "checkerboardscene.h"
+#include "exitdialog/exitdialog.h"
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -89,6 +90,18 @@ void CheckerboardScene::initCheckerboard()
 //初始化棋子
 void CheckerboardScene::initChess()
 {
+    //清空
+    if (!chessItemList.isEmpty()) {
+        for (int i = 0; i < line_row; i++) {
+            for (int j = 0; j < line_col; j++) {
+                removeItem(chessItemList.at(i).at(j));
+                chessItemList.at(i).at(j)->deleteLater();
+                chessHasPaint[i][j] = false;
+            }
+        }
+        chessItemList.clear();
+    }
+    //赋值
     for (int i = 0; i < line_row; i++) {
         QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_col; j++) {
@@ -119,7 +132,7 @@ void CheckerboardScene::initFunctionButton()
     addItem(buttonStartPause);
     //重玩游戏
     buttonReplay->setPos(this->width() * buttonPosWidth, this->height() * buttonReplayPosHeight);
-    connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::slotreplayFunction);
+    connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::signalReplayFunction);
     addItem(buttonReplay);
 
     //音乐控制
@@ -154,20 +167,25 @@ void CheckerboardScene::slotGameStart()
 }
 
 //重玩游戏
-void CheckerboardScene::slotreplayFunction()
+void CheckerboardScene::replayFunction()
 {
     qInfo() << __FUNCTION__ << "game status:" << gameStatus;
-    for (int i = 0; i < line_row; i++) {
-        for (int j = 0; j < line_col; j++) {
-            removeItem(chessItemList.at(i).at(j));
-            chessItemList.at(i).at(j)->deleteLater();
-            chessHasPaint[i][j] = false;
-        }
+    //添加游戏重玩标志, 防止点击重玩后,AI继续下棋导致数组越界问题
+    gameReplay = true;
+    if (buttonStartPause->getButtonStatus()) {
+        buttonStartPause->setButtonStatus(false);
     }
-    chessItemList.clear();
-    initChess();
-    playingScreen->setCurrentChessColor(false, userChessColor);//重置回合信息显示
+//    playingScreen->setCurrentChessColor(false, userChessColor);//重置回合信息显示
     emit signalRestGame();//通知游戏控制,重置游戏
+}
+
+/**
+ * @brief CheckerboardScene::setStartPauseStatus 设置开始暂停按钮是否为游戏结束状态
+ */
+void CheckerboardScene::setStartPauseStatus()
+{
+    buttonStartPause->setGameOverStatus(false);
+    buttonStartPause->setButtonStatus(true);
 }
 
 /**
@@ -182,8 +200,7 @@ void CheckerboardScene::initGame()
     });//游戏音效控制
     connect(gameControl, &GameControl::AIPlayChess, this, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
     connect(gameControl, &GameControl::isAIPlaying, this, &CheckerboardScene::signalIsAIPlaying);//通知棋子,当前旗手
-    connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::signalGameOver);//游戏结束
-    connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::signalPopupResult);
+    connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::slotGameOver);//游戏结束
 }
 
 //暂停游戏
@@ -205,6 +222,17 @@ void CheckerboardScene::slotGameContinue()
 }
 
 /**
+ * @brief CheckerboardScene::slotGameOver 游戏结束
+ */
+void CheckerboardScene::slotGameOver(ChessResult result)
+{
+    buttonStartPause->setGameOverStatus(true);
+    playingScreen->setGameOverStatus();
+    emit signalGameOver();
+    emit signalPopupResult(result);
+}
+
+/**
  * @brief CheckerboardScene::slotSelsectChessOK 选择完棋子
  */
 void CheckerboardScene::selsectChessOK()
@@ -215,7 +243,7 @@ void CheckerboardScene::selsectChessOK()
     buttonMusicControl->setNotFirstGame();
 //    emit signalGameContinue(); //继续游戏
     emit signalCloSelectPopup(); //关闭弹窗
-    startGame(); //开始游戏
+//    startGame(); //开始游戏
     gameStatus = true;
 }
 
@@ -275,6 +303,7 @@ void CheckerboardScene::startGame()
         playingScreen->setCurrentChessColor(true, userChessColor);
     }
     playingScreen->slotStartGame();
+    gameReplay = false;
     gameControl->startGame();//开始游戏
 }
 
@@ -283,7 +312,7 @@ void CheckerboardScene::startGame()
  */
 void CheckerboardScene::stopGAme()
 {
-    buttonStartPause->setStopStatus();
+    buttonStartPause->setButtonStatus(true);
 }
 
 /**
@@ -305,9 +334,9 @@ void CheckerboardScene::slotPaintAIChess(Chess chess)
     AIChess.y = chess.y;
     AIChess.color = chess.color;
     //游戏暂停不能下棋
-    if (gameStatus) {
+    if (!gameReplay && gameStatus) {
         setAIChess(chess);
-    } else {
+    } else if (!gameStatus) {
         AIChessStatus = true;
     }
 }

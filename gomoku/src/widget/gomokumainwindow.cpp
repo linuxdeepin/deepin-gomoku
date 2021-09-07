@@ -85,7 +85,12 @@ void GomokuMainWindow::initUI()
     wcheckerBoard->setScene(checkerboardScene);
     connect(checkerboardScene, &CheckerboardScene::signalSelectChessPopup, this, &GomokuMainWindow::slotSelectChessPopup);
     connect(checkerboardScene, &CheckerboardScene::signalPopupResult, this, &GomokuMainWindow::slotPopupResult);
+    connect(checkerboardScene, &CheckerboardScene::signalReplayFunction, this, &GomokuMainWindow::slotReplayPopup);
 
+    //视图阴影
+    m_transparentFrame = new DFrame(this);
+    m_transparentFrame->setAutoFillBackground(true);
+    m_transparentFrame->hide();
     setCentralWidget(wcheckerBoard);
 }
 
@@ -127,6 +132,21 @@ void GomokuMainWindow::playFailMusic()
         QSound::play(":/resources/music/fail.wav");
 }
 
+/**
+ * @brief GomokuMainWindow::viewtransparentFrame 视图阴影
+ */
+void GomokuMainWindow::viewtransparentFrame()
+{
+    DPalette tframepa = m_transparentFrame->palette();
+    QColor tColor = "#000000";
+    tColor.setAlphaF(0.3);
+    tframepa.setColor(DPalette::Background, tColor);
+    m_transparentFrame->setPalette(tframepa);
+    m_transparentFrame->setBackgroundRole(DPalette::Background);
+    m_transparentFrame->resize(this->width(), this->height());
+    m_transparentFrame->show();
+}
+
 //过滤titlebar绘制事件
 bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
 {
@@ -144,8 +164,9 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
 void GomokuMainWindow::slotSelectChessPopup()
 {
     Selectchess *selectChess = new Selectchess(this);
+    selectChess->setSelectChess(userChessColor);
     connect(selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
-        int userChessColor = selectChess->getSelsectChess();
+        userChessColor = selectChess->getSelsectChess();
         if (userChessColor == chess_white)
         {
             checkerboardScene->setSelectChess(chess_white, chess_black);
@@ -154,10 +175,39 @@ void GomokuMainWindow::slotSelectChessPopup()
             checkerboardScene->setSelectChess(chess_black, chess_white);
         }
         checkerboardScene->selsectChessOK();
+        checkerboardScene->startGame();
     });
     connect(checkerboardScene, &CheckerboardScene::signalCloSelectPopup, selectChess, &Selectchess::slotCloseSelectPopup);
+    viewtransparentFrame();
     selectChess->selectChessShow();
+    m_transparentFrame->hide();
     delete selectChess;
+}
+
+/**
+ * @brief GomokuMainWindow::slotReplayPopup 重玩弹窗
+ */
+void GomokuMainWindow::slotReplayPopup()
+{
+    ExitDialog *exitDialog = new ExitDialog(this);
+    viewtransparentFrame();
+    exitDialog->exec();
+    m_transparentFrame->hide();
+
+    if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
+        slotReplayFunction();
+    } else {
+        exitDialog->close();
+    }
+}
+
+/**
+ * @brief GomokuMainWindow::slotReplayFunction 重玩功能
+ */
+void GomokuMainWindow::slotReplayFunction()
+{
+    checkerboardScene->replayFunction();
+    slotSelectChessPopup();
 }
 
 /**
@@ -168,7 +218,10 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
 {
     //失败弹出,暂时效果
     Resultpopup *resultPopUp = new Resultpopup(this) ;
-    connect(resultPopUp, &Resultpopup::signalGameAgain, checkerboardScene, &CheckerboardScene::slotreplayFunction);
+    connect(resultPopUp, &Resultpopup::signalGameAgain, this, &GomokuMainWindow::slotReplayFunction);
+    connect(resultPopUp, &Resultpopup::signalHaveRest, this, [ = ] {
+        checkerboardScene->setStartPauseStatus();
+    });
     int userChessColor = checkerboardScene->getUserChessColor();
     //判断用户棋子颜色
     if (userChessColor == chess_black) {
@@ -193,8 +246,11 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
             playWinMusic();
         }
     }
+    viewtransparentFrame();
     resultPopUp->popupShow();
+    m_transparentFrame->hide();
     delete resultPopUp;
+    resultPopUp = nullptr;
 }
 
 /**
@@ -216,7 +272,9 @@ void GomokuMainWindow::changeEvent(QEvent *event)
 void GomokuMainWindow::closeEvent(QCloseEvent *event)
 {
     ExitDialog *exitDialog = new ExitDialog(this);
+    viewtransparentFrame();
     exitDialog->exec();
+    m_transparentFrame->hide();
 
     if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
         event->accept(); //事件接受

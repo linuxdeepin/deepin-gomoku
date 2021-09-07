@@ -50,7 +50,16 @@ void PlayingScreen::setCurrentChessColor(bool AIPlaying, int chesscolor)
     AIPlayer = AIPlaying;
     //转换棋子的颜色
     currentChessColro = chesscolor;
+    gameOverStatus = false;
     update();
+}
+
+/**
+ * @brief PlayingScreen::setGameOverStatus 设置游戏结束标志
+ */
+void PlayingScreen::setGameOverStatus()
+{
+    gameOverStatus = true;
 }
 
 QRectF PlayingScreen::boundingRect() const
@@ -69,7 +78,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     painter->setRenderHint(QPainter::Antialiasing);
 
-    if (gamePlaying) {
+    if (gamePlaying && !gameOverStatus) {
         //游戏开始后
         painter->save();
         QFont font;
@@ -113,7 +122,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         }
 
         painter->restore();
-    } else {
+    } else if (!gamePlaying) {
         //游戏还未开始
         painter->save();
         QFont welcomeFont;
@@ -143,6 +152,16 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         painter->setPen(QColor("#ffffff"));
         painter->drawText(QPointF(rectWidth * sWelcomePosWidth3, rectHeight * sWelcomePosHeight3),
                           tr("to play chess~"));
+        painter->restore();
+    } else if (gameOverStatus) {
+        painter->save();
+        QFont gameOverFont;
+        gameOverFont.setPointSize(20);
+        gameOverFont.setBold(true);
+        painter->setFont(gameOverFont);
+        painter->setPen(QColor("#ffdb9e"));
+        painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1),
+                          tr("Game Over!"));
         painter->restore();
     }
 }

@@ -123,9 +123,9 @@ void Selectchess::setSelectChess(int chessColor)
     selectChessColor = chessColor;
     //根据用户选择的棋子颜色, 设置不同按钮使能
     if (selectChessColor == chess_white) {
-        selectLButton->setCheckable(true);
+        selectLButton->setChecked(true);
     } else if (selectChessColor == chess_black) {
-        selectRButton->setCheckable(true);
+        selectRButton->setChecked(true);
     }
 }
 

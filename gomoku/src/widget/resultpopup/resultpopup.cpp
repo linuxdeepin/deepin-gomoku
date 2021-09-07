@@ -46,11 +46,12 @@ Resultpopup::Resultpopup(QWidget *parent)
     //休息一下, 关闭弹窗
     connect(buttonRest, &Buttonrest::signalButtonRestClicked, this, [ = ] {
         this->close();
+        emit signalHaveRest();
     });
     //再来一次,发送重玩信号,关闭弹窗
     connect(buttonAgain, &Buttonagain::signalButtonAnginClicked, this, [ = ] {
-        emit signalGameAgain();
         this->close();
+        emit signalGameAgain();
     });
 }
 

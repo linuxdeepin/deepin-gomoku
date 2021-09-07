@@ -2,6 +2,45 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>BTMusicControl</name>
+    <message>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="89"/>
+        <source>Open Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="92"/>
+        <source>Close Music</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BTReplay</name>
+    <message>
+        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="85"/>
+        <source>New Game</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BTStartPause</name>
+    <message>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="101"/>
+        <source>Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="105"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="108"/>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Buttonagain</name>
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="116"/>
@@ -53,7 +92,7 @@
 <context>
     <name>GomokuMainWindow</name>
     <message>
-        <location filename="../gomoku/src/widget/gomokumainwindow.cpp" line="40"/>
+        <location filename="../gomoku/src/widget/gomokumainwindow.cpp" line="45"/>
         <source>deepin-gomoku</source>
         <translation type="unfinished"></translation>
     </message>
@@ -68,6 +107,34 @@
     <message>
         <location filename="../gomoku/src/main.cpp" line="67"/>
         <source>Gomoku is a small chess game for two players.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PlayingScreen</name>
+    <message>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="81"/>
+        <source>I&apos;m thinking ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="84"/>
+        <source>Place your chess piece...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="125"/>
+        <source>Welcome to Gomoku!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="135"/>
+        <source>Click the start button below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="145"/>
+        <source>to play chess~</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

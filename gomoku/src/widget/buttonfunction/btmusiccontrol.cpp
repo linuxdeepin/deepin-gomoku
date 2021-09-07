@@ -107,6 +107,8 @@ void BTMusicControl::setNotFirstGame()
 //按钮功能
 void BTMusicControl::buttonFunction()
 {
-    //控制音乐
-    emit signalMusic(mouseReleased);
+    if (!firstStartGame) {
+        //控制音乐
+        emit signalMusic(mouseReleased);
+    }
 }
