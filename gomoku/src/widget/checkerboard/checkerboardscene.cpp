@@ -20,6 +20,9 @@
    */
 #include "checkerboardscene.h"
 #include "exitdialog/exitdialog.h"
+#include "selectchess/selectchess.h"
+#include "resultpopup/resultpopup.h"
+#include "gamecontrol/gamecontrol.h"
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>

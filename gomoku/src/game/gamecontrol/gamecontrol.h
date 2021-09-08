@@ -21,8 +21,10 @@
 #ifndef GAMECONTROL_H
 #define GAMECONTROL_H
 
+#include "artificialintelligence/artificialintelligence.h"
+#include "gamecontrol/checkerboard.h"
+
 #include <QObject>
-#include "artificialintelligence.h"
 
 class GameControl : public QObject
 {
@@ -34,7 +36,6 @@ public:
     //开始游戏
     void startGame();
     void setChessColor(int ai, int user);
-
 signals:
     void AIPlayChess(Chess chess); //电脑下棋
     void isAIPlaying(bool AIPlaying); //谁在下棋
@@ -50,20 +51,17 @@ public slots:
 private:
     int AIColor; //电脑颜色
     int userColor; //用户颜色
-    int chessState[line_row][line_col]; //棋盘状态数组
     bool AIPlaying; //ai下棋
     bool gameReset = false; //重玩游戏标志
     bool initGameStatus = false; //初始化游戏
 
-    ArtificialIntelligence *AI;
+    Checkerboard *checkerboard;
 
     void initGame(); //初始化数组
 
     //下棋函数，棋局判断和下棋者判断
-    void playChess(Chess chess);
+    void playChess(const Chess chess);
 
-    //判断棋局结果
-    ChessResult judgeResult(Chess chess);
 
 private slots:
     void setAIChess();

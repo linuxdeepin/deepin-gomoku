@@ -92,7 +92,11 @@
 <context>
     <name>GomokuMainWindow</name>
     <message>
+<<<<<<< Updated upstream
         <location filename="../gomoku/src/widget/gomokumainwindow.cpp" line="45"/>
+=======
+        <location filename="../gomoku/src/widget/gomokumainwindow.cpp" line="43"/>
+>>>>>>> Stashed changes
         <source>deepin-gomoku</source>
         <translation type="unfinished"></translation>
     </message>

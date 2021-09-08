@@ -29,7 +29,7 @@
 #include "playingscreen/playingscreen.h"
 #include "selectchess/selectchess.h"
 #include "constants.h"
-#include "gamecontrol.h"
+#include "gamecontrol/gamecontrol.h"
 
 #include <QGraphicsScene>
 
