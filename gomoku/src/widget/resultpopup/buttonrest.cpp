@@ -65,6 +65,7 @@ void Buttonrest::setResult(bool result)
  */
 void Buttonrest::mousePressEvent(QMouseEvent *event)
 {
+    buttonPressed = true;
     if (mResult) {
         currentPixmap = winRestPress;
     } else {
@@ -80,6 +81,7 @@ void Buttonrest::mousePressEvent(QMouseEvent *event)
  */
 void Buttonrest::mouseReleaseEvent(QMouseEvent *event)
 {
+    buttonPressed = false;
     if (mResult) {
         currentPixmap = winRestNormal;
     } else {
@@ -136,6 +138,13 @@ void Buttonrest::paintEvent(QPaintEvent *event)
     QFont font;
     font.setPointSize(14);
     painter.setPen("#492c04");
+    if (buttonPressed) {
+        if (currentPixmap == winRestPress) {
+            painter.setPen("#ffdb9e");
+        } else if (currentPixmap == failRestPress) {
+            painter.setPen("#d2d2d2");
+        }
+    }
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Have a Rest"));
     painter.restore();

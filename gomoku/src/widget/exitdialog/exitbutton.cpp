@@ -40,6 +40,7 @@ ExitButton::ExitButton(QWidget *parent)
  */
 void ExitButton::mousePressEvent(QMouseEvent *event)
 {
+    buttonPressed = true;
     currentPixmap = buttonPress;
     DWidget::mousePressEvent(event);
     update();
@@ -52,6 +53,7 @@ void ExitButton::mousePressEvent(QMouseEvent *event)
  */
 void ExitButton::mouseReleaseEvent(QMouseEvent *event)
 {
+    buttonPressed = false;
     currentPixmap = buttonNormal;
     if (this->rect().contains(event->pos()))
         emit signalButtonOKClicked();
@@ -98,6 +100,9 @@ void ExitButton::paintEvent(QPaintEvent *event)
     QFont font;
     font.setPointSize(15); //按钮字体大小
     painter.setPen("#492c04"); //字体颜色
+    if (buttonPressed) {
+        painter.setPen("#ffdb9e");
+    }
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Exit"));
     painter.restore();

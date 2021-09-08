@@ -47,27 +47,15 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     painter->setRenderHint(QPainter::Antialiasing);
 
-    //如果是第一次进入游戏, 置灰按钮
-    if (firstStartGame) {
-        painter->save();
-        painter->setPen(Qt::NoPen);
-        painter->setOpacity(0.4); //设置图片透明度
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()),
-                            QPixmap(":/resources/function_button/normal.svg"));
-        painter->restore();
-    } else {
-        painter->save();
-        painter->setPen(Qt::NoPen);
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
-        painter->restore();
-    }
+    painter->save();
+    painter->setPen(Qt::NoPen);
+    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+    painter->restore();
 
     painter->save();
     painter->setPen(Qt::NoPen);
-    if (firstStartGame)
-        painter->setOpacity(0.4); //设置图片透明度
     //声音控制图片
-    if (mouseReleased) {
+    if (!mouseReleased) {
         painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
                             voiceOffPixmap);
     } else {
@@ -82,10 +70,12 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     font.setPointSize(16);
     font.setBold(true);
     painter->setFont(font);
-    painter->setPen(QColor("#024526"));
-    if (firstStartGame)
-        painter->setOpacity(0.4); //设置图片透明度
-    if (mouseReleased) {
+    if (pressStatus) {
+        painter->setPen(QColor("#ffdb9e"));
+    } else {
+        painter->setPen(QColor("#024526"));
+    }
+    if (!mouseReleased) {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
                           tr("Open Music"));
     } else {
@@ -100,7 +90,6 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
  */
 void BTMusicControl::setNotFirstGame()
 {
-    firstStartGame = false;
     mouseReleased = false;
     update();
 }
@@ -108,8 +97,6 @@ void BTMusicControl::setNotFirstGame()
 //按钮功能
 void BTMusicControl::buttonFunction()
 {
-    if (!firstStartGame) {
-        //控制音乐
-        emit signalMusic(mouseReleased);
-    }
+    //控制音乐
+    emit signalMusic(mouseReleased);
 }

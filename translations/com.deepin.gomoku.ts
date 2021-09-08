@@ -117,32 +117,27 @@
 <context>
     <name>PlayingScreen</name>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="92"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="93"/>
         <source>I&apos;m thinking ...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="95"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="96"/>
         <source>Place your chess piece...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="137"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="145"/>
         <source>Welcome to Gomoku!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="148"/>
-        <source>Click the start button below</source>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="155"/>
+        <source>Click the start button below to play chess~</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="160"/>
-        <source>to play chess~</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="172"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="174"/>
         <source>Game Over!</source>
         <translation type="unfinished"></translation>
     </message>

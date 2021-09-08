@@ -77,7 +77,11 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     font.setPointSize(16);
     font.setBold(true);
     painter->setFont(font);
-    painter->setPen(QColor("#024526"));
+    if (pressStatus) {
+        painter->setPen(QColor("#ffdb9e"));
+    } else {
+        painter->setPen(QColor("#024526"));
+    }
     //首次开始游戏
     if (firstStartGame)
         painter->setOpacity(0.4); //设置图片透明度

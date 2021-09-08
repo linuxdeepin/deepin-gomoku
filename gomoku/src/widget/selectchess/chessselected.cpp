@@ -31,7 +31,7 @@ Chessselected::Chessselected(int chessColor, QWidget *parent)
     , mChessColor(chessColor)
 {
     //设置大小
-    setFixedSize(44, 44);
+    setFixedSize(chessWhite.size());
 }
 
 /**

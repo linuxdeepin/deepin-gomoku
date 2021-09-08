@@ -54,6 +54,7 @@ private:
     QPixmap failRestHover; //休息一下hover状态-输
     QPixmap failRestPress; //休息一下press状态-输
     bool mResult; //对局结果,包含赢和输两种情况
+    bool buttonPressed = false; //按钮按下标识
 };
 
 #endif // BUTTONREST_H

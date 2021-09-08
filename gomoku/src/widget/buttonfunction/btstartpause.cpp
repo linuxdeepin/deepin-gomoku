@@ -132,7 +132,11 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
 
         painter->save();
         painter->setFont(font);
-        painter->setPen(QColor("#024526"));
+        if (pressStatus) {
+            painter->setPen(QColor("#ffdb9e"));
+        } else {
+            painter->setPen(QColor("#024526"));
+        }
         if (firstStartGame) {
             painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
                               tr("Start"));

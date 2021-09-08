@@ -52,6 +52,7 @@ void Buttonagain::setResult(bool result)
  */
 void Buttonagain::mousePressEvent(QMouseEvent *event)
 {
+    buttonPressed = true;
     //根据输赢情况设置不同图片
     if (mResult) {
         currentPixmap = againPress;
@@ -68,6 +69,7 @@ void Buttonagain::mousePressEvent(QMouseEvent *event)
  */
 void Buttonagain::mouseReleaseEvent(QMouseEvent *event)
 {
+    buttonPressed = false;
     currentPixmap = againNormal;
     //发送鼠标点击信号
     if (this->rect().contains(event->pos()))
@@ -112,6 +114,13 @@ void Buttonagain::paintEvent(QPaintEvent *event)
     QFont font;
     font.setPointSize(14);
     painter.setPen("#492c04");
+    if (buttonPressed) {
+        if (currentPixmap == againPress) {
+            painter.setPen("#ffdb9e");
+        } else if (currentPixmap == failAgainPress) {
+            painter.setPen("#d2d2d2");
+        }
+    }
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Play Again"));
     painter.restore();

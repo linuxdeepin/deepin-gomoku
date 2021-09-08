@@ -144,23 +144,6 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1),
                           tr("Welcome to Gomoku!"));
         painter->restore();
-
-        painter->save();
-        QFont startFont1;
-        startFont1.setFamily("Yuanti SC");
-        startFont1.setWeight(QFont::Black);
-        startFont1.setPointSize(16);
-        painter->setFont(startFont1);
-        painter->setPen(QColor("#ffffff"));
-        QString str = Globaltool::AutoFeed(tr("Click the start button below to play chess~"), 16,
-                                           static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));;
-        painter->drawText(QRect(static_cast<int>(rectWidth * sWelcomePosWidth2),
-                                static_cast<int>(rectHeight * sWelcomePosHeight2),
-                                static_cast<int>(rectWidth),
-                                static_cast<int>(rectHeight)),
-                          Qt::AlignLeft | Qt::TextWordWrap,
-                          str);
-        painter->restore();
     } else if (gameOverStatus) {
         painter->save();
         QFont gameOverFont;

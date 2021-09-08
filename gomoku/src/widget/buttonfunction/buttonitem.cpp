@@ -59,6 +59,7 @@ void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     event->accept();
+    pressStatus = true;
     backgrounePix = PressBackgrounePix;
     update();
 }
@@ -66,6 +67,7 @@ void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 //鼠标点击释放，设置图片
 void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    pressStatus = false;
     if (contains(event->pos())) {
         backgrounePix =  normalBackgrounePix;
         mouseReleased = !mouseReleased;

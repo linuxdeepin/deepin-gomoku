@@ -50,6 +50,7 @@ private:
     QPixmap againPress; //再来一局press状态
     QPixmap failAgainPress; //再来一局press状态-fail
     bool mResult; //对局结果
+    bool buttonPressed= false; //按钮按下标识
 };
 
 #endif // BUTTONAGAIN_H

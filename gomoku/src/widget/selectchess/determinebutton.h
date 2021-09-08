@@ -46,6 +46,7 @@ private:
     QPixmap buttonNormal; //按钮正常状态
     QPixmap buttonHover; //按钮hover状态
     QPixmap buttonPress; //按钮press状态
+    bool buttonPressed = false; //按钮按下标识
 };
 
 #endif // DETERMINEBUTTON_H

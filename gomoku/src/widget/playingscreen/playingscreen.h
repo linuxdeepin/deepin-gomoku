@@ -79,11 +79,7 @@ private:
     const qreal anotherPlayerChessPosWidth = 0.8452; //另一个旗手棋子显示位置占整个scene宽度比例
     const qreal anotherPlayerChessPosHeight = 0.79; //另一个旗手棋子显示位置占整个scene高度比例
     const qreal sWelcomePosWidth1 = 0.1064; //欢迎语第一行位置占整个scene宽度比例
-    const qreal sWelcomePosHeight1 = 0.39; //欢迎语第一行位置占整个scene高度比例
-    const qreal sWelcomePosWidth2 = 0.1015; //欢迎语第二行位置占整个scene宽度比例
-    const qreal sWelcomePosHeight2 = 0.71; //欢迎语第二行位置占整个scene高度比例
-    const qreal sWelcomePosWidth3 = 0.1015; //欢迎语第三行位置占整个scene宽度比例
-    const qreal sWelcomePosHeight3 = 0.85; //欢迎语第三行位置占整个scene高度比例
+    const qreal sWelcomePosHeight1 = 0.59; //欢迎语第一行位置占整个scene高度比例
 };
 
 #endif // PLAYINGSCREEN_H

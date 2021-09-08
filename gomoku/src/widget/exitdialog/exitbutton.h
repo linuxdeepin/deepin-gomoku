@@ -29,25 +29,25 @@ DWIDGET_USE_NAMESPACE
 class ExitButton : public QWidget
 {
 Q_OBJECT
- public:
+public:
      explicit ExitButton(QWidget *parent = nullptr);
 
- private:
+private:
      void mouseReleaseEvent(QMouseEvent *event);
      void enterEvent(QEvent *event);
      void leaveEvent(QEvent *event);
      void paintEvent(QPaintEvent *event);
      void mousePressEvent(QMouseEvent *event);
 
- private:
+private:
      QPixmap buttonNormal;
      QPixmap buttonHover;
      QPixmap buttonPress;
      QPixmap currentPixmap;
+     bool buttonPressed= false; //按钮按下标识
 
- signals:
+signals:
      void signalButtonOKClicked();
- public slots:
 };
 
 #endif // EXITBUTTON_H

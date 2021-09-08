@@ -53,7 +53,7 @@ protected:
     virtual void setNotFirstGame();
 
     bool mouseReleased = true; //鼠标是否释放
-    bool gamePlaying = false;
+    bool pressStatus = false; //鼠标点击状态标志
     bool firstStartGame = true; //是否第一次开始游戏
     //以下位置参数,根据UI图得来
     const qreal pixmapPosWidth = 0.147; //按钮图标位置占整个scene宽度比例
@@ -65,8 +65,6 @@ private:
     QPixmap normalBackgrounePix; //正常的背景图片
     QPixmap hoverBackgrounePix; //hover状态的背景图片
     QPixmap PressBackgrounePix; //press状态的背景图片
-    bool hoverStatus = false; //hover状态标志
-    bool pressStatus = false; //鼠标点击状态标志
 };
 
 #endif // BUTTONITEM_H

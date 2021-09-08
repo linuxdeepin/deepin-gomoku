@@ -41,6 +41,7 @@ Determinebutton::Determinebutton(QWidget *parent)
  */
 void Determinebutton::mousePressEvent(QMouseEvent *event)
 {
+    buttonPressed = true;
     currentPixmap = buttonPress;
     DWidget::mousePressEvent(event);
     update();
@@ -52,6 +53,7 @@ void Determinebutton::mousePressEvent(QMouseEvent *event)
  */
 void Determinebutton::mouseReleaseEvent(QMouseEvent *event)
 {
+    buttonPressed = false;
     currentPixmap = buttonNormal;
     //发送鼠标点击信号
     if (this->rect().contains(event->pos()))
@@ -96,6 +98,9 @@ void Determinebutton::paintEvent(QPaintEvent *event)
     QFont font;
     font.setPointSize(20);
     painter.setPen("#492c04");
+    if (buttonPressed) {
+        painter.setPen("#ffdb9e");
+    }
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("OK"));
     painter.restore();

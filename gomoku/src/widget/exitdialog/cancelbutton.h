@@ -44,6 +44,7 @@ private:
     QPixmap buttonHover;
     QPixmap buttonPress;
     QPixmap currentPixmap;
+    bool buttonPressed= false; //按钮按下标识
 
 signals:
     void signalButtonOKClicked();
