@@ -35,7 +35,7 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
 
     QFont tipFont;
     tipFont.setFamily("Yuanti SC");
+    tipFont.setWeight(QFont::Medium);
     tipFont.setPointSize(18); //字体大小
-    tipFont.setWeight(63); //中粗
     setFont(tipFont);
 }

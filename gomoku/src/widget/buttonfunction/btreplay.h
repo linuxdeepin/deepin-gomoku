@@ -45,11 +45,6 @@ private:
 
 private:
     QPixmap replayPixmap; //重玩按钮图片
-    //以下位置参数,根据UI图得来
-    const qreal pixmapPosWidth = 0.147; //按钮图标位置占整个scene宽度比例
-    const qreal pixmapPosHeight = 0.3125; //按钮图标位置占整个scene高度比例
-    const qreal textPosWidth = 0.3921; //按钮文字位置占整个scene宽度比例
-    const qreal textPosHeight = 0.625; //按钮文字位置占整个scene高度比例
 };
 
 #endif // BTREPLAY_H

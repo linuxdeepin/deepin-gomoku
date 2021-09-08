@@ -26,7 +26,7 @@ Resultinfo::Resultinfo(QWidget *parent)
     , strResult("")
 {
     //设置大小
-    setFixedSize(188, 42);
+    setFixedSize(300, 48);
 }
 
 Resultinfo::~Resultinfo()
@@ -42,9 +42,9 @@ void Resultinfo::setResult(bool result)
 {
     mResult = result;
     if (mResult) {
-        strResult = tr("VICTORY");
+        strResult = tr("You did great!");
     } else {
-        strResult = tr("FAIL");
+        strResult = tr("Game Over");
     }
 }
 
@@ -60,6 +60,8 @@ void Resultinfo::paintEvent(QPaintEvent *event)
     painter.save();
     painter.setPen("#02412c");
     QFont font;
+    font.setFamily("Yuanti SC");
+    font.setWeight(QFont::Medium);
     font.setPointSize(30);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, strResult);

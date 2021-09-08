@@ -91,6 +91,7 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     qreal rectHeight = this->boundingRect().height();
     QFont font;
     font.setFamily("Yuanti SC");
+    font.setWeight(QFont::Black);
     font.setPointSize(16);
     font.setBold(true);
 
@@ -146,7 +147,7 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                                   tr("Continue"));
             } else {
                 painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
-                                  tr("Stop"));
+                                  tr("Pause"));
             }
         }
         painter->restore();

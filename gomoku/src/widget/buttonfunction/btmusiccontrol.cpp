@@ -67,6 +67,7 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     painter->save();
     QFont font;
     font.setFamily("Yuanti SC");
+    font.setWeight(QFont::Black);
     font.setPointSize(16);
     font.setBold(true);
     painter->setFont(font);
@@ -77,10 +78,10 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     }
     if (!mouseReleased) {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          tr("Open Music"));
+                          tr("Sound On"));
     } else {
         painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          tr("Close Music"));
+                          tr("Sound Off"));
     }
     painter->restore();
 }

@@ -135,15 +135,8 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 QRectF ChessItem::boundingRect() const
 {
-    //暂时调整大小,以增大可落子识别区域
-//    if (chessStatus) {
     //棋子大小
     return QRectF(0, 0, chess_size, chess_size);
-//    }
-//    //可落子范围
-//    int startHPoint = (chess_size - hover_size) / 2;
-//    return QRectF(startHPoint, startHPoint, hover_size, hover_size);
-
 }
 
 void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)

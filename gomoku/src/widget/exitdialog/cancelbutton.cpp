@@ -101,7 +101,9 @@ void CancelButton::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setPointSize(15); //按钮字体大小
+    font.setFamily("Yuanti SC");
+    font.setWeight(QFont::Medium);
+    font.setPointSize(16);
     painter.setPen("#492c04"); //字体颜色
     if (buttonPressed) {
         painter.setPen("#ffdb9e");

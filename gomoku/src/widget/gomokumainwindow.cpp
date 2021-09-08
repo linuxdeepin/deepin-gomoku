@@ -42,8 +42,6 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     setFixedSize(QSize(widgetWidth, widgetHeight));
     setContentsMargins(QMargins(0, 0, 0, 0));
 
-    setWindowTitle(tr("deepin-gomoku"));
-
     initUI();
 
     Dtk::Widget::moveToCenter(this);
@@ -231,14 +229,15 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
             resultPopUp->setHasWin(true);
             //播放胜利音效
             playWinMusic();
-        } else if (result == white_win) {
+        } else if (result == white_win || result == tie) {
+            //失败或平局均为失败弹窗
             //失败弹窗
             resultPopUp->setHasWin(false);
             //播放失败音效
             playFailMusic();
         }
     } else if (userChessColor == chess_white) {
-        if (result == black_win) {
+        if (result == black_win || result == tie) {
             resultPopUp->setHasWin(false);
             playFailMusic();
         } else if (result == white_win) {

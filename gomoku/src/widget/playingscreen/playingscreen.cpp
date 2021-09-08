@@ -90,7 +90,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         painter->setPen(QColor("#ffdb9e"));
         QString playerText;
         if (AIPlayer) {
-            playerText = Globaltool::AutoFeed(tr("I'm thinking ..."), 20,
+            playerText = Globaltool::AutoFeed(tr("I am thinking..."), 20,
                                               static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
         } else {
             playerText = Globaltool::AutoFeed(tr("Place your chess piece..."), 20,
@@ -141,8 +141,12 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         welcomeFont.setPointSize(20);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1),
-                          tr("Welcome to Gomoku!"));
+        painter->drawText(QRect(-4,
+                                static_cast<int>(rectHeight * sWelcomePosHeight1),
+                                static_cast<int>(rectWidth),
+                                static_cast<int>(rectHeight)),
+                          Qt::AlignHCenter,
+                          tr("Welcome"));
         painter->restore();
     } else if (gameOverStatus) {
         painter->save();
@@ -153,7 +157,11 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         gameOverFont.setBold(true);
         painter->setFont(gameOverFont);
         painter->setPen(QColor("#ffdb9e"));
-        painter->drawText(QPointF(rectWidth * sWelcomePosWidth1, rectHeight * sWelcomePosHeight1),
+        painter->drawText(QRect(0,
+                                static_cast<int>(rectHeight * sWelcomePosHeight1),
+                                static_cast<int>(rectWidth),
+                                static_cast<int>(rectHeight)),
+                          Qt::AlignHCenter,
                           tr("Game Over!"));
         painter->restore();
     }

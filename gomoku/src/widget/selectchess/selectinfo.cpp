@@ -24,7 +24,7 @@ Selectinfo::Selectinfo(QWidget *parent)
     : DLabel(parent)
 {
     //设置大小
-    setFixedSize(216, 35);
+    setFixedSize(216, 40);
 }
 
 /**
@@ -39,7 +39,9 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     painter.save();
     painter.setPen("#02412c");
     QFont font;
-    font.setPointSize(24);
+    font.setFamily("Yuanti SC");
+    font.setWeight(QFont::Medium);
+    font.setPointSize(26);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, "Play as");
     painter.restore();

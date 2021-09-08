@@ -172,13 +172,10 @@ void CheckerboardScene::slotGameStart()
 //重玩游戏
 void CheckerboardScene::replayFunction()
 {
-    qInfo() << __FUNCTION__ << "game status:" << gameStatus;
+    qInfo() << __FUNCTION__ << "game status:" << gameStatus << buttonStartPause->getButtonStatus();
     //添加游戏重玩标志, 防止点击重玩后,AI继续下棋导致数组越界问题
     gameReplay = true;
-    if (buttonStartPause->getButtonStatus()) {
-        buttonStartPause->setButtonStatus(false);
-    }
-//    playingScreen->setCurrentChessColor(false, userChessColor);//重置回合信息显示
+    buttonStartPause->setGameOverStatus(false);
     emit signalRestGame();//通知游戏控制,重置游戏
 }
 
