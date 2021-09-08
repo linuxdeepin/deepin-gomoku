@@ -71,8 +71,8 @@ private:
     static const int SCORE_ALIVE3_SLEEP4_RUSH4 = 500; //活三、眠四、冲四
     static const int SCORE_RUSH3 = 90; //冲三分数
     static const int SCORE_DOUBLEALIVE2 = 50; //双活二分数
-    static const int SCORE_SLEEP3 = 10; //眠三分数
-    static const int SCORE_ALIVE2 = 9; //活二分数
+    static const int SCORE_ALIVE2 = 10; //活二分数
+    static const int SCORE_SLEEP3 = 9; //眠三分数
     static const int SCORE_RUSH2 = 5; //冲二分数
     static const int SCORE_SLEEP2 = 2; //眠二分数
     static const int SCORE_SAFETY = 1; //安全分数

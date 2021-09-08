@@ -133,11 +133,11 @@ int CalculateScore::computeScore(std::unordered_map<ChessFrom, int> locationSitu
     if (alive_two >= 2) {
         return SCORE_DOUBLEALIVE2; //双活二
     }
-    if (locationSituation[ChessFrom::sleep3] >= 1) {
-        return SCORE_SLEEP3; //眠三
-    }
     if (locationSituation[ChessFrom::alive2] >= 1) {
         return SCORE_ALIVE2; //活二
+    }
+    if (locationSituation[ChessFrom::sleep3] >= 1) {
+        return SCORE_SLEEP3; //眠三
     }
     if (locationSituation[ChessFrom::rush2] >= 1) {
         return SCORE_RUSH2; //冲二

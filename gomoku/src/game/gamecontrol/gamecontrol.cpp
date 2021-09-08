@@ -54,6 +54,8 @@ void GameControl::initGame()
         gameReset = false;
 
     initGameStatus = true;
+
+    checkerboard->resetCheckerboard(); //清空数组
 }
 
 /**
@@ -94,7 +96,6 @@ void GameControl::chessCompleted(const Chess chess)
 void GameControl::resetGame()
 {
     gameReset = true; //设置重玩的标志
-    checkerboard->resetCheckerboard(); //清空数组
     initGame();//初始化游戏
     startGame(); //开始游戏
 }
