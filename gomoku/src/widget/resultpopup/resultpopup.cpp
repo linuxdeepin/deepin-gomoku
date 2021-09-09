@@ -66,6 +66,7 @@ void Resultpopup::initUI()
     Closepopup *closeBt = new Closepopup();
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
+        emit signalHaveRest();
     });
     closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
     closeLayout->addSpacing(8);
