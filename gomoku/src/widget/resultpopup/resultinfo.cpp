@@ -62,7 +62,7 @@ void Resultinfo::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily("Yuanti SC");
     font.setWeight(QFont::Medium);
-    font.setPointSize(30);
+    font.setPixelSize(30);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, strResult);
     painter.restore();

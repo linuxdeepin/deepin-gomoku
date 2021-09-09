@@ -41,9 +41,9 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily("Yuanti SC");
     font.setWeight(QFont::Medium);
-    font.setPointSize(26);
+    font.setPixelSize(26);
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, "Play as");
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, tr("Play as"));
     painter.restore();
 
     DLabel::paintEvent(event);

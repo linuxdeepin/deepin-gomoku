@@ -75,7 +75,7 @@ QString Globaltool::AutoFeed(const QString &text, const int fontSize, const int 
     QFont labelF;
     labelF.setFamily("Yuanti SC");
     labelF.setWeight(QFont::Black);
-    labelF.setPointSize(fontSize);
+    labelF.setPixelSize(fontSize);
     QFontMetrics fm(labelF);
     int titlewidth = fm.width(strText);
     QStringList strList;

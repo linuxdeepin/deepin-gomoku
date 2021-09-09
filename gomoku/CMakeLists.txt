@@ -91,3 +91,4 @@ install(FILES assets/com.deepin.gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFI
 install(FILES assets/resources/desktop/com.deepin.gomoku.svg
             DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps/)
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(DIRECTORY assets/com-deepin-gomoku DESTINATION /usr/share/deepin-manual/manual-assets/application/)

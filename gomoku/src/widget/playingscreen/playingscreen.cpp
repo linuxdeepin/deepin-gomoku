@@ -85,7 +85,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         QFont font;
         font.setFamily("Yuanti SC");
         font.setWeight(QFont::Black);
-        font.setPointSize(20);
+        font.setPixelSize(20);
         painter->setFont(font);
         painter->setPen(QColor("#ffdb9e"));
         QString playerText;
@@ -138,7 +138,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         QFont welcomeFont;
         welcomeFont.setFamily("Yuanti SC");
         welcomeFont.setWeight(QFont::Black);
-        welcomeFont.setPointSize(20);
+        welcomeFont.setPixelSize(20);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
         painter->drawText(QRect(-4,
@@ -153,7 +153,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         QFont gameOverFont;
         gameOverFont.setFamily("Yuanti SC");
         gameOverFont.setWeight(QFont::Black);
-        gameOverFont.setPointSize(20);
+        gameOverFont.setPixelSize(20);
         gameOverFont.setBold(true);
         painter->setFont(gameOverFont);
         painter->setPen(QColor("#ffdb9e"));

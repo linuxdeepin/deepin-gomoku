@@ -44,7 +44,10 @@ QRectF ButtonItem::boundingRect() const
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    backgrounePix = hoverBackgrounePix;
+    if (contains(event->pos())) {
+        backgrounePix = hoverBackgrounePix;
+    }
+    update();
     QGraphicsItem::hoverEnterEvent(event);
 }
 
@@ -52,6 +55,7 @@ void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     backgrounePix =  normalBackgrounePix;
+    update();
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
@@ -74,6 +78,7 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         buttonFunction();
     }
     QGraphicsItem::mouseReleaseEvent(event);
+    updateMicroFocus();
     update();
 }
 

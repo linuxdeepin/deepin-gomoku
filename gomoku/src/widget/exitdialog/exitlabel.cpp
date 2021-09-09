@@ -26,7 +26,7 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
     setWordWrap(true);
     setMinimumWidth(204);
     setMinimumHeight(66);
-    setText(tr("Are you sure want to exit the game?"));
+    setText(tr("Are you sure you want to exit the game?"));
     setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
 
     QPalette palCancel;
@@ -36,6 +36,6 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
     QFont tipFont;
     tipFont.setFamily("Yuanti SC");
     tipFont.setWeight(QFont::Medium);
-    tipFont.setPointSize(18); //字体大小
+    tipFont.setPixelSize(18); //字体大小
     setFont(tipFont);
 }

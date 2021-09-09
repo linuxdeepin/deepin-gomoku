@@ -92,7 +92,7 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     QFont font;
     font.setFamily("Yuanti SC");
     font.setWeight(QFont::Black);
-    font.setPointSize(16);
+    font.setPixelSize(16);
     font.setBold(true);
 
     painter->setRenderHint(QPainter::Antialiasing);

@@ -98,7 +98,7 @@ void Determinebutton::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily("Yuanti SC");
     font.setWeight(QFont::Medium);
-    font.setPointSize(14);
+    font.setPixelSize(14);
     painter.setPen("#492c04");
     if (buttonPressed) {
         painter.setPen("#ffdb9e");
