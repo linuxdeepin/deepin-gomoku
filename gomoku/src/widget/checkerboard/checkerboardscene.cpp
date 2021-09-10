@@ -30,6 +30,7 @@
 
 CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent)
     : QGraphicsScene(parent)
+    , playChessSound(new QSound(":/resources/music/chessone.wav", this))
     , cbitem(new CheckerboardItem)
     , buttonStartPause(new BTStartPause)
     , buttonReplay(new BTReplay)
@@ -264,7 +265,7 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
                 qInfo() << __FUNCTION__ <<  "music play statues: " << musicControlStatus;
                 if (musicControlStatus) {
                     //播放落子音效
-                    QSound::play(":/resources/music/chessone.wav");
+                    playChessSound->play();
                 }
                 chessHasPaint[i][j] = true;
                 qInfo() << __FUNCTION__ <<  "current chess pos: " << i << j;

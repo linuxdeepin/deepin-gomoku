@@ -185,6 +185,7 @@ void GomokuMainWindow::slotSelectChessPopup()
     QEventLoop loop;
     connect(selectChess, &Selectchess::signalButtonOKClicked, &loop, &QEventLoop::quit);
     connect(selectChess, &Selectchess::signalDialogClose, &loop, &QEventLoop::quit);
+    connect(selectChess, &Selectchess::finished, &loop, &QEventLoop::quit);
     loop.exec();
     setEnabled(true);
 
@@ -231,6 +232,9 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
     connect(resultPopUp, &Resultpopup::signalHaveRest, this, [ = ] {
         checkerboardScene->setStartPauseStatus();
     });
+    connect(resultPopUp, &Resultpopup::finished, this, [ = ] {
+        checkerboardScene->setStartPauseStatus();
+    });
     int userChessColor = checkerboardScene->getUserChessColor();
     //判断用户棋子颜色
     if (userChessColor == chess_black) {
@@ -267,6 +271,7 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
     QEventLoop loop;
     connect(resultPopUp, &Resultpopup::signalGameAgain, &loop, &QEventLoop::quit);
     connect(resultPopUp, &Resultpopup::signalHaveRest, &loop, &QEventLoop::quit);
+    connect(resultPopUp, &Resultpopup::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     setEnabled(true);
@@ -313,6 +318,7 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
     //事件循环进入阻塞状态
     QEventLoop loop;
     connect(exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+    connect(exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     m_transparentFrame->hide();

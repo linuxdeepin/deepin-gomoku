@@ -79,6 +79,7 @@ private slots:
     void slotCPaintItem(ChessItem *cItem);
 
 private:
+    QSound *playChessSound = nullptr;
     QVector<QVector<ChessItem *>> chessItemList{}; //棋子数组
     bool chessHasPaint[13][13] = {{false}}; //棋子坐标数组,保存每个位置是否绘制棋子
     CheckerboardItem *cbitem = nullptr; //棋盘item
