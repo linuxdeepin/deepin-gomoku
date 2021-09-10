@@ -69,7 +69,7 @@ void GameControl::startGame()
 }
 
 /**
- * @brief GameControl::setChessColor 设置用户和ai棋子颜色
+ * @brief GameControl::setChessColor 设置用户和AI棋子颜色
  * @param aiColor ai棋子颜色
  * @param userColor 用户棋子颜色
  */

@@ -4,12 +4,12 @@
 <context>
     <name>BTMusicControl</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="87"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="89"/>
         <source>Sound Off</source>
         <translation>Sound Off</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="91"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="93"/>
         <source>Sound On</source>
         <translation>Sound On</translation>
     </message>
@@ -17,7 +17,7 @@
 <context>
     <name>BTReplay</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="96"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="98"/>
         <source>New Game</source>
         <translation>New Game</translation>
     </message>
@@ -25,18 +25,18 @@
 <context>
     <name>BTStartPause</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="124"/>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="167"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="121"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="158"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="172"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="163"/>
         <source>Continue</source>
         <translation>Continue</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="176"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="167"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>

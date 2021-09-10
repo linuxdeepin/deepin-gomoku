@@ -36,6 +36,7 @@ public:
 
     void popupShow();
     void setHasWin(bool win);
+    void popupClose();
 
 signals:
     void signalGameAgain();

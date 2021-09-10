@@ -35,7 +35,7 @@ ExitDialog::ExitDialog(QWidget *parent)
     , result(BTType::BTCancel)
     , backgroundQPixmap(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg"))
 {
-    setFixedSize(371, 219); //弹窗尺寸大小
+    setFixedSize(backgroundQPixmap.size());
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint); //取消标题栏
 
@@ -54,9 +54,7 @@ void ExitDialog::initUI()
 
     QHBoxLayout *titleLayout = new QHBoxLayout();
     Closepopup *closeButton = new Closepopup(this);
-    connect(closeButton, &Closepopup::signalCloseClicked, this, /*&ExitDialog::soltDialogClose*/[=]{
-        this->close();
-    });
+    connect(closeButton, &Closepopup::signalCloseClicked, this, &ExitDialog::soltDialogClose);
 
 
     titleLayout->addStretch();
@@ -71,14 +69,14 @@ void ExitDialog::initUI()
 
     ExitLabel *exitLabel = new ExitLabel(this);
     textLayout->addWidget(exitLabel);
-    textLayout->addSpacing(72); //提示语句距离右边界的距离
+    textLayout->addStretch();
 
     mainLayout->addLayout(textLayout);
     mainLayout->addStretch();
 
 
     QHBoxLayout *BTLayout = new QHBoxLayout();
-    BTLayout->addSpacing(10); //按钮距离左边界的距离
+    BTLayout->addSpacing(21); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton();
     ExitButton *exitButton = new ExitButton();
@@ -99,6 +97,7 @@ void ExitDialog::initUI()
  */
 void ExitDialog::soltDialogClose() {
     setResult(BTType::BTCancel); //将状态设置为取消
+    emit signalClicked();
     this->done(0);
 }
 
@@ -107,8 +106,10 @@ void ExitDialog::soltDialogClose() {
  */
 void ExitDialog::soltGameExit() {
     setResult(BTType::BTExit); //将状态设置为退出
+    emit signalClicked();
     this->done(0);
 }
+
 
 /**
  * @brief ExitDialog::paintEvent 重写绘画事件

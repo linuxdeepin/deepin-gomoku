@@ -35,11 +35,13 @@ public:
     void selectChessShow();
     void setSelectChess(int chessColor);
     int getSelsectChess();
+    void selectClose();
 
 signals:
     void signalSelectWhiteChess();
     void signalSelectBlackChess();
     void signalButtonOKClicked();
+    void signalDialogClose();
 
 public slots:
     void slotCloseSelectPopup();

@@ -57,6 +57,7 @@ void Selectchess::initUI()
     Closepopup *closeBt = new Closepopup();
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
+        emit signalDialogClose();
     });
     closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
     closeLayout->addSpacing(12);
@@ -110,7 +111,7 @@ void Selectchess::slotButtonOKClicked()
  */
 void Selectchess::selectChessShow()
 {
-    this->exec();
+    this->show();
 }
 
 /**
@@ -142,6 +143,15 @@ int Selectchess::getSelsectChess()
         selectChessColor = chess_black;
     }
     return selectChessColor;
+}
+
+/**
+ * @brief Selectchess::selectClose关闭弹窗 发出信号关闭事件循环
+ */
+void Selectchess::selectClose()
+{
+    this->close();
+    emit signalDialogClose();
 }
 
 /**

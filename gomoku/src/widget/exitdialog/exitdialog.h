@@ -45,6 +45,7 @@ private:
     void paintEvent(QPaintEvent *event);
 
 signals:
+    void signalClicked(); //点击信号
 
 public slots:
    void soltDialogClose();

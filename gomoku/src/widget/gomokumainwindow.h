@@ -22,6 +22,8 @@
 #define GOMOKUMAINWINDOW_H
 
 #include "checkerboard/checkerboardscene.h"
+#include "resultpopup/resultpopup.h"
+#include "selectchess/selectchess.h"
 
 #include <DMainWindow>
 #include <DFrame>
@@ -60,6 +62,9 @@ private:
     DFrame *m_transparentFrame = nullptr; //视图阴影
     DTitlebar *mTitleBar = nullptr;
     CheckerboardScene *checkerboardScene = nullptr;
+    Resultpopup *resultPopUp = nullptr;
+    Selectchess *selectChess = nullptr;
+
 };
 
 #endif // GOMOKUMAINWINDOW_H

@@ -97,7 +97,7 @@ void Resultpopup::initUI()
  */
 void Resultpopup::popupShow()
 {
-    this->exec();
+    this->show();
 }
 
 /**
@@ -110,6 +110,15 @@ void Resultpopup::setHasWin(bool win)
     resultInfo->setResult(hasWin);
     buttonRest->setResult(hasWin);
     buttonAgain->setResult(hasWin);
+}
+
+/**
+ * @brief Resultpopup::popupClose 关闭弹窗 发出信号关闭事件循环
+ */
+void Resultpopup::popupClose()
+{
+    this->close();
+    emit signalHaveRest();
 }
 
 /**
