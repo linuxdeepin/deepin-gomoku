@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-project(com.deepin.gomoku)
+project(deepin-gomoku)
 
 #compile flags
 if (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -32,7 +32,7 @@ find_package(Qt5LinguistTools REQUIRED)
 #lupdate start
 #此处其实只有当没有自动翻译需要手动翻译.ts文件才有意义可以创建不同语言名称的ts文件，下同
 set(TS_FILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/translations/com-deepin-gomoku.ts"
+    "${CMAKE_CURRENT_SOURCE_DIR}/translations/deepin-gomoku.ts"
 )
 find_program(LUPDATE_EXECUTABLE lupdate)
 foreach(_ts_file ${TS_FILES})
@@ -58,4 +58,4 @@ qt5_create_translation(DTNG_QM_FILES
      
  set(CMAKE_INSTALL_PREFIX /usr)
  file(GLOB APP_QM_FILES "translations/*.qm")
- install(FILES ${APP_QM_FILES} DESTINATION share/com.deepin.gomoku/translations)
+ install(FILES ${APP_QM_FILES} DESTINATION share/deepin-gomoku/translations)

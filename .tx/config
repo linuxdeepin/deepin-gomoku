@@ -3,9 +3,9 @@ host = https://www.transifex.com
 minimum_perc = 80
 mode = developer
 
-[deepin-gomoku.com-deepin-gomoku]
-file_filter = translations/com-deepin-gomoku_<lang>.ts
-source_file = translations/com-deepin-gomoku.ts
+[deepin-gomoku.deepin-gomoku]
+file_filter = translations/deepin-gomoku_<lang>.ts
+source_file = translations/deepin-gomoku.ts
 source_lang = en_US
 type = QT
 
