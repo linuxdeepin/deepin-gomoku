@@ -20,6 +20,8 @@
    */
 #include "buttonitem.h"
 
+#include <QTimer>
+
 ButtonItem::ButtonItem(QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , backgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/normal.svg"))
@@ -37,7 +39,7 @@ ButtonItem::~ButtonItem()
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-        backgrounePix = hoverBackgrounePix;
+    backgrounePix = hoverBackgrounePix;
     update();
     QGraphicsItem::hoverEnterEvent(event);
 }
@@ -66,7 +68,10 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     if (contains(event->pos())) {
         backgrounePix =  normalBackgrounePix;
         mouseReleased = !mouseReleased;
-        buttonFunction();
+        //设置一个1ms的延时,保证按钮状态切换
+        QTimer::singleShot(1, this, [ = ] {
+            buttonFunction();
+        });
     }
     update();
     QGraphicsItem::mouseReleaseEvent(event);
