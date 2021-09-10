@@ -23,6 +23,7 @@
 #include "globaltool.h"
 
 #include <QPainter>
+#include <QGraphicsScene>
 #include <QDebug>
 
 PlayingScreen::PlayingScreen(QGraphicsItem *parent)
@@ -36,7 +37,8 @@ PlayingScreen::PlayingScreen(QGraphicsItem *parent)
     , userNotPlay(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/user_notplay.svg"))
     , aiNotPlay(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/ai_notplay.svg"))
 {
-
+    sceneWidth = 300;
+    sceneHeight = 100;
 }
 
 PlayingScreen::~PlayingScreen()
@@ -66,7 +68,10 @@ void PlayingScreen::setGameOverStatus()
 QRectF PlayingScreen::boundingRect() const
 {
     //对局详情所在rect大小
-    return QRectF(0, 0, 300, 200);
+    return QRectF(this->scene()->width() * playingScreenPosWidth,
+                  this->scene()->height() * playingScreenPosHeight,
+                  sceneWidth,
+                  sceneHeight);
 }
 
 void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -74,61 +79,103 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+    //图片或文字位置通过起始位置+偏移量的方式设置
+    qreal rectX = this->boundingRect().x();
+    qreal rectY = this->boundingRect().y();
     qreal rectWidth = this->boundingRect().width();
     qreal rectHeight = this->boundingRect().height();
 
     painter->setRenderHint(QPainter::Antialiasing);
 
-    if (gamePlaying && !gameOverStatus) {
-        //游戏开始后
-        painter->save();
-        QFont font;
-        font.setFamily("Yuanti SC");
-        font.setWeight(QFont::Black);
-        font.setPixelSize(20);
-        painter->setFont(font);
-        painter->setPen(QColor("#ffdb9e"));
-        QString playerText;
-        if (AIPlayer) {
-            playerText = Globaltool::AutoFeed(tr("I am thinking..."), 20,
-                                              static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
+    if (gamePlaying) {
+        if (gameOverStatus) {
+            painter->save();
+            QFont gameOverFont;
+            gameOverFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+            gameOverFont.setWeight(QFont::Black);
+            gameOverFont.setPixelSize(30);
+            gameOverFont.setBold(true);
+            painter->setFont(gameOverFont);
+            painter->setPen(QColor("#ffdb9e"));
+            painter->drawText(QRect(static_cast<int>(rectX + rectWidth * chessPlayingTextPosWidth),
+                                    static_cast<int>(rectY + rectHeight * chessPlayingTextPosHeight),
+                                    static_cast<int>(rectWidth),
+                                    static_cast<int>(rectHeight)),
+                              Qt::AlignLeft | Qt::TextWordWrap,
+                              tr("Game Over!"));
+            painter->restore();
         } else {
-            playerText = Globaltool::AutoFeed(tr("Place your chess piece..."), 20,
-                                              static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
+            //游戏开始后
+            painter->save();
+            QFont font;
+            int fontSize = 24;
+            font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+            font.setWeight(QFont::Black);
+            font.setPixelSize(fontSize);
+            painter->setFont(font);
+            painter->setPen(QColor("#ffdb9e"));
+            QString playerText;
+            if (AIPlayer) {
+                playerText = Globaltool::AutoFeed(tr("I am thinking..."), fontSize,
+                                                  static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
+            } else {
+                playerText = Globaltool::AutoFeed(tr("Place your chess piece..."), fontSize,
+                                                  static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
+            }
+            painter->drawText(QRect(static_cast<int>(rectX + rectWidth * chessPlayingTextPosWidth),
+                                    static_cast<int>(rectY + rectHeight * chessPlayingTextPosHeight),
+                                    static_cast<int>(rectWidth),
+                                    static_cast<int>(rectHeight)),
+                              Qt::AlignLeft | Qt::TextWordWrap,
+                              playerText);
+            painter->restore();
         }
-        painter->drawText(QRect(static_cast<int>(rectWidth * chessPlayingTextPosWidth),
-                                static_cast<int>(rectHeight * chessPlayingTextPosHeight),
-                                static_cast<int>(rectWidth),
-                                static_cast<int>(rectHeight)),
-                          Qt::AlignLeft | Qt::TextWordWrap,
-                          playerText);
-        painter->restore();
 
         painter->save();
         painter->setPen(Qt::NoPen);
         //当前旗手
-        painter->drawPixmap(QPointF(rectWidth * currentPlayerPosWidth, rectHeight * currentPlayerPosHeight), currentPlayer);
+        painter->drawPixmap(QPointF(rectX + rectWidth * currentPlayerPosWidth,
+                                    rectY + rectHeight * currentPlayerPosHeight),
+                            currentPlayer);
         if (AIPlayer) {
-            painter->drawPixmap(QPointF(rectWidth * aiPlayingPosWidth, rectHeight * aiPlayingPosHeight), aiPlaying);
+            painter->drawPixmap(QPointF(rectX + rectWidth * aiPlayingPosWidth,
+                                        rectY + rectHeight * aiPlayingPosHeight),
+                                aiPlaying);
         } else {
-            painter->drawPixmap(QPointF(rectWidth * userPlayingPosWidth, rectHeight * userPlayingPosHeight), userPlaying);
+            painter->drawPixmap(QPointF(rectX + rectWidth * userPlayingPosWidth,
+                                        rectY + rectHeight * userPlayingPosHeight),
+                                userPlaying);
         }
         if (currentChessColro == chess_black) {
-            painter->drawPixmap(QPointF(rectWidth * currentPlayerChessPosWidth, rectHeight * currentPlayerchessPosHeight), chessBlack);
+            painter->drawPixmap(QPointF(rectX + rectWidth * currentPlayerChessPosWidth,
+                                        rectY + rectHeight * currentPlayerchessPosHeight),
+                                chessBlack);
         } else {
-            painter->drawPixmap(QPointF(rectWidth * currentPlayerChessPosWidth, rectHeight * currentPlayerchessPosHeight), chessWhite);
+            painter->drawPixmap(QPointF(rectX + rectWidth * currentPlayerChessPosWidth,
+                                        rectY + rectHeight * currentPlayerchessPosHeight),
+                                chessWhite);
         }
         //另一方旗手
-        painter->drawPixmap(QPointF(rectWidth * anotherPlayerPosWidth, rectHeight * anotherPlayerPosHeight), anotherPlayer);
+        painter->drawPixmap(QPointF(rectX + rectWidth * anotherPlayerPosWidth,
+                                    rectY + rectHeight * anotherPlayerPosHeight),
+                            anotherPlayer);
         if (AIPlayer) {
-            painter->drawPixmap(QPointF(rectWidth * userNotPlayPosWidth, rectHeight * userNotPlayPosHeight), userNotPlay);
+            painter->drawPixmap(QPointF(rectX + rectWidth * userNotPlayPosWidth,
+                                        rectY + rectHeight * userNotPlayPosHeight),
+                                userNotPlay);
         } else {
-            painter->drawPixmap(QPointF(rectWidth * aiNotPlayPosWidth, rectHeight * aiNotPlayPosHeight), aiNotPlay);
+            painter->drawPixmap(QPointF(rectX + rectWidth * aiNotPlayPosWidth,
+                                        rectY + rectHeight * aiNotPlayPosHeight),
+                                aiNotPlay);
         }
         if (currentChessColro == chess_black) {
-            painter->drawPixmap(QPointF(rectWidth * anotherPlayerChessPosWidth, rectHeight * anotherPlayerChessPosHeight), chessWhite);
+            painter->drawPixmap(QPointF(rectX + rectWidth * anotherPlayerChessPosWidth,
+                                        rectY + rectHeight * anotherPlayerChessPosHeight),
+                                chessWhite);
         } else {
-            painter->drawPixmap(QPointF(rectWidth * anotherPlayerChessPosWidth, rectHeight * anotherPlayerChessPosHeight), chessBlack);
+            painter->drawPixmap(QPointF(rectX + rectWidth * anotherPlayerChessPosWidth,
+                                        rectY + rectHeight * anotherPlayerChessPosHeight),
+                                chessBlack);
         }
 
         painter->restore();
@@ -136,33 +183,17 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         //游戏还未开始
         painter->save();
         QFont welcomeFont;
-        welcomeFont.setFamily("Yuanti SC");
+        welcomeFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
         welcomeFont.setWeight(QFont::Black);
-        welcomeFont.setPixelSize(20);
+        welcomeFont.setPixelSize(30);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
-        painter->drawText(QRect(-4,
-                                static_cast<int>(rectHeight * sWelcomePosHeight1),
+        painter->drawText(QRect(static_cast<int>(rectX),
+                                static_cast<int>(rectY + rectHeight * sWelcomePosHeight1),
                                 static_cast<int>(rectWidth),
                                 static_cast<int>(rectHeight)),
                           Qt::AlignHCenter,
                           tr("Welcome"));
-        painter->restore();
-    } else if (gameOverStatus) {
-        painter->save();
-        QFont gameOverFont;
-        gameOverFont.setFamily("Yuanti SC");
-        gameOverFont.setWeight(QFont::Black);
-        gameOverFont.setPixelSize(20);
-        gameOverFont.setBold(true);
-        painter->setFont(gameOverFont);
-        painter->setPen(QColor("#ffdb9e"));
-        painter->drawText(QRect(0,
-                                static_cast<int>(rectHeight * sWelcomePosHeight1),
-                                static_cast<int>(rectWidth),
-                                static_cast<int>(rectHeight)),
-                          Qt::AlignHCenter,
-                          tr("Game Over!"));
         painter->restore();
     }
 }
@@ -171,5 +202,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 void PlayingScreen::slotStartGame()
 {
     gamePlaying = true;
+    //游戏开始后需要显示旗手,增加高度
+    sceneHeight = 200;
     update();
 }

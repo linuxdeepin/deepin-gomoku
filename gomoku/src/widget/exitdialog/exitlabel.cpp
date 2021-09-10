@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "exitlabel.h"
+#include "globaltool.h"
 
 ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
 {
@@ -34,7 +35,7 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
     setPalette(palCancel);
 
     QFont tipFont;
-    tipFont.setFamily("Yuanti SC");
+    tipFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     tipFont.setWeight(QFont::Medium);
     tipFont.setPixelSize(18); //字体大小
     setFont(tipFont);

@@ -25,6 +25,7 @@ BTStartPause::BTStartPause(QGraphicsItem *parent)
     , beginPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/begin.svg"))
     , stopPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/stop.svg"))
 {
+    posHeight = firstGamePosHeight;
 }
 
 BTStartPause::~BTStartPause()
@@ -71,6 +72,8 @@ bool BTStartPause::getButtonStatus()
  */
 void BTStartPause::setNotFirstGame()
 {
+    if (qAbs(posHeight - notFirstGamePosHeight) >= (1e-6))
+        posHeight = notFirstGamePosHeight;
     firstStartGame = false;
     mouseReleased = false;
     buttonFunction();
@@ -79,7 +82,10 @@ void BTStartPause::setNotFirstGame()
 
 QRectF BTStartPause::boundingRect() const
 {
-    return ButtonItem::boundingRect();
+    return QRectF(this->scene()->width() * buttonPosWidth,
+                  this->scene()->height() * posHeight,
+                  backgrounePix.width(),
+                  backgrounePix.height());
 }
 
 void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -87,45 +93,53 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    qreal rectWidth = this->boundingRect().width();
-    qreal rectHeight = this->boundingRect().height();
+    qreal rectX = this->boundingRect().x(); //矩形起始位置X
+    qreal rectY = this->boundingRect().y(); //矩形起始位置Y
+    qreal rectWidth = this->boundingRect().width(); //矩形宽度
+    qreal rectHeight = this->boundingRect().height(); //矩形高度
+
     QFont font;
-    font.setFamily("Yuanti SC");
+    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(16);
+    font.setPixelSize(20);
     font.setBold(true);
 
     painter->setRenderHint(QPainter::Antialiasing);
 
     if (gameOverStatus) {
         painter->save();
-        painter->setPen(Qt::NoPen);
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()),
-                            QPixmap(":/resources/function_button/normal.svg"));
-        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+        painter->drawPixmap(QPointF(rectX, rectY),
+                            DHiDPIHelper::loadNxPixmap(":/resources/function_button/normal.svg"));
+        //图片或文字位置通过起始位置+偏移量的方式设置
+        painter->drawPixmap(QPointF(rectX + rectWidth *  pixmapPosWidth, //起始X + 向左的偏移量
+                                    rectY + rectHeight * pixmapPosHeight), //起始Y + 向下的偏移量
                             beginPixmap);
         painter->setFont(font);
         painter->setPen(QColor("#024526"));
-        painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+        painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
+                                  rectY + rectHeight * textPosHeight),
                           tr("Start"));
         painter->restore();
     } else {
         painter->save();
         painter->setPen(Qt::NoPen);
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+        painter->drawPixmap(QPointF(rectX, rectY), backgrounePix);
         painter->restore();
 
         painter->save();
         painter->setPen(Qt::NoPen);
         if (firstStartGame) {
-            painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+            painter->drawPixmap(QPointF(rectX + rectWidth * pixmapPosWidth,
+                                        rectY + rectHeight * pixmapPosHeight),
                                 beginPixmap);
         } else {
             if (mouseReleased) {
-                painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                painter->drawPixmap(QPointF(rectX + rectWidth * pixmapPosWidth,
+                                            rectY + rectHeight * pixmapPosHeight),
                                     beginPixmap);
             } else {
-                painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+                painter->drawPixmap(QPointF(rectX + rectWidth * pixmapPosWidth,
+                                            rectY + rectHeight * pixmapPosHeight),
                                     stopPixmap);
             }
         }
@@ -139,14 +153,17 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
             painter->setPen(QColor("#024526"));
         }
         if (firstStartGame) {
-            painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+            painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
+                                      rectY + rectHeight * textPosHeight),
                               tr("Start"));
         } else {
             if (mouseReleased) {
-                painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
+                                          rectY + rectHeight * textPosHeight),
                                   tr("Continue"));
             } else {
-                painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+                painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
+                                          rectY + rectHeight * textPosHeight),
                                   tr("Pause"));
             }
         }

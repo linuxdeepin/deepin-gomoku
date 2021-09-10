@@ -32,21 +32,12 @@ ButtonItem::ButtonItem(QGraphicsItem *parent)
 
 ButtonItem::~ButtonItem()
 {
-
-}
-
-QRectF ButtonItem::boundingRect() const
-{
-    //按钮rect大小
-    return QRectF(0, 0, 200, 60);
 }
 
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    if (contains(event->pos())) {
         backgrounePix = hoverBackgrounePix;
-    }
     update();
     QGraphicsItem::hoverEnterEvent(event);
 }
@@ -77,9 +68,8 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         mouseReleased = !mouseReleased;
         buttonFunction();
     }
-    QGraphicsItem::mouseReleaseEvent(event);
-    updateMicroFocus();
     update();
+    QGraphicsItem::mouseReleaseEvent(event);
 }
 
 //按钮功能虚函数

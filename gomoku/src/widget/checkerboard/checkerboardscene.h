@@ -52,7 +52,6 @@ public:
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
     void signalIsAIPlaying(bool AIPlaying);
-    void signalMusicControl(bool musicControl);//音效控制信号
     void signalGameContinue();
     void signalGameOver();
     void signalRestGame();
@@ -66,9 +65,9 @@ public slots:
 
 private:
     void initGame();
-    void initCheckerboard();
     void initChess();
-    void initFunctionButton();
+    void removeButtonFunction();
+    void addButtonFunction();
     void initPlayingScreen();
     void setAIChess(Chess chess);
 
@@ -106,14 +105,6 @@ private:
     const qreal lefttopChessPosWidth = 0.02; //左上角第一个棋子位置占整个scene宽度比例
     const qreal lefttopChessPosHeight = 0.007; //左上角第一个棋子位置占整个scene高度比例
     const int chessOffset = 83; //棋子位置偏移量
-    const qreal buttonPosWidth = 0.74; //功能按钮位置占整个scene宽度比例
-    const qreal buttonStartPausePosHeight = 0.333;  //开始暂停功能按钮位置占整个scene高度比例
-    const qreal buttonReplayPosHeight = 0.444; //重玩功能按钮位置占整个scene高度比例
-    const qreal buttonMusicControlPosHeight = 0.765; //音乐功能按钮位置占整个scene高度比例
-    const qreal playingScreenPosWidth = 0.7; //对局详情位置占整个scene宽度比例
-    const qreal playingScreenPosHeight = 0.005; //对局详情位置占整个scene高度比例
-    const qreal CheckerboardPosWidth = 0.02; //棋盘位置占整个scene宽度比例
-    const qreal CheckerboardPosHeight = 0.007; //棋盘位置占整个scene高度比例
 };
 
 #endif // CHECKERBOARDSCENE_H

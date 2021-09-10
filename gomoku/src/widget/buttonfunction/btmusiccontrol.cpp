@@ -34,7 +34,10 @@ BTMusicControl::~BTMusicControl()
 
 QRectF BTMusicControl::boundingRect() const
 {
-    return ButtonItem::boundingRect();
+    return QRectF(this->scene()->width() * buttonPosWidth,
+                  this->scene()->height() * buttonMusicControlPosHeight,
+                  backgrounePix.width(),
+                  backgrounePix.height());
 }
 
 void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -42,33 +45,37 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    qreal rectWidth = this->boundingRect().width();
-    qreal rectHeight = this->boundingRect().height();
+    qreal rectX = this->boundingRect().x(); //矩形起始位置X
+    qreal rectY = this->boundingRect().y(); //矩形起始位置Y
+    qreal rectWidth = this->boundingRect().width(); //矩形宽度
+    qreal rectHeight = this->boundingRect().height(); //矩形高度
 
     painter->setRenderHint(QPainter::Antialiasing);
 
     painter->save();
     painter->setPen(Qt::NoPen);
-    painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+    painter->drawPixmap(QPointF(rectX, rectY), backgrounePix);
     painter->restore();
 
     painter->save();
     painter->setPen(Qt::NoPen);
     //声音控制图片
-    if (!mouseReleased) {
-        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
-                            voiceOffPixmap);
-    } else {
-        painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+    if (mouseReleased) {
+        painter->drawPixmap(QPointF(rectX + rectWidth * pixmapPosWidth,
+                                    rectY + rectHeight * pixmapPosHeight),
                             voicePixmap);
+    } else {
+        painter->drawPixmap(QPointF(rectX + rectWidth * pixmapPosWidth,
+                                    rectY + rectHeight * pixmapPosHeight),
+                            voiceOffPixmap);
     }
     painter->restore();
 
     painter->save();
     QFont font;
-    font.setFamily("Yuanti SC");
+    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(16);
+    font.setPixelSize(20);
     font.setBold(true);
     painter->setFont(font);
     if (pressStatus) {
@@ -76,12 +83,14 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     } else {
         painter->setPen(QColor("#024526"));
     }
-    if (!mouseReleased) {
-        painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
-                          tr("Sound On"));
-    } else {
-        painter->drawText(QPointF(rectWidth * musicTextPosWidth, rectHeight * textPosHeight),
+    if (mouseReleased) {
+        painter->drawText(QPointF(rectX + rectWidth * musicTextPosWidth,
+                                  rectY + rectHeight * textPosHeight),
                           tr("Sound Off"));
+    } else {
+        painter->drawText(QPointF(rectX + rectWidth * musicTextPosWidth,
+                                  rectY + rectHeight * textPosHeight),
+                          tr("Sound On"));
     }
     painter->restore();
 }
@@ -91,7 +100,8 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
  */
 void BTMusicControl::setNotFirstGame()
 {
-    mouseReleased = false;
+//    mouseReleased = true;
+    buttonFunction();
     update();
 }
 

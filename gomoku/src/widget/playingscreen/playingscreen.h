@@ -51,6 +51,8 @@ private:
     bool gamePlaying = false; //游戏是否开始
     bool gameOverStatus = false; //游戏结束标志
     int currentChessColro = 0; //棋子颜色
+    int sceneWidth = 300; //显示rect宽度
+    int sceneHeight = 100; //显示rect高度
     QPixmap currentPlayer; //当前旗手
     QPixmap aiPlaying; //ai正在下棋
     QPixmap userPlaying; //用户正在下棋
@@ -60,8 +62,11 @@ private:
     QPixmap userNotPlay; //用户没有下棋
     QPixmap aiNotPlay; //ai没有下棋
     //以下位置参数,根据UI图得来
+    const qreal playingScreenPosWidth = 0.7; //对局详情位置占整个scene宽度比例
+    const qreal playingScreenPosHeight = 0.005; //对局详情位置占整个scene高度比例
+
     const qreal chessPlayingTextPosWidth = 0.1764; //当前下棋提示语位置占整个scene宽度比例
-    const qreal chessPlayingTextPosHeight = 0.1; //当前下棋提示语位置占整个scene宽度比例
+    const qreal chessPlayingTextPosHeight = 0.2; //当前下棋提示语位置占整个scene宽度比例
     const qreal currentPlayerPosWidth = 0.1332; //当前旗手位置占整个scene宽度比例
     const qreal currentPlayerPosHeight = 0.52; //当前旗手位置占整个scene宽度比例
     const qreal aiPlayingPosWidth = 0.3207; //ai下棋位置占整个scene宽度比例

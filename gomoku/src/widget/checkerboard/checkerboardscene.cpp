@@ -41,14 +41,17 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
 {
     //设置scene大小
     setSceneRect(x, y, width, height);
-    initCheckerboard();
-    initPlayingScreen();
-    initFunctionButton();
+    addItem(cbitem);
+    addItem(playingScreen);
+    addButtonFunction();
     initGame();
     connect(buttonStartPause, &BTStartPause::signalGameStart, this, &CheckerboardScene::slotGameStart);
     connect(buttonStartPause, &BTStartPause::signalGameStop, this, &CheckerboardScene::slotGameStop);
     connect(buttonStartPause, &BTStartPause::signalGameContinue, this, &CheckerboardScene::slotGameContinue);
-    connect(buttonMusicControl, &BTMusicControl::signalMusic, this, &CheckerboardScene::signalMusicControl);//音效控制
+    connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::signalReplayFunction); //重玩游戏
+    connect(buttonMusicControl, &BTMusicControl::signalMusic, this, [ = ](bool musicControl) {
+        musicControlStatus = musicControl;
+    });//音效控制
 }
 
 CheckerboardScene::~CheckerboardScene()
@@ -82,14 +85,6 @@ CheckerboardScene::~CheckerboardScene()
     }
 }
 
-//初始化棋盘
-void CheckerboardScene::initCheckerboard()
-{
-
-    cbitem->setPos(this->width() * CheckerboardPosWidth, this->height() * CheckerboardPosHeight);
-    addItem(cbitem);
-}
-
 //初始化棋子
 void CheckerboardScene::initChess()
 {
@@ -113,7 +108,6 @@ void CheckerboardScene::initChess()
             connect(this, &CheckerboardScene::signalIsAIPlaying, chess, &ChessItem::slotIsAIPlaying);//当前旗手
             connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);//暂停游戏
             connect(this, &CheckerboardScene::signalGameContinue, chess, &ChessItem::slotGameContinue);//继续游戏
-            connect(buttonMusicControl, &BTMusicControl::signalMusic, chess, &ChessItem::slotMusicControl);//游戏音效
             connect(chess, &ChessItem::signalCPaintItem, this, &CheckerboardScene::slotCPaintItem);//落子坐标,判断输赢
             //整个棋盘左上角点,加上偏移量到达绘制区域,减去棋格半径是以棋子所在rect左上角为圆点绘制棋子
             //循环添加每个位置棋子
@@ -127,28 +121,24 @@ void CheckerboardScene::initChess()
     }
 }
 
-//初始化功能按钮
-void CheckerboardScene::initFunctionButton()
+/**
+ * @brief CheckerboardScene::removeButtonFunction 移除功能按钮
+ */
+void CheckerboardScene::removeButtonFunction()
 {
-    //开始/暂停游戏
-    buttonStartPause->setPos(this->width() * buttonPosWidth, this->height() * buttonStartPausePosHeight);
-    addItem(buttonStartPause);
-    //重玩游戏
-    buttonReplay->setPos(this->width() * buttonPosWidth, this->height() * buttonReplayPosHeight);
-    connect(buttonReplay, &BTReplay::signalbuttonReplay, this, &CheckerboardScene::signalReplayFunction);
-    addItem(buttonReplay);
-
-    //音乐控制
-    buttonMusicControl->setPos(this->width() * buttonPosWidth, this->height() * buttonMusicControlPosHeight);
-    addItem(buttonMusicControl);
+    removeItem(buttonStartPause);
+    removeItem(buttonReplay);
+    removeItem(buttonMusicControl);
 }
 
-//初始化下棋详情
-void CheckerboardScene::initPlayingScreen()
+/**
+ * @brief CheckerboardScene::addButtonFunction 添加功能按钮
+ */
+void CheckerboardScene::addButtonFunction()
 {
-    //棋盘
-    playingScreen->setPos(this->width() * playingScreenPosWidth, this->height() * playingScreenPosHeight);
-    addItem(playingScreen);
+    addItem(buttonStartPause);//开始/暂停游戏
+    addItem(buttonReplay); //重玩游戏
+    addItem(buttonMusicControl); //音乐控制
 }
 
 //放置AI棋子
@@ -195,9 +185,6 @@ void CheckerboardScene::initGame()
 {
     connect(this, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
     connect(this, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
-    connect(this, &CheckerboardScene::signalMusicControl, this, [ = ](bool musicControl) {
-        musicControlStatus = musicControl;
-    });//游戏音效控制
     connect(gameControl, &GameControl::AIPlayChess, this, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
     connect(gameControl, &GameControl::isAIPlaying, this, &CheckerboardScene::signalIsAIPlaying);//通知棋子,当前旗手
     connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::slotGameOver);//游戏结束
@@ -237,6 +224,9 @@ void CheckerboardScene::slotGameOver(ChessResult result)
  */
 void CheckerboardScene::selsectChessOK()
 {
+    //先移除功能按钮,再添加,保证按钮三态显示正常
+    removeButtonFunction();
+    addButtonFunction();
     //使能功能按钮
     buttonStartPause->setNotFirstGame();
     buttonReplay->setNotFirstGame();
@@ -271,6 +261,11 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
     for (int i = 0; i < line_row; i++) {
         for (int j = 0; j < line_col; j++) {
             if (chessItemList.at(i).at(j) == cItem && !chessHasPaint[i][j]) {
+                qInfo() << __FUNCTION__ <<  "music play statues: " << musicControlStatus;
+                if (musicControlStatus) {
+                    //播放落子音效
+                    QSound::play(":/resources/music/chessone.wav");
+                }
                 chessHasPaint[i][j] = true;
                 qInfo() << __FUNCTION__ <<  "current chess pos: " << i << j;
                 Chess chess(i, j, cItem->getChessColor());

@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "selectinfo.h"
+#include "globaltool.h"
 
 Selectinfo::Selectinfo(QWidget *parent)
     : DLabel(parent)
@@ -39,7 +40,7 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     painter.save();
     painter.setPen("#02412c");
     QFont font;
-    font.setFamily("Yuanti SC");
+    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
     font.setPixelSize(26);
     painter.setFont(font);

@@ -51,11 +51,6 @@ public slots:
     void slotGameStop();
     void slotGameOver();
     void slotIsAIPlaying(bool AIPlaying);
-    /**
-     * @brief slotMusicControl 音效控制槽函数
-     * @param musicControl 是否打开音效
-     */
-    void slotMusicControl(bool musicControl);
 
 public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

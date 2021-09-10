@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "determinebutton.h"
+#include "globaltool.h"
 
 #include <QPainter>
 #include <QMouseEvent>
@@ -96,9 +97,9 @@ void Determinebutton::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setFamily("Yuanti SC");
+    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
-    font.setPixelSize(14);
+    font.setPixelSize(20);
     painter.setPen("#492c04");
     if (buttonPressed) {
         painter.setPen("#ffdb9e");

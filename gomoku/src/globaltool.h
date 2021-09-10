@@ -51,6 +51,13 @@ public:
      * @return
      */
     static QString AutoFeed(const QString &text, const int fontSize, const int textWidth);
+
+    /**
+     * @brief loadFontFamilyFromFiles 输入字体文件路径，输出字体family
+     * @param fontFileName 字体文件路径
+     * @return 字体family
+     */
+    static QString loadFontFamilyFromFiles(const QString &fontFileName);
 };
 
 #endif // GLOBALTOOL_H

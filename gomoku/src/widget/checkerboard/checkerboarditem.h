@@ -41,6 +41,8 @@ public:
 
 private:
     QPixmap  checkerboardPixmap; //背景图片
+    const qreal CheckerboardPosWidth = 0.02; //棋盘位置占整个scene宽度比例
+    const qreal CheckerboardPosHeight = 0.007; //棋盘位置占整个scene高度比例
 };
 
 #endif // CHECKERBOARDITEM_H

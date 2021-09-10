@@ -21,6 +21,8 @@
 #include "globaltool.h"
 
 #include <DFontSizeManager>
+#include <QFile>
+#include <QFontDatabase>
 
 DWIDGET_USE_NAMESPACE
 
@@ -73,7 +75,7 @@ QString Globaltool::AutoFeed(const QString &text, const int fontSize, const int 
     QString strText = text;
     QString resultStr = nullptr;
     QFont labelF;
-    labelF.setFamily("Yuanti SC");
+    labelF.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     labelF.setWeight(QFont::Black);
     labelF.setPixelSize(fontSize);
     QFontMetrics fm(labelF);
@@ -102,4 +104,29 @@ QString Globaltool::AutoFeed(const QString &text, const int fontSize, const int 
     }
 
     return resultStr;
+}
+
+QString Globaltool::loadFontFamilyFromFiles(const QString &fontFileName)
+{
+    static QHash<QString, QString> tmd;
+    if (tmd.contains(fontFileName)) {
+        return tmd.value(fontFileName);
+    }
+    QString font = "";
+    QFile fontFile(fontFileName);
+    if (!fontFile.open(QIODevice::ReadOnly)) {
+        qDebug() << __FUNCTION__ << "Open font file error";
+        return font;
+    }
+
+    int loadedFontID = QFontDatabase::addApplicationFontFromData(fontFile.readAll());
+    QStringList loadedFontFamilies = QFontDatabase::applicationFontFamilies(loadedFontID);
+    if (!loadedFontFamilies.empty()) {
+        font = loadedFontFamilies.at(0);
+    }
+    fontFile.close();
+
+    if (!(font.isEmpty()))
+        tmd.insert(fontFileName, font);
+    return font;
 }

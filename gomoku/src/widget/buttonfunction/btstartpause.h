@@ -52,6 +52,9 @@ private:
     QPixmap beginPixmap; //开始按钮图片
     QPixmap stopPixmap; //暂停按钮图片
     bool gameOverStatus = false; //游戏结束标志
+    qreal posHeight = 0.2314; //按钮位置占整个scene高度比例
+    const qreal firstGamePosHeight = 0.2314;  //游戏未开始时按钮位置占整个scene高度比例
+    const qreal notFirstGamePosHeight = 0.333;  //游戏开始后按钮位置占整个scene高度比例
 };
 
 #endif // BTSTARTPAUSE_H

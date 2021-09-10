@@ -22,8 +22,10 @@
 #define BUTTONITEM_H
 
 #include "constants.h"
+#include "globaltool.h"
 
 #include <QGraphicsItem>
+#include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 #include <QDebug>
@@ -40,9 +42,6 @@ public:
     explicit ButtonItem(QGraphicsItem *parent = nullptr);
     ~ButtonItem() override;
 
-public:
-    QRectF boundingRect() const override;
-
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
@@ -56,6 +55,8 @@ protected:
     bool pressStatus = false; //鼠标点击状态标志
     bool firstStartGame = true; //是否第一次开始游戏
     //以下位置参数,根据UI图得来
+    const qreal buttonPosWidth = 0.74; //功能按钮位置占整个scene宽度比例
+
     const qreal pixmapPosWidth = 0.147; //按钮图标位置占整个scene宽度比例
     const qreal pixmapPosHeight = 0.3125; //按钮图标位置占整个scene高度比例
     const qreal textPosWidth = 0.372; //按钮文字位置占整个scene宽度比例

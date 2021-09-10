@@ -24,6 +24,7 @@ BTReplay::BTReplay(QGraphicsItem *parent)
     : ButtonItem(parent)
     , replayPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/replay.svg"))
 {
+    posHeight = firstGamePosHeight;
 }
 
 BTReplay::~BTReplay()
@@ -33,7 +34,10 @@ BTReplay::~BTReplay()
 
 QRectF BTReplay::boundingRect() const
 {
-    return ButtonItem::boundingRect();
+    return QRectF(this->scene()->width() * buttonPosWidth,
+                  this->scene()->height() * posHeight,
+                  backgrounePix.width(),
+                  backgrounePix.height());
 }
 
 void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -41,8 +45,10 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    qreal rectWidth = this->boundingRect().width();
-    qreal rectHeight = this->boundingRect().height();
+    qreal rectX = this->boundingRect().x(); //矩形起始位置X
+    qreal rectY = this->boundingRect().y(); //矩形起始位置Y
+    qreal rectWidth = this->boundingRect().width(); //矩形宽度
+    qreal rectHeight = this->boundingRect().height(); //矩形高度
 
     painter->setRenderHint(QPainter::Antialiasing);
 
@@ -52,13 +58,13 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
         painter->setPen(Qt::red);
         painter->setBrush(Qt::red);
         painter->setOpacity(0.4); //设置图片透明度
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()),
-                            QPixmap(":/resources/function_button/normal.svg"));
+        painter->drawPixmap(QPointF(rectX, rectY),
+                            DHiDPIHelper::loadNxPixmap(":/resources/function_button/normal.svg"));
         painter->restore();
     } else {
         painter->save();
         painter->setPen(Qt::NoPen);
-        painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), backgrounePix);
+        painter->drawPixmap(QPointF(rectX, rectY), backgrounePix);
         painter->restore();
     }
 
@@ -67,18 +73,19 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     //首次开始游戏
     if (firstStartGame)
         painter->setOpacity(0.4); //设置图片透明度
-    painter->drawPixmap(QPointF(rectWidth * pixmapPosWidth, rectHeight * pixmapPosHeight),
+    painter->drawPixmap(QPointF(rectX + rectWidth * pixmapPosWidth,
+                                rectY + rectHeight * pixmapPosHeight),
                         replayPixmap);
     painter->restore();
 
     painter->save();
     QFont font;
-    font.setFamily("Yuanti SC");
+    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(16);
+    font.setPixelSize(20);
     font.setBold(true);
     painter->setFont(font);
-    if (pressStatus) {
+    if (!firstStartGame && pressStatus) {
         painter->setPen(QColor("#ffdb9e"));
     } else {
         painter->setPen(QColor("#024526"));
@@ -86,7 +93,8 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     //首次开始游戏
     if (firstStartGame)
         painter->setOpacity(0.4); //设置图片透明度
-    painter->drawText(QPointF(rectWidth * textPosWidth, rectHeight * textPosHeight),
+    painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
+                              rectY + rectHeight * textPosHeight),
                       tr("New Game"));
     painter->restore();
 }
@@ -105,6 +113,8 @@ void BTReplay::buttonFunction()
  */
 void BTReplay::setNotFirstGame()
 {
+    if (qAbs(posHeight - notFirstGamePosHeight) >= (1e-6))
+        posHeight = notFirstGamePosHeight;
     firstStartGame = false;
     mouseReleased = false;
     update();

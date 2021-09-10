@@ -19,6 +19,7 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "resultinfo.h"
+#include "globaltool.h"
 
 Resultinfo::Resultinfo(QWidget *parent)
     : DLabel(parent)
@@ -60,7 +61,7 @@ void Resultinfo::paintEvent(QPaintEvent *event)
     painter.save();
     painter.setPen("#02412c");
     QFont font;
-    font.setFamily("Yuanti SC");
+    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
     font.setPixelSize(30);
     painter.setFont(font);

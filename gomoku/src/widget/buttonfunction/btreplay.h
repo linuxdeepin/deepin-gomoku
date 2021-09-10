@@ -45,6 +45,9 @@ private:
 
 private:
     QPixmap replayPixmap; //重玩按钮图片
+    qreal posHeight = 0.3425; //按钮位置占整个scene高度比例
+    const qreal firstGamePosHeight = 0.3425;  //游戏未开始时按钮位置占整个scene高度比例
+    const qreal notFirstGamePosHeight = 0.444; //重玩功能按钮位置占整个scene高度比例
 };
 
 #endif // BTREPLAY_H
