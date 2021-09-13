@@ -55,26 +55,30 @@ void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 //设置鼠标点击图片
 void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    event->accept();
-    pressStatus = true;
-    backgrounePix = PressBackgrounePix;
-    update();
+    if (event->button() & Qt::LeftButton) {
+        event->accept();
+        pressStatus = true;
+        backgrounePix = PressBackgrounePix;
+        update();
+    }
 }
 
 //鼠标点击释放，设置图片
 void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    pressStatus = false;
-    if (contains(event->pos())) {
-        backgrounePix =  normalBackgrounePix;
-        mouseReleased = !mouseReleased;
-        //设置一个1ms的延时,保证按钮状态切换
-        QTimer::singleShot(1, this, [ = ] {
-            buttonFunction();
-        });
+    if (event->button() & Qt::LeftButton) {
+        pressStatus = false;
+        if (contains(event->pos())) {
+            backgrounePix =  normalBackgrounePix;
+            mouseReleased = !mouseReleased;
+            //设置一个1ms的延时,保证按钮状态切换
+            QTimer::singleShot(1, this, [ = ] {
+                buttonFunction();
+            });
+        }
+        update();
+        QGraphicsItem::mouseReleaseEvent(event);
     }
-    update();
-    QGraphicsItem::mouseReleaseEvent(event);
 }
 
 //按钮功能虚函数

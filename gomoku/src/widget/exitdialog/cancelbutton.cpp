@@ -43,10 +43,12 @@ CancelButton::CancelButton(QWidget *parent)
  */
 void CancelButton::mousePressEvent(QMouseEvent *event)
 {
-    buttonPressed = true;
-    currentPixmap = buttonPress;
-    DWidget::mousePressEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = true;
+        currentPixmap = buttonPress;
+        DWidget::mousePressEvent(event);
+        update();
+    }
 }
 
 /**
@@ -56,14 +58,16 @@ void CancelButton::mousePressEvent(QMouseEvent *event)
  */
 void CancelButton::mouseReleaseEvent(QMouseEvent *event)
 {
-    buttonPressed = false;
-    currentPixmap = buttonNormal;
-    if (this->rect().contains(event->pos())) {
-        emit signalButtonOKClicked();
-    }
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = false;
+        currentPixmap = buttonNormal;
+        if (this->rect().contains(event->pos())) {
+            emit signalButtonOKClicked();
+        }
 
-    DWidget::mouseReleaseEvent(event);
-    update();
+        DWidget::mouseReleaseEvent(event);
+        update();
+    }
 }
 
 /**

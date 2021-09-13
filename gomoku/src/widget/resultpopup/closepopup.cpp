@@ -42,9 +42,11 @@ Closepopup::Closepopup(QWidget *parent)
  */
 void Closepopup::mousePressEvent(QMouseEvent *event)
 {
-    currentPixmap = buttonPress;
-    DWidget::mouseReleaseEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        currentPixmap = buttonPress;
+        DWidget::mouseReleaseEvent(event);
+        update();
+    }
 }
 
 /**
@@ -53,11 +55,13 @@ void Closepopup::mousePressEvent(QMouseEvent *event)
  */
 void Closepopup::mouseReleaseEvent(QMouseEvent *event)
 {
-    currentPixmap = buttonNormal;
-    if (this->rect().contains(event->pos()))
-        emit signalCloseClicked();
-    DWidget::mouseReleaseEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        currentPixmap = buttonNormal;
+        if (this->rect().contains(event->pos()))
+            emit signalCloseClicked();
+        DWidget::mouseReleaseEvent(event);
+        update();
+    }
 }
 /**
  * @brief Closepopup::enterEvent

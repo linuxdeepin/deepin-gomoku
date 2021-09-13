@@ -62,8 +62,8 @@ private:
     DFrame *m_transparentFrame = nullptr; //视图阴影
     DTitlebar *mTitleBar = nullptr;
     CheckerboardScene *checkerboardScene = nullptr;
-    Resultpopup *resultPopUp = nullptr;
-    Selectchess *selectChess = nullptr;
+    Resultpopup *m_resultPopUp = nullptr;
+    Selectchess *m_selectChess = nullptr;
 
 };
 

@@ -66,14 +66,16 @@ void Buttonrest::setResult(bool result)
  */
 void Buttonrest::mousePressEvent(QMouseEvent *event)
 {
-    buttonPressed = true;
-    if (mResult) {
-        currentPixmap = winRestPress;
-    } else {
-        currentPixmap = failRestPress;
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = true;
+        if (mResult) {
+            currentPixmap = winRestPress;
+        } else {
+            currentPixmap = failRestPress;
+        }
+        DWidget::mousePressEvent(event);
+        update();
     }
-    DWidget::mousePressEvent(event);
-    update();
 }
 
 /**
@@ -82,16 +84,18 @@ void Buttonrest::mousePressEvent(QMouseEvent *event)
  */
 void Buttonrest::mouseReleaseEvent(QMouseEvent *event)
 {
-    buttonPressed = false;
-    if (mResult) {
-        currentPixmap = winRestNormal;
-    } else {
-        currentPixmap = failRestNormal;
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = false;
+        if (mResult) {
+            currentPixmap = winRestNormal;
+        } else {
+            currentPixmap = failRestNormal;
+        }
+        if (this->rect().contains(event->pos()))
+            emit signalButtonRestClicked();
+        DWidget::mouseReleaseEvent(event);
+        update();
     }
-    if (this->rect().contains(event->pos()))
-        emit signalButtonRestClicked();
-    DWidget::mouseReleaseEvent(event);
-    update();
 }
 
 /**

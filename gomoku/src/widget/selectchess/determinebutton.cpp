@@ -42,10 +42,12 @@ Determinebutton::Determinebutton(QWidget *parent)
  */
 void Determinebutton::mousePressEvent(QMouseEvent *event)
 {
-    buttonPressed = true;
-    currentPixmap = buttonPress;
-    DWidget::mousePressEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = true;
+        currentPixmap = buttonPress;
+        DWidget::mousePressEvent(event);
+        update();
+    }
 }
 
 /**
@@ -54,13 +56,15 @@ void Determinebutton::mousePressEvent(QMouseEvent *event)
  */
 void Determinebutton::mouseReleaseEvent(QMouseEvent *event)
 {
-    buttonPressed = false;
-    currentPixmap = buttonNormal;
-    //发送鼠标点击信号
-    if (this->rect().contains(event->pos()))
-        emit signalButtonOKClicked();
-    DWidget::mouseReleaseEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = false;
+        currentPixmap = buttonNormal;
+        //发送鼠标点击信号
+        if (this->rect().contains(event->pos()))
+            emit signalButtonOKClicked();
+        DWidget::mouseReleaseEvent(event);
+        update();
+    }
 }
 
 /**

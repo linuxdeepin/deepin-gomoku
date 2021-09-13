@@ -161,10 +161,10 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
  */
 void GomokuMainWindow::slotSelectChessPopup()
 {
-    selectChess = new Selectchess(this);
-    selectChess->setSelectChess(userChessColor);
-    connect(selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
-        userChessColor = selectChess->getSelsectChess();
+    m_selectChess = new Selectchess(this);
+    m_selectChess->setSelectChess(userChessColor);
+    connect(m_selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
+        userChessColor = m_selectChess->getSelsectChess();
         if (userChessColor == chess_white)
         {
             checkerboardScene->setSelectChess(chess_white, chess_black);
@@ -175,23 +175,23 @@ void GomokuMainWindow::slotSelectChessPopup()
         checkerboardScene->selsectChessOK();
         checkerboardScene->startGame();
     });
-    connect(checkerboardScene, &CheckerboardScene::signalCloSelectPopup, selectChess, &Selectchess::slotCloseSelectPopup);
+    connect(checkerboardScene, &CheckerboardScene::signalCloSelectPopup, m_selectChess, &Selectchess::slotCloseSelectPopup);
     viewtransparentFrame();
-    selectChess->selectChessShow();
+    m_selectChess->selectChessShow();
 
     setEnabled(false);
-    selectChess->setEnabled(true);
+    m_selectChess->setEnabled(true);
     //事件循环进入阻塞状态
     QEventLoop loop;
-    connect(selectChess, &Selectchess::signalButtonOKClicked, &loop, &QEventLoop::quit);
-    connect(selectChess, &Selectchess::signalDialogClose, &loop, &QEventLoop::quit);
-    connect(selectChess, &Selectchess::finished, &loop, &QEventLoop::quit);
+    connect(m_selectChess, &Selectchess::signalButtonOKClicked, &loop, &QEventLoop::quit);
+    connect(m_selectChess, &Selectchess::signalDialogClose, &loop, &QEventLoop::quit);
+    connect(m_selectChess, &Selectchess::finished, &loop, &QEventLoop::quit);
     loop.exec();
     setEnabled(true);
 
     m_transparentFrame->hide();
-    delete selectChess;
-    selectChess = nullptr;
+    delete m_selectChess;
+    m_selectChess = nullptr;
 }
 
 /**
@@ -201,14 +201,28 @@ void GomokuMainWindow::slotReplayPopup()
 {
     ExitDialog *exitDialog = new ExitDialog(this);
     viewtransparentFrame();
-    exitDialog->exec();
+    exitDialog->show();
     m_transparentFrame->hide();
+
+    setEnabled(false);
+    exitDialog->setEnabled(true);
+
+    //事件循环阻塞
+    QEventLoop loop;
+    connect(exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+    connect(exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+    loop.exec();
 
     if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
         slotReplayFunction();
     } else {
         exitDialog->close();
     }
+
+    setEnabled(true);
+
+    delete  exitDialog;
+    exitDialog = nullptr;
 }
 
 /**
@@ -227,12 +241,12 @@ void GomokuMainWindow::slotReplayFunction()
 void GomokuMainWindow::slotPopupResult(ChessResult result)
 {
     //失败弹出,暂时效果
-    resultPopUp = new Resultpopup(this) ;
-    connect(resultPopUp, &Resultpopup::signalGameAgain, this, &GomokuMainWindow::slotReplayFunction);
-    connect(resultPopUp, &Resultpopup::signalHaveRest, this, [ = ] {
+    m_resultPopUp = new Resultpopup(this) ;
+    connect(m_resultPopUp, &Resultpopup::signalGameAgain, this, &GomokuMainWindow::slotReplayFunction);
+    connect(m_resultPopUp, &Resultpopup::signalHaveRest, this, [ = ] {
         checkerboardScene->setStartPauseStatus();
     });
-    connect(resultPopUp, &Resultpopup::finished, this, [ = ] {
+    connect(m_resultPopUp, &Resultpopup::finished, this, [ = ] {
         checkerboardScene->setStartPauseStatus();
     });
     int userChessColor = checkerboardScene->getUserChessColor();
@@ -241,45 +255,45 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
         //判断是哪个颜色的棋子赢了
         if (result == black_win) {
             //胜利弹窗
-            resultPopUp->setHasWin(true);
+            m_resultPopUp->setHasWin(true);
             //播放胜利音效
             playWinMusic();
         } else if (result == white_win || result == tie) {
             //失败或平局均为失败弹窗
             //失败弹窗
-            resultPopUp->setHasWin(false);
+            m_resultPopUp->setHasWin(false);
             //播放失败音效
             playFailMusic();
         }
     } else if (userChessColor == chess_white) {
         if (result == black_win || result == tie) {
-            resultPopUp->setHasWin(false);
+            m_resultPopUp->setHasWin(false);
             playFailMusic();
         } else if (result == white_win) {
-            resultPopUp->setHasWin(true);
+            m_resultPopUp->setHasWin(true);
             playWinMusic();
         }
     }
     viewtransparentFrame();
-    resultPopUp->popupShow();
+    m_resultPopUp->popupShow();
 
 
     setEnabled(false);
-    resultPopUp->setEnabled(true);
+    m_resultPopUp->setEnabled(true);
 
     //事件循环进入阻塞状态
     QEventLoop loop;
-    connect(resultPopUp, &Resultpopup::signalGameAgain, &loop, &QEventLoop::quit);
-    connect(resultPopUp, &Resultpopup::signalHaveRest, &loop, &QEventLoop::quit);
-    connect(resultPopUp, &Resultpopup::finished, &loop, &QEventLoop::quit);
+    connect(m_resultPopUp, &Resultpopup::signalGameAgain, &loop, &QEventLoop::quit);
+    connect(m_resultPopUp, &Resultpopup::signalHaveRest, &loop, &QEventLoop::quit);
+    connect(m_resultPopUp, &Resultpopup::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     setEnabled(true);
 
     m_transparentFrame->hide();
 
-    delete resultPopUp;
-    resultPopUp = nullptr;
+    delete m_resultPopUp;
+    m_resultPopUp = nullptr;
 }
 
 /**
@@ -303,12 +317,12 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
     ExitDialog *exitDialog = new ExitDialog(this);
 
     //如果结算窗口存在，将其关闭
-    if (resultPopUp != nullptr)
-        resultPopUp->popupClose();
+    if (m_resultPopUp != nullptr)
+        m_resultPopUp->popupClose();
 
     //如果选子弹窗存在，将其关闭
-    if (selectChess != nullptr)
-        selectChess->selectClose();
+    if (m_selectChess != nullptr)
+        m_selectChess->selectClose();
 
 
     viewtransparentFrame();

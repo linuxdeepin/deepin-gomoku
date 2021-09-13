@@ -42,10 +42,12 @@ ExitButton::ExitButton(QWidget *parent)
  */
 void ExitButton::mousePressEvent(QMouseEvent *event)
 {
-    buttonPressed = true;
-    currentPixmap = buttonPress;
-    DWidget::mousePressEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = true;
+        currentPixmap = buttonPress;
+        DWidget::mousePressEvent(event);
+        update();
+    }
 }
 
 /**
@@ -55,12 +57,14 @@ void ExitButton::mousePressEvent(QMouseEvent *event)
  */
 void ExitButton::mouseReleaseEvent(QMouseEvent *event)
 {
-    buttonPressed = false;
-    currentPixmap = buttonNormal;
-    if (this->rect().contains(event->pos()))
-        emit signalButtonOKClicked();
-    DWidget::mouseReleaseEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = false;
+        currentPixmap = buttonNormal;
+        if (this->rect().contains(event->pos()))
+            emit signalButtonOKClicked();
+        DWidget::mouseReleaseEvent(event);
+        update();
+    }
 }
 
 /**

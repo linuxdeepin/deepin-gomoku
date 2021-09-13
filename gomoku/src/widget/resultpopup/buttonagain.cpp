@@ -53,15 +53,17 @@ void Buttonagain::setResult(bool result)
  */
 void Buttonagain::mousePressEvent(QMouseEvent *event)
 {
-    buttonPressed = true;
-    //根据输赢情况设置不同图片
-    if (mResult) {
-        currentPixmap = againPress;
-    } else {
-        currentPixmap = failAgainPress;
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = true;
+        //根据输赢情况设置不同图片
+        if (mResult) {
+            currentPixmap = againPress;
+        } else {
+            currentPixmap = failAgainPress;
+        }
+        DWidget::mousePressEvent(event);
+        update();
     }
-    DWidget::mousePressEvent(event);
-    update();
 }
 
 /**
@@ -70,13 +72,15 @@ void Buttonagain::mousePressEvent(QMouseEvent *event)
  */
 void Buttonagain::mouseReleaseEvent(QMouseEvent *event)
 {
-    buttonPressed = false;
-    currentPixmap = againNormal;
-    //发送鼠标点击信号
-    if (this->rect().contains(event->pos()))
-        emit signalButtonAnginClicked();
-    DWidget::mouseReleaseEvent(event);
-    update();
+    if (event->button() & Qt::LeftButton) {
+        buttonPressed = false;
+        currentPixmap = againNormal;
+        //发送鼠标点击信号
+        if (this->rect().contains(event->pos()))
+            emit signalButtonAnginClicked();
+        DWidget::mouseReleaseEvent(event);
+        update();
+    }
 }
 
 /**
