@@ -88,11 +88,11 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         painter->setPen(Qt::NoPen);
         if (chessType == chess_white) {
             chessPixmap = chessWhitePixmap;
-            chessPixmapNow = QPixmap(":/resources/chess_white_now.svg");
+            chessPixmapNow = DHiDPIHelper::loadNxPixmap(":/resources/chess_white_now.svg");
 
         } else if (chessType == chess_black) {
             chessPixmap = chessBlackPixmap;
-            chessPixmapNow = QPixmap(":/resources/chess_balck_now.svg");
+            chessPixmapNow = DHiDPIHelper::loadNxPixmap(":/resources/chess_balck_now.svg");
         }
         if (chessHasPrint) {
             painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), chessPixmap);
@@ -100,7 +100,6 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawPixmap(QPointF(boundingRect().x(), boundingRect().y()), chessPixmapNow);
         }
         painter->restore();
-        emit signalCPaintItem(this);
     } else {
         painter->save();
         painter->setPen(Qt::NoPen);
@@ -166,12 +165,10 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    if (event->button() & Qt::LeftButton) {
-        //玩家下棋才能落子
-        if (contains(event->pos()) && hoverStatus) {
-            setchessStatus(true);
-        }
-        QGraphicsItem::mouseReleaseEvent(event);
+    //玩家下棋才能落子
+    if (contains(event->pos()) && hoverStatus) {
+        setchessStatus(true);
+        emit signalCPaintItem(this);
     }
 }
 

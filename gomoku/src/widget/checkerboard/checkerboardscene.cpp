@@ -150,6 +150,7 @@ void CheckerboardScene::setAIChess(Chess chess)
     int color = chess.color;
     chessItemList.at(row).at(col)->setCurrentchess(color);
     chessItemList.at(row).at(col)->setchessStatus(true);
+    slotCPaintItem(chessItemList.at(row).at(col));
 }
 
 /**
