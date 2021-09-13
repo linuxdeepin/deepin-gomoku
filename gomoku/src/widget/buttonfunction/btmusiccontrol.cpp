@@ -36,8 +36,8 @@ QRectF BTMusicControl::boundingRect() const
 {
     return QRectF(this->scene()->width() * buttonPosWidth,
                   this->scene()->height() * buttonMusicControlPosHeight,
-                  backgrounePix.width(),
-                  backgrounePix.height());
+                  200,
+                  60);
 }
 
 void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

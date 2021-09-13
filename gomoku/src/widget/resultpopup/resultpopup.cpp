@@ -38,7 +38,7 @@ Resultpopup::Resultpopup(QWidget *parent)
     , buttonAgain(new Buttonagain)
 {
     //设置大小
-    setFixedSize(winPixmap.size());
+    setFixedSize(372, 336);
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
 
@@ -137,7 +137,7 @@ void Resultpopup::paintEvent(QPaintEvent *event)
     }
     painter.save();
     painter.setPen(Qt::NoPen);
-    painter.drawPixmap(backgroundImage.rect(), backgroundImage);
+    painter.drawPixmap(this->rect(), backgroundImage);
     painter.restore();
 
     QWidget::paintEvent(event);

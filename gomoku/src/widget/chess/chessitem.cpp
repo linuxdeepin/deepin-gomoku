@@ -165,10 +165,12 @@ void ChessItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    //玩家下棋才能落子
-    if (contains(event->pos()) && hoverStatus) {
-        setchessStatus(true);
-        emit signalCPaintItem(this);
+    if (event->button() & Qt::LeftButton) {
+        //玩家下棋才能落子
+        if (contains(event->pos()) && hoverStatus) {
+            setchessStatus(true);
+            emit signalCPaintItem(this);
+        }
     }
 }
 

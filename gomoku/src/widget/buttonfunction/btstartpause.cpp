@@ -84,8 +84,8 @@ QRectF BTStartPause::boundingRect() const
 {
     return QRectF(this->scene()->width() * buttonPosWidth,
                   this->scene()->height() * posHeight,
-                  backgrounePix.width(),
-                  backgrounePix.height());
+                  200,
+                  60);
 }
 
 void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)

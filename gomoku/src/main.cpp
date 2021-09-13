@@ -83,8 +83,6 @@ int main(int argc, char *argv[])
         DApplicationSettings applicationset(app);
 
         GomokuMainWindow ww;
-//        Selectchess *selectChess = new Selectchess;
-//        ww.connectSelectChess(selectChess);
         ww.show();
 
         return app->exec();

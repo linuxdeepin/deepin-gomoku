@@ -35,7 +35,7 @@ ExitDialog::ExitDialog(QWidget *parent)
     , result(BTType::BTCancel)
     , backgroundQPixmap(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg"))
 {
-    setFixedSize(backgroundQPixmap.size());
+    setFixedSize(371, 219);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint); //取消标题栏
 
@@ -95,7 +95,8 @@ void ExitDialog::initUI()
 /**
  * @brief ExitDialog::soltDialogClose 槽函数：处理取消按钮和关闭dialog的信号
  */
-void ExitDialog::soltDialogClose() {
+void ExitDialog::soltDialogClose()
+{
     setResult(BTType::BTCancel); //将状态设置为取消
     emit signalClicked();
     this->done(0);
@@ -104,7 +105,8 @@ void ExitDialog::soltDialogClose() {
 /**
  * @brief ExitDialog::soltGameExit 槽函数：处理退出游戏的信号
  */
-void ExitDialog::soltGameExit() {
+void ExitDialog::soltGameExit()
+{
     setResult(BTType::BTExit); //将状态设置为退出
     emit signalClicked();
     this->done(0);

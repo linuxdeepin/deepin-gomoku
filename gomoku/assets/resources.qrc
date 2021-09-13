@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>resources/background.svg</file>
-        <file>resources/logo.svg</file>
         <file>resources/checkerboard.svg</file>
         <file>resources/icon/begin.svg</file>
         <file>resources/icon/replay.svg</file>
@@ -60,5 +59,6 @@
         <file>resources/chess_white_now.svg</file>
         <file>resources/font/ResourceHanRoundedCN-Bold.ttf</file>
         <file>resources/music/chessone.wav</file>
+        <file>resources/logo.svg</file>
     </qresource>
 </RCC>

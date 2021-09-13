@@ -44,7 +44,7 @@
 <context>
     <name>Buttonagain</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="128"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="132"/>
         <source>Play Again</source>
         <translation>Play Again</translation>
     </message>
@@ -52,7 +52,7 @@
 <context>
     <name>Buttonrest</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="152"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="156"/>
         <source>Have a Rest</source>
         <translation>Have a Rest</translation>
     </message>
@@ -60,7 +60,7 @@
 <context>
     <name>CancelButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="114"/>
+        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="118"/>
         <source>Keep Playing</source>
         <translation>Keep Playing</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>Determinebutton</name>
     <message>
-        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="108"/>
+        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="112"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -76,7 +76,7 @@
 <context>
     <name>ExitButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="111"/>
+        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="115"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>

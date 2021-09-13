@@ -39,7 +39,7 @@ Selectchess::Selectchess(QWidget *parent)
     , selectLButton(new Selectbutton)
     , selectRButton(new Selectbutton)
 {
-    setFixedSize(backgroundPixmap.size());
+    setFixedSize(371, 219);
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
 

@@ -28,11 +28,11 @@
 
 Closepopup::Closepopup(QWidget *parent)
     : DWidget(parent)
-    ,buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/normal.svg"))
-    ,buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/hover.svg"))
-    ,buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/press.svg"))
+    , buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/normal.svg"))
+    , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/hover.svg"))
+    , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/press.svg"))
 {
-    setFixedSize(buttonNormal.size());
+    setFixedSize(32, 32);
     currentPixmap = buttonNormal;
 }
 
