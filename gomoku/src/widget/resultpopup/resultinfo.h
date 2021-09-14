@@ -27,6 +27,7 @@ DWIDGET_USE_NAMESPACE
 
 class Resultinfo : public DLabel
 {
+    Q_OBJECT
 public:
     Resultinfo(QWidget *parent = nullptr);
     ~Resultinfo() override;

@@ -66,7 +66,6 @@ int main(int argc, char *argv[])
         app->setProductName(QApplication::translate("GomokuWindow", "Gomoku"));
         app->setApplicationDescription(QApplication::translate("GomokuWindow", "Gomoku is a small chess game for two players."));
 
-
         //命令行参数
         QCommandLineParser _commandLine; //建立命令行解析
         _commandLine.addHelpOption(); //增加-h/-help解析命令

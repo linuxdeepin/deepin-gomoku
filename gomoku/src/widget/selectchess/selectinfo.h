@@ -26,6 +26,7 @@
 DWIDGET_USE_NAMESPACE
 class Selectinfo : public DLabel
 {
+    Q_OBJECT
 public:
     Selectinfo(QWidget *parent = nullptr);
 

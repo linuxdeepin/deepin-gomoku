@@ -42,7 +42,7 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
-    font.setPixelSize(26);
+    font.setPixelSize(22);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, tr("Play as"));
     painter.restore();
