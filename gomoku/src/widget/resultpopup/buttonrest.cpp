@@ -144,7 +144,7 @@ void Buttonrest::paintEvent(QPaintEvent *event)
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
     font.setPixelSize(20);
-    painter.setPen("#492c04");
+    painter.setPen("#353535");
     if (buttonPressed) {
         if (currentPixmap == winRestPress) {
             painter.setPen("#ffdb9e");

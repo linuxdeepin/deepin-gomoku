@@ -42,7 +42,7 @@ Resultpopup::Resultpopup(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
 
-    initUI();
+//    initUI();
     //休息一下, 关闭弹窗
     connect(buttonRest, &Buttonrest::signalButtonRestClicked, this, [ = ] {
         this->close();
@@ -69,7 +69,7 @@ void Resultpopup::initUI()
         emit signalHaveRest();
     });
     closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
-    closeLayout->addSpacing(8);
+    closeLayout->addSpacing(10);
 
     QHBoxLayout *labelLayout = new QHBoxLayout();
     labelLayout->addStretch();
@@ -82,7 +82,8 @@ void Resultpopup::initUI()
     buttonLayout->addWidget(buttonAgain);
     buttonLayout->addStretch(10);
 
-    mainLayout->addSpacing(110);
+//    hasWin ? mainLayout->addSpacing(107) : mainLayout->addSpacing(102); //胜利和失败的背景下顶部弹簧略微不同
+    mainLayout->addSpacing(102);
     mainLayout->addLayout(closeLayout);
     mainLayout->addSpacing(25);
     mainLayout->addLayout(labelLayout);
@@ -110,6 +111,8 @@ void Resultpopup::setHasWin(bool win)
     resultInfo->setResult(hasWin);
     buttonRest->setResult(hasWin);
     buttonAgain->setResult(hasWin);
+
+    initUI();
 }
 
 /**

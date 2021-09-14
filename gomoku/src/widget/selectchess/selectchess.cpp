@@ -60,7 +60,7 @@ void Selectchess::initUI()
         emit signalDialogClose();
     });
     closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
-    closeLayout->addSpacing(12);
+    closeLayout->addSpacing(10);
 
     QHBoxLayout *seleceInfoLayout = new QHBoxLayout();
     Selectinfo *selectInfo = new Selectinfo();
@@ -87,9 +87,10 @@ void Selectchess::initUI()
     connect(determineButton, &Determinebutton::signalButtonOKClicked, this, &Selectchess::slotButtonOKClicked);
     determineLayout->addWidget(determineButton);
 
-    mainLayout->addSpacing(8);
+    mainLayout->addSpacing(5);
     mainLayout->addLayout(closeLayout);
     mainLayout->addLayout(seleceInfoLayout);
+    mainLayout->addStretch();
     mainLayout->addLayout(buttonLayout);
     mainLayout->addSpacing(10);
     mainLayout->addLayout(determineLayout);

@@ -35,7 +35,7 @@ ExitDialog::ExitDialog(QWidget *parent)
     , result(BTType::BTCancel)
     , backgroundQPixmap(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg"))
 {
-    setFixedSize(371, 219);
+    setFixedSize(372, 219);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint); //取消标题栏
 
@@ -47,23 +47,17 @@ ExitDialog::ExitDialog(QWidget *parent)
  */
 void ExitDialog::initUI()
 {
-
-
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addSpacing(7);//上层布局离中间布局的距离
-
+    //上层关闭按钮布局
     QHBoxLayout *titleLayout = new QHBoxLayout();
     Closepopup *closeButton = new Closepopup(this);
     connect(closeButton, &Closepopup::signalCloseClicked, this, &ExitDialog::soltDialogClose);
 
-
     titleLayout->addStretch();
     titleLayout->addWidget(closeButton);
-    titleLayout->addSpacing(15); //关闭按钮距离右边界的距离
-
-    mainLayout->addLayout(titleLayout);
+    titleLayout->addSpacing(10); //关闭按钮距离右边界的距离
 
 
+    //中层标签布局
     QHBoxLayout *textLayout = new QHBoxLayout();
     textLayout->addStretch();
 
@@ -71,12 +65,9 @@ void ExitDialog::initUI()
     textLayout->addWidget(exitLabel);
     textLayout->addStretch();
 
-    mainLayout->addLayout(textLayout);
-    mainLayout->addStretch();
-
-
+    //下层按钮布局
     QHBoxLayout *BTLayout = new QHBoxLayout();
-    BTLayout->addSpacing(21); //按钮距离左边界的距离
+    BTLayout->addSpacing(10); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton();
     ExitButton *exitButton = new ExitButton();
@@ -84,12 +75,17 @@ void ExitDialog::initUI()
     connect(exitButton, &ExitButton::signalButtonOKClicked, this, &ExitDialog::soltGameExit);
 
     BTLayout->addWidget(cancelButton);
-    BTLayout->addSpacing(10);//两按钮中间的距离
     BTLayout->addWidget(exitButton);
-    BTLayout->addSpacing(21);//按钮距离右边界的距离
+    BTLayout->addSpacing(10);//按钮距离右边界的距离
 
+    //主布局
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    mainLayout->addSpacing(5);//上层布局离中间布局的距离
+    mainLayout->addLayout(titleLayout);
+    mainLayout->addLayout(textLayout);
+    mainLayout->addStretch();
     mainLayout->addLayout(BTLayout);
-    mainLayout->addSpacing(21); //按钮距离下边界的距离
+    mainLayout->addSpacing(14); //按钮距离下边界的距离
 }
 
 /**

@@ -101,7 +101,7 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(20);
+    font.setPixelSize(23);
     font.setBold(true);
 
     painter->setRenderHint(QPainter::Antialiasing);

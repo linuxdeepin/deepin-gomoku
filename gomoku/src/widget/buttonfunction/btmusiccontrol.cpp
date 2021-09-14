@@ -75,7 +75,7 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(20);
+    font.setPixelSize(23);
     font.setBold(true);
     painter->setFont(font);
     if (pressStatus) {

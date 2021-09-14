@@ -102,7 +102,7 @@ void Determinebutton::paintEvent(QPaintEvent *event)
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
-    font.setWeight(QFont::Medium);
+    font.setWeight(QFont::Normal);
     font.setPixelSize(20);
     painter.setPen("#492c04");
     if (buttonPressed) {

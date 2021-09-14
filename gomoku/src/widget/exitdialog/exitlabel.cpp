@@ -37,6 +37,6 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
     QFont tipFont;
     tipFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     tipFont.setWeight(QFont::Medium);
-    tipFont.setPixelSize(18); //字体大小
+    tipFont.setPixelSize(25); //字体大小
     setFont(tipFont);
 }

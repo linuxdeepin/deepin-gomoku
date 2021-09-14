@@ -46,7 +46,8 @@ private:
     QPixmap voicePixmap; //声音开启图片
     QPixmap voiceOffPixmap; //声音关闭图片
     //以下位置参数,根据UI图得来
-    const qreal musicTextPosWidth = 0.2941; //按钮文字位置占整个scene宽度比例
+//    const qreal musicTextPosWidth = 0.2941; //按钮文字位置占整个scene宽度比例
+    const qreal musicTextPosWidth = 0.3625; //按钮文字位置占整个scene宽度比例
     const qreal buttonMusicControlPosHeight = 0.765; //音乐功能按钮位置占整个scene高度比例
 };
 

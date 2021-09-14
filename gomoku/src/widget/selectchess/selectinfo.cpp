@@ -25,7 +25,7 @@ Selectinfo::Selectinfo(QWidget *parent)
     : DLabel(parent)
 {
     //设置大小
-    setFixedSize(216, 40);
+    setFixedSize(226, 40);
 }
 
 /**
@@ -42,7 +42,7 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
-    font.setPixelSize(22);
+    font.setPixelSize(25);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, tr("Play as"));
     painter.restore();

@@ -79,6 +79,8 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
+//    painter->drawRect(boundingRect());
+
     //图片或文字位置通过起始位置+偏移量的方式设置
     qreal rectX = this->boundingRect().x();
     qreal rectY = this->boundingRect().y();
@@ -92,16 +94,18 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
             painter->save();
             QFont gameOverFont;
             gameOverFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
-            gameOverFont.setWeight(QFont::Black);
-            gameOverFont.setPixelSize(30);
+            gameOverFont.setWeight(QFont::Bold);
+            gameOverFont.setPixelSize(24);
             gameOverFont.setBold(true);
             painter->setFont(gameOverFont);
             painter->setPen(QColor("#ffdb9e"));
-            painter->drawText(QRect(static_cast<int>(rectX + rectWidth * chessPlayingTextPosWidth),
+
+
+            painter->drawText(QRect(static_cast<int>(rectX),
                                     static_cast<int>(rectY + rectHeight * chessPlayingTextPosHeight),
                                     static_cast<int>(rectWidth),
                                     static_cast<int>(rectHeight)),
-                              Qt::AlignLeft | Qt::TextWordWrap,
+                              Qt::AlignHCenter | Qt::TextWordWrap,
                               tr("Game Over!"));
             painter->restore();
         } else {
@@ -122,11 +126,11 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
                 playerText = Globaltool::AutoFeed(tr("Place your chess piece..."), fontSize,
                                                   static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
             }
-            painter->drawText(QRect(static_cast<int>(rectX + rectWidth * chessPlayingTextPosWidth),
+            painter->drawText(QRect(static_cast<int>(rectX),
                                     static_cast<int>(rectY + rectHeight * chessPlayingTextPosHeight),
                                     static_cast<int>(rectWidth),
                                     static_cast<int>(rectHeight)),
-                              Qt::AlignLeft | Qt::TextWordWrap,
+                              Qt::AlignHCenter | Qt::TextWordWrap,
                               playerText);
             painter->restore();
         }

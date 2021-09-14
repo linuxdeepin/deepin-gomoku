@@ -59,11 +59,11 @@ void Resultinfo::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
 
     painter.save();
-    painter.setPen("#02412c");
+    painter.setPen("#353535");
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Medium);
-    font.setPixelSize(30);
+    font.setPixelSize(25);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, strResult);
     painter.restore();
