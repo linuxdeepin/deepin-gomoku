@@ -1,11 +1,52 @@
 [Desktop Entry]
 Categories=Qt
 Exec=/usr/bin/deepin-gomoku %F
+# Translations:
+# Do not manually modify!
 GenericName=Gomoku
+GenericName[ar]=جوموكو
+GenericName[az]=Gomoku
+GenericName[de]=Gomoku
+GenericName[fi]=Gomoku
+GenericName[hr]=Gomoku
+GenericName[hu]=Gomoku
+GenericName[it]=Gomoku
+GenericName[nl]=Gomoku
+GenericName[pl]=Gomoku
+GenericName[pt]=Gomoku
+GenericName[pt_BR]=Gomoku
+GenericName[ru]=Gomoku
+GenericName[sq]=Gomoku
+GenericName[tr]=Gomoku
+GenericName[ug]=بەشلىك شاھمات
+GenericName[uk]=Ґомоку
+GenericName[zh_CN]=五子棋
+GenericName[zh_HK]=五子棋
+GenericName[zh_TW]=五子棋
 Icon=deepin-gomoku
 Keywords=gomoku;game;deepin;
-Name=deepin-gomoku
+Name=Gomoku
+Name[ar]=جوموكو
+Name[az]=Gomoku
+Name[de]=Gomoku
+Name[fi]=Gomoku
+Name[hr]=Gomoku
+Name[hu]=Gomoku
+Name[it]=Gomoku
+Name[nl]=Gomoku
+Name[pl]=Gomoku
+Name[pt]=Gomoku
+Name[pt_BR]=Gomoku
+Name[ru]=Gomoku
+Name[sq]=Gomoku
+Name[tr]=Gomoku
+Name[ug]=بەشلىك شاھمات
+Name[uk]=Ґомоку
+Name[zh_CN]=五子棋
+Name[zh_HK]=五子棋
+Name[zh_TW]=五子棋
 StartupNotify=true
 TryExec=/usr/bin/deepin-gomoku
 Type=Application
 X-Deepin-Vendor=user-custom
+
