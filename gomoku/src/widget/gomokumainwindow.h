@@ -37,6 +37,8 @@ public:
     explicit GomokuMainWindow(QWidget *parent = nullptr);
     ~GomokuMainWindow() override;
 
+    void handleQuit();
+
 public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 

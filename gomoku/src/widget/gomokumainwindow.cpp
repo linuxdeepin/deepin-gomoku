@@ -52,6 +52,14 @@ GomokuMainWindow::~GomokuMainWindow()
     delete mTitleBar;
 }
 
+/**
+ * @brief GomokuMainWindow::handleQuit 退出
+ */
+void GomokuMainWindow::handleQuit()
+{
+    close();
+}
+
 //初始化界面
 void GomokuMainWindow::initUI()
 {

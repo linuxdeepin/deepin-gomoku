@@ -20,6 +20,7 @@
    */
 #include <gomokumainwindow.h>
 #include "environments.h"
+#include "gomokuapplication.h"
 
 #include <DApplication>
 #include <DMainWindow>
@@ -39,13 +40,9 @@ int main(int argc, char *argv[])
 
 //    PERF_PRINT_BEGIN("POINT-01", "");
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    //适配deepin-turbo启动加速
-    DApplication *app = nullptr;
-#if(DTK_VERSION < DTK_VERSION_CHECK(5,4,0,0))
-    app = new DApplication(argc, argv);
-#else
-    app = DApplication::globalApplication(argc, argv);
-#endif
+
+    Gomokuapplication *app = nullptr;
+    app = new Gomokuapplication(argc, argv);
 
     app->setAutoActivateWindows(true);
     //如果dtk版本为5.2.0.1以上则使用新的dtk接口

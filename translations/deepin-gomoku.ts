@@ -105,22 +105,22 @@
 <context>
     <name>PlayingScreen</name>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="119"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="123"/>
         <source>I am thinking...</source>
         <translation>I am thinking...</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="122"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="126"/>
         <source>Place your chess piece...</source>
         <translation>Place your chess piece...</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="196"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="200"/>
         <source>Welcome</source>
         <translation>Welcome</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="105"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="109"/>
         <source>Game Over!</source>
         <translation>Game Over!</translation>
     </message>
