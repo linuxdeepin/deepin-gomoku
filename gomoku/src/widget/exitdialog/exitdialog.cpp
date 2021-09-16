@@ -85,7 +85,7 @@ void ExitDialog::initUI()
     mainLayout->addLayout(textLayout);
     mainLayout->addStretch();
     mainLayout->addLayout(BTLayout);
-    mainLayout->addSpacing(14); //按钮距离下边界的距离
+    mainLayout->addSpacing(21); //按钮距离下边界的距离
 }
 
 /**

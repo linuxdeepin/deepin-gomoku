@@ -105,7 +105,7 @@ void ExitButton::paintEvent(QPaintEvent *event)
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
-    font.setWeight(QFont::Normal);
+    font.setWeight(QFont::Bold);
     font.setPixelSize(20);
     painter.setPen("#6e3b3b"); //字体颜色
     if (buttonPressed) {
