@@ -25,18 +25,18 @@
 <context>
     <name>BTStartPause</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="121"/>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="158"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="122"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="159"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="163"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="164"/>
         <source>Continue</source>
         <translation>Continue</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="167"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="168"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>

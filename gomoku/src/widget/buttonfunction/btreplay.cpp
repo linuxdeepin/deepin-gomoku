@@ -119,3 +119,4 @@ void BTReplay::setNotFirstGame()
     mouseReleased = false;
     update();
 }
+

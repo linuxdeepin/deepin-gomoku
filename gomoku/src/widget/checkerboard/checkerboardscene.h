@@ -63,6 +63,8 @@ signals:
     void signalReplayFunction();
     void signalPopupResult(ChessResult result);
 
+    void signalNewGame();
+
 public slots:
     void slotPaintAIChess(Chess chess);
 

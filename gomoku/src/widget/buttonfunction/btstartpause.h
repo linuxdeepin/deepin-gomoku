@@ -34,6 +34,9 @@ public:
     void setGameOverStatus(bool gameover);
     bool getButtonStatus();
 
+    inline qreal & getPosHeight() {return posHeight;}
+    inline qreal getFirstGamePosHeight() {return firstGamePosHeight;}
+
 signals:
     void signalGameStart(); //游戏开始信号
     void signalGameStop(); //游戏暂停信号

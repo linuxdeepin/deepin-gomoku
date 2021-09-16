@@ -45,6 +45,7 @@ public:
 
 public slots:
     void slotStartGame();
+    void slotNewGame();
 
 private:
     bool AIPlayer = false; //旗手

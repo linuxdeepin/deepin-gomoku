@@ -34,6 +34,8 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
+    inline qreal & getPosHeight() {return posHeight;}
+    inline qreal getFirstGamePosHeight() {return firstGamePosHeight;}
 
     void setNotFirstGame() override;
 

@@ -100,11 +100,13 @@ void CheckerboardScene::initChess()
         }
         chessItemList.clear();
     }
+
     //赋值
     for (int i = 0; i < line_row; i++) {
         QVector<ChessItem *> pieceItems;
         for (int j = 0; j < line_col; j++) {
             ChessItem *chess = new ChessItem(userChessColor);
+            connect(this, &CheckerboardScene::signalNewGame, chess, &ChessItem::slotGameStop); //新游戏状态下禁止点击
             connect(this, &CheckerboardScene::signalGameOver, chess, &ChessItem::slotGameOver);//游戏结束
             connect(this, &CheckerboardScene::signalIsAIPlaying, chess, &ChessItem::slotIsAIPlaying);//当前旗手
             connect(buttonStartPause, &BTStartPause::signalGameStop, chess, &ChessItem::slotGameStop);//暂停游戏
@@ -153,6 +155,7 @@ void CheckerboardScene::setAIChess(Chess chess)
     slotCPaintItem(chessItemList.at(row).at(col));
 }
 
+
 /**
  * @brief CheckerboardScene::slotGameStart 开始游戏, 选择棋子
  */
@@ -168,7 +171,15 @@ void CheckerboardScene::replayFunction()
     //添加游戏重玩标志, 防止点击重玩后,AI继续下棋导致数组越界问题
     gameReplay = true;
     buttonStartPause->setGameOverStatus(false);
-    emit signalRestGame();//通知游戏控制,重置游戏
+
+    //点击重玩游戏和再来一次时，游戏状态处于新游戏状态，重置游戏
+    initChess();//重置item数组
+    buttonReplay->setFirstGame(buttonReplay->getPosHeight()
+                               , buttonReplay->getFirstGamePosHeight());//重置重玩按钮状态
+    buttonStartPause->setFirstGame(buttonStartPause->getPosHeight()
+                                   , buttonStartPause->getFirstGamePosHeight()); //重置开始按钮状态
+    emit signalNewGame(); //通知playingScreen重置页面, 通知item禁止点击
+    emit signalRestGame();//通知游戏控制,重置游戏，清空后端数组
 }
 
 /**
@@ -190,6 +201,7 @@ void CheckerboardScene::initGame()
     connect(gameControl, &GameControl::AIPlayChess, this, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
     connect(gameControl, &GameControl::isAIPlaying, this, &CheckerboardScene::signalIsAIPlaying);//通知棋子,当前旗手
     connect(gameControl, &GameControl::gameOver, this, &CheckerboardScene::slotGameOver);//游戏结束
+    connect(this, &CheckerboardScene::signalNewGame, playingScreen, &PlayingScreen::slotNewGame); //通知playindscreen重置页面
 }
 
 //暂停游戏

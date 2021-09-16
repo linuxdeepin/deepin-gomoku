@@ -42,14 +42,16 @@ public:
     explicit ButtonItem(QGraphicsItem *parent = nullptr);
     ~ButtonItem() override;
 
+    virtual void setFirstGame(qreal & posHeight, const qreal firstGamePosHeight);
+
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
     void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
-    virtual void buttonFunction();
-    virtual void setNotFirstGame();
+    virtual void buttonFunction() = 0;
+    virtual void setNotFirstGame() = 0;
 
     bool mouseReleased = true; //鼠标是否释放
     bool pressStatus = false; //鼠标点击状态标志

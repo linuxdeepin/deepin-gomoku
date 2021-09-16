@@ -80,6 +80,7 @@ void BTStartPause::setNotFirstGame()
     update();
 }
 
+
 QRectF BTStartPause::boundingRect() const
 {
     return QRectF(this->scene()->width() * buttonPosWidth,

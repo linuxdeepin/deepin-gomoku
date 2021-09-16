@@ -81,14 +81,14 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-//按钮功能虚函数
-void ButtonItem::buttonFunction()
+/**
+ * @brief ButtonItem::setFirstGame //设置为新游戏状态
+ */
+void ButtonItem::setFirstGame(qreal & posHeight, const qreal firstGamePosHeight)
 {
+    posHeight = firstGamePosHeight;
+    firstStartGame = true;
+    mouseReleased = true;
+    update();
 }
 
-/**
- * @brief ButtonItem::setNotFirstGame 设置是否第一次开始游戏
- */
-void ButtonItem::setNotFirstGame()
-{
-}

@@ -210,3 +210,16 @@ void PlayingScreen::slotStartGame()
     sceneHeight = 200;
     update();
 }
+
+/**
+ * @brief PlayingScreen::slotNewGame 游戏状态为新游戏时重置右侧显示
+ */
+void PlayingScreen::slotNewGame()
+{
+    gamePlaying = false;
+    AIPlayer = false;
+    gamePlaying = false;
+    gameOverStatus = false;
+    sceneHeight = 100;
+    currentChessColro = 0;
+}

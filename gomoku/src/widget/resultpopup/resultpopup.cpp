@@ -82,8 +82,8 @@ void Resultpopup::initUI()
     buttonLayout->addWidget(buttonAgain);
     buttonLayout->addStretch(10);
 
-//    hasWin ? mainLayout->addSpacing(107) : mainLayout->addSpacing(102); //胜利和失败的背景下顶部弹簧略微不同
-    mainLayout->addSpacing(102);
+    hasWin ? mainLayout->addSpacing(107) : mainLayout->addSpacing(102); //胜利和失败的背景下顶部弹簧略微不同
+//    mainLayout->addSpacing(102);
     mainLayout->addLayout(closeLayout);
     mainLayout->addSpacing(25);
     mainLayout->addLayout(labelLayout);
