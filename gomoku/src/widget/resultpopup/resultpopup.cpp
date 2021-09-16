@@ -38,7 +38,7 @@ Resultpopup::Resultpopup(QWidget *parent)
     , buttonAgain(new Buttonagain)
 {
     //设置大小
-    setFixedSize(372, 336);
+    setFixedSize(winPixmap.size());
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
 
@@ -77,19 +77,18 @@ void Resultpopup::initUI()
     labelLayout->addStretch();
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    buttonLayout->addStretch(10);
+    buttonLayout->addStretch(8);
     buttonLayout->addWidget(buttonRest);
     buttonLayout->addWidget(buttonAgain);
-    buttonLayout->addStretch(10);
+    buttonLayout->addStretch(9);
 
-    hasWin ? mainLayout->addSpacing(107) : mainLayout->addSpacing(102); //胜利和失败的背景下顶部弹簧略微不同
-//    mainLayout->addSpacing(102);
+    mainLayout->addSpacing(110);
     mainLayout->addLayout(closeLayout);
-    mainLayout->addSpacing(25);
+    mainLayout->addStretch();
     mainLayout->addLayout(labelLayout);
-    mainLayout->addSpacing(20);
+    mainLayout->addStretch();
     mainLayout->addLayout(buttonLayout);
-    mainLayout->addSpacing(14);
+    hasWin ? mainLayout->addSpacing(20) : mainLayout->addSpacing(25); //胜利和失败的背景下底部弹簧略微不同
     setLayout(mainLayout);
 }
 
@@ -108,6 +107,9 @@ void Resultpopup::popupShow()
 void Resultpopup::setHasWin(bool win)
 {
     hasWin = win;
+
+    hasWin ? setFixedSize(this->winPixmap.size()) : setFixedSize(this->failPixmap.size());
+
     resultInfo->setResult(hasWin);
     buttonRest->setResult(hasWin);
     buttonAgain->setResult(hasWin);

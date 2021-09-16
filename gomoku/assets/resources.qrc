@@ -26,8 +26,6 @@
         <file>resources/chessselected/closebutton.svg</file>
         <file>resources/music/win.wav</file>
         <file>resources/music/fail.wav</file>
-        <file>resources/resultpopup/background_fail.svg</file>
-        <file>resources/resultpopup/background_win.svg</file>
         <file>resources/resultpopup/close.svg</file>
         <file>resources/resultpopup/win_rest_press.svg</file>
         <file>resources/resultpopup/win_rest_normal.svg</file>
@@ -60,5 +58,7 @@
         <file>resources/font/ResourceHanRoundedCN-Bold.ttf</file>
         <file>resources/music/chessone.wav</file>
         <file>resources/logo.svg</file>
+        <file>resources/resultpopup/background_fail.svg</file>
+        <file>resources/resultpopup/background_win.svg</file>
     </qresource>
 </RCC>

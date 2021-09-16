@@ -101,9 +101,10 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         }
         painter->restore();
     } else {
-        painter->save();
-        painter->setPen(Qt::NoPen);
         if (hoverStatus) {
+            painter->save();
+            painter->setPen(Qt::NoPen);
+
             QColor backColor("000000");
             backColor.setAlphaF(0.2);
             painter->setBrush(backColor);

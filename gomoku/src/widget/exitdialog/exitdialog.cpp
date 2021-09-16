@@ -67,7 +67,7 @@ void ExitDialog::initUI()
 
     //下层按钮布局
     QHBoxLayout *BTLayout = new QHBoxLayout();
-    BTLayout->addSpacing(10); //按钮距离左边界的距离
+    BTLayout->addSpacing(7); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton();
     ExitButton *exitButton = new ExitButton();
@@ -76,7 +76,7 @@ void ExitDialog::initUI()
 
     BTLayout->addWidget(cancelButton);
     BTLayout->addWidget(exitButton);
-    BTLayout->addSpacing(10);//按钮距离右边界的距离
+    BTLayout->addSpacing(9);//按钮距离右边界的距离
 
     //主布局
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -85,7 +85,7 @@ void ExitDialog::initUI()
     mainLayout->addLayout(textLayout);
     mainLayout->addStretch();
     mainLayout->addLayout(BTLayout);
-    mainLayout->addSpacing(21); //按钮距离下边界的距离
+    mainLayout->addSpacing(20); //按钮距离下边界的距离
 }
 
 /**
