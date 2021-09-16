@@ -92,12 +92,12 @@
 <context>
     <name>GomokuWindow</name>
     <message>
-        <location filename="../gomoku/src/main.cpp" line="66"/>
+        <location filename="../gomoku/src/main.cpp" line="63"/>
         <source>Gomoku</source>
         <translation>Gomoku</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/main.cpp" line="67"/>
+        <location filename="../gomoku/src/main.cpp" line="64"/>
         <source>Gomoku is a small chess game for two players.</source>
         <translation>Gomoku is a small chess game for two players.</translation>
     </message>

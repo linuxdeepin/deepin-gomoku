@@ -180,6 +180,7 @@ void GomokuMainWindow::slotSelectChessPopup()
         {
             checkerboardScene->setSelectChess(chess_black, chess_white);
         }
+        checkerboardScene->setIsNewGame(false); //点击OK游戏状态为游戏中
         checkerboardScene->selsectChessOK();
         checkerboardScene->startGame();
     });
@@ -210,7 +211,6 @@ void GomokuMainWindow::slotReplayPopup()
     ExitDialog *exitDialog = new ExitDialog(this);
     viewtransparentFrame();
     exitDialog->show();
-    m_transparentFrame->hide();
 
     setEnabled(false);
     exitDialog->setEnabled(true);
@@ -221,7 +221,10 @@ void GomokuMainWindow::slotReplayPopup()
     connect(exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
+    m_transparentFrame->hide();
+
     if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
+        checkerboardScene->setIsNewGame(true); //点击退出游戏状态为新游戏
         slotReplayFunction();
     } else {
         exitDialog->close();
@@ -251,6 +254,11 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
     //失败弹出,暂时效果
     m_resultPopUp = new Resultpopup(this) ;
     connect(m_resultPopUp, &Resultpopup::signalGameAgain, this, &GomokuMainWindow::slotReplayFunction);
+
+    connect(m_resultPopUp, &Resultpopup::signalGameAgain, this, [ = ] {
+        checkerboardScene->setIsNewGame(true); //点击再来一次游戏状态为新游戏
+    });
+
     connect(m_resultPopUp, &Resultpopup::signalHaveRest, this, [ = ] {
         checkerboardScene->setStartPauseStatus();
     });
@@ -322,6 +330,12 @@ void GomokuMainWindow::changeEvent(QEvent *event)
  */
 void GomokuMainWindow::closeEvent(QCloseEvent *event)
 {
+    //判断是游戏中还是新游戏状态下的关闭
+    if (checkerboardScene->getIsNewGame()) {
+        event->accept();
+        return;
+    }
+
     ExitDialog *exitDialog = new ExitDialog(this);
 
     //如果结算窗口存在，将其关闭
