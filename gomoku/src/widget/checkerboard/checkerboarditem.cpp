@@ -108,15 +108,15 @@ void CheckerboardItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
                                           + backgrond_margin
                                           + chess_size
                                           + chess_size * i
-                                          - 5
-                                          - 1); //为保证中心的偏移量
+                                          - 7
+                                          - 0.5); //为保证中心的偏移量
             int roundY = static_cast<int>(this->scene()->height() * CheckerboardPosHeight
                                           + backgrond_margin
                                           + chess_size
                                           + chess_size * i
-                                          - 5
-                                          - 1); //为保证中心的偏移量
-            painter->drawEllipse(roundX, roundY, 10, 10);
+                                          - 7
+                                          - 0.5); //为保证中心的偏移量
+            painter->drawEllipse(roundX, roundY, 14, 14);
             painter->restore();
         }
     }
