@@ -73,6 +73,20 @@ int ChessItem::getChessPlayer()
     return isAIPlaying;
 }
 
+/**
+ * @brief ChessItem::hoverHandle
+ */
+void ChessItem::hoverHandle()
+{
+    if (!gameOver && gameStatus) {
+        //当前位置没有棋子,并且非AI下棋设置棋子颜色
+        if (!chessStatus && !getChessPlayer() && m_isCurrentItem) {
+            hoverStatus = true;
+            setCurrentchess(chessType);
+        }
+    }
+}
+
 void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     Q_UNUSED(option);
@@ -131,7 +145,6 @@ void ChessItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawEllipse(QRect(17, 17, 10, 10));
             painter->restore();
         }
-
     }
 }
 
@@ -143,19 +156,17 @@ QRectF ChessItem::boundingRect() const
 
 void ChessItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
-    if (!gameOver && gameStatus) {
-        //当前位置没有棋子,并且非AI下棋设置棋子颜色
-        if (!chessStatus && !getChessPlayer()) {
-            hoverStatus = true;
-            setCurrentchess(chessType);
-        }
-    }
+    m_isCurrentItem = true;
+    hoverHandle();
     QGraphicsItem::hoverEnterEvent(event);
+
 }
+
 
 void ChessItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
     hoverStatus = false;
+    m_isCurrentItem = false;
     QGraphicsItem::hoverLeaveEvent(event);
 }
 
@@ -187,6 +198,8 @@ void ChessItem::slotGameOver()
 void ChessItem::slotIsAIPlaying(bool AIPlaying)
 {
     isAIPlaying = AIPlaying;
+    hoverHandle();
+    update();
 }
 
 /**
@@ -202,3 +215,4 @@ void ChessItem::slotGameStop()
 {
     gameStatus = false;
 }
+

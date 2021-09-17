@@ -42,6 +42,7 @@ public:
     bool getchessStatus();
 
     int getChessPlayer();
+    void hoverHandle();
 
 signals:
     void signalCPaintItem(ChessItem *item); //当前绘制的item
@@ -74,6 +75,7 @@ private:
     bool isAIPlaying = false; //是否为ai下棋
     bool musicControlStatue = true; //游戏音效控制状态
     bool chessHasPrint = false; //
+    bool m_isCurrentItem = false; //用户判断hover是否在此item
 };
 
 #endif // chessITEM_H
