@@ -98,11 +98,9 @@ void ExitDialog::initBackgroundPix()
     if (compositingStatus) {
         backgroundQPixmap = DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg");
         setFixedSize(386, 234);
-        qInfo() << backgroundQPixmap.size();
     } else {
         backgroundQPixmap = DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog-nshadow.svg");
         setFixedSize(370, 218);
-        qInfo() << backgroundQPixmap.size();
     }
 }
 

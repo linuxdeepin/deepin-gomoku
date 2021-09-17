@@ -34,10 +34,11 @@ BTMusicControl::~BTMusicControl()
 
 QRectF BTMusicControl::boundingRect() const
 {
+    //设置按钮位置,并根据图片大小设置rect大小
     return QRectF(this->scene()->width() * buttonPosWidth,
                   this->scene()->height() * buttonMusicControlPosHeight,
-                  200,
-                  60);
+                  204,
+                  64);
 }
 
 void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
