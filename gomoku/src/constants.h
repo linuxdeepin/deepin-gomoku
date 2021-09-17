@@ -21,6 +21,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include <QString>
+
 //棋子形式
 struct Chess {
     int x; //行
@@ -55,6 +57,9 @@ const int hover_size = 20;
 const int chess_none =  0; //没有棋子
 const int chess_black = 1; //黑色棋子
 const int chess_white = 2; //白色棋子
+
+const QString COMPOSITINGSERVICE = "com.deepin.wm";
+const QString COMPOSITINGPATH = "/com/deepin/wm";
 
 
 #endif // CONSTANTS_H

@@ -30,7 +30,7 @@ class ExitDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit ExitDialog(QWidget *parent = nullptr);
+    explicit ExitDialog(bool compositing, QWidget *parent = nullptr);
     inline BTType getResult() {return result;}
     inline void setResult(BTType r) {result = r;}
 
@@ -38,18 +38,21 @@ public:
     BTType result; //用于区分那个按钮的点击，让主界面退出游戏
 
 private:
-   QPixmap backgroundQPixmap;
+    QPixmap backgroundQPixmap;
+    bool compositingStatus = false; //是否开启特效窗口
 
 private:
     void initUI();
+    void initBackgroundPix();
     void paintEvent(QPaintEvent *event);
 
 signals:
     void signalClicked(); //点击信号
 
 public slots:
-   void soltDialogClose();
-   void soltGameExit();
+    void soltDialogClose();
+    void soltGameExit();
+    void slotCompositingChanged(bool compositing);
 
 };
 

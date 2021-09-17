@@ -30,7 +30,7 @@ class Selectchess : public QDialog
 {
     Q_OBJECT
 public:
-    explicit Selectchess(QWidget *parent = nullptr);
+    explicit Selectchess(bool compositing, QWidget *parent = nullptr);
 
     void selectChessShow();
     void setSelectChess(int chessColor);
@@ -45,12 +45,14 @@ signals:
 
 public slots:
     void slotCloseSelectPopup();
+    void slotCompositingChanged(bool compositing);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
     void initUI();
+    void initBackgroundPix();
 
 private slots:
     void slotButtonOKClicked();
@@ -59,6 +61,7 @@ private:
     QPixmap backgroundPixmap; //背景图片
     int selectChessColor = 0; //选择的棋子颜色
     bool chessHasSelected = false; //是否选择了棋子
+    bool compositingStatus = false; //是否开启特效窗口
     Selectbutton *selectLButton = nullptr; //左边选项
     Selectbutton *selectRButton = nullptr; //右边选项
 };

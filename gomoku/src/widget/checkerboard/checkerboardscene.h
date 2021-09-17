@@ -95,7 +95,6 @@ private:
     int userChessColor = 0; //用户棋子颜色
     int aiChessColor = 0; //ai棋子颜色
     GameControl *gameControl = nullptr; //游戏控制
-    Selectchess *selectChess = nullptr; //棋子选择
 //    int userChessType = chess_black; //棋子颜色
     int clickPosRow = -1; //点击的行
     int clickPosCol = -1; // 点击的列

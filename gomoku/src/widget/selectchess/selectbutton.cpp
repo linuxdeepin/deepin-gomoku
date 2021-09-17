@@ -32,7 +32,7 @@ Selectbutton::Selectbutton(QWidget *parent)
     , selectPress(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/radio_checked.svg"))
     , currentStatus(selectNormal)
 {
-    setFixedSize(30, 30);
+    setFixedSize(24, 24);
     //可选
     setCheckable(true);
     //互斥

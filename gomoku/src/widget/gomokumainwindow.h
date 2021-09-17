@@ -48,25 +48,29 @@ protected:
 
 private:
     void initUI();
+    void initCompositingStatus();
     void paintTitleBar(QWidget *titlebar);
     void playWinMusic();
     void playFailMusic();
     void viewtransparentFrame();
+signals:
+    void signalCompositingChanged(bool status);
 
 private slots:
     void slotSelectChessPopup();
     void slotReplayPopup();
     void slotReplayFunction();
     void slotPopupResult(ChessResult result);
+    void slotCompositingChanged(bool status);
 
 private:
     int userChessColor = 1; //用户选择棋子颜色, 默认为黑色
+    bool compositingStatus = false; //是否开启特效窗口
     DFrame *m_transparentFrame = nullptr; //视图阴影
     DTitlebar *mTitleBar = nullptr;
     CheckerboardScene *checkerboardScene = nullptr;
     Resultpopup *m_resultPopUp = nullptr;
     Selectchess *m_selectChess = nullptr;
-
 };
 
 #endif // GOMOKUMAINWINDOW_H

@@ -30,14 +30,16 @@
 #include <DHiDPIHelper>
 #include <DApplication>
 #include <QPainter>
-ExitDialog::ExitDialog(QWidget *parent)
+ExitDialog::ExitDialog(bool compositing, QWidget *parent)
     : QDialog(parent)
     , result(BTType::BTCancel)
-    , backgroundQPixmap(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg"))
+    , compositingStatus(compositing)
 {
     setFixedSize(372, 219);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint); //取消标题栏
+
+    initBackgroundPix();
 
     initUI();
 }
@@ -67,7 +69,7 @@ void ExitDialog::initUI()
 
     //下层按钮布局
     QHBoxLayout *BTLayout = new QHBoxLayout();
-    BTLayout->addSpacing(7); //按钮距离左边界的距离
+    BTLayout->addSpacing(14); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton();
     ExitButton *exitButton = new ExitButton();
@@ -76,7 +78,7 @@ void ExitDialog::initUI()
 
     BTLayout->addWidget(cancelButton);
     BTLayout->addWidget(exitButton);
-    BTLayout->addSpacing(9);//按钮距离右边界的距离
+    BTLayout->addSpacing(16);//按钮距离右边界的距离
 
     //主布局
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
@@ -86,6 +88,22 @@ void ExitDialog::initUI()
     mainLayout->addStretch();
     mainLayout->addLayout(BTLayout);
     mainLayout->addSpacing(20); //按钮距离下边界的距离
+}
+
+/**
+ * @brief ExitDialog::initBackgroundPix 初始化背景图片
+ */
+void ExitDialog::initBackgroundPix()
+{
+    if (compositingStatus) {
+        backgroundQPixmap = DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg");
+        setFixedSize(386, 234);
+        qInfo() << backgroundQPixmap.size();
+    } else {
+        backgroundQPixmap = DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog-nshadow.svg");
+        setFixedSize(370, 218);
+        qInfo() << backgroundQPixmap.size();
+    }
 }
 
 /**
@@ -106,6 +124,17 @@ void ExitDialog::soltGameExit()
     setResult(BTType::BTExit); //将状态设置为退出
     emit signalClicked();
     this->done(0);
+}
+
+/**
+ * @brief ExitDialog::slotCompositingChanged 特效窗口
+ * @param compositing 是否开启
+ */
+void ExitDialog::slotCompositingChanged(bool compositing)
+{
+    compositingStatus = compositing;
+    initBackgroundPix();
+    update();
 }
 
 

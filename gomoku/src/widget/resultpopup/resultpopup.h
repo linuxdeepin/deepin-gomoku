@@ -28,15 +28,18 @@
 #include <DDialog>
 
 DWIDGET_USE_NAMESPACE
-class Resultpopup : public QDialog
+class Resultpopup : public DWidget
 {
     Q_OBJECT
 public:
-    Resultpopup(QWidget *parent = nullptr);
+    Resultpopup(bool compositing, QWidget *parent = nullptr);
 
     void popupShow();
     void setHasWin(bool win);
     void popupClose();
+
+public slots:
+    void slotCompositingChanged(bool compositing);
 
 signals:
     void signalGameAgain();
@@ -44,17 +47,20 @@ signals:
 
 protected:
     void paintEvent(QPaintEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     void initUI();
+    void initBackgroundPix();
 
 private:
+    bool hasWin = false; //是否赢
+    bool compositingStatus = false; //是否开始特效窗口
     QPixmap winPixmap; //赢的背景图片
     QPixmap failPixmap; //输的背景图片
     Resultinfo *resultInfo = nullptr; //结果信息
     Buttonrest *buttonRest = nullptr; //休息一下按钮
     Buttonagain *buttonAgain = nullptr; //再来一局按钮
-    bool hasWin = false; //是否赢
 };
 
 #endif // RESULTPOPUP_H

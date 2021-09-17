@@ -19,15 +19,14 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include "gomokumainwindow.h"
-//#include "selectchess/selectchess.h"
-//#include "resultpopup/resultpopup.h"
-
 #include "exitdialog/exitdialog.h"
 
 #include <QGraphicsView>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QDBusInterface>
+#include <QDBusArgument>
 
 #include <DWidgetUtil>
 #include <DWidget>
@@ -42,6 +41,7 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     setFixedSize(QSize(widgetWidth, widgetHeight));
     setContentsMargins(QMargins(0, 0, 0, 0));
 
+    initCompositingStatus();
     initUI();
 
     Dtk::Widget::moveToCenter(this);
@@ -100,11 +100,29 @@ void GomokuMainWindow::initUI()
     setCentralWidget(wcheckerBoard);
 }
 
+/**
+ * @brief GomokuMainWindow::initCompositingStatus 初始化特效窗口状态
+ */
+void GomokuMainWindow::initCompositingStatus()
+{
+    QDBusInterface Interface(COMPOSITINGSERVICE, COMPOSITINGPATH, COMPOSITINGSERVICE, QDBusConnection::sessionBus());
+    QDBusConnection::sessionBus().connect(COMPOSITINGSERVICE,
+                                          COMPOSITINGPATH,
+                                          COMPOSITINGSERVICE,
+                                          QLatin1String("compositingEnabledChanged"),
+                                          this,
+                                          SLOT(slotCompositingChanged(bool)));
+
+    compositingStatus = Interface.property("compositingEnabled").toBool();
+    qInfo() << __FUNCTION__ << " compositionStatus: " << compositingStatus;
+}
+
 //绘制titlebar背景
 void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
 {
     DGuiApplicationHelper::ColorType themtype = DGuiApplicationHelper::instance()->themeType();
     QColor broundColor;
+    QPixmap bgPixmap(":/resources/titlebar_bg_dark.svg");
     if (themtype == DGuiApplicationHelper::ColorType::DarkType) {
         broundColor = titlebar->palette().color(QPalette::Normal, QPalette::Dark);
     } else if (themtype == DGuiApplicationHelper::ColorType::LightType) {
@@ -169,8 +187,9 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
  */
 void GomokuMainWindow::slotSelectChessPopup()
 {
-    m_selectChess = new Selectchess(this);
+    m_selectChess = new Selectchess(compositingStatus, this);
     m_selectChess->setSelectChess(userChessColor);
+    connect(this, &GomokuMainWindow::signalCompositingChanged, m_selectChess, &Selectchess::slotCompositingChanged);
     connect(m_selectChess, &Selectchess::signalButtonOKClicked, this, [ = ] {
         userChessColor = m_selectChess->getSelsectChess();
         if (userChessColor == chess_white)
@@ -208,7 +227,8 @@ void GomokuMainWindow::slotSelectChessPopup()
  */
 void GomokuMainWindow::slotReplayPopup()
 {
-    ExitDialog *exitDialog = new ExitDialog(this);
+    ExitDialog *exitDialog = new ExitDialog(compositingStatus, this);
+    connect(this, &GomokuMainWindow::signalCompositingChanged, exitDialog, &ExitDialog::slotCompositingChanged);
     viewtransparentFrame();
     exitDialog->show();
 
@@ -224,7 +244,6 @@ void GomokuMainWindow::slotReplayPopup()
     m_transparentFrame->hide();
 
     if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
-        checkerboardScene->setIsNewGame(true); //点击退出游戏状态为新游戏
         slotReplayFunction();
     } else {
         exitDialog->close();
@@ -241,6 +260,7 @@ void GomokuMainWindow::slotReplayPopup()
  */
 void GomokuMainWindow::slotReplayFunction()
 {
+    checkerboardScene->setIsNewGame(true); //点击再来一次游戏状态为新游戏
     checkerboardScene->replayFunction();
     slotSelectChessPopup();
 }
@@ -251,18 +271,12 @@ void GomokuMainWindow::slotReplayFunction()
  */
 void GomokuMainWindow::slotPopupResult(ChessResult result)
 {
-    //失败弹出,暂时效果
-    m_resultPopUp = new Resultpopup(this) ;
+    m_resultPopUp = new Resultpopup(compositingStatus, this) ;
+    m_resultPopUp->setGeometry(326, 160, 386, 345);
+    connect(this, &GomokuMainWindow::signalCompositingChanged, m_resultPopUp, &Resultpopup::slotCompositingChanged);
     connect(m_resultPopUp, &Resultpopup::signalGameAgain, this, &GomokuMainWindow::slotReplayFunction);
 
-    connect(m_resultPopUp, &Resultpopup::signalGameAgain, this, [ = ] {
-        checkerboardScene->setIsNewGame(true); //点击再来一次游戏状态为新游戏
-    });
-
     connect(m_resultPopUp, &Resultpopup::signalHaveRest, this, [ = ] {
-        checkerboardScene->setStartPauseStatus();
-    });
-    connect(m_resultPopUp, &Resultpopup::finished, this, [ = ] {
         checkerboardScene->setStartPauseStatus();
     });
     int userChessColor = checkerboardScene->getUserChessColor();
@@ -293,23 +307,21 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
     viewtransparentFrame();
     m_resultPopUp->popupShow();
 
-
-    setEnabled(false);
-    m_resultPopUp->setEnabled(true);
-
-    //事件循环进入阻塞状态
-    QEventLoop loop;
-    connect(m_resultPopUp, &Resultpopup::signalGameAgain, &loop, &QEventLoop::quit);
-    connect(m_resultPopUp, &Resultpopup::signalHaveRest, &loop, &QEventLoop::quit);
-    connect(m_resultPopUp, &Resultpopup::finished, &loop, &QEventLoop::quit);
-    loop.exec();
-
-    setEnabled(true);
-
     m_transparentFrame->hide();
 
-    delete m_resultPopUp;
-    m_resultPopUp = nullptr;
+    delete m_selectChess;
+    m_selectChess = nullptr;
+}
+
+/**
+ * @brief GomokuMainWindow::slotCompositingChanged 特效窗口状态改变
+ * @param status 是否开启特效窗口
+ */
+void GomokuMainWindow::slotCompositingChanged(bool status)
+{
+    compositingStatus = status;
+    emit signalCompositingChanged(compositingStatus);
+    qInfo() << __FUNCTION__ << " compositionStatusChanged now is: " << compositingStatus;;
 }
 
 /**
@@ -330,13 +342,15 @@ void GomokuMainWindow::changeEvent(QEvent *event)
  */
 void GomokuMainWindow::closeEvent(QCloseEvent *event)
 {
+    qInfo() << checkerboardScene->getIsNewGame();
     //判断是游戏中还是新游戏状态下的关闭
     if (checkerboardScene->getIsNewGame()) {
         event->accept();
         return;
     }
 
-    ExitDialog *exitDialog = new ExitDialog(this);
+    ExitDialog *exitDialog = new ExitDialog(compositingStatus, this);
+    connect(this, &GomokuMainWindow::signalCompositingChanged, exitDialog, &ExitDialog::slotCompositingChanged);
 
     //如果结算窗口存在，将其关闭
     if (m_resultPopUp != nullptr)

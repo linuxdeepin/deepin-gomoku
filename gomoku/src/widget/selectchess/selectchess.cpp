@@ -28,14 +28,13 @@
 #include <QPainter>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QButtonGroup>
 
 #include <DHiDPIHelper>
 
 DWIDGET_USE_NAMESPACE
-Selectchess::Selectchess(QWidget *parent)
+Selectchess::Selectchess(bool compositing, QWidget *parent)
     : QDialog(parent)
-    , backgroundPixmap(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase.svg"))
+    , compositingStatus(compositing)
     , selectLButton(new Selectbutton)
     , selectRButton(new Selectbutton)
 {
@@ -43,6 +42,7 @@ Selectchess::Selectchess(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
 
+    initBackgroundPix();
     initUI();
 }
 
@@ -90,12 +90,25 @@ void Selectchess::initUI()
     mainLayout->addSpacing(5);
     mainLayout->addLayout(closeLayout);
     mainLayout->addLayout(seleceInfoLayout);
-    mainLayout->addStretch();
     mainLayout->addLayout(buttonLayout);
     mainLayout->addSpacing(10);
     mainLayout->addLayout(determineLayout);
     mainLayout->addSpacing(14);
     setLayout(mainLayout);
+}
+
+/**
+ * @brief Selectchess::initBackgroundPix 初始化背景图片
+ */
+void Selectchess::initBackgroundPix()
+{
+    if (compositingStatus) {
+        backgroundPixmap = DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase.svg");
+        setFixedSize(386, 234);
+    } else {
+        backgroundPixmap = DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase_nshadow.svg");
+        setFixedSize(370, 218);
+    }
 }
 
 /**
@@ -161,6 +174,17 @@ void Selectchess::selectClose()
 void Selectchess::slotCloseSelectPopup()
 {
     this->close();
+}
+
+/**
+ * @brief Selectchess::slotCompositingChanged 特效窗口
+ * @param compositing 是否开启
+ */
+void Selectchess::slotCompositingChanged(bool compositing)
+{
+    compositingStatus = compositing;
+    initBackgroundPix();
+    update();
 }
 
 /**

@@ -132,7 +132,7 @@ void GameControl::setAIChess()
                 initGameStatus = false;
             } else {
                 //延时函数,AI思考时间(方便显示回合信息)
-                QTimer::singleShot(888, this, [ = ] {
+                QTimer::singleShot(666, this, [ = ] {
                     Position AIpos = ArtificialIntelligence::getPosition(checkerboard->getChessState(), AIColor); //AI计算最佳落子位置
                     Chess  chess(AIpos.first, AIpos.second, AIColor);
                     if (!currentGameStatus && !AIPlaying)

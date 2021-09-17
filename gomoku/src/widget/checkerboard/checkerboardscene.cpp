@@ -37,7 +37,6 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
     , buttonMusicControl(new BTMusicControl)
     , playingScreen(new PlayingScreen)
     , gameControl(new GameControl(aiChessColor, userChessColor))
-    , selectChess(new Selectchess)
     , AIChess(-1, -1, 0)
 {
     //设置scene大小

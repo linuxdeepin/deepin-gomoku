@@ -22,7 +22,6 @@
         <file>resources/playingscreen/chess_black.svg</file>
         <file>resources/checkerboard_noline.svg</file>
         <file>resources/desktop/deepin-gomoku.svg</file>
-        <file>resources/chessselected/selectchess.svg</file>
         <file>resources/chessselected/closebutton.svg</file>
         <file>resources/music/win.wav</file>
         <file>resources/music/fail.wav</file>
@@ -37,11 +36,7 @@
         <file>resources/resultpopup/again_press.svg</file>
         <file>resources/resultpopup/again_normal.svg</file>
         <file>resources/chessselected/selectbase.svg</file>
-        <file>resources/chessselected/radio_unchecked.svg</file>
-        <file>resources/chessselected/radio_checked.svg</file>
-        <file>resources/chessselected/radio_hover.svg</file>
         <file>resources/chessselected/button_press.svg</file>
-        <file>resources/chessselected/button_normal.svg</file>
         <file>resources/chessselected/button_hover.svg</file>
         <file>resources/exitdialog/cancel-hover.svg</file>
         <file>resources/exitdialog/cancel-normal.svg</file>
@@ -58,7 +53,15 @@
         <file>resources/font/ResourceHanRoundedCN-Bold.ttf</file>
         <file>resources/music/chessone.wav</file>
         <file>resources/logo.svg</file>
-        <file>resources/resultpopup/background_fail.svg</file>
+        <file>resources/chessselected/selectbase_nshadow.svg</file>
+        <file>resources/exitdialog/close-dialog-nshadow.svg</file>
+        <file>resources/resultpopup/background_win_nshadow.svg</file>
+        <file>resources/chessselected/button_normal.svg</file>
+        <file>resources/chessselected/radio_checked.svg</file>
+        <file>resources/chessselected/radio_hover.svg</file>
+        <file>resources/chessselected/radio_unchecked.svg</file>
         <file>resources/resultpopup/background_win.svg</file>
+        <file>resources/resultpopup/background_fail.svg</file>
+        <file>resources/resultpopup/background_fail_nshadow.svg</file>
     </qresource>
 </RCC>

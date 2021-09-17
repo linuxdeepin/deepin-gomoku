@@ -29,18 +29,17 @@
 #include <QPushButton>
 
 DGUI_USE_NAMESPACE
-Resultpopup::Resultpopup(QWidget *parent)
-    : QDialog(parent)
-    , winPixmap(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win.svg"))
-    , failPixmap(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_fail.svg"))
+Resultpopup::Resultpopup(bool compositing, QWidget *parent)
+    : DWidget(parent)
+    , compositingStatus(compositing)
     , resultInfo(new Resultinfo)
     , buttonRest(new Buttonrest)
     , buttonAgain(new Buttonagain)
 {
     //设置大小
-    setFixedSize(winPixmap.size());
-    setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
+    setFixedSize(386, 345);
+
+    initBackgroundPix();
 
 //    initUI();
     //休息一下, 关闭弹窗
@@ -93,6 +92,22 @@ void Resultpopup::initUI()
 }
 
 /**
+ * @brief Resultpopup::initBackgroundPix 初始化背景图片
+ */
+void Resultpopup::initBackgroundPix()
+{
+    if (compositingStatus) {
+        winPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win.svg");
+        failPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_fail.svg");
+        hasWin ? setFixedSize(388, 345) : setFixedSize(386, 345);
+    } else {
+        winPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win_nshadow.svg");
+        failPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_fail_nshadow.svg");
+        hasWin ? setFixedSize(370, 331) : setFixedSize(372, 336);
+    }
+}
+
+/**
  * @brief Resultpopup::popupShow 展示弹窗
  */
 void Resultpopup::popupShow()
@@ -107,13 +122,11 @@ void Resultpopup::popupShow()
 void Resultpopup::setHasWin(bool win)
 {
     hasWin = win;
-
-    hasWin ? setFixedSize(this->winPixmap.size()) : setFixedSize(this->failPixmap.size());
-
     resultInfo->setResult(hasWin);
     buttonRest->setResult(hasWin);
     buttonAgain->setResult(hasWin);
 
+    initBackgroundPix();
     initUI();
 }
 
@@ -124,6 +137,17 @@ void Resultpopup::popupClose()
 {
     this->close();
     emit signalHaveRest();
+}
+
+/**
+ * @brief Resultpopup::slotCompositingChanged 特效窗口
+ * @param compositing 是否开启
+ */
+void Resultpopup::slotCompositingChanged(bool compositing)
+{
+    compositingStatus = compositing;
+    initBackgroundPix();
+    update();
 }
 
 /**
@@ -140,10 +164,13 @@ void Resultpopup::paintEvent(QPaintEvent *event)
     } else {
         backgroundImage = failPixmap;
     }
-    painter.save();
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), backgroundImage);
-    painter.restore();
 
     QWidget::paintEvent(event);
+}
+
+void Resultpopup::mouseMoveEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
 }
