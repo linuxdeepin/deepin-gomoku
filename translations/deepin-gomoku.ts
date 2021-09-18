@@ -4,12 +4,12 @@
 <context>
     <name>BTMusicControl</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="89"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="90"/>
         <source>Sound Off</source>
         <translation>Sound Off</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="93"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="94"/>
         <source>Sound On</source>
         <translation>Sound On</translation>
     </message>
@@ -17,7 +17,7 @@
 <context>
     <name>BTReplay</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="98"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="99"/>
         <source>New Game</source>
         <translation>New Game</translation>
     </message>
@@ -25,18 +25,18 @@
 <context>
     <name>BTStartPause</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="122"/>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="159"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="123"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="160"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="164"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="165"/>
         <source>Continue</source>
         <translation>Continue</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="168"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="169"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>
@@ -44,7 +44,7 @@
 <context>
     <name>Buttonagain</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="132"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="135"/>
         <source>Play Again</source>
         <translation>Play Again</translation>
     </message>
@@ -60,7 +60,7 @@
 <context>
     <name>CancelButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="118"/>
+        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="119"/>
         <source>Keep Playing</source>
         <translation>Keep Playing</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>Determinebutton</name>
     <message>
-        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="112"/>
+        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="113"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -76,7 +76,7 @@
 <context>
     <name>ExitButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="115"/>
+        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="116"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>

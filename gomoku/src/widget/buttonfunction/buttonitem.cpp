@@ -85,7 +85,7 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 /**
  * @brief ButtonItem::setFirstGame //设置为新游戏状态
  */
-void ButtonItem::setFirstGame(qreal & posHeight, const qreal firstGamePosHeight)
+void ButtonItem::setFirstGame(qreal &posHeight, const qreal firstGamePosHeight)
 {
     posHeight = firstGamePosHeight;
     firstStartGame = true;

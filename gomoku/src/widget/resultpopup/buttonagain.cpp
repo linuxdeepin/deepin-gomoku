@@ -26,6 +26,8 @@
 #include <QPainter>
 #include <QMouseEvent>
 
+#include <QDebug>
+
 Buttonagain::Buttonagain(QWidget *parent)
     : DWidget(parent)
     , againNormal(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/again_normal.svg"))
@@ -34,7 +36,8 @@ Buttonagain::Buttonagain(QWidget *parent)
     , failAgainPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/fail_rest_press.svg"))
     , mResult(false)
 {
-    setFixedSize(160, 42);
+    //设置大小
+    setFixedSize(164, 46);
     currentPixmap = againNormal;
 }
 
@@ -115,7 +118,7 @@ void Buttonagain::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.save();
     painter.setPen(Qt::NoPen);
-    painter.drawPixmap(this->rect(), currentPixmap);
+    painter.drawPixmap(QRect(0, 0, 164, 46), currentPixmap);
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
