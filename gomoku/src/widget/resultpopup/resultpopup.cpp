@@ -37,11 +37,10 @@ Resultpopup::Resultpopup(bool compositing, QWidget *parent)
     , buttonAgain(new Buttonagain)
 {
     //设置大小
-    setFixedSize(386, 345);
+    setFixedSize(1024, 768);
 
     initBackgroundPix();
 
-//    initUI();
     //休息一下, 关闭弹窗
     connect(buttonRest, &Buttonrest::signalButtonRestClicked, this, [ = ] {
         this->close();
@@ -68,26 +67,26 @@ void Resultpopup::initUI()
         emit signalHaveRest();
     });
     closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
-    closeLayout->addSpacing(10);
+    closeLayout->addSpacing(322); //关闭按钮到右侧边界距离
 
     QHBoxLayout *labelLayout = new QHBoxLayout();
     labelLayout->addStretch();
-    labelLayout->addWidget(resultInfo);
+    labelLayout->addWidget(resultInfo, 0, Qt::AlignHCenter);
     labelLayout->addStretch();
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    buttonLayout->addStretch(8);
+    buttonLayout->addSpacing(345); //按钮到左侧边界距离
     buttonLayout->addWidget(buttonRest);
     buttonLayout->addWidget(buttonAgain);
-    buttonLayout->addStretch(9);
+    buttonLayout->addSpacing(335); //按钮到右侧边界距离
 
-    mainLayout->addSpacing(110);
+    mainLayout->addSpacing(274); //关闭按钮到上侧边界距离
     mainLayout->addLayout(closeLayout);
-    mainLayout->addStretch();
+    mainLayout->addSpacing(34); //关闭按钮和文字之间距离
     mainLayout->addLayout(labelLayout);
-    mainLayout->addStretch();
+    mainLayout->addSpacing(24); //文字和按钮之间距离
     mainLayout->addLayout(buttonLayout);
-    hasWin ? mainLayout->addSpacing(20) : mainLayout->addSpacing(25); //胜利和失败的背景下底部弹簧略微不同
+    mainLayout->addSpacing(297); //按钮到底部边界距离
     setLayout(mainLayout);
 }
 
@@ -96,14 +95,13 @@ void Resultpopup::initUI()
  */
 void Resultpopup::initBackgroundPix()
 {
+    //根据是否有特效设置不同图片
     if (compositingStatus) {
         winPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win.svg");
         failPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_fail.svg");
-        hasWin ? setFixedSize(388, 345) : setFixedSize(386, 345);
     } else {
         winPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win_nshadow.svg");
         failPixmap = DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_fail_nshadow.svg");
-        hasWin ? setFixedSize(370, 331) : setFixedSize(372, 336);
     }
 }
 
@@ -165,7 +163,29 @@ void Resultpopup::paintEvent(QPaintEvent *event)
         backgroundImage = failPixmap;
     }
     painter.setPen(Qt::NoPen);
-    painter.drawPixmap(this->rect(), backgroundImage);
+    //背景阴影
+    QColor tColor = "#000000";
+    tColor.setAlphaF(0.3);
+    painter.setBrush(tColor);
+    //绘制整个界面大小的阴影
+    painter.drawRect(this->rect());
+    painter.setBrush(Qt::NoBrush);
+    QRect resultRect;
+    //根据是否胜利以及是否有特效绘制不同位置不同大小的图片
+    if (hasWin) {
+        if (compositingStatus) {
+            resultRect = QRect(326, 160, 388, 345);
+        } else {
+            resultRect = QRect(332, 160, 370, 331);
+        }
+    } else {
+        if (compositingStatus) {
+            resultRect = QRect(326, 160, 386, 345);
+        } else {
+            resultRect = QRect(332, 160, 372, 336);
+        }
+    }
+    painter.drawPixmap(resultRect, backgroundImage);
 
     QWidget::paintEvent(event);
 }

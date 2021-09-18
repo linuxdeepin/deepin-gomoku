@@ -41,7 +41,7 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     painter.setPen("#02412c");
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
-    font.setWeight(QFont::Medium);
+    font.setWeight(QFont::Bold);
     font.setPixelSize(25);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, tr("Play as"));

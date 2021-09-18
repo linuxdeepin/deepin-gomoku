@@ -271,8 +271,7 @@ void GomokuMainWindow::slotReplayFunction()
  */
 void GomokuMainWindow::slotPopupResult(ChessResult result)
 {
-    m_resultPopUp = new Resultpopup(compositingStatus, this) ;
-    m_resultPopUp->setGeometry(326, 160, 386, 345);
+    m_resultPopUp = new Resultpopup(compositingStatus, this);
     connect(this, &GomokuMainWindow::signalCompositingChanged, m_resultPopUp, &Resultpopup::slotCompositingChanged);
     connect(m_resultPopUp, &Resultpopup::signalGameAgain, this, &GomokuMainWindow::slotReplayFunction);
 
@@ -304,10 +303,7 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
             playWinMusic();
         }
     }
-    viewtransparentFrame();
     m_resultPopUp->popupShow();
-
-    m_transparentFrame->hide();
 
     delete m_selectChess;
     m_selectChess = nullptr;
@@ -342,7 +338,6 @@ void GomokuMainWindow::changeEvent(QEvent *event)
  */
 void GomokuMainWindow::closeEvent(QCloseEvent *event)
 {
-    qInfo() << checkerboardScene->getIsNewGame();
     //判断是游戏中还是新游戏状态下的关闭
     if (checkerboardScene->getIsNewGame()) {
         event->accept();

@@ -82,7 +82,7 @@ void ExitDialog::initUI()
 
     //主布局
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addSpacing(5);//上层布局离中间布局的距离
+//    mainLayout->addSpacing(5);//上层布局离中间布局的距离
     mainLayout->addLayout(titleLayout);
     mainLayout->addLayout(textLayout);
     mainLayout->addStretch();
