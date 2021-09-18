@@ -89,6 +89,7 @@ void CancelButton::enterEvent(QEvent *event)
  */
 void CancelButton::leaveEvent(QEvent *event)
 {
+    buttonPressed = false;
     currentPixmap = buttonNormal;
     DWidget::leaveEvent(event);
     update();

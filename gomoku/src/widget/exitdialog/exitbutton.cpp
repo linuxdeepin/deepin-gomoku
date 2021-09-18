@@ -86,6 +86,7 @@ void ExitButton::enterEvent(QEvent *event)
  */
 void ExitButton::leaveEvent(QEvent *event)
 {
+    buttonPressed = false;
     currentPixmap = buttonNormal;
     DWidget::leaveEvent(event);
     update();

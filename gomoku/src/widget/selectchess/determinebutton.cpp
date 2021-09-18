@@ -84,6 +84,7 @@ void Determinebutton::enterEvent(QEvent *event)
  */
 void Determinebutton::leaveEvent(QEvent *event)
 {
+    buttonPressed = false;
     currentPixmap = buttonNormal;
     DWidget::leaveEvent(event);
     update();

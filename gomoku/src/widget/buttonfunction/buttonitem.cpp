@@ -47,6 +47,7 @@ void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 //设置正常图片
 void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
+    pressStatus = false;
     backgrounePix =  normalBackgrounePix;
     update();
     QGraphicsItem::hoverLeaveEvent(event);
