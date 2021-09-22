@@ -29,7 +29,7 @@ class Resultinfo : public DLabel
 {
     Q_OBJECT
 public:
-    Resultinfo(QWidget *parent = nullptr);
+    explicit Resultinfo(QWidget *parent = nullptr);
     ~Resultinfo() override;
 
     void setResult(bool result);

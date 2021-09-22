@@ -44,7 +44,7 @@ void Checkerboard::insertChess(Chess chess)
  * 获取棋盘数组数据
  */
 
-const ChessState & Checkerboard::getChessState()
+const ChessState &Checkerboard::getChessState()
 {
     return chessState;
 }
@@ -56,7 +56,7 @@ const ChessState & Checkerboard::getChessState()
 void Checkerboard::initCheckerboard()
 {
     for (int i = 0; i < line_row; i++) {
-        std::vector<int> chessState_col;
+        QVector<int> chessState_col;
         for (int j = 0; j < line_col; j++) {
             chessState_col.push_back(chess_none);
         }
@@ -70,7 +70,7 @@ void Checkerboard::initCheckerboard()
 void Checkerboard::resetCheckerboard()
 {
     for (int i = 0; i < line_row; i++) {
-        for (int j = 0; j <line_col; j++) {
+        for (int j = 0; j < line_col; j++) {
             chessState[i][j] = chess_none;
         }
     }

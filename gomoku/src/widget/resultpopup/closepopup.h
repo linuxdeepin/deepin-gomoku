@@ -29,7 +29,7 @@ class Closepopup: public DWidget
 {
     Q_OBJECT
 public:
-    Closepopup(QWidget *parent = nullptr);
+    explicit Closepopup(QWidget *parent = nullptr);
 
 signals:
     void signalCloseClicked();

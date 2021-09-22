@@ -87,8 +87,6 @@ int CalculateScore::getLocationScore(const ChessState chessState,
         case ChessFrom::safety:
             locationSituation[ChessFrom::safety]++;
             break;
-        default:
-            break;
         }
     }
 
@@ -107,13 +105,13 @@ int CalculateScore::computeScore(std::unordered_map<ChessFrom, int> locationSitu
     int alive_three = locationSituation[ChessFrom::alive3] + locationSituation[ChessFrom::rush3];
     int alive_two = locationSituation[ChessFrom::alive2] + locationSituation[ChessFrom::rush2];
 
-    if  (locationSituation[ChessFrom::lian5] >= 1) {
+    if (locationSituation[ChessFrom::lian5] >= 1) {
         return SCORE_WIN5; // 五连珠
     }
     if (locationSituation[ChessFrom::alive4] >= 1) {
         return SCORE_ALIVE4; //活四
     }
-    if (sleep_four >= 2 || (sleep_four >=1 && alive_three >= 1)) {
+    if (sleep_four >= 2 || (sleep_four >= 1 && alive_three >= 1)) {
         return SCORE_DOUBLESLEEP4_SLEEP4ALIVE3; //双眠四、眠四活三
     }
     if (alive_three >= 2) {
@@ -155,7 +153,7 @@ int CalculateScore::computeScore(std::unordered_map<ChessFrom, int> locationSitu
  * @return
  */
 Position CalculateScore::getBestLocation(const int AIScore[line_row][line_col],
-                                                    const int opponentScore[line_row][line_col])
+                                         const int opponentScore[line_row][line_col])
 {
     int AIMaxScore = 0; //AI最大分数
     int userMaxScore = 0; //用户最大分数

@@ -29,7 +29,7 @@ class Determinebutton : public DWidget
 {
     Q_OBJECT
 public:
-    Determinebutton(QWidget *parent = nullptr);
+    explicit Determinebutton(QWidget *parent = nullptr);
 
 signals:
     void signalButtonOKClicked();

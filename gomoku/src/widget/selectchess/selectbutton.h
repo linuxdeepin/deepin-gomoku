@@ -30,7 +30,7 @@ DWIDGET_USE_NAMESPACE
 class Selectbutton : public QPushButton
 {
 public:
-    Selectbutton(QWidget *parent = nullptr);
+    explicit Selectbutton(QWidget *parent = nullptr);
 
 protected:
     void enterEvent(QEvent *event) override;

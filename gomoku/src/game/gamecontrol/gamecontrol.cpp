@@ -26,6 +26,7 @@ GameControl::GameControl(int AIColor, int userColor, QObject *parent)
     : QObject(parent)
     , AIColor(AIColor)
     , userColor(userColor)
+    , AIPlaying(false)
     , checkerboard(new Checkerboard())
 {
 }

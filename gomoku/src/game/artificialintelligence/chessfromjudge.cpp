@@ -146,7 +146,7 @@ ChessFrom ChessFromJudge::judgeChessFrom(const int chess[9])
         //二连两边都为空
         if (leftColor == chess_none && rightColor == chess_none) {
             if ((rightColor1 == chess_none && rightColor2 == myColor) ||  //022002或020022
-                 (leftColor1 == chess_none && leftColor2 == myColor)) {
+                    (leftColor1 == chess_none && leftColor2 == myColor)) {
                 return sleep3;//眠三
             } else if (leftColor1 == chess_none && rightColor1 == chess_none) {
                 return alive2;// 002200形式 活二
@@ -210,11 +210,11 @@ ChessFrom ChessFromJudge::judgeChessFrom(const int chess[9])
 
         //在该点落子能连成冲四 20222 或 22202
         if (leftColor == chess_none && leftColor1 == myColor &&
-                leftColor2 == myColor && leftColor3 == myColor ) {
+                leftColor2 == myColor && leftColor3 == myColor) {
             return rush4;
         }
         if (rightColor == chess_none && rightColor1 == myColor &&
-                rightColor2 == myColor && rightColor3 == myColor ) {
+                rightColor2 == myColor && rightColor3 == myColor) {
             return rush4;
         }
 
@@ -249,11 +249,11 @@ ChessFrom ChessFromJudge::judgeChessFrom(const int chess[9])
         }
 
         //眠三 20202
-        if (leftColor == chess_none && leftColor1 ==myColor &&
+        if (leftColor == chess_none && leftColor1 == myColor &&
                 leftColor2 == chess_none &&  leftColor3 == myColor) {
             return sleep3;
         }
-        if (rightColor == chess_none && rightColor1 ==myColor &&
+        if (rightColor == chess_none && rightColor1 == myColor &&
                 rightColor2 == chess_none &&  rightColor3 == myColor) {
             return sleep3;
         }
@@ -327,7 +327,7 @@ void ChessFromJudge::collectChess(int chess[9], const ChessState chessState,
         for (int i = position.first, j = 1; j <= 4; j++) {
             int col = position.second + j;
             if (col > (line_col - 1)) {
-                for (;j <= 4; j++) {
+                for (; j <= 4; j++) {
                     chess[4 + j] = opponentColor;
                 }
                 break;
@@ -340,7 +340,7 @@ void ChessFromJudge::collectChess(int chess[9], const ChessState chessState,
         for (int j = position.second, i = 1; i <= 4; i++) {
             int row = position.first - i;
             if (row < 0) {
-                for (;i <=4; i++) {
+                for (; i <= 4; i++) {
                     chess[4 - i]  = opponentColor;
                 }
                 break;
@@ -365,7 +365,7 @@ void ChessFromJudge::collectChess(int chess[9], const ChessState chessState,
             int row = position.first + i;
             int col = position.second - j;
             if (row > (line_row - 1) || col < 0) {
-                for (;i <= 4; i++) {
+                for (; i <= 4; i++) {
                     chess[4 - i] = opponentColor;
                 }
                 break;
@@ -391,7 +391,7 @@ void ChessFromJudge::collectChess(int chess[9], const ChessState chessState,
             int row = position.first - i;
             int col = position.second - j;
             if (row < 0 || col < 0) {
-                for (;i <= 4; i++) {
+                for (; i <= 4; i++) {
                     chess[4 - i] = opponentColor;
                 }
                 break;
@@ -403,7 +403,7 @@ void ChessFromJudge::collectChess(int chess[9], const ChessState chessState,
             int row = position.first + i;
             int col = position.second + j;
             if (col > (line_col - 1) || row > (line_row - 1)) {
-                for (;i <= 4;i++) {
+                for (; i <= 4; i++) {
                     chess[4 + i] = opponentColor;
                 }
                 break;
@@ -516,7 +516,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
     }
 
     //统计棋子数目
-    for (i = top, j = right; i <= button; i++, j--) {
+    for (i = top, j = right; i <= button && j >= left; i++, j--) {
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
@@ -553,7 +553,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
         }
     }
     //统计棋子数目
-    for (i = top, j = left; i <= button; i++, j++) {
+    for (i = top, j = left; i <= button && j <= right; i++, j++) {
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {

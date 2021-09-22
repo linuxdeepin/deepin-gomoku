@@ -28,7 +28,7 @@ class Selectinfo : public DLabel
 {
     Q_OBJECT
 public:
-    Selectinfo(QWidget *parent = nullptr);
+    explicit Selectinfo(QWidget *parent = nullptr);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

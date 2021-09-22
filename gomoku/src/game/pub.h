@@ -22,12 +22,12 @@
 #define PUB_H
 
 
-#include <vector>
+#include <QVector>
 #include <utility>
 /**
  * @brief ChessState 棋子状态数组
  */
-typedef std::vector<std::vector<int>> ChessState;
+typedef QVector<QVector<int>> ChessState;
 
 /**
  * @brief Position 定义位置数据传递形式

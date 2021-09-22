@@ -218,7 +218,6 @@ void PlayingScreen::slotNewGame()
 {
     gamePlaying = false;
     AIPlayer = false;
-    gamePlaying = false;
     gameOverStatus = false;
     sceneHeight = 100;
     currentChessColro = 0;
