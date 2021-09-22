@@ -38,6 +38,8 @@
 GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     : DMainWindow(parent)
 {
+    //禁用最大化窗口
+    setWindowFlags(windowFlags() & ~ Qt::WindowMaximizeButtonHint);
     setFixedSize(QSize(widgetWidth, widgetHeight));
     setContentsMargins(QMargins(0, 0, 0, 0));
 
