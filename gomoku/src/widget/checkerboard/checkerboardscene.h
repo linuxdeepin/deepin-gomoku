@@ -68,6 +68,9 @@ signals:
 public slots:
     void slotPaintAIChess(Chess chess);
 
+protected:
+    void drawBackground(QPainter *painter, const QRectF &rect) override;
+
 private:
     void initGame();
     void initChess();

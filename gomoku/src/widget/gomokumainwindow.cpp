@@ -65,13 +65,6 @@ void GomokuMainWindow::handleQuit()
 //初始化界面
 void GomokuMainWindow::initUI()
 {
-    //background
-    QPixmap backgroundImage = DHiDPIHelper::loadNxPixmap(":/resources/background.svg");
-    DPalette palette;
-    palette.setColor(DPalette::Background, Qt::transparent);
-    palette.setBrush(QPalette::Background, QBrush(backgroundImage));
-    setPalette(palette);
-
     mTitleBar = titlebar();
     mTitleBar->setFrameShape(DFrame::NoFrame);
     mTitleBar->installEventFilter(this);
@@ -124,16 +117,16 @@ void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
 {
     DGuiApplicationHelper::ColorType themtype = DGuiApplicationHelper::instance()->themeType();
     QColor broundColor;
-    QPixmap bgPixmap(":/resources/titlebar_bg_dark.svg");
     if (themtype == DGuiApplicationHelper::ColorType::DarkType) {
-        broundColor = titlebar->palette().color(QPalette::Normal, QPalette::Dark);
+        //深色模式标题栏颜色
+        broundColor = QColor("#005A5B");
     } else if (themtype == DGuiApplicationHelper::ColorType::LightType) {
-        broundColor = titlebar->palette().color(QPalette::Normal, QPalette::Light);
+        //浅色模式标题栏颜色
+        broundColor = QColor("#88C7C9");
     }
     QPainter painter(titlebar);
     painter.setRenderHint(QPainter::Antialiasing);
     painter.save();
-    broundColor.setAlphaF(0.5);
     painter.setPen(Qt::NoPen);
     painter.setBrush(broundColor);
     painter.drawRect(titlebar->rect());

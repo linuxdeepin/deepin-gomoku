@@ -353,3 +353,9 @@ void CheckerboardScene::slotPaintAIChess(Chess chess)
         AIChessStatus = true;
     }
 }
+
+void CheckerboardScene::drawBackground(QPainter *painter, const QRectF &rect)
+{
+    Q_UNUSED(rect);
+    painter->drawPixmap(0, 0, QPixmap(":/resources/background.svg"));
+}
