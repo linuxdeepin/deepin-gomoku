@@ -37,7 +37,7 @@ Buttonagain::Buttonagain(QWidget *parent)
     , mResult(false)
 {
     //设置大小
-    setFixedSize(164, 46);
+    setFixedSize(160, 42);
     currentPixmap = againNormal;
 }
 
@@ -118,7 +118,7 @@ void Buttonagain::paintEvent(QPaintEvent *event)
     painter.setRenderHint(QPainter::Antialiasing);
     painter.save();
     painter.setPen(Qt::NoPen);
-    painter.drawPixmap(QRect(0, 0, 164, 46), currentPixmap);
+    painter.drawPixmap(QRect(0, 0, 160, 42), currentPixmap);
     QFont font;
     font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);

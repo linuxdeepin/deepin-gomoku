@@ -27,7 +27,7 @@ Resultinfo::Resultinfo(QWidget *parent)
     , strResult("")
 {
     //设置大小
-    setFixedSize(300, 48);
+    setFixedSize(332, 48);
 }
 
 Resultinfo::~Resultinfo()

@@ -34,7 +34,7 @@ Globaltool::~Globaltool()
 {
 }
 
-QPixmap Globaltool::getDpiPixmap(QSize size, const QString filename, QWidget *w)
+QPixmap Globaltool::getDpiPixmap(QSize size, const QString &filename, QWidget *w)
 {
     QPixmap pixmap;
     qreal devicePixelRatio = qApp->devicePixelRatio();

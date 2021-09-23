@@ -41,7 +41,7 @@ public:
      * @param w 父窗口
      * @return 图片
      */
-    static QPixmap getDpiPixmap(QSize size, const QString filename, QWidget *w);
+    static QPixmap getDpiPixmap(QSize size, const QString &filename, QWidget *w);
 
     /**
      * @brief AutoFeed 对字符串进行手动换行

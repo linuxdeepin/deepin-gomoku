@@ -70,15 +70,13 @@ void Resultpopup::initUI()
     closeLayout->addSpacing(322); //关闭按钮到右侧边界距离
 
     QHBoxLayout *labelLayout = new QHBoxLayout();
-    labelLayout->addStretch();
     labelLayout->addWidget(resultInfo, 0, Qt::AlignHCenter);
-    labelLayout->addStretch();
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
-    buttonLayout->addSpacing(345); //按钮到左侧边界距离
+    buttonLayout->addSpacing(340); //按钮到左侧边界距离
     buttonLayout->addWidget(buttonRest);
     buttonLayout->addWidget(buttonAgain);
-    buttonLayout->addSpacing(335); //按钮到右侧边界距离
+    buttonLayout->addSpacing(340); //按钮到右侧边界距离
 
     mainLayout->addSpacing(274); //关闭按钮到上侧边界距离
     mainLayout->addLayout(closeLayout);
@@ -174,15 +172,15 @@ void Resultpopup::paintEvent(QPaintEvent *event)
     //根据是否胜利以及是否有特效绘制不同位置不同大小的图片
     if (hasWin) {
         if (compositingStatus) {
-            resultRect = QRect(326, 160, 388, 345);
+            resultRect = QRect(318, 160, 388, 345);
         } else {
-            resultRect = QRect(332, 160, 370, 331);
+            resultRect = QRect(324, 160, 370, 331);
         }
     } else {
         if (compositingStatus) {
-            resultRect = QRect(326, 160, 386, 345);
+            resultRect = QRect(320, 160, 386, 345);
         } else {
-            resultRect = QRect(332, 160, 372, 336);
+            resultRect = QRect(326, 160, 372, 336);
         }
     }
     painter.drawPixmap(resultRect, backgroundImage);
