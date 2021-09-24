@@ -37,7 +37,7 @@ ExitDialog::ExitDialog(bool compositing, QWidget *parent)
 {
     setFixedSize(372, 219);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
-    setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint); //取消标题栏
+    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint); //取消标题栏
 
     initBackgroundPix();
 
@@ -82,7 +82,7 @@ void ExitDialog::initUI()
 
     //主布局
     QVBoxLayout *mainLayout = new QVBoxLayout(this);
-//    mainLayout->addSpacing(5);//上层布局离中间布局的距离
+    mainLayout->addSpacing(5);//上层布局离中间布局的距离
     mainLayout->addLayout(titleLayout);
     mainLayout->addLayout(textLayout);
     mainLayout->addStretch();

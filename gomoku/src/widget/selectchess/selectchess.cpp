@@ -40,7 +40,8 @@ Selectchess::Selectchess(bool compositing, QWidget *parent)
 {
     setFixedSize(371, 219);
     setAttribute(Qt::WA_TranslucentBackground);
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog); //设置flags隐藏标题栏
+    //设置隐藏边框,以及popup,dialog属性
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
 
     initBackgroundPix();
     initUI();
