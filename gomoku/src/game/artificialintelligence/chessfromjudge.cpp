@@ -511,7 +511,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
             button = lastRow + lastCol;
         } else {
             button = line_row - 1;
-            left = lastRow - (line_row - 1 - lastRow);
+            left = lastCol - (line_row - 1 - lastRow);
         }
     }
 
