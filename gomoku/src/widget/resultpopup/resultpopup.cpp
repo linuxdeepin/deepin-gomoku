@@ -24,6 +24,7 @@
 #include <DHiDPIHelper>
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QPushButton>

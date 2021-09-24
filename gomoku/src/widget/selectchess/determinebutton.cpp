@@ -22,6 +22,7 @@
 #include "globaltool.h"
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QMouseEvent>
 
 #include <DHiDPIHelper>

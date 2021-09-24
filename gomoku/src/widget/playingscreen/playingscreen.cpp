@@ -23,6 +23,7 @@
 #include "globaltool.h"
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QGraphicsScene>
 #include <QDebug>
 

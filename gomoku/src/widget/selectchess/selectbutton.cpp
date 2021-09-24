@@ -23,6 +23,7 @@
 #include <DHiDPIHelper>
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QDebug>
 
 Selectbutton::Selectbutton(QWidget *parent)

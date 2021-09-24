@@ -30,6 +30,8 @@
 #include <DHiDPIHelper>
 #include <DApplication>
 #include <QPainter>
+#include <QPainterPath>
+
 ExitDialog::ExitDialog(bool compositing, QWidget *parent)
     : QDialog(parent)
     , result(BTType::BTCancel)

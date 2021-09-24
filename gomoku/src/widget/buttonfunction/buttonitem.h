@@ -28,6 +28,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <QDebug>
 #include <QObject>
 
@@ -42,7 +43,7 @@ public:
     explicit ButtonItem(QGraphicsItem *parent = nullptr);
     ~ButtonItem() override;
 
-    virtual void setFirstGame(qreal & posHeight, const qreal firstGamePosHeight);
+    virtual void setFirstGame(qreal &posHeight, const qreal firstGamePosHeight);
 
 protected:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;

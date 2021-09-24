@@ -26,6 +26,7 @@
 #include "constants.h"
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 

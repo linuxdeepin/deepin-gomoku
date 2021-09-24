@@ -22,6 +22,7 @@
 #include "constants.h"
 
 #include <QPainter>
+#include <QPainterPath>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>

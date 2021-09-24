@@ -23,6 +23,7 @@
 #include <DHiDPIHelper>
 
 #include <QPainter>
+#include <QPainterPath>
 
 Chessselected::Chessselected(int chessColor, QWidget *parent)
     : DWidget(parent)
