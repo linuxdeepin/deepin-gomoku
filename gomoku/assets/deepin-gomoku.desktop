@@ -1,5 +1,5 @@
 [Desktop Entry]
-Categories=Qt
+Categories=Qt;Game
 Exec=/usr/bin/deepin-gomoku %F
 # Translations:
 # Do not manually modify!
