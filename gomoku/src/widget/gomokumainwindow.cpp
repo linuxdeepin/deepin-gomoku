@@ -194,7 +194,7 @@ void GomokuMainWindow::slotSelectChessPopup()
         {
             checkerboardScene->setSelectChess(chess_black, chess_white);
         }
-        checkerboardScene->setIsNewGame(false); //点击OK游戏状态为游戏中
+        checkerboardScene->setGameState(GameState::gamePlaying); //点击OK游戏状态为游戏中
         checkerboardScene->selsectChessOK();
         checkerboardScene->startGame();
     });
@@ -255,7 +255,7 @@ void GomokuMainWindow::slotReplayPopup()
  */
 void GomokuMainWindow::slotReplayFunction()
 {
-    checkerboardScene->setIsNewGame(true); //点击再来一次游戏状态为新游戏
+    checkerboardScene->setGameState(GameState::gameStart); //点击再来一次游戏状态为新游戏
     checkerboardScene->replayFunction();
     slotSelectChessPopup();
 }
@@ -334,7 +334,8 @@ void GomokuMainWindow::changeEvent(QEvent *event)
 void GomokuMainWindow::closeEvent(QCloseEvent *event)
 {
     //判断是游戏中还是新游戏状态下的关闭
-    if (checkerboardScene->getIsNewGame()) {
+    if (checkerboardScene->getGameState() == GameState::gameStart ||
+            checkerboardScene->getGameState() == GameState::gameOver) {
         event->accept();
         return;
     }

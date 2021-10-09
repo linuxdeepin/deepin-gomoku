@@ -31,6 +31,14 @@ struct Chess {
     Chess(int x, int y, int color) : x(x), y(y), color(color) {}
 };
 
+
+//游戏状态
+enum GameState {
+    gameStart, //游戏开始
+    gamePlaying, //游戏进行中
+    gameOver, //游戏结束
+};
+
 //棋局形势
 enum ChessResult {
     black_win,

@@ -100,6 +100,16 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->restore();
 }
 
+/**
+ * @brief BTReplay::setButtonState 重玩按钮禁用
+ * @param state
+ */
+void BTReplay::setButtonState(bool state)
+{
+    firstStartGame = state;
+    update();
+}
+
 //按钮功能
 void BTReplay::buttonFunction()
 {

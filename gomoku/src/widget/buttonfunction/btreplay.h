@@ -37,6 +37,8 @@ public:
     inline qreal & getPosHeight() {return posHeight;}
     inline qreal getFirstGamePosHeight() {return firstGamePosHeight;}
 
+    void setButtonState(bool state);
+
     void setNotFirstGame() override;
 
 signals:

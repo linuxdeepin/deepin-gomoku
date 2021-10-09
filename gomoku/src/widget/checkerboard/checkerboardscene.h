@@ -49,8 +49,8 @@ public:
     void replayFunction();
     void setStartPauseStatus();
 
-    inline void setIsNewGame(bool isNewGame) {m_isNewGame = isNewGame;}
-    inline bool getIsNewGame() {return m_isNewGame;}
+    inline void setGameState(GameState gameState) {m_gameState = gameState;}
+    inline GameState getGameState() {return m_gameState;}
 
 signals:
     void signalCurrentPoint(Chess chess); //发送当前棋子坐标
@@ -108,7 +108,7 @@ private:
     bool AIChessStatus = false; //暂停游戏时,AI是否下棋
     bool gameReplay = false; //游戏是否重玩
     Chess AIChess; //保存当前棋子位置
-    bool m_isNewGame = true; //是否是新游戏的标志
+    GameState m_gameState = GameState::gameStart; //是否是新游戏的标志
 
     //以下位置参数,根据UI图得来
     const qreal lefttopChessPosWidth = 0.02; //左上角第一个棋子位置占整个scene宽度比例

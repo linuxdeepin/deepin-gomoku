@@ -226,6 +226,8 @@ void CheckerboardScene::slotGameContinue()
  */
 void CheckerboardScene::slotGameOver(ChessResult result)
 {
+    setGameState(GameState::gameOver); //设置游戏状态为游戏结束状态
+    buttonReplay->setButtonState(true); //禁用重玩按钮
     buttonStartPause->setGameOverStatus(true);
     playingScreen->setGameOverStatus();
     emit signalGameOver();
