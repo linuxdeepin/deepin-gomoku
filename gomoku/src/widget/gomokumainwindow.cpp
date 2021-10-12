@@ -172,6 +172,7 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
     if (watched == mTitleBar) {
         if (event->type() == QEvent::Paint) {
             paintTitleBar(mTitleBar);
+            return true;
         }
     }
     return DMainWindow::eventFilter(watched, event);
@@ -200,7 +201,7 @@ void GomokuMainWindow::slotSelectChessPopup()
     });
     connect(checkerboardScene, &CheckerboardScene::signalCloSelectPopup, m_selectChess, &Selectchess::slotCloseSelectPopup);
     viewtransparentFrame();
-    m_selectChess->selectChessShow();
+    m_selectChess->show();
 
     setEnabled(false);
     m_selectChess->setEnabled(true);
@@ -299,9 +300,6 @@ void GomokuMainWindow::slotPopupResult(ChessResult result)
         }
     }
     m_resultPopUp->popupShow();
-
-    delete m_selectChess;
-    m_selectChess = nullptr;
 }
 
 /**

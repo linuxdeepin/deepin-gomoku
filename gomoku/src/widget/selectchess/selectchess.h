@@ -32,7 +32,6 @@ class Selectchess : public QDialog
 public:
     explicit Selectchess(bool compositing, QWidget *parent = nullptr);
 
-    void selectChessShow();
     void setSelectChess(int chessColor);
     int getSelsectChess();
     void selectClose();

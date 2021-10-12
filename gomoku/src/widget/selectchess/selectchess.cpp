@@ -123,14 +123,6 @@ void Selectchess::slotButtonOKClicked()
 }
 
 /**
- * @brief Selectchess::selectChessShow 展示弹窗
- */
-void Selectchess::selectChessShow()
-{
-    this->show();
-}
-
-/**
  * @brief Selectchess::setSelectChess 设置选择的棋子颜色
  * @param chessColor 棋子颜色
  */

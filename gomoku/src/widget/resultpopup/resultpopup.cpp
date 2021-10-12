@@ -68,7 +68,7 @@ void Resultpopup::initUI()
         emit signalHaveRest();
     });
     closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
-    closeLayout->addSpacing(322); //关闭按钮到右侧边界距离
+    closeLayout->addSpacing(328); //关闭按钮到右侧边界距离
 
     QHBoxLayout *labelLayout = new QHBoxLayout();
     labelLayout->addWidget(resultInfo, 0, Qt::AlignHCenter);
@@ -173,7 +173,7 @@ void Resultpopup::paintEvent(QPaintEvent *event)
     //根据是否胜利以及是否有特效绘制不同位置不同大小的图片
     if (hasWin) {
         if (compositingStatus) {
-            resultRect = QRect(318, 160, 388, 345);
+            resultRect = QRect(320, 160, 388, 345);
         } else {
             resultRect = QRect(324, 160, 370, 331);
         }

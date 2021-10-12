@@ -27,6 +27,7 @@ macro(SUBDIRLIST result curdir)
 endmacro()
 
 ADD_SUBDIRECTORY(gomoku)
+ADD_SUBDIRECTORY(tests)
 
 find_package(Qt5LinguistTools REQUIRED)
 #lupdate start
