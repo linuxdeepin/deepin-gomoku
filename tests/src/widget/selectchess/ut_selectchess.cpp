@@ -21,6 +21,7 @@
 #include "ut_selectchess.h"
 
 #include <DHiDPIHelper>
+#include <QPaintEvent>
 #include "constants.h"
 
 TEST_F(UT_SelectChess, UT_SelectChess_initUI)
@@ -82,4 +83,23 @@ TEST_F(UT_SelectChess, UT_SelectChess_getSelectChess2)
 TEST_F(UT_SelectChess, UT_SelectChess_selectClose)
 {
     m_SelectChess->selectClose();
+}
+
+TEST_F(UT_SelectChess, UT_SelectChess_slotCloseSelectPopup)
+{
+    m_SelectChess->slotCloseSelectPopup();
+}
+
+TEST_F(UT_SelectChess, UT_SelectChess_slotCompositingChanged)
+{
+    m_SelectChess->slotCompositingChanged(true);
+    EXPECT_EQ(m_SelectChess->compositingStatus, true)
+            << "check selectChess compositingChanged";
+}
+
+TEST_F(UT_SelectChess, UT_SelectChess_paintEvent)
+{
+    QRect rect;
+    QPaintEvent event(rect);
+    m_SelectChess->paintEvent(&event);
 }

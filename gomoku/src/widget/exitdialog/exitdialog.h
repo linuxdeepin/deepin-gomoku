@@ -26,6 +26,8 @@
 #include <QPixmap>
 #include <QMessageBox>
 #include "constants.h"
+
+DWIDGET_USE_NAMESPACE
 class ExitDialog : public QDialog
 {
     Q_OBJECT
