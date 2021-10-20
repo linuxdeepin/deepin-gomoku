@@ -24,21 +24,32 @@
 #include "gomokumainwindow.h"
 #include "gtest/gtest.h"
 #include <QtTest/QTest>
+#include <stub.h>
+
+void stub_initCompositingStatus()
+{
+}
 
 class UT_GomokuMainWindow : public ::testing::Test
 {
+
 public:
+    GomokuMainWindow *m_mainwindow = nullptr;
     void SetUp() //TEST跑之前会执行SetUp
     {
+        Stub stub;
+        stub.set(ADDR(GomokuMainWindow, initCompositingStatus), stub_initCompositingStatus);
         m_mainwindow = new GomokuMainWindow();
         qInfo() << "SetUp" << endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
-        delete m_mainwindow;
+        if (m_mainwindow != nullptr) {
+            delete m_mainwindow;
+            m_mainwindow = nullptr;
+        }
         qInfo() << "TearDown" << endl;
     }
-    GomokuMainWindow *m_mainwindow;
 };
 
 #endif // UT_GOMOKUMAINWINDOW_H

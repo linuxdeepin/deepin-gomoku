@@ -20,11 +20,11 @@
    */
 #include "ut_gomokumainwindow.h"
 
-#include <stub.h>
-
 #include <DGuiApplicationHelper>
 #include <DWidget>
 #include <DTitlebar>
+
+#include <QDBusInterface>
 
 int UTPopupExec(QEventLoop::ProcessEventsFlags flag)
 {
@@ -54,12 +54,6 @@ TEST_F(UT_GomokuMainWindow, UT_MainWindow_initUI)
             << "check the status after UT_MainWindow_initUI()";
     EXPECT_EQ(m_mainwindow->size(), QSize(widgetWidth, widgetHeight))
             << "check the status after UT_MainWindow_initUI()";
-}
-
-TEST_F(UT_GomokuMainWindow, UT_MainWindow_initCompositingStatus)
-{
-    m_mainwindow->initCompositingStatus();
-    EXPECT_EQ(m_mainwindow->compositingStatus, true) << "check DBus connect status after initCompositingStatus";
 }
 
 TEST_F(UT_GomokuMainWindow, UT_MainWindow_paintTitleBar_themeType_001)
@@ -223,4 +217,3 @@ TEST_F(UT_GomokuMainWindow, UT_MainWindow_closeEvent)
     EXPECT_EQ(m_mainwindow->m_transparentFrame->isHidden(), true)
             << "check mainwindow closeEvent";
 }
-
