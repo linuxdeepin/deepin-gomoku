@@ -30,12 +30,15 @@ class UT_GameControl : public testing::Test
 public:
     void SetUp() //TEST跑之前会执行SetUp
     {
-        m_GameControl = new GameControl(chess_white,chess_black);
+        m_GameControl = new GameControl(chess_white, chess_black);
         qInfo() << "SetUp" << endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
-        delete m_GameControl;
+        if (m_GameControl != nullptr) {
+            delete m_GameControl;
+            m_GameControl = nullptr;
+        }
         qInfo() << "TearDown" << endl;
     }
     GameControl *m_GameControl;
