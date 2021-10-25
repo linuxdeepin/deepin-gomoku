@@ -102,7 +102,7 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
 /**
  * @brief BTReplay::setButtonState 重玩按钮禁用
- * @param state
+ * @param state 重玩按钮的状态：是否禁止点击
  */
 void BTReplay::setButtonState(bool state)
 {

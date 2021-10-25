@@ -60,14 +60,10 @@ private:
      * 棋局形式评分等级
      */
     static const int SCORE_WIN5 = 100000; //五连珠分数
-//    static const int SCORE_ALIVE4_DOUBLESLEEP4_SLEEP4ALIVE3= 10000; //活四、双眠四、眠四活三分数
     static const int SCORE_ALIVE4 = 10000;//活四
     static const int SCORE_DOUBLESLEEP4_SLEEP4ALIVE3 = 8000; //双眠四、眠四活三分数
     static const int SCORE_DOUBLEALIVE3 = 5000; //双活三分数
     static const int SCORE_SLEEP3ALIVE3 = 1000; //眠三活三分数
-//    static const int SCORE_SLEEP4 = 500; //眠四分数
-//    static const int SCORE_RUSH4 = 400; //冲四分数
-//    static const int SCORE_ALIVE3 = 100; //活三分数
     static const int SCORE_ALIVE3_SLEEP4_RUSH4 = 500; //活三、眠四、冲四
     static const int SCORE_RUSH3 = 90; //冲三分数
     static const int SCORE_DOUBLEALIVE2 = 50; //双活二分数
