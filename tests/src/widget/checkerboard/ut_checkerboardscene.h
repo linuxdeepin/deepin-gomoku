@@ -35,7 +35,10 @@ public:
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
-        delete m_checkerboardScene;
+        if (m_checkerboardScene != nullptr) {
+            delete m_checkerboardScene;
+            m_checkerboardScene = nullptr;
+        }
         qInfo() << "TearDown" << endl;
     }
     CheckerboardScene *m_checkerboardScene;

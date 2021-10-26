@@ -51,7 +51,10 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
 
 GomokuMainWindow::~GomokuMainWindow()
 {
-    delete mTitleBar;
+    if (mTitleBar != nullptr) {
+        delete  mTitleBar;
+        mTitleBar = nullptr;
+    }
 }
 
 /**
@@ -82,7 +85,7 @@ void GomokuMainWindow::initUI()
     wcheckerBoard->setFixedSize(this->width(), this->height() - titlebar()->height());
     wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
 
-    checkerboardScene = new CheckerboardScene(0, 0, this->width(), this->height() - titlebar()->height());
+    checkerboardScene = new CheckerboardScene(0, 0, this->width(), this->height() - titlebar()->height(), wcheckerBoard);
     wcheckerBoard->setScene(checkerboardScene);
     connect(checkerboardScene, &CheckerboardScene::signalSelectChessPopup, this, &GomokuMainWindow::slotSelectChessPopup);
     connect(checkerboardScene, &CheckerboardScene::signalPopupResult, this, &GomokuMainWindow::slotPopupResult);
@@ -214,8 +217,10 @@ void GomokuMainWindow::slotSelectChessPopup()
     setEnabled(true);
 
     m_transparentFrame->hide();
-    delete m_selectChess;
-    m_selectChess = nullptr;
+    if (m_selectChess != nullptr) {
+        delete m_selectChess;
+        m_selectChess = nullptr;
+    }
 }
 
 /**
@@ -247,8 +252,10 @@ void GomokuMainWindow::slotReplayPopup()
 
     setEnabled(true);
 
-    delete  exitDialog;
-    exitDialog = nullptr;
+    if (exitDialog != nullptr) {
+        delete exitDialog;
+        exitDialog = nullptr;
+    }
 }
 
 /**
@@ -367,6 +374,9 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
     } else {
         event->ignore(); //事件忽略
     }
-    delete exitDialog;
-    exitDialog = nullptr;
+
+    if (exitDialog != nullptr) {
+        delete exitDialog;
+        exitDialog = nullptr;
+    }
 }
