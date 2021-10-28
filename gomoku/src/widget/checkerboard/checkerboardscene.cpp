@@ -56,18 +56,16 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
 
 CheckerboardScene::~CheckerboardScene()
 {
-    if (!chessItemList.isEmpty()) {
-        for (int i = 0; i < line_row; i++) {
-            for (int j = 0; j < line_col; j++) {
-                removeItem(chessItemList.at(i).at(j));
-                if (chessItemList[i][j] != nullptr) {
-                    delete chessItemList[i][j];
-                    chessItemList[i][j] = nullptr;
-                }
+    for (int i = 0; i < chessItemList.size(); i++) {
+        for (int j = 0; j < chessItemList.at(i).size(); j++) {
+            removeItem(chessItemList.at(i).at(j));
+            if (chessItemList[i][j] != nullptr) {
+                delete chessItemList[i][j];
+                chessItemList[i][j] = nullptr;
             }
         }
-        chessItemList.clear();
     }
+    chessItemList.clear();
 
     if (cbitem != nullptr) {
         delete cbitem;

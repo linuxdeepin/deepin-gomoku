@@ -228,34 +228,29 @@ void GomokuMainWindow::slotSelectChessPopup()
  */
 void GomokuMainWindow::slotReplayPopup()
 {
-    ExitDialog *exitDialog = new ExitDialog(compositingStatus, this);
-    connect(this, &GomokuMainWindow::signalCompositingChanged, exitDialog, &ExitDialog::slotCompositingChanged);
+    ExitDialog exitDialog(compositingStatus, this);
+    connect(this, &GomokuMainWindow::signalCompositingChanged, &exitDialog, &ExitDialog::slotCompositingChanged);
     viewtransparentFrame();
-    exitDialog->show();
+    exitDialog.show();
 
     setEnabled(false);
-    exitDialog->setEnabled(true);
+    exitDialog.setEnabled(true);
 
     //事件循环阻塞
     QEventLoop loop;
-    connect(exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
-    connect(exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+    connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+    connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     m_transparentFrame->hide();
 
-    if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
+    if (exitDialog.getResult() == BTType::BTExit) { //按钮状态是退出状态
         slotReplayFunction();
     } else {
-        exitDialog->close();
+        exitDialog.close();
     }
 
     setEnabled(true);
-
-    if (exitDialog != nullptr) {
-        delete exitDialog;
-        exitDialog = nullptr;
-    }
 }
 
 /**
@@ -345,8 +340,8 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
         return;
     }
 
-    ExitDialog *exitDialog = new ExitDialog(compositingStatus, this);
-    connect(this, &GomokuMainWindow::signalCompositingChanged, exitDialog, &ExitDialog::slotCompositingChanged);
+    ExitDialog exitDialog(compositingStatus, this);
+    connect(this, &GomokuMainWindow::signalCompositingChanged, &exitDialog, &ExitDialog::slotCompositingChanged);
 
     //如果结算窗口存在，将其关闭
     if (m_resultPopUp != nullptr)
@@ -359,24 +354,19 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
 
     viewtransparentFrame();
 
-    exitDialog->show();
+    exitDialog.show();
 
     //事件循环进入阻塞状态
     QEventLoop loop;
-    connect(exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
-    connect(exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+    connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+    connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
     m_transparentFrame->hide();
 
-    if (exitDialog->getResult() == BTType::BTExit) { //按钮状态是退出状态
+    if (exitDialog.getResult() == BTType::BTExit) { //按钮状态是退出状态
         event->accept(); //事件接受
     } else {
         event->ignore(); //事件忽略
-    }
-
-    if (exitDialog != nullptr) {
-        delete exitDialog;
-        exitDialog = nullptr;
     }
 }
