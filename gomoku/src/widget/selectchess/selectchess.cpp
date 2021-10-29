@@ -53,10 +53,10 @@ Selectchess::Selectchess(bool compositing, QWidget *parent)
  */
 void Selectchess::initUI()
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout();
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
     QHBoxLayout *closeLayout = new QHBoxLayout();
-    Closepopup *closeBt = new Closepopup();
+    Closepopup *closeBt = new Closepopup(this);
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
         emit signalDialogClose();
@@ -65,7 +65,7 @@ void Selectchess::initUI()
     closeLayout->addSpacing(10);
 
     QHBoxLayout *seleceInfoLayout = new QHBoxLayout();
-    Selectinfo *selectInfo = new Selectinfo();
+    Selectinfo *selectInfo = new Selectinfo(this);
     seleceInfoLayout->addStretch();
     seleceInfoLayout->addWidget(selectInfo);
     seleceInfoLayout->addStretch();
@@ -85,7 +85,7 @@ void Selectchess::initUI()
     buttonLayout->addStretch(70);
 
     QHBoxLayout *determineLayout = new QHBoxLayout();
-    Determinebutton *determineButton = new Determinebutton();
+    Determinebutton *determineButton = new Determinebutton(this);
     connect(determineButton, &Determinebutton::signalButtonOKClicked, this, &Selectchess::slotButtonOKClicked);
     determineLayout->addWidget(determineButton);
 

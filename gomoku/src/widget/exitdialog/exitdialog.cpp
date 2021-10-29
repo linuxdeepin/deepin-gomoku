@@ -73,8 +73,8 @@ void ExitDialog::initUI()
     QHBoxLayout *BTLayout = new QHBoxLayout();
     BTLayout->addSpacing(14); //按钮距离左边界的距离
 
-    CancelButton *cancelButton = new CancelButton();
-    ExitButton *exitButton = new ExitButton();
+    CancelButton *cancelButton = new CancelButton(this);
+    ExitButton *exitButton = new ExitButton(this);
     connect(cancelButton, &CancelButton::signalButtonOKClicked, this, &ExitDialog::soltDialogClose);
     connect(exitButton, &ExitButton::signalButtonOKClicked, this, &ExitDialog::soltGameExit);
 
