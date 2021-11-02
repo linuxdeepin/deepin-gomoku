@@ -24,8 +24,6 @@
 #include "exitlabel.h"
 #include "resultpopup/closepopup.h"
 
-#include <QHBoxLayout>
-#include <QVBoxLayout>
 #include <QPushButton>
 #include <DHiDPIHelper>
 #include <DApplication>
@@ -47,49 +45,62 @@ ExitDialog::ExitDialog(bool compositing, QWidget *parent)
 }
 
 /**
+ * @brief ExitDialog::~ExitDialog
+ */
+ExitDialog::~ExitDialog()
+{
+    if (m_mainLayout != nullptr) {
+        delete  m_mainLayout;
+        m_mainLayout = nullptr;
+    }
+
+}
+
+/**
  * @brief ExitDialog::initUI  初始化ui界面
  */
 void ExitDialog::initUI()
 {
     //上层关闭按钮布局
-    QHBoxLayout *titleLayout = new QHBoxLayout();
+    m_titleLayout = new QHBoxLayout;
     Closepopup *closeButton = new Closepopup(this);
     connect(closeButton, &Closepopup::signalCloseClicked, this, &ExitDialog::soltDialogClose);
 
-    titleLayout->addStretch();
-    titleLayout->addWidget(closeButton);
-    titleLayout->addSpacing(10); //关闭按钮距离右边界的距离
+    m_titleLayout->addStretch();
+    m_titleLayout->addWidget(closeButton);
+    m_titleLayout->addSpacing(10); //关闭按钮距离右边界的距离
 
 
     //中层标签布局
-    QHBoxLayout *textLayout = new QHBoxLayout();
-    textLayout->addStretch();
+    m_textLayout = new QHBoxLayout;
+    m_textLayout->addStretch();
 
     ExitLabel *exitLabel = new ExitLabel(this);
-    textLayout->addWidget(exitLabel);
-    textLayout->addStretch();
+    m_textLayout->addWidget(exitLabel);
+    m_textLayout->addStretch();
 
     //下层按钮布局
-    QHBoxLayout *BTLayout = new QHBoxLayout();
-    BTLayout->addSpacing(14); //按钮距离左边界的距离
+    m_BTLayout = new QHBoxLayout;
+    m_BTLayout->addSpacing(14); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton(this);
     ExitButton *exitButton = new ExitButton(this);
     connect(cancelButton, &CancelButton::signalButtonOKClicked, this, &ExitDialog::soltDialogClose);
     connect(exitButton, &ExitButton::signalButtonOKClicked, this, &ExitDialog::soltGameExit);
 
-    BTLayout->addWidget(cancelButton);
-    BTLayout->addWidget(exitButton);
-    BTLayout->addSpacing(16);//按钮距离右边界的距离
+    m_BTLayout->addWidget(cancelButton);
+    m_BTLayout->addWidget(exitButton);
+    m_BTLayout->addSpacing(16);//按钮距离右边界的距离
 
     //主布局
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
-    mainLayout->addSpacing(5);//上层布局离中间布局的距离
-    mainLayout->addLayout(titleLayout);
-    mainLayout->addLayout(textLayout);
-    mainLayout->addStretch();
-    mainLayout->addLayout(BTLayout);
-    mainLayout->addSpacing(20); //按钮距离下边界的距离
+    m_mainLayout = new QVBoxLayout;
+    m_mainLayout->addSpacing(5);//上层布局离中间布局的距离
+    m_mainLayout->addLayout(m_titleLayout);
+    m_mainLayout->addLayout(m_textLayout);
+    m_mainLayout->addStretch();
+    m_mainLayout->addLayout(m_BTLayout);
+    m_mainLayout->addSpacing(20); //按钮距离下边界的距离
+    setLayout(m_mainLayout);
 }
 
 /**

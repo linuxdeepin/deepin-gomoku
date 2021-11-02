@@ -25,13 +25,15 @@
 
 #include <QDialog>
 #include <QObject>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class Selectchess : public QDialog
 {
     Q_OBJECT
 public:
     explicit Selectchess(bool compositing, QWidget *parent = nullptr);
-
+    ~Selectchess();
     void setSelectChess(int chessColor);
     int getSelsectChess();
     void selectClose();
@@ -63,6 +65,11 @@ private:
     bool compositingStatus = false; //是否开启特效窗口
     Selectbutton *selectLButton = nullptr; //左边选项
     Selectbutton *selectRButton = nullptr; //右边选项
+    QVBoxLayout *m_mainLayout = nullptr; //主布局
+    QHBoxLayout *m_determineLayout = nullptr; //确定按钮布局
+    QHBoxLayout *m_buttonLayout = nullptr;//选择按钮布局
+    QHBoxLayout *m_seleceInfoLayout = nullptr; //选择布局
+    QHBoxLayout *m_closeLayout = nullptr; //关闭按钮布局
 };
 
 #endif // SELECTCHESS_H

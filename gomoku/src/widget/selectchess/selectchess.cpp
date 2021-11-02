@@ -27,8 +27,6 @@
 
 #include <QPainter>
 #include <QPainterPath>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 
 #include <DHiDPIHelper>
 
@@ -49,54 +47,65 @@ Selectchess::Selectchess(bool compositing, QWidget *parent)
 }
 
 /**
+ * @brief Selectchess::~Selectchess
+ */
+Selectchess::~Selectchess()
+{
+    if (m_mainLayout != nullptr) {
+        delete  m_mainLayout;
+        m_mainLayout = nullptr;
+    }
+}
+
+/**
  * @brief Selectchess::initUI 初始化界面
  */
 void Selectchess::initUI()
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    m_mainLayout = new QVBoxLayout();
 
-    QHBoxLayout *closeLayout = new QHBoxLayout();
+    m_closeLayout = new QHBoxLayout();
     Closepopup *closeBt = new Closepopup(this);
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
         emit signalDialogClose();
     });
-    closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
-    closeLayout->addSpacing(10);
+    m_closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
+    m_closeLayout->addSpacing(10);
 
-    QHBoxLayout *seleceInfoLayout = new QHBoxLayout();
+    m_seleceInfoLayout = new QHBoxLayout();
     Selectinfo *selectInfo = new Selectinfo(this);
-    seleceInfoLayout->addStretch();
-    seleceInfoLayout->addWidget(selectInfo);
-    seleceInfoLayout->addStretch();
+    m_seleceInfoLayout->addStretch();
+    m_seleceInfoLayout->addWidget(selectInfo);
+    m_seleceInfoLayout->addStretch();
 
-    QHBoxLayout *buttonLayout = new QHBoxLayout();
+    m_buttonLayout = new QHBoxLayout();
 
     Chessselected *LChessSelected = new Chessselected(chess_white);
     Chessselected *RchessSelected = new Chessselected(chess_black);
     selectRButton->setChecked(true);
     //选择的那个颜色棋子, 发送信号
-    buttonLayout->addStretch(70);
-    buttonLayout->addWidget(selectLButton);
-    buttonLayout->addWidget(LChessSelected);
-    buttonLayout->addStretch(40);
-    buttonLayout->addWidget(selectRButton);
-    buttonLayout->addWidget(RchessSelected);
-    buttonLayout->addStretch(70);
+    m_buttonLayout->addStretch(70);
+    m_buttonLayout->addWidget(selectLButton);
+    m_buttonLayout->addWidget(LChessSelected);
+    m_buttonLayout->addStretch(40);
+    m_buttonLayout->addWidget(selectRButton);
+    m_buttonLayout->addWidget(RchessSelected);
+    m_buttonLayout->addStretch(70);
 
-    QHBoxLayout *determineLayout = new QHBoxLayout();
+    m_determineLayout = new QHBoxLayout();
     Determinebutton *determineButton = new Determinebutton(this);
     connect(determineButton, &Determinebutton::signalButtonOKClicked, this, &Selectchess::slotButtonOKClicked);
-    determineLayout->addWidget(determineButton);
+    m_determineLayout->addWidget(determineButton);
 
-    mainLayout->addSpacing(5);
-    mainLayout->addLayout(closeLayout);
-    mainLayout->addLayout(seleceInfoLayout);
-    mainLayout->addLayout(buttonLayout);
-    mainLayout->addSpacing(10);
-    mainLayout->addLayout(determineLayout);
-    mainLayout->addSpacing(14);
-    setLayout(mainLayout);
+    m_mainLayout->addSpacing(5);
+    m_mainLayout->addLayout(m_closeLayout);
+    m_mainLayout->addLayout(m_seleceInfoLayout);
+    m_mainLayout->addLayout(m_buttonLayout);
+    m_mainLayout->addSpacing(10);
+    m_mainLayout->addLayout(m_determineLayout);
+    m_mainLayout->addSpacing(14);
+    setLayout(m_mainLayout);
 }
 
 /**

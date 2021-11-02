@@ -21,11 +21,15 @@
 #ifndef EXITDIALOG_H
 #define EXITDIALOG_H
 
+#include "constants.h"
+
 #include <QWidget>
 #include <DDialog>
 #include <QPixmap>
 #include <QMessageBox>
-#include "constants.h"
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+
 
 DWIDGET_USE_NAMESPACE
 class ExitDialog : public QDialog
@@ -33,6 +37,7 @@ class ExitDialog : public QDialog
     Q_OBJECT
 public:
     explicit ExitDialog(bool compositing, QWidget *parent = nullptr);
+    ~ExitDialog();
     inline BTType getResult() {return result;}
     inline void setResult(BTType r) {result = r;}
 
@@ -42,6 +47,10 @@ public:
 private:
     QPixmap backgroundQPixmap;
     bool compositingStatus = false; //是否开启特效窗口
+    QVBoxLayout *m_mainLayout = nullptr; //弹窗主布局
+    QHBoxLayout *m_titleLayout = nullptr; //上层关闭按钮布局
+    QHBoxLayout *m_textLayout = nullptr; //中层文本布局
+    QHBoxLayout *m_BTLayout = nullptr; //下层按钮布局
 
 private:
     void initUI();
