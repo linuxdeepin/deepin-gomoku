@@ -35,6 +35,12 @@ else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -Wl,-O1 -Wl,--gc-sections")
 endif()
 
+#angr安全加固
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-all")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -z relro -z now -z noexecstack -pie")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -z relro -z now -z noexecstack -pie")
+
 #配置版本号
 configure_file(${APP_RES_DIR}/environments.h.in environments.h @ONLY)
 
