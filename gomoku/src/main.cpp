@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
         app->loadTranslator();
         app->setApplicationVersion(VERSION);
 
-        QIcon t_icon = QIcon::fromTheme("deepin-gomoku");
+        QIcon t_icon = QIcon::fromTheme("com.deepin.gomoku");
         app->setProductIcon(t_icon);
         app->setProductName(QApplication::translate("GomokuWindow", "Gomoku"));
         app->setApplicationDescription(QApplication::translate("GomokuWindow", "Gomoku is a small chess game for two players."));

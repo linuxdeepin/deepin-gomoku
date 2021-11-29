@@ -72,7 +72,7 @@ void GomokuMainWindow::initUI()
     mTitleBar->setFrameShape(DFrame::NoFrame);
     mTitleBar->installEventFilter(this);
 //    //目前系统中没有游戏的图标，先这样设置
-    mTitleBar->setIcon(QIcon(":/resources/logo.svg"));
+    mTitleBar->setIcon(QIcon::fromTheme("com.deepin.gomoku"));
     mTitleBar->setAutoFillBackground(true);
     mTitleBar->setAttribute(Qt::WA_TranslucentBackground);
     mTitleBar->setBackgroundTransparent(true);

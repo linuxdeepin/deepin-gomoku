@@ -21,7 +21,6 @@
         <file>resources/playingscreen/chess_white.svg</file>
         <file>resources/playingscreen/chess_black.svg</file>
         <file>resources/checkerboard_noline.svg</file>
-        <file>resources/desktop/deepin-gomoku.svg</file>
         <file>resources/chessselected/closebutton.svg</file>
         <file>resources/music/win.wav</file>
         <file>resources/music/fail.wav</file>
@@ -52,7 +51,6 @@
         <file>resources/chess_white_now.svg</file>
         <file>resources/font/ResourceHanRoundedCN-Bold.ttf</file>
         <file>resources/music/chessone.wav</file>
-        <file>resources/logo.svg</file>
         <file>resources/chessselected/selectbase_nshadow.svg</file>
         <file>resources/exitdialog/close-dialog-nshadow.svg</file>
         <file>resources/resultpopup/background_win_nshadow.svg</file>
@@ -63,5 +61,6 @@
         <file>resources/resultpopup/background_win.svg</file>
         <file>resources/resultpopup/background_fail.svg</file>
         <file>resources/resultpopup/background_fail_nshadow.svg</file>
+        <file>resources/desktop/com.deepin.gomoku.svg</file>
     </qresource>
 </RCC>
