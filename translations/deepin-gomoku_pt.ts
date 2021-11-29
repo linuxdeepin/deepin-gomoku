@@ -4,12 +4,12 @@
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="81"/>
         <source>Sound Off</source>
-        <translation>Som Desligado</translation>
+        <translation>Som desligado</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="84"/>
         <source>Sound On</source>
-        <translation>Som Ligado</translation>
+        <translation>Som ligado</translation>
     </message>
 </context>
 <context>
@@ -17,7 +17,7 @@
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="90"/>
         <source>New Game</source>
-        <translation>Novo Jogo</translation>
+        <translation>Novo jogo</translation>
     </message>
 </context>
 <context>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="128"/>
         <source>Play Again</source>
-        <translation>Jogar Novamente</translation>
+        <translation>Jogar novamente</translation>
     </message>
 </context>
 <context>
@@ -68,7 +68,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="108"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>Aceitar</translation>
     </message>
 </context>
 <context>
@@ -97,7 +97,7 @@
     <message>
         <location filename="../gomoku/src/main.cpp" line="67"/>
         <source>Gomoku is a small chess game for two players.</source>
-        <translation>Gomoku é um pequeno jogo de xadrez para dois jogadores.</translation>
+        <translation>O Gomoku é um pequeno jogo de xadrez para dois jogadores.</translation>
     </message>
 </context>
 <context>
@@ -115,7 +115,7 @@
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="150"/>
         <source>Welcome</source>
-        <translation>Benvindo</translation>
+        <translation>Bem-vindo</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="166"/>

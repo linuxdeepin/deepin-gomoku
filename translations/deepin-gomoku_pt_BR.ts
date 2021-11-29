@@ -60,7 +60,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="114"/>
         <source>Keep Playing</source>
-        <translation>Continue jogando</translation>
+        <translation>Continuar jogando</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="30"/>
         <source>Are you sure you want to exit the game?</source>
-        <translation type="unfinished"/>
+        <translation>Tem certeza que deseja sair do jogo?</translation>
     </message>
 </context>
 <context>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="47"/>
         <source>Play as</source>
-        <translation type="unfinished"/>
+        <translation>Jogar como</translation>
     </message>
 </context>
 </TS>

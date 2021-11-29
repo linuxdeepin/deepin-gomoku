@@ -1,15 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="bo" version="2.1">
 <context>
     <name>BTMusicControl</name>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="81"/>
         <source>Sound Off</source>
-        <translation>Ton aus</translation>
+        <translation>སྒྲ་ཉམས་ཁ་བརྒྱབ།</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="84"/>
         <source>Sound On</source>
-        <translation>Ton an</translation>
+        <translation>སྒྲ་ཉམས་ཁ་ཕྱེ།</translation>
     </message>
 </context>
 <context>
@@ -17,7 +17,7 @@
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="90"/>
         <source>New Game</source>
-        <translation>Neues Spiel</translation>
+        <translation>བསྐྱར་རྩེད།</translation>
     </message>
 </context>
 <context>
@@ -26,17 +26,17 @@
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="110"/>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="143"/>
         <source>Start</source>
-        <translation>Start</translation>
+        <translation>འགོ་ཚུགས།</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="147"/>
         <source>Continue</source>
-        <translation>Fortsetzen</translation>
+        <translation>མུ་མཐུད།</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="150"/>
         <source>Pause</source>
-        <translation>Pause</translation>
+        <translation>མཚམས་འཇོག</translation>
     </message>
 </context>
 <context>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="128"/>
         <source>Play Again</source>
-        <translation>Erneut spielen</translation>
+        <translation>ཡང་བསྐྱར་ཐེངས་གཅིག</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="152"/>
         <source>Have a Rest</source>
-        <translation>Ausruhen</translation>
+        <translation>ངལ་གསོ་སྐྱོན་དང་།</translation>
     </message>
 </context>
 <context>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="114"/>
         <source>Keep Playing</source>
-        <translation>Weiterspielen</translation>
+        <translation>མུ་མཐུད་རྩེད་དང་།</translation>
     </message>
 </context>
 <context>
@@ -68,7 +68,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="108"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>གཏན་ཁེལ།</translation>
     </message>
 </context>
 <context>
@@ -76,7 +76,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="111"/>
         <source>Exit</source>
-        <translation>Beenden</translation>
+        <translation>ཕྱིར་འཐེན།</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="30"/>
         <source>Are you sure you want to exit the game?</source>
-        <translation>Bist du sicher, dass du das Spiel beenden möchtest?</translation>
+        <translation>རོལ་རྩེད་རྩེ་བཞིན་ཡོད་པས། ཕྱིར་འཐེན་བྱེད་དམ།</translation>
     </message>
 </context>
 <context>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../gomoku/src/main.cpp" line="66"/>
         <source>Gomoku</source>
-        <translation>Gomoku</translation>
+        <translation>རྡེའུ་ལྔའི་མིག་མང་།</translation>
     </message>
     <message>
         <location filename="../gomoku/src/main.cpp" line="67"/>
         <source>Gomoku is a small chess game for two players.</source>
-        <translation>Gomoku ist ein kleines Sachspiel für zwei Personen</translation>
+        <translation>རྡེའུ་ལྔའི་མིག་མང་ནི་མི་གཉིས་ཕན་ཚུན་འགྲན་རྩོད་རྩེ་བའི་རོལ་རྩེད་ཆུང་ངུ་ཞིག་རེད།</translation>
     </message>
 </context>
 <context>
@@ -105,22 +105,22 @@
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="94"/>
         <source>I am thinking...</source>
-        <translation>Ich denke...</translation>
+        <translation>ང་ལ་བསམ་བློ་གཏོང་བཅུག་དང་།</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="97"/>
         <source>Place your chess piece...</source>
-        <translation>Platziere deine Schachfigur ...</translation>
+        <translation>ཁྱེད་ཀྱི་རྡེའུ་འཇོག་རོགས་གནང་།</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="150"/>
         <source>Welcome</source>
-        <translation>Willkommen</translation>
+        <translation>རྡེའུ་ལྔའི་མིག་མང་རྩེ་བར་དགའ་བསུ་ཞུ། </translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="166"/>
         <source>Game Over!</source>
-        <translation>Game Over!</translation>
+        <translation>རོལ་རྩེད་མཇུག་འགྲིལ་སོང་།</translation>
     </message>
 </context>
 <context>
@@ -128,12 +128,12 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="46"/>
         <source>You did great!</source>
-        <translation>Das hast du toll gemacht!</translation>
+        <translation>ཁྱེད་ལ་རྟེན་འབྲེལ་ཞུ། </translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="48"/>
         <source>Game Over</source>
-        <translation>Game Over</translation>
+        <translation>མུ་མཐུད་འབད་བརྩོན་གྱིས་ཤིག</translation>
     </message>
 </context>
 <context>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="47"/>
         <source>Play as</source>
-        <translation>Spielen als</translation>
+        <translation>ཁྱེད་ཀྱི་རྡེའུའི་ཚོན་མདོག་འདེམས་རོགས། </translation>
     </message>
 </context>
 </TS>

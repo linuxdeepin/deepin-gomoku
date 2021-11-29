@@ -1,15 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="sr" version="2.1">
 <context>
     <name>BTMusicControl</name>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="81"/>
         <source>Sound Off</source>
-        <translation>Ton aus</translation>
+        <translation>Звук укљ.</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="84"/>
         <source>Sound On</source>
-        <translation>Ton an</translation>
+        <translation>Звук иск.</translation>
     </message>
 </context>
 <context>
@@ -17,7 +17,7 @@
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="90"/>
         <source>New Game</source>
-        <translation>Neues Spiel</translation>
+        <translation>Нова игра</translation>
     </message>
 </context>
 <context>
@@ -26,17 +26,17 @@
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="110"/>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="143"/>
         <source>Start</source>
-        <translation>Start</translation>
+        <translation>Почни</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="147"/>
         <source>Continue</source>
-        <translation>Fortsetzen</translation>
+        <translation>Настави</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="150"/>
         <source>Pause</source>
-        <translation>Pause</translation>
+        <translation>Паузирај</translation>
     </message>
 </context>
 <context>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="128"/>
         <source>Play Again</source>
-        <translation>Erneut spielen</translation>
+        <translation>Играј поново</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="152"/>
         <source>Have a Rest</source>
-        <translation>Ausruhen</translation>
+        <translation>Одмори</translation>
     </message>
 </context>
 <context>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="114"/>
         <source>Keep Playing</source>
-        <translation>Weiterspielen</translation>
+        <translation>Настави да играш</translation>
     </message>
 </context>
 <context>
@@ -68,7 +68,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="108"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>У реду</translation>
     </message>
 </context>
 <context>
@@ -76,7 +76,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="111"/>
         <source>Exit</source>
-        <translation>Beenden</translation>
+        <translation>Изађи</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="30"/>
         <source>Are you sure you want to exit the game?</source>
-        <translation>Bist du sicher, dass du das Spiel beenden möchtest?</translation>
+        <translation>Заиста желите да изађете из игре?</translation>
     </message>
 </context>
 <context>
@@ -92,12 +92,12 @@
     <message>
         <location filename="../gomoku/src/main.cpp" line="66"/>
         <source>Gomoku</source>
-        <translation>Gomoku</translation>
+        <translation>Гомоку</translation>
     </message>
     <message>
         <location filename="../gomoku/src/main.cpp" line="67"/>
         <source>Gomoku is a small chess game for two players.</source>
-        <translation>Gomoku ist ein kleines Sachspiel für zwei Personen</translation>
+        <translation>Гомоку је мала игра на табли за два играча.</translation>
     </message>
 </context>
 <context>
@@ -105,22 +105,22 @@
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="94"/>
         <source>I am thinking...</source>
-        <translation>Ich denke...</translation>
+        <translation>Размишљам...</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="97"/>
         <source>Place your chess piece...</source>
-        <translation>Platziere deine Schachfigur ...</translation>
+        <translation>Поставите своју фигуру...</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="150"/>
         <source>Welcome</source>
-        <translation>Willkommen</translation>
+        <translation>Добро дошли</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="166"/>
         <source>Game Over!</source>
-        <translation>Game Over!</translation>
+        <translation>Крај игре!</translation>
     </message>
 </context>
 <context>
@@ -128,12 +128,12 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="46"/>
         <source>You did great!</source>
-        <translation>Das hast du toll gemacht!</translation>
+        <translation>Били сте одлични!</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="48"/>
         <source>Game Over</source>
-        <translation>Game Over</translation>
+        <translation>Крај игре</translation>
     </message>
 </context>
 <context>
@@ -141,7 +141,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="47"/>
         <source>Play as</source>
-        <translation>Spielen als</translation>
+        <translation>Играј као</translation>
     </message>
 </context>
 </TS>
