@@ -321,7 +321,7 @@ void GomokuMainWindow::slotCompositingChanged(bool status)
 void GomokuMainWindow::changeEvent(QEvent *event)
 {
     if (event->type() != QEvent::WindowStateChange) return;
-    if (this->windowState() == Qt::WindowMinimized) {
+    if (this->windowState().testFlag(Qt::WindowMinimized) && checkerboardScene) {
         checkerboardScene->stopGAme();
     }
     DMainWindow::changeEvent(event);
