@@ -204,17 +204,21 @@ void GomokuMainWindow::slotSelectChessPopup()
     });
     connect(checkerboardScene, &CheckerboardScene::signalCloSelectPopup, m_selectChess, &Selectchess::slotCloseSelectPopup);
     viewtransparentFrame();
-    m_selectChess->show();
+    if (qApp->platformName() == "dwayland" || qApp->property("_d_isDwayland").toBool()) {
+        m_selectChess->exec();
+    } else {
+        m_selectChess->show();
 
-    setEnabled(false);
-    m_selectChess->setEnabled(true);
-    //事件循环进入阻塞状态
-    QEventLoop loop;
-    connect(m_selectChess, &Selectchess::signalButtonOKClicked, &loop, &QEventLoop::quit);
-    connect(m_selectChess, &Selectchess::signalDialogClose, &loop, &QEventLoop::quit);
-    connect(m_selectChess, &Selectchess::finished, &loop, &QEventLoop::quit);
-    loop.exec();
-    setEnabled(true);
+        setEnabled(false);
+        m_selectChess->setEnabled(true);
+        //事件循环进入阻塞状态
+        QEventLoop loop;
+        connect(m_selectChess, &Selectchess::signalButtonOKClicked, &loop, &QEventLoop::quit);
+        connect(m_selectChess, &Selectchess::signalDialogClose, &loop, &QEventLoop::quit);
+        connect(m_selectChess, &Selectchess::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+        setEnabled(true);
+    }
 
     m_transparentFrame->hide();
     if (m_selectChess != nullptr) {
@@ -231,16 +235,18 @@ void GomokuMainWindow::slotReplayPopup()
     ExitDialog exitDialog(compositingStatus, this);
     connect(this, &GomokuMainWindow::signalCompositingChanged, &exitDialog, &ExitDialog::slotCompositingChanged);
     viewtransparentFrame();
-    exitDialog.show();
-
-    setEnabled(false);
-    exitDialog.setEnabled(true);
-
-    //事件循环阻塞
-    QEventLoop loop;
-    connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
-    connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
-    loop.exec();
+    if (qApp->platformName() == "dwayland" || qApp->property("_d_isDwayland").toBool()) {
+        exitDialog.exec();
+    } else {
+        exitDialog.show();
+        setEnabled(false);
+        exitDialog.setEnabled(true);
+        //事件循环阻塞
+        QEventLoop loop;
+        connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+        connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+    }
 
     m_transparentFrame->hide();
 
@@ -354,14 +360,17 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
 
     viewtransparentFrame();
 
-    exitDialog.show();
-
-    //事件循环进入阻塞状态
-    QEventLoop loop;
-    connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
-    connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
-    loop.exec();
-
+    //判断Wayland环境下直接设置弹窗为模态.
+    if (qApp->platformName() == "dwayland" || qApp->property("_d_isDwayland").toBool()) {
+        exitDialog.exec();
+    } else {
+        exitDialog.show();
+        //事件循环进入阻塞状态
+        QEventLoop loop;
+        connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+        connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+        loop.exec();
+    }
     m_transparentFrame->hide();
 
     if (exitDialog.getResult() == BTType::BTExit) { //按钮状态是退出状态
