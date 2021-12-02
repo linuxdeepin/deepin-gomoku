@@ -81,9 +81,9 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 
     painter->save();
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(23);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().functionButton);
     font.setBold(true);
     painter->setFont(font);
     if (!firstStartGame && pressStatus) {
@@ -91,12 +91,18 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     } else {
         painter->setPen(QColor("#024526"));
     }
+
+    QFontMetrics fontMetrics(font);
+    QString replayText = tr("New Game");
+    int musicTextWidth = static_cast<int>(rectWidth - (rectWidth * textPosWidth));
+    setElidedText(replayText, fontMetrics, musicTextWidth);
+
     //首次开始游戏
     if (firstStartGame)
         painter->setOpacity(0.4); //设置图片透明度
     painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
                               rectY + rectHeight * textPosHeight),
-                      tr("New Game"));
+                      replayText);
     painter->restore();
 }
 

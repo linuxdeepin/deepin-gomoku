@@ -64,7 +64,7 @@ void Selectchess::initUI()
 {
     m_mainLayout = new QVBoxLayout();
 
-    m_closeLayout = new QHBoxLayout();
+    QHBoxLayout *m_closeLayout = new QHBoxLayout();
     Closepopup *closeBt = new Closepopup(this);
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
@@ -73,13 +73,14 @@ void Selectchess::initUI()
     m_closeLayout->addWidget(closeBt, 0, Qt::AlignRight);
     m_closeLayout->addSpacing(10);
 
-    m_seleceInfoLayout = new QHBoxLayout();
+    QHBoxLayout *m_seleceInfoLayout = new QHBoxLayout();
     Selectinfo *selectInfo = new Selectinfo(this);
+    selectInfo->setMinimumWidth((this->width() / 3) * 2);
     m_seleceInfoLayout->addStretch();
     m_seleceInfoLayout->addWidget(selectInfo);
     m_seleceInfoLayout->addStretch();
 
-    m_buttonLayout = new QHBoxLayout();
+    QHBoxLayout *m_buttonLayout = new QHBoxLayout();
 
     Chessselected *LChessSelected = new Chessselected(chess_white);
     Chessselected *RchessSelected = new Chessselected(chess_black);
@@ -93,7 +94,7 @@ void Selectchess::initUI()
     m_buttonLayout->addWidget(RchessSelected);
     m_buttonLayout->addStretch(70);
 
-    m_determineLayout = new QHBoxLayout();
+    QHBoxLayout *m_determineLayout = new QHBoxLayout();
     Determinebutton *determineButton = new Determinebutton(this);
     connect(determineButton, &Determinebutton::signalButtonOKClicked, this, &Selectchess::slotButtonOKClicked);
     m_determineLayout->addWidget(determineButton);

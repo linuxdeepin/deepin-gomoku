@@ -80,7 +80,6 @@ void BTStartPause::setNotFirstGame()
     update();
 }
 
-
 QRectF BTStartPause::boundingRect() const
 {
     //设置按钮位置,并根据图片大小设置rect大小
@@ -101,14 +100,19 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     qreal rectHeight = this->boundingRect().height(); //矩形高度
 
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(23);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().functionButton);
     font.setBold(true);
 
     painter->setRenderHint(QPainter::Antialiasing);
 
+    QFontMetrics fontMetrics(font);
+    QString replayText;
+    int startTextWidth = static_cast<int>(rectWidth - (rectWidth * textPosWidth));
+
     if (gameOverStatus) {
+        replayText = tr("Start");
         painter->save();
         painter->drawPixmap(QPointF(rectX, rectY),
                             DHiDPIHelper::loadNxPixmap(":/resources/function_button/normal.svg"));
@@ -118,10 +122,6 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
                             beginPixmap);
         painter->setFont(font);
         painter->setPen(QColor("#024526"));
-        painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
-                                  rectY + rectHeight * textPosHeight),
-                          tr("Start"));
-        painter->restore();
     } else {
         painter->save();
         painter->setPen(Qt::NoPen);
@@ -154,23 +154,18 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
         } else {
             painter->setPen(QColor("#024526"));
         }
+
         if (firstStartGame) {
-            painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
-                                      rectY + rectHeight * textPosHeight),
-                              tr("Start"));
+            replayText = tr("Start");
         } else {
-            if (mouseReleased) {
-                painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
-                                          rectY + rectHeight * textPosHeight),
-                                  tr("Continue"));
-            } else {
-                painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
-                                          rectY + rectHeight * textPosHeight),
-                                  tr("Pause"));
-            }
+            replayText = mouseReleased ? tr("Continue") : tr("Pause");
         }
-        painter->restore();
     }
+    setElidedText(replayText, fontMetrics, startTextWidth);
+    painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
+                                         rectY + rectHeight * textPosHeight),
+                                 replayText);
+    painter->restore();
 }
 
 //按钮功能

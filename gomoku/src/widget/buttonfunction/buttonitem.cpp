@@ -82,6 +82,16 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
+void ButtonItem::setElidedText(QString &text, QFontMetrics &fontMetrics, const int textWidth)
+{
+    if (fontMetrics.width(text) > (textWidth - 8)) { //判断字符串是否超出长度
+        setToolTip(text);
+        text = fontMetrics.elidedText(text, Qt::ElideRight, textWidth - 16); //超出后截断用省略号显示
+    } else {
+        setToolTip(nullptr);
+    }
+}
+
 /**
  * @brief ButtonItem::setFirstGame //设置为新游戏状态
  */

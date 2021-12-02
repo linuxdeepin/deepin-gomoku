@@ -71,6 +71,7 @@ void Resultpopup::initUI()
     closeLayout->addSpacing(328); //关闭按钮到右侧边界距离
 
     QHBoxLayout *labelLayout = new QHBoxLayout();
+    resultInfo->setMinimumWidth(this->width());
     labelLayout->addWidget(resultInfo, 0, Qt::AlignHCenter);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();

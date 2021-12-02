@@ -28,7 +28,7 @@
 #include <QDebug>
 
 CancelButton::CancelButton(QWidget *parent)
-    : DWidget(parent)
+    : QWidget(parent)
     , buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-normal.svg"))
     , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-hover.svg"))
     , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/cancel-press.svg"))
@@ -109,15 +109,22 @@ void CancelButton::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(20);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton
+                      - Globaltool::instacne()->getFontSize().dialogOffset); //阻塞弹窗按钮字体大小为17
     painter.setPen("#02412c"); //字体颜色
     if (buttonPressed) {
         painter.setPen("#ffdb9e");
     }
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Keep Playing"));
+    QFontMetrics fontMetrics(font);
+    QString text = tr("Keep Playing");
+    if (fontMetrics.width(text) > (this->rect().width() - 20)) { //判断字符串是否超出长度
+        setToolTip(text);
+        text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);//超出后截断用省略号显示
+    }
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();
     DWidget::paintEvent(event);
 }

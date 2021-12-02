@@ -24,7 +24,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QMouseEvent>
-
+#include <QtDebug>
 #include <DHiDPIHelper>
 
 Determinebutton::Determinebutton(QWidget *parent)
@@ -103,9 +103,10 @@ void Determinebutton::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(20);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton
+                      - (Globaltool::instacne()->getFontSize().dialogOffset * 2)); //选子弹窗按钮字体大小为14
     painter.setPen("#492c04");
     if (buttonPressed) {
         painter.setPen("#ffdb9e");

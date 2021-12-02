@@ -28,15 +28,16 @@ ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
     setMinimumWidth(204);
     setMinimumHeight(66);
     setText(tr("Are you sure you want to exit the game?"));
-    setAlignment(Qt::AlignHCenter | Qt::AlignBottom);
+    setAlignment(Qt::AlignCenter);
 
     QPalette palCancel;
     palCancel.setColor(QPalette::WindowText, QColor("#024526"));
     setPalette(palCancel);
 
     QFont tipFont;
-    tipFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    tipFont.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     tipFont.setWeight(QFont::Bold);
-    tipFont.setPixelSize(25); //字体大小
+    tipFont.setPixelSize(Globaltool::instacne()->getFontSize().dialogLabel
+                         - Globaltool::instacne()->getFontSize().dialogOffset); //阻塞弹窗标签字体大小为22
     setFont(tipFont);
 }

@@ -35,7 +35,6 @@
 #include <DHiDPIHelper>
 
 DWIDGET_USE_NAMESPACE
-
 class ButtonItem : public QObject, public QGraphicsItem
 {
     Q_OBJECT
@@ -53,6 +52,7 @@ protected:
 
     virtual void buttonFunction() = 0;
     virtual void setNotFirstGame() = 0;
+    void setElidedText(QString &text, QFontMetrics &fontMetrics, const int textWidth);
 
     bool mouseReleased = true; //鼠标是否释放
     bool pressStatus = false; //鼠标点击状态标志

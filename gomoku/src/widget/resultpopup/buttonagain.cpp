@@ -121,9 +121,9 @@ void Buttonagain::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(QRect(0, 0, 160, 42), currentPixmap);
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(20);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton);
     painter.setPen("#492c04");
     if (buttonPressed) {
         if (currentPixmap == againPress) {
@@ -133,7 +133,13 @@ void Buttonagain::paintEvent(QPaintEvent *event)
         }
     }
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Play Again"));
+    QFontMetrics fontMetrics(font);
+    QString text = tr("Play Again");
+    if (fontMetrics.width(text) > (this->rect().width() - 20)) {
+        setToolTip(text);
+        text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);
+    }
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();
     DWidget::paintEvent(event);
 }

@@ -66,7 +66,7 @@ private:
     const qreal playingScreenPosWidth = 0.7; //对局详情位置占整个scene宽度比例
     const qreal playingScreenPosHeight = 0.005; //对局详情位置占整个scene高度比例
 
-    const qreal chessPlayingTextPosWidth = 0.1764; //当前下棋提示语位置占整个scene宽度比例
+    const qreal chessPlayingTextPosWidth = 0.0164; //当前下棋提示语位置占整个scene宽度比例
     const qreal gameOverTextPosWidth = 0.2964; //当前下棋提示语位置占整个scene宽度比例
     const qreal chessPlayingTextPosHeight = 0.2; //当前下棋提示语位置占整个scene宽度比例
 //    const qreal currentPlayerPosWidth = 0.1332; //当前旗手位置占整个scene宽度比例

@@ -34,6 +34,16 @@ Globaltool::~Globaltool()
 {
 }
 
+/**
+ * @brief Globaltool::instacne 获取单例
+ * @return
+ */
+Globaltool *Globaltool::instacne()
+{
+    static Globaltool globaltool;
+    return &globaltool;
+}
+
 QPixmap Globaltool::getDpiPixmap(QSize size, const QString &filename, QWidget *w)
 {
     QPixmap pixmap;
@@ -130,3 +140,17 @@ QString Globaltool::loadFontFamilyFromFiles(const QString &fontFileName)
         tmd.insert(fontFileName, font);
     return font;
 }
+
+void Globaltool::loadSystemLanguage()
+{
+    QLocale locale;
+    if (locale.name() == "bo_CN") { //如果是藏语，
+        gomokuFontManagement.dialogOffset = 3; //偏移量为3
+        gomokuFontManagement.welcomeText = 20; //欢迎字号变为20号
+    } else if (locale.name() == "zh_CN" || locale.name() == "zh_HK"
+               || locale.name() == "zh_TW") { //如果是中文功能按钮为23号字体
+        gomokuFontManagement.functionButton = 23;
+    }
+    qInfo() << "当前系统的语言:" << locale.name();
+}
+

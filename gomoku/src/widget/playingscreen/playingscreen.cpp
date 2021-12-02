@@ -94,9 +94,9 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         if (gameOverStatus) {
             painter->save();
             QFont gameOverFont;
-            gameOverFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+            gameOverFont.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
             gameOverFont.setWeight(QFont::Bold);
-            gameOverFont.setPixelSize(24);
+            gameOverFont.setPixelSize(Globaltool::instacne()->getFontSize().gameOverText);
             gameOverFont.setBold(true);
             painter->setFont(gameOverFont);
             painter->setPen(QColor("#ffdb9e"));
@@ -113,18 +113,18 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
             //游戏开始后
             painter->save();
             QFont font;
-            int fontSize = 24;
-            font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+            int fontSize = Globaltool::instacne()->getFontSize().chessStatement;
+            font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
             font.setWeight(QFont::Black);
             font.setPixelSize(fontSize);
             painter->setFont(font);
             painter->setPen(QColor("#ffdb9e"));
             QString playerText;
             if (AIPlayer) {
-                playerText = Globaltool::AutoFeed(tr("I am thinking..."), fontSize,
+                playerText = Globaltool::instacne()->AutoFeed(tr("I am thinking..."), fontSize,
                                                   static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
             } else {
-                playerText = Globaltool::AutoFeed(tr("Place your chess piece..."), fontSize,
+                playerText = Globaltool::instacne()->AutoFeed(tr("Place your chess piece..."), fontSize,
                                                   static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
             }
             painter->drawText(QRect(static_cast<int>(rectX),
@@ -186,19 +186,22 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
         painter->restore();
     } else if (!gamePlaying) {
         //游戏还未开始
+        int fontSize = Globaltool::instacne()->getFontSize().welcomeText;
         painter->save();
         QFont welcomeFont;
-        welcomeFont.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+        welcomeFont.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
         welcomeFont.setWeight(QFont::Black);
-        welcomeFont.setPixelSize(30);
+        welcomeFont.setPixelSize(fontSize);
         painter->setFont(welcomeFont);
         painter->setPen(QColor("#ffdb9e"));
+        QString playerText = Globaltool::instacne()->AutoFeed(tr("Welcome"), fontSize,
+                                          static_cast<int>(rectWidth * (1 - chessPlayingTextPosWidth)));
         painter->drawText(QRect(static_cast<int>(rectX),
                                 static_cast<int>(rectY + rectHeight * sWelcomePosHeight1),
                                 static_cast<int>(rectWidth),
                                 static_cast<int>(rectHeight)),
                           Qt::AlignHCenter,
-                          tr("Welcome"));
+                          playerText);
         painter->restore();
     }
 }

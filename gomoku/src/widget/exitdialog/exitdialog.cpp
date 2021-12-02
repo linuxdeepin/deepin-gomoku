@@ -62,7 +62,7 @@ ExitDialog::~ExitDialog()
 void ExitDialog::initUI()
 {
     //上层关闭按钮布局
-    m_titleLayout = new QHBoxLayout;
+    QHBoxLayout *m_titleLayout = new QHBoxLayout;
     Closepopup *closeButton = new Closepopup(this);
     connect(closeButton, &Closepopup::signalCloseClicked, this, &ExitDialog::soltDialogClose);
 
@@ -72,7 +72,7 @@ void ExitDialog::initUI()
 
 
     //中层标签布局
-    m_textLayout = new QHBoxLayout;
+    QHBoxLayout *m_textLayout = new QHBoxLayout;
     m_textLayout->addStretch();
 
     ExitLabel *exitLabel = new ExitLabel(this);
@@ -80,7 +80,7 @@ void ExitDialog::initUI()
     m_textLayout->addStretch();
 
     //下层按钮布局
-    m_BTLayout = new QHBoxLayout;
+    QHBoxLayout *m_BTLayout = new QHBoxLayout;
     m_BTLayout->addSpacing(14); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton(this);

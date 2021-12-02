@@ -78,6 +78,7 @@ int main(int argc, char *argv[])
         //保存主题
         DApplicationSettings applicationset(app);
 
+        Globaltool::instacne()->loadSystemLanguage();
         GomokuMainWindow ww;
         ww.show();
 

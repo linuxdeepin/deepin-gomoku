@@ -66,10 +66,10 @@ private:
     Selectbutton *selectLButton = nullptr; //左边选项
     Selectbutton *selectRButton = nullptr; //右边选项
     QVBoxLayout *m_mainLayout = nullptr; //主布局
-    QHBoxLayout *m_determineLayout = nullptr; //确定按钮布局
-    QHBoxLayout *m_buttonLayout = nullptr;//选择按钮布局
-    QHBoxLayout *m_seleceInfoLayout = nullptr; //选择布局
-    QHBoxLayout *m_closeLayout = nullptr; //关闭按钮布局
+//    QHBoxLayout *m_determineLayout = nullptr; //确定按钮布局
+//    QHBoxLayout *m_buttonLayout = nullptr;//选择按钮布局
+//    QHBoxLayout *m_seleceInfoLayout = nullptr; //选择布局
+//    QHBoxLayout *m_closeLayout = nullptr; //关闭按钮布局
 };
 
 #endif // SELECTCHESS_H

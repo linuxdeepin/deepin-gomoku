@@ -25,9 +25,10 @@
 #include <QPainterPath>
 #include <QMouseEvent>
 #include <DHiDPIHelper>
+#include <QDebug>
 
 ExitButton::ExitButton(QWidget *parent)
-    : DWidget(parent)
+    : QWidget(parent)
     , buttonNormal(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-normal.svg"))
     , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-hover.svg"))
     , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/exit-press.svg"))
@@ -106,15 +107,22 @@ void ExitButton::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(20);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton
+                      - Globaltool::instacne()->getFontSize().dialogOffset); //阻塞弹窗按钮字体大小为17
     painter.setPen("#6e3b3b"); //字体颜色
     if (buttonPressed) {
         painter.setPen("#ffdb9e");
     }
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Exit"));
+    QFontMetrics fontMetrics(font);
+    QString text = tr("Exit");
+    if (fontMetrics.width(text) > (this->rect().width() - 20)) {
+        setToolTip(text);
+        text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);
+    }
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();
     DWidget::paintEvent(event);
 }

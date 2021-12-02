@@ -29,18 +29,22 @@ class BTMusicControl : public ButtonItem
 public:
     explicit BTMusicControl(QGraphicsItem *parent = nullptr);
     ~BTMusicControl() override;
+    void setNotFirstGame() override;
 
-public:
+protected:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+    void buttonFunction() override;
 
-    void setNotFirstGame() override;
+    /**
+     * @brief setElidedText 字符串太长时截断并且显示tipTool
+     * @param text 需要显示的字符串
+     * @param fontMetrics 字体度量器
+     */
+//    void setElidedText(QString &text, QFontMetrics &fontMetrics, const int textWidth) override;
 
 signals:
     void signalMusic(bool musicControl);
-
-private:
-    void buttonFunction() override;
 
 private:
     QPixmap voicePixmap; //声音开启图片

@@ -50,7 +50,6 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     qreal rectY = this->boundingRect().y(); //矩形起始位置Y
     qreal rectWidth = this->boundingRect().width(); //矩形宽度
     qreal rectHeight = this->boundingRect().height(); //矩形高度
-
     painter->setRenderHint(QPainter::Antialiasing);
 
     painter->save();
@@ -74,9 +73,10 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
 
     painter->save();
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Black);
-    font.setPixelSize(23);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().functionButton);
     font.setBold(true);
     painter->setFont(font);
     if (pressStatus) {
@@ -84,15 +84,16 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
     } else {
         painter->setPen(QColor("#024526"));
     }
-    if (mouseReleased) {
-        painter->drawText(QPointF(rectX + rectWidth * musicTextPosWidth,
-                                  rectY + rectHeight * textPosHeight),
-                          tr("Sound Off"));
-    } else {
-        painter->drawText(QPointF(rectX + rectWidth * musicTextPosWidth,
-                                  rectY + rectHeight * textPosHeight),
-                          tr("Sound On"));
-    }
+
+    QFontMetrics fontMetrics(font);
+    QString musicText;
+    int musicTextWidth = static_cast<int>(rectWidth - (rectWidth * musicTextPosWidth));
+
+    musicText =  mouseReleased ? tr("Sound Off") : tr("Sound On");
+    setElidedText(musicText, fontMetrics, musicTextWidth);
+    painter->drawText(QPointF(rectX + rectWidth * musicTextPosWidth,
+                              rectY + rectHeight * textPosHeight),
+                      musicText);
     painter->restore();
 }
 

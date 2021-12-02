@@ -40,12 +40,13 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     painter.save();
     painter.setPen("#02412c");
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(25);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogLabel
+                      - (Globaltool::instacne()->getFontSize().dialogOffset) * 3); //阻塞弹窗标签字体大小为16
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, tr("Play as"));
+    QString str = tr("Play as");
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, str);
     painter.restore();
-
     DLabel::paintEvent(event);
 }

@@ -24,7 +24,7 @@
 #include <QPainter>
 #include <QPainterPath>
 #include <QMouseEvent>
-
+#include <QDebug>
 #include <DHiDPIHelper>
 
 Buttonrest::Buttonrest(QWidget *parent)
@@ -142,9 +142,9 @@ void Buttonrest::paintEvent(QPaintEvent *event)
     painter.setPen(Qt::NoPen);
     painter.drawPixmap(this->rect(), currentPixmap);
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(20);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton);
     painter.setPen("#353535");
     if (buttonPressed) {
         if (currentPixmap == winRestPress) {
@@ -154,7 +154,13 @@ void Buttonrest::paintEvent(QPaintEvent *event)
         }
     }
     painter.setFont(font);
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, tr("Have a Rest"));
+    QFontMetrics fontMetrics(font);
+    QString text = tr("Have a Rest");
+    if (fontMetrics.width(text) > (this->rect().width() - 20)) {
+        setToolTip(text);
+        text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);
+    }
+    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();
     DWidget::paintEvent(event);
 }

@@ -48,9 +48,7 @@ private:
     QPixmap backgroundQPixmap;
     bool compositingStatus = false; //是否开启特效窗口
     QVBoxLayout *m_mainLayout = nullptr; //弹窗主布局
-    QHBoxLayout *m_titleLayout = nullptr; //上层关闭按钮布局
-    QHBoxLayout *m_textLayout = nullptr; //中层文本布局
-    QHBoxLayout *m_BTLayout = nullptr; //下层按钮布局
+
 
 private:
     void initUI();

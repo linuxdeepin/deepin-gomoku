@@ -61,9 +61,9 @@ void Resultinfo::paintEvent(QPaintEvent *event)
     painter.save();
     painter.setPen("#353535");
     QFont font;
-    font.setFamily(Globaltool::loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(25);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogLabel);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, strResult);
     painter.restore();
