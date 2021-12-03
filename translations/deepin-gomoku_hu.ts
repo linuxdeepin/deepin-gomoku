@@ -2,12 +2,12 @@
 <context>
     <name>BTMusicControl</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="81"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="90"/>
         <source>Sound Off</source>
         <translation>Hang kikapcsolása</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="84"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="94"/>
         <source>Sound On</source>
         <translation>Hang bekapcsolása</translation>
     </message>
@@ -15,7 +15,7 @@
 <context>
     <name>BTReplay</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="90"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="99"/>
         <source>New Game</source>
         <translation>Új játék</translation>
     </message>
@@ -23,18 +23,18 @@
 <context>
     <name>BTStartPause</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="110"/>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="143"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="123"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="160"/>
         <source>Start</source>
         <translation>Indítás</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="147"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="165"/>
         <source>Continue</source>
         <translation>Folytatás</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="150"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="169"/>
         <source>Pause</source>
         <translation>Szünet</translation>
     </message>
@@ -42,7 +42,7 @@
 <context>
     <name>Buttonagain</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="128"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="136"/>
         <source>Play Again</source>
         <translation>Új játék</translation>
     </message>
@@ -50,7 +50,7 @@
 <context>
     <name>Buttonrest</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="152"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="157"/>
         <source>Have a Rest</source>
         <translation>Tartson szünetet</translation>
     </message>
@@ -58,7 +58,7 @@
 <context>
     <name>CancelButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="114"/>
+        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="120"/>
         <source>Keep Playing</source>
         <translation>Játsszon tovább</translation>
     </message>
@@ -66,7 +66,7 @@
 <context>
     <name>Determinebutton</name>
     <message>
-        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="108"/>
+        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="114"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -74,7 +74,7 @@
 <context>
     <name>ExitButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="111"/>
+        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="117"/>
         <source>Exit</source>
         <translation>Kilépés</translation>
     </message>
@@ -90,12 +90,13 @@
 <context>
     <name>GomokuWindow</name>
     <message>
-        <location filename="../gomoku/src/main.cpp" line="66"/>
+        <location filename="../gomoku/src/main.cpp" line="63"/>
+        <location filename="../gomoku/src/main.cpp" line="64"/>
         <source>Gomoku</source>
         <translation>Gomoku</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/main.cpp" line="67"/>
+        <location filename="../gomoku/src/main.cpp" line="65"/>
         <source>Gomoku is a small chess game for two players.</source>
         <translation>A Gomoku egy kis sakkjáték két játékos számára.</translation>
     </message>
@@ -103,22 +104,22 @@
 <context>
     <name>PlayingScreen</name>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="94"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="124"/>
         <source>I am thinking...</source>
         <translation>Gondolkodom...</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="97"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="127"/>
         <source>Place your chess piece...</source>
         <translation>Helyezze el a sakkbábuját...</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="150"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="201"/>
         <source>Welcome</source>
         <translation>Üdvözöljük</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="166"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="110"/>
         <source>Game Over!</source>
         <translation>Játék vége!</translation>
     </message>
