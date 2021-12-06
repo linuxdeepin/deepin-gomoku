@@ -260,6 +260,7 @@ void GomokuMainWindow::slotReplayPopup()
         QEventLoop loop;
         connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
         connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+        ifDialog = true;
         loop.exec();
     }
 
@@ -272,6 +273,7 @@ void GomokuMainWindow::slotReplayPopup()
     }
 
     setEnabled(true);
+    ifDialog = false;
 }
 
 /**
@@ -361,33 +363,25 @@ void GomokuMainWindow::closeEvent(QCloseEvent *event)
         return;
     }
 
+
     ExitDialog exitDialog(compositingStatus, this);
     connect(this, &GomokuMainWindow::signalCompositingChanged, &exitDialog, &ExitDialog::slotCompositingChanged);
+    if (!ifDialog) {
+        viewtransparentFrame();
 
-    //如果结算窗口存在，将其关闭
-    if (m_resultPopUp != nullptr)
-        m_resultPopUp->popupClose();
-
-    //如果选子弹窗存在，将其关闭
-    if (m_selectChess != nullptr)
-        m_selectChess->selectClose();
-
-
-    viewtransparentFrame();
-
-    //判断Wayland环境下直接设置弹窗为模态.
-    if (qApp->platformName() == "dwayland" || qApp->property("_d_isDwayland").toBool()) {
-        exitDialog.exec();
-    } else {
-        exitDialog.show();
-        //事件循环进入阻塞状态
-        QEventLoop loop;
-        connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
-        connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
-        loop.exec();
+        //判断Wayland环境下直接设置弹窗为模态.
+        if (qApp->platformName() == "dwayland" || qApp->property("_d_isDwayland").toBool()) {
+            exitDialog.exec();
+        } else {
+            exitDialog.show();
+            //事件循环进入阻塞状态
+            QEventLoop loop;
+            connect(&exitDialog, &ExitDialog::signalClicked, &loop, &QEventLoop::quit);
+            connect(&exitDialog, &ExitDialog::finished, &loop, &QEventLoop::quit);
+            loop.exec();
+        }
+        m_transparentFrame->hide();
     }
-    m_transparentFrame->hide();
-
     if (exitDialog.getResult() == BTType::BTExit) { //按钮状态是退出状态
         event->accept(); //事件接受
     } else {

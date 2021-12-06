@@ -71,6 +71,7 @@ private:
     CheckerboardScene *checkerboardScene = nullptr;
     Resultpopup *m_resultPopUp = nullptr;
     Selectchess *m_selectChess = nullptr;
+    bool ifDialog = false;
 };
 
 #endif // GOMOKUMAINWINDOW_H

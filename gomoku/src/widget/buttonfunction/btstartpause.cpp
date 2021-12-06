@@ -163,8 +163,8 @@ void BTStartPause::paint(QPainter *painter, const QStyleOptionGraphicsItem *opti
     }
     setElidedText(replayText, fontMetrics, startTextWidth);
     painter->drawText(QPointF(rectX + rectWidth * textPosWidth,
-                                         rectY + rectHeight * textPosHeight),
-                                 replayText);
+                              rectY + rectHeight * textPosHeight),
+                      replayText);
     painter->restore();
 }
 
