@@ -123,7 +123,8 @@ void Buttonagain::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton
+                      - Globaltool::instacne()->getFontSize().dialogOffset);
     painter.setPen("#492c04");
     if (buttonPressed) {
         if (currentPixmap == againPress) {

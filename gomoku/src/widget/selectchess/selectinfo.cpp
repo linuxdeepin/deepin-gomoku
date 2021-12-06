@@ -43,7 +43,7 @@ void Selectinfo::paintEvent(QPaintEvent *event)
     font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
     font.setPixelSize(Globaltool::instacne()->getFontSize().dialogLabel
-                      - (Globaltool::instacne()->getFontSize().dialogOffset) * 3); //阻塞弹窗标签字体大小为16
+                      - (Globaltool::instacne()->getFontSize().dialogOffset * 2) - 1); //选子弹窗标签字体大小为18
     painter.setFont(font);
     QString str = tr("Play as");
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignBottom, str);

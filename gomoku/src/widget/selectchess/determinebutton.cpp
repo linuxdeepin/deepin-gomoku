@@ -106,7 +106,7 @@ void Determinebutton::paintEvent(QPaintEvent *event)
     font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
     font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton
-                      - (Globaltool::instacne()->getFontSize().dialogOffset * 2)); //选子弹窗按钮字体大小为14
+                      - Globaltool::instacne()->getFontSize().dialogOffset); //选子弹窗按钮字体大小为17
     painter.setPen("#492c04");
     if (buttonPressed) {
         painter.setPen("#ffdb9e");

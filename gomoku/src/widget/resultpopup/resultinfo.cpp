@@ -63,7 +63,8 @@ void Resultinfo::paintEvent(QPaintEvent *event)
     QFont font;
     font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
     font.setWeight(QFont::Bold);
-    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogLabel);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogLabel
+                      - Globaltool::instacne()->getFontSize().dialogOffset);
     painter.setFont(font);
     painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, strResult);
     painter.restore();

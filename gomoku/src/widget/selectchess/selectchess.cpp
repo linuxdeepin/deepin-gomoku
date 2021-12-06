@@ -75,7 +75,7 @@ void Selectchess::initUI()
 
     QHBoxLayout *m_seleceInfoLayout = new QHBoxLayout();
     Selectinfo *selectInfo = new Selectinfo(this);
-    selectInfo->setMinimumWidth((this->width() / 3) * 2);
+    selectInfo->setMinimumWidth((this->width()));
     m_seleceInfoLayout->addStretch();
     m_seleceInfoLayout->addWidget(selectInfo);
     m_seleceInfoLayout->addStretch();

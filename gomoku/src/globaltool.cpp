@@ -145,7 +145,7 @@ void Globaltool::loadSystemLanguage()
 {
     QLocale locale;
     if (locale.name() == "bo_CN") { //如果是藏语，
-        gomokuFontManagement.dialogOffset = 3; //偏移量为3
+        gomokuFontManagement.dialogOffset = 3; //藏语时弹窗的偏移量为3
         gomokuFontManagement.welcomeText = 20; //欢迎字号变为20号
     } else if (locale.name() == "zh_CN" || locale.name() == "zh_HK"
                || locale.name() == "zh_TW") { //如果是中文功能按钮为23号字体

@@ -34,6 +34,7 @@
 #include <DFrame>
 #include <QCloseEvent>
 #include <DDialog>
+#include <QToolTip>
 
 GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     : DMainWindow(parent)
@@ -96,6 +97,20 @@ void GomokuMainWindow::initUI()
     m_transparentFrame->setAutoFillBackground(true);
     m_transparentFrame->hide();
     setCentralWidget(wcheckerBoard);
+
+    //tooltip字体大小
+    QFont font;
+    font.setFamily(Globaltool::instacne()->loadFontFamilyFromFiles(":/resources/font/ResourceHanRoundedCN-Bold.ttf"));
+    font.setWeight(QFont::Black);
+    font.setPixelSize(Globaltool::instacne()->getFontSize().dialogButton);
+
+    //tooltip背景颜色
+    QPalette palette;
+    palette.setColor(QPalette::Background, QColor(Qt::black));
+
+    //tooltip设置字体大小和颜色
+    QToolTip::setFont(font);
+    QToolTip::setPalette(palette);
 }
 
 /**
