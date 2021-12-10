@@ -26,6 +26,8 @@
 #include <QtTest/QTest>
 #include <stub.h>
 
+#include <QDebug>
+
 void stub_initCompositingStatus()
 {
 }

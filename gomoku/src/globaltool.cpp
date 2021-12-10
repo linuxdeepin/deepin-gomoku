@@ -23,6 +23,7 @@
 #include <DFontSizeManager>
 #include <QFile>
 #include <QFontDatabase>
+#include <QDebug>
 
 DWIDGET_USE_NAMESPACE
 

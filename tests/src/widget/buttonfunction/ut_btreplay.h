@@ -24,6 +24,8 @@
 #include "gtest/gtest.h"
 #include "btreplay.h"
 
+#include <QDebug>
+
 class UT_BTReplay : public testing::Test
 {
 public:

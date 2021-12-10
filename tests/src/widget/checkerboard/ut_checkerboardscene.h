@@ -24,6 +24,8 @@
 #include "gtest/gtest.h"
 #include "checkerboardscene.h"
 
+#include <QDebug>
+
 class UT_CheckerboardScene : public testing::Test
 {
 public:

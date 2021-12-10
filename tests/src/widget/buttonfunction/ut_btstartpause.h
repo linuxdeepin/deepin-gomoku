@@ -24,6 +24,8 @@
 #include "gtest/gtest.h"
 #include "btstartpause.h"
 
+#include <QDebug>
+
 class UT_BTStartPause : public testing::Test
 {
 public:

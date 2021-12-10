@@ -24,6 +24,8 @@
 #include "gtest/gtest.h"
 #include "btmusiccontrol.h"
 
+#include <QDebug>
+
 class UT_BTMusicControl : public testing::Test
 {
 public:

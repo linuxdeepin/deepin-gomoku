@@ -24,6 +24,8 @@
 #include "gtest/gtest.h"
 #include "selectinfo.h"
 
+#include <QDebug>
+
 class UT_SelectInfo : public testing::Test
 {
 public:
