@@ -78,7 +78,7 @@ int main(int argc, char *argv[])
         DLogManager::registerFileAppender();
         //保存主题
         DApplicationSettings applicationset(app);
-
+        //加载系统语言
         Globaltool::instacne()->loadSystemLanguage();
         GomokuMainWindow ww;
         ww.show();
