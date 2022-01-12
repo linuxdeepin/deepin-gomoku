@@ -27,7 +27,7 @@
 
 - 在五子棋介面，單擊 ![close](../common/close.svg)，關閉五子棋。
 - 右鍵單擊任務欄上的 ![deepin_gomoku](../common/deepin_gomoku.svg) 圖示，選擇 **全部關閉** 來關閉五子棋。
-- 在五子棋介面單擊 ![icon_menu](../common/icon_menu.svg)，選擇 **離開** 來關閉五子棋。
+- 在五子棋介面單擊 ![icon_menu](../common/icon_menu.svg)，選擇 **退出** 來關閉五子棋。
 
 ## 遊戲規則
 
@@ -71,7 +71,7 @@
 1. 在五子棋介面，單擊 ![icon_menu](../common/icon_menu.svg)。
 2. 單擊 **關於**，查看關於五子棋的版本和介紹。
 
-### 離開
+### 退出
 
 1. 在五子棋介面，單擊 ![icon_menu](../common/icon_menu.svg)。
-2. 單擊 **離開**。
+2. 單擊 **退出**。
