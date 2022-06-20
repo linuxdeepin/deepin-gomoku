@@ -52,6 +52,7 @@ int main(int argc, char *argv[])
 #endif
 
     if (DGuiApplicationHelper::setSingleInstance(app->applicationName(), DGuiApplicationHelper::UserScope)) {
+      //test
 //        QAccessible::installFactory(accessibleFactory);
         app->setOrganizationName("deepin");
         app->setApplicationName("deepin-gomoku");
