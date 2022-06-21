@@ -19,28 +19,30 @@
    * along with this program.  If not, see <http://www.gnu.org/licenses/>.
    */
 #include <gomokumainwindow.h>
+#include "environments.h"
+#include "gomokuapplication.h"
 
 #include <DApplication>
 #include <DMainWindow>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
+#include <DApplicationSettings>
+#include <DLog>
 
 #include <QAccessible>
 #include <QCommandLineParser>
 
 DWIDGET_USE_NAMESPACE
+DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+
 //    PERF_PRINT_BEGIN("POINT-01", "");
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-    //适配deepin-turbo启动加速
-    DApplication *app = nullptr;
-#if(DTK_VERSION < DTK_VERSION_CHECK(5,4,0,0))
-    app = new DApplication(argc, argv);
-#else
-    app = DApplication::globalApplication(argc, argv);
-#endif
+
+    Gomokuapplication *app = nullptr;
+    app = new Gomokuapplication(argc, argv);
 
     app->setAutoActivateWindows(true);
     //如果dtk版本为5.2.0.1以上则使用新的dtk接口
@@ -54,10 +56,13 @@ int main(int argc, char *argv[])
         app->setOrganizationName("deepin");
         app->setApplicationName("deepin-gomoku");
         app->loadTranslator();
-        app->setApplicationVersion("1.1.1");
+        app->setApplicationVersion(VERSION);
 
-        QIcon t_icon = QIcon::fromTheme("deepin-gomoku");
+        QIcon t_icon = QIcon::fromTheme("com.deepin.gomoku");
         app->setProductIcon(t_icon);
+        app->setProductName(QApplication::translate("GomokuWindow", "Gomoku"));
+        app->setApplicationDisplayName(QApplication::translate("GomokuWindow", "Gomoku"));
+        app->setApplicationDescription(QApplication::translate("GomokuWindow", "Gomoku is a small chess game for two players."));
 
         //命令行参数
         QCommandLineParser _commandLine; //建立命令行解析
@@ -67,9 +72,15 @@ int main(int argc, char *argv[])
         _commandLine.process(*app);
 
         app->setAutoActivateWindows(true);
-
-        gomokumainwindow ww;
-//        ww.slotTheme(DApplicationHelper::instance()->themeType());
+        //log输出到控制台
+        DLogManager::registerConsoleAppender();
+        //log输出到日志文件
+        DLogManager::registerFileAppender();
+        //保存主题
+        DApplicationSettings applicationset(app);
+        //加载系统语言
+        Globaltool::instacne()->loadSystemLanguage();
+        GomokuMainWindow ww;
         ww.show();
 
         return app->exec();

@@ -13,6 +13,12 @@ set(APP_QRC "${APP_RES_DIR}/resources.qrc")
 
 project(${APP_BIN_NAME})
 
+#添加ci编译参数
+if(CMAKE_COVERAGE_ARG STREQUAL "CMAKE_COVERAGE_ARG_ON")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -fprofile-arcs -ftest-coverage")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -fprofile-arcs -ftest-coverage")
+endif()
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -35,6 +41,12 @@ else()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -O2 -Wl,-O1 -Wl,--gc-sections")
 endif()
 
+#angr安全加固
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-all")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector-all")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -z relro -z now -z noexecstack -pie")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -z relro -z now -z noexecstack -pie")
+
 #配置版本号
 configure_file(${APP_RES_DIR}/environments.h.in environments.h @ONLY)
 
@@ -55,7 +67,7 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
 find_package(Qt5DBus REQUIRED)
-find_package(Qt5Svg REQUIRED)
+find_package(Qt5 COMPONENTS Multimedia REQUIRED)
 find_package(DtkWidget REQUIRED)
 find_package(DtkGui REQUIRED)
 
@@ -74,4 +86,21 @@ target_link_libraries(${PROJECT_NAME}
     ${Qt5Svg_LIBRARIES}
     ${Qt5DBus_LIBRARIES}
     ${DFrameworkdbus_LIBRARIES}
+    Qt5::Multimedia
 )
+
+set(CMAKE_INSTALL_PREFIX /usr)
+
+# Install files
+#install(TARGETS deepin-gomoku DESTINATION bin)
+
+#install(DIRECTORY ${APP_RES_DIR}/deepin-gomoku
+#        DESTINATION /usr/share/deepin-manual/manual-assets/application/)
+#install(FILES ${APP_DESKTOP} DESTINATION share/applications)
+
+install(FILES ${APP_DESKTOP} DESTINATION share/applications)
+install(FILES assets/deepin-gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES assets/resources/desktop/com.deepin.gomoku.svg
+            DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps/)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(DIRECTORY assets/deepin-gomoku DESTINATION /usr/share/deepin-manual/manual-assets/application/)
