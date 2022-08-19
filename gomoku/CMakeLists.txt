@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 
 if (NOT DEFINED VERSION)
-     message(WARNING "Not defined version ,about dialog version set 1.2.2")
+     message(WARNING "Not defined version, about dialog version set 1.2.2")
     set(VERSION 1.2.2)
 endif ()
 
@@ -92,15 +92,15 @@ target_link_libraries(${PROJECT_NAME}
 set(CMAKE_INSTALL_PREFIX /usr)
 
 # Install files
-#install(TARGETS deepin-gomoku DESTINATION bin)
+#install(TARGETS deepin-gomoku DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 #install(DIRECTORY ${APP_RES_DIR}/deepin-gomoku
-#        DESTINATION /usr/share/deepin-manual/manual-assets/application/)
-#install(FILES ${APP_DESKTOP} DESTINATION share/applications)
+#        DESTINATION ${CMAKE_INSTALL_DATADIR}/deepin-manual/manual-assets/application/)
+#install(FILES ${APP_DESKTOP} DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 
-install(FILES ${APP_DESKTOP} DESTINATION share/applications)
-install(FILES assets/deepin-gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES ${APP_DESKTOP} DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
+install(FILES assets/deepin-gomoku.desktop DESTINATION ${CMAKE_INSTALL_DATADIR}/applications)
 install(FILES assets/resources/desktop/com.deepin.gomoku.svg
-            DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps/)
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-install(DIRECTORY assets/deepin-gomoku DESTINATION /usr/share/deepin-manual/manual-assets/application/)
+            DESTINATION ${CMAKE_INSTALL_DATADIR}/icons/hicolor/scalable/apps/)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(DIRECTORY assets/deepin-gomoku DESTINATION ${CMAKE_INSTALL_DATADIR}/deepin-manual/manual-assets/application/)
