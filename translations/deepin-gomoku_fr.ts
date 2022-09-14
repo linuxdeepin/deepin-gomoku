@@ -1,15 +1,15 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sq" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS language="fr" version="2.1">
 <context>
     <name>BTMusicControl</name>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="90"/>
         <source>Sound Off</source>
-        <translation>Pa Tinguj</translation>
+        <translation>Son désactivé</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="94"/>
         <source>Sound On</source>
-        <translation>Me Tinguj</translation>
+        <translation>Son activé</translation>
     </message>
 </context>
 <context>
@@ -17,7 +17,7 @@
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="99"/>
         <source>New Game</source>
-        <translation>Lojë e Re</translation>
+        <translation>Nouveau jeu</translation>
     </message>
 </context>
 <context>
@@ -26,17 +26,17 @@
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="123"/>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="160"/>
         <source>Start</source>
-        <translation>Nise</translation>
+        <translation>Commencer</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="165"/>
         <source>Continue</source>
-        <translation>Vazhdoje</translation>
+        <translation>Continuer</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="169"/>
         <source>Pause</source>
-        <translation>Ndalesë</translation>
+        <translation>Pause</translation>
     </message>
 </context>
 <context>
@@ -44,7 +44,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="136"/>
         <source>Play Again</source>
-        <translation>Luani Sërish</translation>
+        <translation>Rejouer</translation>
     </message>
 </context>
 <context>
@@ -52,7 +52,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="157"/>
         <source>Have a Rest</source>
-        <translation>Bëni një Pushim</translation>
+        <translation>Se reposer</translation>
     </message>
 </context>
 <context>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="120"/>
         <source>Keep Playing</source>
-        <translation>Vazhdoni të Luani</translation>
+        <translation>Continuer à jouer</translation>
     </message>
 </context>
 <context>
@@ -76,7 +76,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="117"/>
         <source>Exit</source>
-        <translation>Dalje</translation>
+        <translation>Quitter</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="30"/>
         <source>Are you sure you want to exit the game?</source>
-        <translation>Jeni i sigurt se doni të dilet nga loja?</translation>
+        <translation>Voulez-vous vraiment quitter le jeu ?</translation>
     </message>
 </context>
 <context>
@@ -98,7 +98,7 @@
     <message>
         <location filename="../gomoku/src/main.cpp" line="65"/>
         <source>Gomoku is a small chess game for two players.</source>
-        <translation>Gomoku është një lojë e vockël shahu me dy lojtarë.</translation>
+        <translation>Gomoku est un petit jeu d&apos;échecs pour deux joueurs.</translation>
     </message>
 </context>
 <context>
@@ -106,22 +106,22 @@
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="124"/>
         <source>I am thinking...</source>
-        <translation>Po mendohem…</translation>
+        <translation>Je réfléchie..</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="127"/>
         <source>Place your chess piece...</source>
-        <translation>Vini gurin tuaj të shahut…</translation>
+        <translation>Placer votre pièce d&apos;échecs...</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="201"/>
         <source>Welcome</source>
-        <translation>Mirë se vini!</translation>
+        <translation>Bienvenu</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="110"/>
         <source>Game Over!</source>
-        <translation>Loja Përfundoi!</translation>
+        <translation>Jeu terminé !</translation>
     </message>
 </context>
 <context>
@@ -129,12 +129,12 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="46"/>
         <source>You did great!</source>
-        <translation>Dolët shumë mirë!</translation>
+        <translation>Tu as été excellent !</translation>
     </message>
     <message>
         <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="48"/>
         <source>Game Over</source>
-        <translation>Loja Përfundoi</translation>
+        <translation>Jeu terminé</translation>
     </message>
 </context>
 <context>
@@ -142,7 +142,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="47"/>
         <source>Play as</source>
-        <translation>Luani si</translation>
+        <translation>Jouer en tant que</translation>
     </message>
 </context>
 </TS>
