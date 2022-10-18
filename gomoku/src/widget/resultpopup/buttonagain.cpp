@@ -125,7 +125,9 @@ void Buttonagain::paintEvent(QPaintEvent *event)
         setToolTip(text);
         text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);
     }
-    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
+    painter.drawText(QPointF((rect().width() - fontMetrics.width(text)) / 2,
+                             (rect().height() - fontMetrics.height()) / 2 + fontMetrics.ascent() - fontMetrics.descent() / 4), text);
+//    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();
     DWidget::paintEvent(event);
 }
