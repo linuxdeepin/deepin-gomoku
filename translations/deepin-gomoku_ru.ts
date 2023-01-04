@@ -52,7 +52,7 @@
     <message>
         <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="157"/>
         <source>Have a Rest</source>
-        <translation>Отдохнуть</translation>
+        <translation>Отдохни</translation>
     </message>
 </context>
 <context>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="120"/>
         <source>Keep Playing</source>
-        <translation>Продолжить игру</translation>
+        <translation>Продолжай играть</translation>
     </message>
 </context>
 <context>
@@ -84,7 +84,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="30"/>
         <source>Are you sure you want to exit the game?</source>
-        <translation>Вы хотите выйти из игры?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -142,7 +142,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="47"/>
         <source>Play as</source>
-        <translation>Играть...</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

@@ -84,7 +84,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="30"/>
         <source>Are you sure you want to exit the game?</source>
-        <translation>Jeni i sigurt se doni të dilet nga loja?</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
@@ -142,7 +142,7 @@
     <message>
         <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="47"/>
         <source>Play as</source>
-        <translation>Luani si</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 </TS>

@@ -76,7 +76,7 @@
     <message>
         <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="117"/>
         <source>Exit</source>
-        <translation>Wyjście</translation>
+        <translation>Wyjdź</translation>
     </message>
 </context>
 <context>
