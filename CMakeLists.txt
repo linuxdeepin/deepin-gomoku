@@ -27,7 +27,10 @@ macro(SUBDIRLIST result curdir)
 endmacro()
 
 ADD_SUBDIRECTORY(gomoku)
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 ADD_SUBDIRECTORY(tests)
+endif()
 
 find_package(Qt5LinguistTools REQUIRED)
 #lupdate start
@@ -56,7 +59,13 @@ qt5_create_translation(DTNG_QM_FILES
     ${DTNG_TS_FILES}
      ${DTNG_QM_FILES}
      )
-     
- set(CMAKE_INSTALL_PREFIX /usr)
+
+ #根据环境修改/usr 目录
+ if(DEFINED ENV{PREFIX})
+    set(CMAKE_INSTALL_PREFIX $ENV{PREFIX})
+ else()
+    set(CMAKE_INSTALL_PREFIX /usr)
+ endif()
+
  file(GLOB APP_QM_FILES "translations/*.qm")
  install(FILES ${APP_QM_FILES} DESTINATION share/deepin-gomoku/translations)
