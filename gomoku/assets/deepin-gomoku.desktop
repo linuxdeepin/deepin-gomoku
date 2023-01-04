@@ -1,6 +1,6 @@
 [Desktop Entry]
 Categories=Qt;Game
-Exec=/usr/bin/deepin-gomoku %F
+Exec=deepin-gomoku %F
 GenericName=Gomoku
 Icon=com.deepin.gomoku
 Keywords=gomoku;game;deepin;

@@ -89,7 +89,12 @@ target_link_libraries(${PROJECT_NAME}
     Qt5::Multimedia
 )
 
-set(CMAKE_INSTALL_PREFIX /usr)
+#根据环境修改/usr 目录
+if(DEFINED ENV{PREFIX})
+   set(CMAKE_INSTALL_PREFIX $ENV{PREFIX})
+else()
+   set(CMAKE_INSTALL_PREFIX /usr)
+endif()
 
 # Install files
 #install(TARGETS deepin-gomoku DESTINATION bin)
@@ -99,8 +104,8 @@ set(CMAKE_INSTALL_PREFIX /usr)
 #install(FILES ${APP_DESKTOP} DESTINATION share/applications)
 
 install(FILES ${APP_DESKTOP} DESTINATION share/applications)
-install(FILES assets/deepin-gomoku.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+install(FILES assets/deepin-gomoku.desktop DESTINATION share/applications)
 install(FILES assets/resources/desktop/com.deepin.gomoku.svg
             DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps/)
-install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
-install(DIRECTORY assets/deepin-gomoku DESTINATION /usr/share/deepin-manual/manual-assets/application/)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(DIRECTORY assets/deepin-gomoku DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-manual/manual-assets/application/)
