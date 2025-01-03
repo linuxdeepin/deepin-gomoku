@@ -76,7 +76,11 @@ void Buttonagain::mouseReleaseEvent(QMouseEvent *event)
  * @brief Buttonagain::enterEvent 鼠标进入区域事件
  * @param event
  */
+#if QT_VERSION_MAJOR > 5
+void Buttonagain::enterEvent(QEnterEvent *event)
+#else
 void Buttonagain::enterEvent(QEvent *event)
+#endif
 {
     currentPixmap = againHover;
     DWidget::enterEvent(event);
@@ -112,20 +116,39 @@ void Buttonagain::paintEvent(QPaintEvent *event)
                       - Globaltool::instacne()->getFontSize().dialogOffset);
     painter.setPen("#492c04");
     if (buttonPressed) {
+#if QT_VERSION_MAJOR > 5
+        if (currentPixmap.cacheKey() == againPress.cacheKey()) {
+            painter.setPen("#ffdb9e");
+        } else if (currentPixmap.cacheKey() == failAgainPress.cacheKey()) {
+            painter.setPen("#d2d2d2");
+        }
+#else
         if (currentPixmap == againPress) {
             painter.setPen("#ffdb9e");
         } else if (currentPixmap == failAgainPress) {
             painter.setPen("#d2d2d2");
         }
+#endif
     }
     painter.setFont(font);
     QFontMetrics fontMetrics(font);
     QString text = tr("Play Again");
-    if (fontMetrics.width(text) > (this->rect().width() - 20)) {
+    int fontWidth;
+#if QT_VERSION_MAJOR > 5
+    fontWidth = fontMetrics.boundingRect(text).width();
+#else
+    fontWidth = fontMetrics.width(text);
+#endif
+    if (fontWidth > (this->rect().width() - 20)) {
         setToolTip(text);
         text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);
     }
-    painter.drawText(QPointF((rect().width() - fontMetrics.width(text)) / 2,
+#if QT_VERSION_MAJOR > 5
+    fontWidth = fontMetrics.boundingRect(text).width();
+#else
+    fontWidth = fontMetrics.width(text);
+#endif
+    painter.drawText(QPointF((rect().width() - fontWidth) / 2,
                              (rect().height() - fontMetrics.height()) / 2 + fontMetrics.ascent() - fontMetrics.descent() / 4), text);
 //    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();

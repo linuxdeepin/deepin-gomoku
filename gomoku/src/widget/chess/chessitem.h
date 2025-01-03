@@ -9,7 +9,9 @@
 #include <DHiDPIHelper>
 
 #include <QGraphicsItem>
+#if QT_VERSION_MAJOR <= 5
 #include <QtMultimedia/QSound>
+#endif
 
 DWIDGET_USE_NAMESPACE
 

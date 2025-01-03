@@ -16,12 +16,12 @@ public:
     void SetUp() //TEST跑之前会执行SetUp
     {
         m_SelectButton = new Selectbutton();
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         delete m_SelectButton;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     Selectbutton *m_SelectButton;
 };

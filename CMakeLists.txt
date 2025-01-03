@@ -32,7 +32,6 @@ if (CMAKE_BUILD_TYPE STREQUAL "Debug")
 ADD_SUBDIRECTORY(tests)
 endif()
 
-find_package(Qt5LinguistTools REQUIRED)
 #lupdate start
 #此处其实只有当没有自动翻译需要手动翻译.ts文件才有意义可以创建不同语言名称的ts文件，下同
 set(TS_FILES
@@ -54,11 +53,6 @@ foreach(_ts_file ${DTNG_TS_FILES})
         execute_process(COMMAND ${LRELEASE_EXECUTABLE}   ${_ts_file})
 endforeach()
 #lrelease end
-
-qt5_create_translation(DTNG_QM_FILES
-    ${DTNG_TS_FILES}
-     ${DTNG_QM_FILES}
-     )
 
  #根据环境修改/usr 目录
  if(DEFINED ENV{PREFIX})

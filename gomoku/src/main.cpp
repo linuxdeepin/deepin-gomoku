@@ -11,7 +11,9 @@
 #include <DMainWindow>
 #include <DWidgetUtil>
 #include <DGuiApplicationHelper>
+#if QT_VERSION_MAJOR <= 5
 #include <DApplicationSettings>
+#endif
 #include <DLog>
 
 #include <QAccessible>
@@ -61,8 +63,10 @@ int main(int argc, char *argv[])
         DLogManager::registerConsoleAppender();
         //log输出到日志文件
         DLogManager::registerFileAppender();
+#if QT_VERSION_MAJOR <= 5
         //保存主题
         DApplicationSettings applicationset(app);
+#endif
         //加载系统语言
         Globaltool::instacne()->loadSystemLanguage();
         GomokuMainWindow ww;

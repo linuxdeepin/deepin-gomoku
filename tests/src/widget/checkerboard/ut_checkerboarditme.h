@@ -21,14 +21,14 @@ public:
         m_checkerboardItem = new CheckerboardItem();
         m_checkerboardScene = new QGraphicsScene(0, 0, widgetWidth, widgetHeight - 50);
         m_checkerboardScene->addItem(m_checkerboardItem);
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         m_checkerboardScene->removeItem(m_checkerboardItem);
         delete m_checkerboardItem;
         delete m_checkerboardScene;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     CheckerboardItem *m_checkerboardItem;
     QGraphicsScene *m_checkerboardScene;

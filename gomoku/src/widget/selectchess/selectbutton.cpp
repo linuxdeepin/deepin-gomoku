@@ -29,7 +29,11 @@ Selectbutton::Selectbutton(QWidget *parent)
  * @brief Selectbutton::enterEvent 鼠标进入区域事件
  * @param event
  */
+#if QT_VERSION_MAJOR > 5
+void Selectbutton::enterEvent(QEnterEvent *event)
+#else
 void Selectbutton::enterEvent(QEvent *event)
+#endif
 {
     currentStatus = selectHover;
     DWidget::enterEvent(event);

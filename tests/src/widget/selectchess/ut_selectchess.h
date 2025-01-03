@@ -17,12 +17,12 @@ public:
     void SetUp() //TEST跑之前会执行SetUp
     {
         m_SelectChess = new Selectchess(false);
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         delete m_SelectChess;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     Selectchess *m_SelectChess;
 };

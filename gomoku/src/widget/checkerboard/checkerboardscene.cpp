@@ -15,7 +15,12 @@
 
 CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height, QObject *parent)
     : QGraphicsScene(parent)
+#if QT_VERSION_MAJOR > 5
+    ,m_player(new QMediaPlayer(this))
+    ,m_audoiOutput(new QAudioOutput(this))
+#elif
     , playChessSound(new QSound(":/resources/music/chessone.wav", this))
+#endif
     , cbitem(new CheckerboardItem)
     , buttonStartPause(new BTStartPause)
     , buttonReplay(new BTReplay)
@@ -24,6 +29,10 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
     , gameControl(new GameControl(aiChessColor, userChessColor))
     , AIChess(-1, -1, 0)
 {
+#if QT_VERSION_MAJOR > 5
+    m_player->setAudioOutput(m_audoiOutput);
+    m_player->setSource(QUrl("qrc:/resources/music/chessone.wav"));
+#endif
     //设置scene大小
     setSceneRect(x, y, width, height);
     addItem(cbitem);
@@ -272,7 +281,10 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
                 qInfo() << __FUNCTION__ <<  "music play statues: " << musicControlStatus;
                 if (musicControlStatus) {
                     //播放落子音效
+#if QT_VERSION_MAJOR > 5
+#else
                     playChessSound->play();
+#endif
                 }
                 chessHasPaint[i][j] = true;
                 qInfo() << __FUNCTION__ <<  "current chess pos: " << i << j;

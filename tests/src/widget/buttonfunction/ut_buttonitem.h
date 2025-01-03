@@ -17,12 +17,12 @@ class UT_ButtonItem : public testing::Test
 //    void SetUp() //TEST跑之前会执行SetUp
 //    {
 //        m_ButtonItem = new ButtonItem();
-//        qInfo() << "SetUp" << endl;
+//        qInfo() << "SetUp" << Qt::endl;
 //    }
 //    void TearDown() //TEST跑完之后会执行TearDown
 //    {
 //        delete m_ButtonItem;
-//        qInfo() << "TearDown" << endl;
+//        qInfo() << "TearDown" << Qt::endl;
 //    }
 //    ButtonItem *m_ButtonItem;
 };

@@ -57,7 +57,11 @@ void Determinebutton::mouseReleaseEvent(QMouseEvent *event)
  * @brief Determinebutton::enterEvent 鼠标进入区域事件
  * @param event
  */
+#if QT_VERSION_MAJOR > 5
+void Determinebutton::enterEvent(QEnterEvent *event)
+#else
 void Determinebutton::enterEvent(QEvent *event)
+#endif
 {
     currentPixmap = buttonHover;
     DWidget::enterEvent(event);

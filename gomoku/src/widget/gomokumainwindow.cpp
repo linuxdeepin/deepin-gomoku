@@ -31,6 +31,11 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
 
     initCompositingStatus();
     initUI();
+#if QT_VERSION_MAJOR > 5
+    m_player = new QMediaPlayer(this);
+    m_audioOutput = new QAudioOutput(this);
+    m_player->setAudioOutput(m_audioOutput);
+#endif
 
     Dtk::Widget::moveToCenter(this);
 }
@@ -91,7 +96,7 @@ void GomokuMainWindow::initUI()
 
     //tooltip背景颜色
     QPalette palette;
-    palette.setColor(QPalette::Background, QColor(Qt::black));
+    palette.setColor(QPalette::Window, QColor(Qt::black));
 
     //tooltip设置字体大小和颜色
     QToolTip::setFont(font);
@@ -141,8 +146,14 @@ void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
  */
 void GomokuMainWindow::playWinMusic()
 {
-    if (checkerboardScene->getMusicPlay())
+    if (checkerboardScene->getMusicPlay()) {
+#if QT_VERSION_MAJOR > 5
+        m_player->setSource(QUrl("qrc:/resources/music/win.wav"));
+        m_player->play();
+#else
         QSound::play(":/resources/music/win.wav");
+#endif
+    }
 }
 
 /**
@@ -150,8 +161,14 @@ void GomokuMainWindow::playWinMusic()
  */
 void GomokuMainWindow::playFailMusic()
 {
-    if (checkerboardScene->getMusicPlay())
+    if (checkerboardScene->getMusicPlay()) {
+#if QT_VERSION_MAJOR > 5
+        m_player->setSource(QUrl("qrc:/resources/music/fail.wav"));
+        m_player->play();
+#else
         QSound::play(":/resources/music/fail.wav");
+#endif
+    }
 }
 
 /**
@@ -162,9 +179,9 @@ void GomokuMainWindow::viewtransparentFrame()
     DPalette tframepa = m_transparentFrame->palette();
     QColor tColor = "#000000";
     tColor.setAlphaF(0.3);
-    tframepa.setColor(DPalette::Background, tColor);
+    tframepa.setColor(DPalette::Window, tColor);
     m_transparentFrame->setPalette(tframepa);
-    m_transparentFrame->setBackgroundRole(DPalette::Background);
+    m_transparentFrame->setBackgroundRole(DPalette::Window);
     m_transparentFrame->resize(this->width(), this->height());
     m_transparentFrame->show();
 }

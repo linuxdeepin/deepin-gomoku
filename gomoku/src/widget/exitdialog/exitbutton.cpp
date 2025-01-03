@@ -59,7 +59,11 @@ void ExitButton::mouseReleaseEvent(QMouseEvent *event)
  * @param event
  * 移入事件
  */
+#if QT_VERSION_MAJOR > 5
+void ExitButton::enterEvent(QEnterEvent *event)
+#else
 void ExitButton::enterEvent(QEvent *event)
+#endif
 {
     currentPixmap = buttonHover;
     DWidget::enterEvent(event);
@@ -103,11 +107,22 @@ void ExitButton::paintEvent(QPaintEvent *event)
     painter.setFont(font);
     QFontMetrics fontMetrics(font);
     QString text = tr("Exit");
-    if (fontMetrics.width(text) > (this->rect().width() - 20)) {
+    int fontWidth;
+#if QT_VERSION_MAJOR > 5
+    fontWidth = fontMetrics.boundingRect(text).width();
+#else
+    fontWidth = fontMetrics.width(text);
+#endif
+    if (fontWidth > (this->rect().width() - 20)) {
         setToolTip(text);
         text = fontMetrics.elidedText(text, Qt::ElideRight, this->rect().width() - 20);
     }
-    painter.drawText(QPointF((rect().width() - fontMetrics.width(text)) / 2,
+#if QT_VERSION_MAJOR > 5
+    fontWidth = fontMetrics.boundingRect(text).width();
+#else
+    fontWidth = fontMetrics.width(text);
+#endif
+    painter.drawText(QPointF((rect().width() - fontWidth) / 2,
                              (rect().height() - fontMetrics.height()) / 2 + fontMetrics.ascent() - fontMetrics.descent() / 4), text);
 //    painter.drawText(this->rect(), Qt::AlignHCenter | Qt::AlignVCenter, text);
     painter.restore();

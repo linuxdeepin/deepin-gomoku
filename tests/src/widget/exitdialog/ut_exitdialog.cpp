@@ -17,7 +17,11 @@ TEST_F(UT_ExitDialog, UT_ExitDialog_initBackgroundPix1)
 {
     m_ExitDialog->compositingStatus = true;
     m_ExitDialog->initBackgroundPix();
+#if QT_VERSION_MAJOR > 5
+    EXPECT_EQ(m_ExitDialog->backgroundQPixmap.cacheKey(), DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg").cacheKey())
+#else
     EXPECT_EQ(m_ExitDialog->backgroundQPixmap, DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg"))
+#endif
             << "check exitDialog initBackgroundPix";
 }
 
@@ -25,7 +29,11 @@ TEST_F(UT_ExitDialog, UT_ExitDialog_initBackgroundPix2)
 {
     m_ExitDialog->compositingStatus = false;
     m_ExitDialog->initBackgroundPix();
+#if QT_VERSION_MAJOR > 5
+    EXPECT_EQ(m_ExitDialog->backgroundQPixmap.cacheKey(), DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog-nshadow.svg").cacheKey())
+#else
     EXPECT_EQ(m_ExitDialog->backgroundQPixmap, DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog-nshadow.svg"))
+#endif
             << "check exitDialog initBackgroundPix";
 }
 

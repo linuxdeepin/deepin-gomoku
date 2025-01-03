@@ -10,6 +10,11 @@
 #include "resultpopup/resultpopup.h"
 #include "selectchess/selectchess.h"
 
+#if QT_VERSION_MAJOR > 5
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#endif
+
 #include <DMainWindow>
 #include <DFrame>
 
@@ -49,6 +54,10 @@ private slots:
     void slotCompositingChanged(bool status);
 
 private:
+#if QT_VERSION_MAJOR > 5
+    QMediaPlayer *m_player = nullptr;
+    QAudioOutput *m_audioOutput = nullptr;
+#endif
     int userChessColor = 1; //用户选择棋子颜色, 默认为黑色
     bool compositingStatus = false; //是否开启特效窗口
     DFrame *m_transparentFrame = nullptr; //视图阴影

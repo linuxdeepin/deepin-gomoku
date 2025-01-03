@@ -16,7 +16,7 @@ public:
     void SetUp() //TEST跑之前会执行SetUp
     {
         m_GameControl = new GameControl(chess_white, chess_black);
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
@@ -24,7 +24,7 @@ public:
             delete m_GameControl;
             m_GameControl = nullptr;
         }
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     GameControl *m_GameControl;
 };
