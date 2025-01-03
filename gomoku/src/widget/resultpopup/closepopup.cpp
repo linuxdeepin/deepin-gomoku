@@ -53,7 +53,11 @@ void Closepopup::mouseReleaseEvent(QMouseEvent *event)
  * @brief Closepopup::enterEvent
  * @param event
  */
+#if QT_VERSION_MAJOR > 5
+void Closepopup::enterEvent(QEnterEvent *event)
+#else
 void Closepopup::enterEvent(QEvent *event)
+#endif
 {
     currentPixmap = buttonHover;
     DWidget::enterEvent(event);

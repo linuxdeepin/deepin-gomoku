@@ -18,7 +18,11 @@ public:
     explicit Selectbutton(QWidget *parent = nullptr);
 
 protected:
+#if QT_VERSION_MAJOR > 5
+    void enterEvent(QEnterEvent *event) override;
+#else
     void enterEvent(QEvent *event) override;
+#endif
     void leaveEvent(QEvent *event) override;
     void paintEvent(QPaintEvent *event) override;
 

@@ -18,7 +18,11 @@ TEST_F(UT_SelectChess, UT_SelectChess_initBackgroundPix1)
 {
     m_SelectChess->compositingStatus = true;
     m_SelectChess->initBackgroundPix();
+#if QT_VERSION_MAJOR > 5
+    EXPECT_EQ(m_SelectChess->backgroundPixmap.cacheKey(), DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase.svg").cacheKey())
+#else
     EXPECT_EQ(m_SelectChess->backgroundPixmap, DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase.svg"))
+#endif
             << "check seleceChess initBackgroundPix";
 }
 
@@ -26,7 +30,11 @@ TEST_F(UT_SelectChess, UT_SelectChess_initBackgroundPix2)
 {
     m_SelectChess->compositingStatus = false;
     m_SelectChess->initBackgroundPix();
+#if QT_VERSION_MAJOR > 5
+    EXPECT_EQ(m_SelectChess->backgroundPixmap.cacheKey(), DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase_nshadow.svg").cacheKey())
+#else
     EXPECT_EQ(m_SelectChess->backgroundPixmap, DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase_nshadow.svg"))
+#endif
             << "check seleceChess initBackgroundPix";
 }
 

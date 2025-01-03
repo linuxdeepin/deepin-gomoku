@@ -22,14 +22,14 @@ public:
         m_PlayingScreen = new PlayingScreen();
         m_scene = new QGraphicsScene(0, 0, widgetWidth, widgetHeight - 50);
         m_scene->addItem(m_PlayingScreen);
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         m_scene->removeItem(m_PlayingScreen);
         delete m_PlayingScreen;
         delete m_scene;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     PlayingScreen *m_PlayingScreen;
     QGraphicsScene *m_scene;

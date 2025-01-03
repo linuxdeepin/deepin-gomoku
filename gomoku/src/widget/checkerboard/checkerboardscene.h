@@ -17,6 +17,10 @@
 #include "gamecontrol/gamecontrol.h"
 
 #include <QGraphicsScene>
+#if QT_VERSION_MAJOR > 5
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#endif
 
 class CheckerboardScene : public QGraphicsScene
 {
@@ -72,7 +76,12 @@ private slots:
     void slotCPaintItem(ChessItem *cItem);
 
 private:
+#if QT_VERSION_MAJOR > 5
+    QMediaPlayer *m_player = nullptr;
+    QAudioOutput *m_audoiOutput = nullptr;
+#elif
     QSound *playChessSound = nullptr;
+#endif
     QVector<QVector<ChessItem *>> chessItemList{}; //棋子数组
     bool chessHasPaint[13][13] = {{false}}; //棋子坐标数组,保存每个位置是否绘制棋子
     CheckerboardItem *cbitem = nullptr; //棋盘item

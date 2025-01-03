@@ -25,6 +25,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_FLAGS "-Wl,--as-needed -fPIE")
 set(CMAKE_EXE_LINKER_FLAGS "-pie")
+set(QT_VERSION_MAJOR 6)
 
 #compile flags
 if (CMAKE_BUILD_TYPE MATCHES Debug)
@@ -59,17 +60,21 @@ foreach(subdir ${all_src})
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/${subdir})
 endforeach()
 
+if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    set(DTK_VERSION 6)
+endif()
+
 file(GLOB_RECURSE Gomoku_SRC ${CMAKE_CURRENT_LIST_DIR}/*.cpp)
 
 find_package(PkgConfig REQUIRED)
-find_package(DtkCore REQUIRED)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Svg REQUIRED)
-find_package(Qt5DBus REQUIRED)
-find_package(Qt5 COMPONENTS Multimedia REQUIRED)
-find_package(DtkWidget REQUIRED)
-find_package(DtkGui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Gui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Svg REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}DBus REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Multimedia REQUIRED)
+find_package(Dtk${DTK_VERSION}Core REQUIRED)
+find_package(Dtk${DTK_VERSION}Widget REQUIRED)
+find_package(Dtk${DTK_VERSION}Gui REQUIRED)
 
 include_directories(${Qt5Gui_PRIVATE_INCLUDE_DIRS})
 
@@ -79,14 +84,14 @@ ADD_EXECUTABLE(${PROJECT_NAME} ${Gomoku_SRC} ${APP_QRC})
 target_include_directories(${PROJECT_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS} ${OBJECT_BINARY_DIR})
 #添加链接库
 target_link_libraries(${PROJECT_NAME}
-    ${DtkWidget_LIBRARIES}
-    ${DtkCore_LIBRARIES}
-    ${DtkGui_LIBRARIES}
-    ${Qt5Widgets_LIBRARIES}
-    ${Qt5Svg_LIBRARIES}
-    ${Qt5DBus_LIBRARIES}
+    Dtk${DTK_VERSION}::Core
+    Dtk${DTK_VERSION}::Gui
+    Dtk${DTK_VERSION}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Svg
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Multimedia
     ${DFrameworkdbus_LIBRARIES}
-    Qt5::Multimedia
 )
 
 #根据环境修改/usr 目录

@@ -19,14 +19,14 @@ public:
         m_ButtonStartPause = new BTStartPause();
         m_scene = new QGraphicsScene(0, 0, widgetWidth, widgetHeight - 50);
         m_scene->addItem(m_ButtonStartPause);
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         m_scene->removeItem(m_ButtonStartPause);
         delete m_ButtonStartPause;
         delete m_scene;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     BTStartPause *m_ButtonStartPause;
     QGraphicsScene *m_scene;

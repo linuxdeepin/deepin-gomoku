@@ -16,11 +16,11 @@ class UT_GomokuApplication : public testing::Test
 public:
     void SetUp() //TEST跑之前会执行SetUp
     {
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
 };
 

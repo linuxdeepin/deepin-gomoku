@@ -69,7 +69,13 @@ void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 void ButtonItem::setElidedText(QString &text, QFontMetrics &fontMetrics, const int textWidth)
 {
-    if (fontMetrics.width(text) > (textWidth - 8)) { //判断字符串是否超出长度
+    int fontWidth;
+#if QT_VERSION_MAJOR > 5
+    fontWidth = fontMetrics.boundingRect(text).width();
+#else
+    fontWidth = fontMetrics.width(text);
+#endif
+    if (fontWidth > (textWidth - 8)) { //判断字符串是否超出长度
         setToolTip(text);
         text = fontMetrics.elidedText(text, Qt::ElideRight, textWidth - 16); //超出后截断用省略号显示
     } else {

@@ -19,7 +19,11 @@ public:
 
 private:
      void mouseReleaseEvent(QMouseEvent *event);
+#if QT_VERSION_MAJOR > 5
+    void enterEvent(QEnterEvent *event);
+#else
      void enterEvent(QEvent *event);
+#endif
      void leaveEvent(QEvent *event);
      void paintEvent(QPaintEvent *event);
      void mousePressEvent(QMouseEvent *event);

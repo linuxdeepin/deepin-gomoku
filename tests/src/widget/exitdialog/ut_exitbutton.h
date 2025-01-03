@@ -16,12 +16,12 @@ public:
     void SetUp() //TEST跑之前会执行SetUp
     {
         m_ExitButton = new ExitButton();
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         delete m_ExitButton;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     ExitButton *m_ExitButton;
 };

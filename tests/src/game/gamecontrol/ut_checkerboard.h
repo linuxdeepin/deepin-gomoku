@@ -16,12 +16,12 @@ public:
     void SetUp() //TEST跑之前会执行SetUp
     {
         m_CheckerBoard = new Checkerboard();
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         delete m_CheckerBoard;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     Checkerboard *m_CheckerBoard;
 };

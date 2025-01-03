@@ -18,7 +18,7 @@ public:
     {
         m_checkerboardScene = new CheckerboardScene(0, 0, widgetWidth, widgetHeight - 50);
         m_checkerboardScene->initChess();
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
@@ -26,7 +26,7 @@ public:
             delete m_checkerboardScene;
             m_checkerboardScene = nullptr;
         }
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     CheckerboardScene *m_checkerboardScene;
 };

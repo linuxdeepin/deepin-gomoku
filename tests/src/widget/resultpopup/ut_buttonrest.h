@@ -16,12 +16,12 @@ public:
     void SetUp() //TEST跑之前会执行SetUp
     {
         m_ButtonRest = new Buttonrest();
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
         delete m_ButtonRest;
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
     Buttonrest *m_ButtonRest;
 };

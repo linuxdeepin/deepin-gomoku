@@ -27,7 +27,7 @@ public:
         Stub stub;
         stub.set(ADDR(GomokuMainWindow, initCompositingStatus), stub_initCompositingStatus);
         m_mainwindow = new GomokuMainWindow();
-        qInfo() << "SetUp" << endl;
+        qInfo() << "SetUp" << Qt::endl;
     }
     void TearDown() //TEST跑完之后会执行TearDown
     {
@@ -35,7 +35,7 @@ public:
             delete m_mainwindow;
             m_mainwindow = nullptr;
         }
-        qInfo() << "TearDown" << endl;
+        qInfo() << "TearDown" << Qt::endl;
     }
 };
 

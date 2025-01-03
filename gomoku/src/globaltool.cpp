@@ -75,7 +75,11 @@ QString Globaltool::AutoFeed(const QString &text, const int fontSize, const int 
     labelF.setWeight(QFont::Black);
     labelF.setPixelSize(fontSize);
     QFontMetrics fm(labelF);
+#if QT_VERSION_MAJOR > 5
+int titlewidth = fm.boundingRect(strText).width();
+#else
     int titlewidth = fm.width(strText);
+#endif
     QStringList strList;
     QString str;
     strList.clear();
@@ -87,7 +91,12 @@ QString Globaltool::AutoFeed(const QString &text, const int fontSize, const int 
         for (int i = 0; i < strText.count(); i++) {
             str += strText.at(i);
 
-            if (fm.width(str) > textWidth) {
+#if QT_VERSION_MAJOR > 5
+            int strWidth = fm.boundingRect(strText).width();
+#else
+            int strWidth = fm.width(strText);
+#endif
+            if (strWidth > textWidth) {
                 str.remove(str.count() - 1, 1);
                 strList.append(str);
                 resultStr += str + "\n";

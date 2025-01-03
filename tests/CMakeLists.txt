@@ -20,6 +20,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(QT_VERSION_MAJOR 6)
 #set(CMAKE_CXX_FLAGS "-g -Wall")
 #编译生成覆盖环境
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fprofile-arcs -ftest-coverage")
@@ -40,20 +41,25 @@ if(CMAKE_SAFETYTEST STREQUAL "CMAKE_SAFETYTEST_ARG_ON")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fsanitize=undefined,address -O2")
 endif()
 
+if (${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    set(DTK_VERSION 6)
+endif()
+
 # Find the library
 find_package(PkgConfig REQUIRED)
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Gui REQUIRED)
-find_package(Qt5Core REQUIRED)
-find_package(DtkWidget REQUIRED)
-find_package(DtkGui REQUIRED)
-find_package(DtkCore REQUIRED)
-find_package(Qt5LinguistTools REQUIRED)
-find_package(Qt5Test REQUIRED)
-find_package(Qt5Multimedia REQUIRED)
-find_package(Qt5Svg REQUIRED)
-find_package(Qt5DBus REQUIRED)
-add_definitions(${Qt5Test_DEFINITIONS})
+find_package(Qt${QT_VERSION_MAJOR}Gui REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Widgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Svg REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}DBus REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Test REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Multimedia REQUIRED)
+find_package(Dtk${DTK_VERSION}Core REQUIRED)
+find_package(Dtk${DTK_VERSION}Widget REQUIRED)
+find_package(Dtk${DTK_VERSION}Gui REQUIRED)
+# find_package(Qt5LinguistTools REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}Svg REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR}DBus REQUIRED)
+add_definitions(${Qt${QT_VERSION_MAJOR}Test_DEFINITIONS})
 
 include_directories(${APP_SRC_DIR}/src)
 
@@ -96,12 +102,12 @@ foreach(subdir ${all_src})
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/${subdir})
 endforeach()
 
-include_directories(${DtkWidget_INCLUDE_DIRS})
-include_directories(${DtkCore_INCLUDE_DIRS})
-include_directories(${DtkGui_INCLUDE_DIRS})
-include_directories(${Qt5TestLib_LIBRARIES}
+include_directories(${Dtk${DTK_VERSION}Widget_INCLUDE_DIRS})
+include_directories(${Dtk${DTK_VERSION}Core_INCLUDE_DIRS})
+include_directories(${Dtk${DTK_VERSION}Gui_INCLUDE_DIRS})
+include_directories(${Qt${QT_VERSION_MAJOR}TestLib_LIBRARIES}
     ${PROJECT_NAME_TEST}
-    ${Qt5DBus_LIVRARIES}
+    ${Qt${QT_VERSION_MAJOR}DBus_LIVRARIES}
 )
 
 #angr安全加固
@@ -120,23 +126,22 @@ include_directories(src)
 add_executable(${PROJECT_NAME_TEST} ${Gomoku_SRC} ${qrcFiles} ${Gomoku_TEST_SRC} ${APP_QM_FILES})
 target_include_directories(${PROJECT_NAME} PUBLIC ${DtkWidget_INCLUDE_DIRS} ${OBJECT_BINARY_DIR})
 target_link_libraries(${PROJECT_NAME_TEST}
-    ${Qt5DBus_LIVRARIES}
+    ${Qt${QT_VERSION_MAJOR}DBus_LIVRARIES}
     ${LINK_LIBS}
     ${GTEST_LIBRARIES}
     ${GTEST_MAIN_LIBRARIES}
-    Qt5::Core
-    Qt5::Widgets
-    Qt5::Gui
-    Qt5::Multimedia
-    Qt5::Test
-    ${DtkWidget_LIBRARIES}
-    ${DtkCore_LIBRARIES}
-    ${DtkGui_LIBRARIES}
-    ${Qt5Widgets_LIBRARIES}
-    ${Qt5Svg_LIBRARIES}
-    ${Qt5DBus_LIBRARIES}
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Test
     ${DFrameworkdbus_LIBRARIES}
-    Qt5::Multimedia
+    Dtk${DTK_VERSION}::Core
+    Dtk${DTK_VERSION}::Gui
+    Dtk${DTK_VERSION}::Widget
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Svg
+    Qt${QT_VERSION_MAJOR}::DBus
+    Qt${QT_VERSION_MAJOR}::Multimedia
     pthread -ldl -fPIC
 )
 

@@ -16,7 +16,11 @@ TEST_F(UT_ResultPopup, UT_ResultPopup_initBackgroundPix1)
 {
     m_ResulePopup->compositingStatus = true;
     m_ResulePopup->initBackgroundPix();
+#if QT_VERSION_MAJOR > 5
+    EXPECT_EQ(m_ResulePopup->winPixmap.cacheKey(), DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win.svg").cacheKey())
+#else
     EXPECT_EQ(m_ResulePopup->winPixmap, DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win.svg"))
+#endif
             << "check resultPopup initBackgroundPix";
 }
 
@@ -24,7 +28,11 @@ TEST_F(UT_ResultPopup, UT_ResultPopup_initBackgroundPix2)
 {
     m_ResulePopup->compositingStatus = false;
     m_ResulePopup->initBackgroundPix();
+#if QT_VERSION_MAJOR > 5
+    EXPECT_EQ(m_ResulePopup->winPixmap.cacheKey(), DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win_nshadow.svg").cacheKey())
+#else
     EXPECT_EQ(m_ResulePopup->winPixmap, DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/background_win_nshadow.svg"))
+#endif
             << "check resultPopup initBackgroundPix";
 }
 
@@ -90,6 +98,10 @@ TEST_F(UT_ResultPopup, UT_ResultPopup_paintEvent4)
 
 TEST_F(UT_ResultPopup, UT_ResultPopup_mouseMoveEvent)
 {
+#if QT_VERSION_MAJOR > 5
+    QMouseEvent event(QMouseEvent::Type::MouseButtonPress, QPointF(1, 1), QPointF(1, 1), Qt::LeftButton, Qt::LeftButton, Qt::NoModifier);
+#else
     QMouseEvent event(QMouseEvent::Type::MouseButtonPress, QPointF(1, 1), Qt::LeftButton, Qt::LeftButton, nullptr);
+#endif
     m_ResulePopup->mouseMoveEvent(&event);
 }
