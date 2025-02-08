@@ -48,9 +48,12 @@ file (GLOB DTNG_TS_FILES translations/*.ts)
 
 #lrelease start
 #发布qm文件
-find_program(LRELEASE_EXECUTABLE lrelease)
+find_program(LRELEASE_EXECUTABLE lrelease PATHS "/usr/lib/qt6/bin" "/usr/lib/qt5/bin" NO_DEFAULT_PATH)
+if(NOT LRELEASE_EXECUTABLE)
+    find_program(LRELEASE_EXECUTABLE lrelease)
+endif()
 foreach(_ts_file ${DTNG_TS_FILES})
-        execute_process(COMMAND ${LRELEASE_EXECUTABLE}   ${_ts_file})
+        execute_process(COMMAND ${LRELEASE_EXECUTABLE} ${_ts_file})
 endforeach()
 #lrelease end
 
