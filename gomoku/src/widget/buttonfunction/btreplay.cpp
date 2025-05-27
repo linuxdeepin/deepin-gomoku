@@ -4,17 +4,19 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "btreplay.h"
+#include "ddlog.h"
 
 BTReplay::BTReplay(QGraphicsItem *parent)
     : ButtonItem(parent)
     , replayPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/replay.svg"))
 {
+    qCDebug(appLog) << "BTReplay button created";
     posHeight = firstGamePosHeight;
 }
 
 BTReplay::~BTReplay()
 {
-
+    qCDebug(appLog) << "BTReplay button destroyed";
 }
 
 QRectF BTReplay::boundingRect() const
@@ -97,6 +99,7 @@ void BTReplay::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
  */
 void BTReplay::setButtonState(bool state)
 {
+    qCDebug(appLog) << "Setting replay button state:" << (state ? "Disabled" : "Enabled");
     firstStartGame = state;
     update();
 }
@@ -105,6 +108,7 @@ void BTReplay::setButtonState(bool state)
 void BTReplay::buttonFunction()
 {
     if (!firstStartGame) {
+        qCDebug(appLog) << "Emitting replay signal";
         //重玩功能
         emit signalbuttonReplay();
     }
@@ -115,6 +119,7 @@ void BTReplay::buttonFunction()
  */
 void BTReplay::setNotFirstGame()
 {
+    qCDebug(appLog) << "Setting replay button to not first game state";
     if (qAbs(posHeight - notFirstGamePosHeight) >= (1e-6))
         posHeight = notFirstGamePosHeight;
     firstStartGame = false;

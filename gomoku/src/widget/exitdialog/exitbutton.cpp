@@ -5,6 +5,7 @@
 
 #include "exitbutton.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -30,6 +31,7 @@ ExitButton::ExitButton(QWidget *parent)
 void ExitButton::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() & Qt::LeftButton) {
+        qCDebug(appLog) << "ExitButton pressed";
         buttonPressed = true;
         currentPixmap = buttonPress;
         DWidget::mousePressEvent(event);
@@ -47,8 +49,10 @@ void ExitButton::mouseReleaseEvent(QMouseEvent *event)
     if (event->button() & Qt::LeftButton) {
         buttonPressed = false;
         currentPixmap = buttonNormal;
-        if (this->rect().contains(event->pos()))
+        if (this->rect().contains(event->pos())) {
+            qCDebug(appLog) << "ExitButton clicked, emitting signal";
             emit signalButtonOKClicked();
+        }
         DWidget::mouseReleaseEvent(event);
         update();
     }
@@ -65,6 +69,7 @@ void ExitButton::enterEvent(QEnterEvent *event)
 void ExitButton::enterEvent(QEvent *event)
 #endif
 {
+    qCDebug(appLog) << "Mouse entered ExitButton";
     currentPixmap = buttonHover;
     DWidget::enterEvent(event);
     update();
@@ -77,6 +82,7 @@ void ExitButton::enterEvent(QEvent *event)
  */
 void ExitButton::leaveEvent(QEvent *event)
 {
+    qCDebug(appLog) << "Mouse left ExitButton";
     buttonPressed = false;
     currentPixmap = buttonNormal;
     DWidget::leaveEvent(event);

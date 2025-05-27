@@ -4,10 +4,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "chessfromjudge.h"
+#include "ddlog.h"
 
 ChessFromJudge::ChessFromJudge()
 {
-
+    qCDebug(appLog) << "ChessFromJudge object created";
 }
 
 /**
@@ -49,6 +50,7 @@ ChessFrom ChessFromJudge::judgeChessFrom(const int chess[9])
 
     //五连珠
     if (count >= 5) {
+        qCDebug(appLog) << "Detected lian5 formation";
         return lian5;
     }
 
@@ -56,10 +58,13 @@ ChessFrom ChessFromJudge::judgeChessFrom(const int chess[9])
     //已经达成四连珠，需判断是眠四、活四还是两面都堵死了没有威胁
     if (count == 4) {
         if (leftColor == chess_none && rightColor == chess_none) {
+            qCDebug(appLog) << "Detected alive4 formation";
             return alive4;//两边都是空的，活四
         } else if (rightColor == opponentColor && leftColor == opponentColor) {
+            qCDebug(appLog) << "Detected safety formation (both sides blocked)";
             return safety; //两边都被堵死了，没有威胁
         } else if (rightColor == chess_none || leftColor == chess_none) {
+            qCDebug(appLog) << "Detected sleep4 formation (one side blocked)";
             return sleep4; //有一边为空，眠四
         }
     }
@@ -409,6 +414,8 @@ void ChessFromJudge::collectChess(int chess[9], const ChessState chessState,
  */
 ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess chess)
 {
+    qCDebug(appLog) << "Start judging game result for move at (" << chess.x << "," << chess.y << ")";
+
     ChessResult result; //胜利形式
     int lastRow = chess.x; //最后一次行号
     int lastCol = chess.y; //最后一次列号
@@ -418,6 +425,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
 
     //游戏刚开始
     if (lastCol == -1 && lastRow == -1) {
+        qCDebug(appLog) << "Game just started, return playing";
         return ChessResult::playing;
     }
 
@@ -436,6 +444,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
         }
     }
     if (i == line_row && j == line_col) {
+        qCDebug(appLog) << "Game ended in tie";
         return ChessResult::tie; //平局
     }
 
@@ -451,6 +460,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
+                qCDebug(appLog) << "Horizontal win detected";
                 return result; //五连珠胜利
             }
         } else {
@@ -466,6 +476,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
+                qCDebug(appLog) << "Vertical win detected";
                 return result;
             }
         } else {
@@ -505,6 +516,7 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
+                qCDebug(appLog) << "Diagonal (NE-SW) win detected";
                 return result;
             }
         } else {
@@ -542,12 +554,14 @@ ChessResult ChessFromJudge::judgeResult(const ChessState chessState, const Chess
         if (chessState[i][j] == color) {
             count++;
             if (count == 5) {
+                qCDebug(appLog) << "Diagonal (NW-SE) win detected";
                 return result;
             }
         } else {
             count = 0;
         }
     }
+    qCDebug(appLog) << "Game continues";
     return playing; //游戏还在继续
 }
 

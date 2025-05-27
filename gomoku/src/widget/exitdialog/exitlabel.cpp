@@ -5,9 +5,11 @@
 
 #include "exitlabel.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 ExitLabel::ExitLabel(QWidget *parent) : DLabel(parent)
 {
+    qCDebug(appLog) << "ExitLabel initializing";
 
     setWordWrap(true);
     setMinimumWidth(204);

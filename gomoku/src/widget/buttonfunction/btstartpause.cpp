@@ -4,17 +4,20 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "btstartpause.h"
+#include "ddlog.h"
 
 BTStartPause::BTStartPause(QGraphicsItem *parent)
     : ButtonItem(parent)
     , beginPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/begin.svg"))
     , stopPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/stop.svg"))
 {
+    qCDebug(appLog) << "BTStartPause button created";
     posHeight = firstGamePosHeight;
 }
 
 BTStartPause::~BTStartPause()
 {
+    qCDebug(appLog) << "BTStartPause button destroyed";
 }
 
 /**
@@ -22,6 +25,7 @@ BTStartPause::~BTStartPause()
  */
 void BTStartPause::setButtonStatus(bool status)
 {
+    qCDebug(appLog) << "Setting button status to:" << (status ? "Continue" : "Pause");
     //修改按钮图片
     mouseReleased = status;
     if (!firstStartGame) {
@@ -36,6 +40,7 @@ void BTStartPause::setButtonStatus(bool status)
  */
 void BTStartPause::setGameOverStatus(bool gameover)
 {
+    qCDebug(appLog) << "Setting game over status:" << gameover;
     gameOverStatus = gameover;
     if (!gameOverStatus) {
         firstStartGame = true;
@@ -57,6 +62,7 @@ bool BTStartPause::getButtonStatus()
  */
 void BTStartPause::setNotFirstGame()
 {
+    qCDebug(appLog) << "Setting button to not first game state";
     if (qAbs(posHeight - notFirstGamePosHeight) >= (1e-6))
         posHeight = notFirstGamePosHeight;
     firstStartGame = false;
@@ -159,13 +165,16 @@ void BTStartPause::buttonFunction()
     if (!firstStartGame) {
         //开始暂停功能
         if (mouseReleased) {
+            qCDebug(appLog) << "Emitting game pause signal";
             //暂停游戏
             emit signalGameStop();
         } else {
+            qCDebug(appLog) << "Emitting game continue signal";
             //继续游戏
             emit signalGameContinue();
         }
     } else {
+        qCDebug(appLog) << "Emitting game start signal";
         //开始游戏
         emit signalGameStart();
     }

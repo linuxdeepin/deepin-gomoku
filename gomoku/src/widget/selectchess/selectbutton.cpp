@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "selectbutton.h"
+#include "ddlog.h"
 
 #include <DHiDPIHelper>
 
@@ -18,6 +19,7 @@ Selectbutton::Selectbutton(QWidget *parent)
     , selectPress(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/radio_checked.svg"))
     , currentStatus(selectNormal)
 {
+    qCDebug(appLog) << "Selectbutton initializing";
     setFixedSize(24, 24);
     //可选
     setCheckable(true);

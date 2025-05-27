@@ -4,9 +4,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "checkerboard.h"
+#include "ddlog.h"
 
 Checkerboard::Checkerboard(QObject *parent) : QObject(parent)
 {
+    qCDebug(appLog) << "Checkerboard initialized";
     initCheckerboard();
 }
 
@@ -17,6 +19,7 @@ Checkerboard::Checkerboard(QObject *parent) : QObject(parent)
  */
 void Checkerboard::insertChess(Chess chess)
 {
+    qCDebug(appLog) << "Inserting chess at (" << chess.x << "," << chess.y << ") with color:" << chess.color;
     int x = chess.x;
     int y = chess.y;
     int color = chess.color;
@@ -31,6 +34,7 @@ void Checkerboard::insertChess(Chess chess)
 
 const ChessState &Checkerboard::getChessState()
 {
+    qCDebug(appLog) << "Getting current chess state";
     return chessState;
 }
 
@@ -40,6 +44,7 @@ const ChessState &Checkerboard::getChessState()
  */
 void Checkerboard::initCheckerboard()
 {
+    qCDebug(appLog) << "Initializing checkerboard with size:" << line_row << "x" << line_col;
     for (int i = 0; i < line_row; i++) {
         QVector<int> chessState_col;
         for (int j = 0; j < line_col; j++) {
@@ -47,6 +52,7 @@ void Checkerboard::initCheckerboard()
         }
         this->chessState.push_back(chessState_col);
     }
+    qCDebug(appLog) << "Checkerboard initialization completed";
 }
 
 /**
@@ -54,9 +60,11 @@ void Checkerboard::initCheckerboard()
  */
 void Checkerboard::resetCheckerboard()
 {
+    qCDebug(appLog) << "Resetting checkerboard";
     for (int i = 0; i < line_row; i++) {
         for (int j = 0; j < line_col; j++) {
             chessState[i][j] = chess_none;
         }
     }
+    qCDebug(appLog) << "Checkerboard reset completed";
 }

@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "chessselected.h"
+#include "ddlog.h"
 
 #include <DHiDPIHelper>
 
@@ -16,6 +17,7 @@ Chessselected::Chessselected(int chessColor, QWidget *parent)
     , chessBlack(DHiDPIHelper::loadNxPixmap(":/resources/black_chess.svg"))
     , mChessColor(chessColor)
 {
+    qCDebug(appLog) << "Chessselected initializing with color:" << chessColor;
     //设置大小
     setFixedSize(44, 44);
 }

@@ -8,6 +8,7 @@
 #include "selectchess/selectchess.h"
 #include "resultpopup/resultpopup.h"
 #include "gamecontrol/gamecontrol.h"
+#include "ddlog.h"
 
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
@@ -29,6 +30,7 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
     , gameControl(new GameControl(aiChessColor, userChessColor))
     , AIChess(-1, -1, 0)
 {
+    qCDebug(appLog) << "CheckerboardScene created with size:" << width << "x" << height;
 #if QT_VERSION_MAJOR > 5
     m_player->setAudioOutput(m_audoiOutput);
     m_player->setSource(QUrl("qrc:/resources/music/chessone.wav"));
@@ -50,6 +52,7 @@ CheckerboardScene::CheckerboardScene(qreal x, qreal y, qreal width, qreal height
 
 CheckerboardScene::~CheckerboardScene()
 {
+    qCDebug(appLog) << "CheckerboardScene destroyed";
     for (int i = 0; i < chessItemList.size(); i++) {
         for (int j = 0; j < chessItemList.at(i).size(); j++) {
             removeItem(chessItemList.at(i).at(j));
@@ -90,6 +93,7 @@ CheckerboardScene::~CheckerboardScene()
 //初始化棋子
 void CheckerboardScene::initChess()
 {
+    qCDebug(appLog) << "Initializing chess items";
     //清空
     if (!chessItemList.isEmpty()) {
         for (int i = 0; i < line_row; i++) {
@@ -148,6 +152,7 @@ void CheckerboardScene::addButtonFunction()
 //放置AI棋子
 void CheckerboardScene::setAIChess(Chess chess)
 {
+    qCDebug(appLog) << "Setting AI chess at position:" << chess.x << "," << chess.y;
     int row = chess.x;
     int col = chess.y;
     int color = chess.color;
@@ -162,6 +167,7 @@ void CheckerboardScene::setAIChess(Chess chess)
  */
 void CheckerboardScene::slotGameStart()
 {
+    qCDebug(appLog) << "Game started, showing chess selection popup";
     emit signalSelectChessPopup();
 }
 
@@ -197,6 +203,7 @@ void CheckerboardScene::setStartPauseStatus()
  */
 void CheckerboardScene::initGame()
 {
+    qCDebug(appLog) << "Initializing game connections";
     connect(this, &CheckerboardScene::signalCurrentPoint, gameControl, &GameControl::chessCompleted);//更新棋盘数组
     connect(this, &CheckerboardScene::signalRestGame, gameControl, &GameControl::resetGame);//重置游戏
     connect(gameControl, &GameControl::AIPlayChess, this, &CheckerboardScene::slotPaintAIChess);//绘制AI落子
@@ -228,6 +235,7 @@ void CheckerboardScene::slotGameContinue()
  */
 void CheckerboardScene::slotGameOver(ChessResult result)
 {
+    qCDebug(appLog) << "Game over with result:" << result;
     setGameState(GameState::gameOver); //设置游戏状态为游戏结束状态
     buttonReplay->setButtonState(true); //禁用重玩按钮
     buttonStartPause->setGameOverStatus(true);
@@ -314,6 +322,7 @@ void CheckerboardScene::slotCPaintItem(ChessItem *cItem)
  */
 void CheckerboardScene::startGame()
 {
+    qCDebug(appLog) << "Starting game with colors - AI:" << aiChessColor << "User:" << userChessColor;
     gameControl->setChessColor(aiChessColor, userChessColor);//设置玩家棋子颜色
     initChess();
     //根据用户选择棋子颜色, 设置对局详情
@@ -349,6 +358,7 @@ void CheckerboardScene::setSelectChess(int userColor, int aiColor)
 //绘制AI棋子
 void CheckerboardScene::slotPaintAIChess(Chess chess)
 {
+    qCDebug(appLog) << "Painting AI chess at:" << chess.x << "," << chess.y;
     //保存AI下棋数据
     AIChess.x = chess.x;
     AIChess.y = chess.y;

@@ -5,6 +5,7 @@
 
 #include "chessitem.h"
 #include "constants.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -36,6 +37,7 @@ int ChessItem::getChessColor()
 
 void ChessItem::setHasPrintChess()
 {
+    qCDebug(appLog) << "Setting chess as printed";
     chessHasPrint = true;
     update();
 }
@@ -43,6 +45,7 @@ void ChessItem::setHasPrintChess()
 //设置是否有棋子
 void ChessItem::setchessStatus(bool chessstatus)
 {
+    qCDebug(appLog) << "Setting chess status to:" << chessstatus;
     chessStatus = chessstatus;
     update();
 }
@@ -177,6 +180,7 @@ void ChessItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 //游戏结束
 void ChessItem::slotGameOver()
 {
+    qCDebug(appLog) << "Game over signal received";
     gameOver = true;
 }
 
@@ -193,12 +197,14 @@ void ChessItem::slotIsAIPlaying(bool AIPlaying)
  */
 void ChessItem::slotGameContinue()
 {
+    qCDebug(appLog) << "Game continue signal received";
     gameStatus = true;
 }
 
 //暂停游戏
 void ChessItem::slotGameStop()
 {
+    qCDebug(appLog) << "Game stop signal received";
     gameStatus = false;
 }
 

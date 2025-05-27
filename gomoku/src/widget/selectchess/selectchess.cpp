@@ -9,6 +9,7 @@
 #include "determinebutton.h"
 #include "chessselected.h"
 #include "constants.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -22,6 +23,7 @@ Selectchess::Selectchess(bool compositing, QWidget *parent)
     , selectLButton(new Selectbutton)
     , selectRButton(new Selectbutton)
 {
+    qCDebug(appLog) << "Selectchess dialog initializing, compositing:" << compositing;
     setFixedSize(371, 219);
     setAttribute(Qt::WA_TranslucentBackground);
     //设置隐藏边框,以及popup,dialog属性
@@ -36,6 +38,7 @@ Selectchess::Selectchess(bool compositing, QWidget *parent)
  */
 Selectchess::~Selectchess()
 {
+    qCDebug(appLog) << "Selectchess dialog destroying";
     if (m_mainLayout != nullptr) {
         delete  m_mainLayout;
         m_mainLayout = nullptr;
@@ -47,6 +50,7 @@ Selectchess::~Selectchess()
  */
 void Selectchess::initUI()
 {
+    qCDebug(appLog) << "Initializing Selectchess UI";
     m_mainLayout = new QVBoxLayout();
 
     QHBoxLayout *m_closeLayout = new QHBoxLayout();
@@ -99,6 +103,7 @@ void Selectchess::initUI()
  */
 void Selectchess::initBackgroundPix()
 {
+    qCDebug(appLog) << "Loading background pixmap, compositing:" << compositingStatus;
     if (compositingStatus) {
         backgroundPixmap = DHiDPIHelper::loadNxPixmap(":/resources/chessselected/selectbase.svg");
         setFixedSize(386, 234);
@@ -113,6 +118,7 @@ void Selectchess::initBackgroundPix()
  */
 void Selectchess::slotButtonOKClicked()
 {
+    qCInfo(appLog) << "OK button clicked, selected chess color:" << getSelsectChess();
     //如果选择了棋子颜色, 发送信号, 否则不发送
     emit signalButtonOKClicked();
 }
@@ -123,6 +129,7 @@ void Selectchess::slotButtonOKClicked()
  */
 void Selectchess::setSelectChess(int chessColor)
 {
+    qCDebug(appLog) << "Setting chess color:" << chessColor;
     //用户选择的棋子颜色
     selectChessColor = chessColor;
     //根据用户选择的棋子颜色, 设置不同按钮使能
@@ -153,6 +160,7 @@ int Selectchess::getSelsectChess()
  */
 void Selectchess::selectClose()
 {
+    qCDebug(appLog) << "Closing select chess dialog";
     this->close();
     emit signalDialogClose();
 }
@@ -171,6 +179,7 @@ void Selectchess::slotCloseSelectPopup()
  */
 void Selectchess::slotCompositingChanged(bool compositing)
 {
+    qCInfo(appLog) << "Compositing status changed to:" << compositing;
     compositingStatus = compositing;
     initBackgroundPix();
     update();

@@ -14,7 +14,7 @@
 #if QT_VERSION_MAJOR <= 5
 #include <DApplicationSettings>
 #endif
-#include <DLog>
+#include "ddlog.h"
 
 #include <QAccessible>
 #include <QCommandLineParser>
@@ -24,6 +24,7 @@ DCORE_USE_NAMESPACE
 
 int main(int argc, char *argv[])
 {
+    qCDebug(appLog) << "Application starting...";
 
 //    PERF_PRINT_BEGIN("POINT-01", "");
     QGuiApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
@@ -38,7 +39,10 @@ int main(int argc, char *argv[])
     DGuiApplicationHelper::setSingleInstanceInterval(-1);
 #endif
 
-    if (DGuiApplicationHelper::setSingleInstance(app->applicationName(), DGuiApplicationHelper::UserScope)) {
+    bool isSingleInstance = DGuiApplicationHelper::setSingleInstance(app->applicationName(), DGuiApplicationHelper::UserScope);
+    qCInfo(appLog) << "Single instance check result:" << isSingleInstance;
+    
+    if (isSingleInstance) {
 //        QAccessible::installFactory(accessibleFactory);
         app->setOrganizationName("deepin");
         app->setApplicationName("deepin-gomoku");
@@ -72,8 +76,11 @@ int main(int argc, char *argv[])
         GomokuMainWindow ww;
         ww.show();
 
-        return app->exec();
+        int ret = app->exec();
+        qCDebug(appLog) << "Application exiting with code:" << ret;
+        return ret;
     }
 
+    qCWarning(appLog) << "Application terminated due to existing instance";
     return 0;
 }

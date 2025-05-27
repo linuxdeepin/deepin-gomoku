@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <DFontSizeManager>
 #include <QFile>
@@ -14,10 +15,12 @@ DWIDGET_USE_NAMESPACE
 
 Globaltool::Globaltool()
 {
+    qCDebug(appLog) << "Globaltool instance created";
 }
 
 Globaltool::~Globaltool()
 {
+    qCDebug(appLog) << "Globaltool instance destroyed";
 }
 
 /**
@@ -32,6 +35,7 @@ Globaltool *Globaltool::instacne()
 
 QPixmap Globaltool::getDpiPixmap(QSize size, const QString &filename, QWidget *w)
 {
+    qCDebug(appLog) << "Loading pixmap:" << filename << "with size:" << size;
     QPixmap pixmap;
     qreal devicePixelRatio = qApp->devicePixelRatio();
     if (w) {
@@ -120,7 +124,7 @@ QString Globaltool::loadFontFamilyFromFiles(const QString &fontFileName)
     QString font = "";
     QFile fontFile(fontFileName);
     if (!fontFile.open(QIODevice::ReadOnly)) {
-        qDebug() << __FUNCTION__ << "Open font file error";
+        qCWarning(appLog) << "Failed to open font file:" << fontFileName;
         return font;
     }
 
@@ -138,6 +142,7 @@ QString Globaltool::loadFontFamilyFromFiles(const QString &fontFileName)
 
 void Globaltool::loadSystemLanguage()
 {
+    qCDebug(appLog) << "Loading system language settings";
     QLocale locale;
     if (locale.name() == "bo_CN") { //如果是藏语，
         gomokuFontManagement.dialogOffset = 3; //藏语时弹窗的偏移量为3
