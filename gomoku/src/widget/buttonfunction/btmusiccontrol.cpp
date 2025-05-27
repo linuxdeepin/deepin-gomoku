@@ -4,17 +4,19 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "btmusiccontrol.h"
+#include "ddlog.h"
 
 BTMusicControl::BTMusicControl(QGraphicsItem *parent)
     : ButtonItem(parent)
     , voicePixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/voice.svg"))
     , voiceOffPixmap(DHiDPIHelper::loadNxPixmap(":/resources/icon/voiceoff.svg"))
 {
+    qCDebug(appLog) << "BTMusicControl button created";
 }
 
 BTMusicControl::~BTMusicControl()
 {
-
+    qCDebug(appLog) << "BTMusicControl button destroyed";
 }
 
 QRectF BTMusicControl::boundingRect() const
@@ -87,6 +89,7 @@ void BTMusicControl::paint(QPainter *painter, const QStyleOptionGraphicsItem *op
  */
 void BTMusicControl::setNotFirstGame()
 {
+    qCDebug(appLog) << "Setting music control button to not first game state";
 //    mouseReleased = true;
     buttonFunction();
     update();
@@ -95,6 +98,7 @@ void BTMusicControl::setNotFirstGame()
 //按钮功能
 void BTMusicControl::buttonFunction()
 {
+    qCDebug(appLog) << "Emitting music control signal:" << (mouseReleased ? "Sound On" : "Sound Off");
     //控制音乐
     emit signalMusic(mouseReleased);
 }

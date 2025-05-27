@@ -5,6 +5,7 @@
 
 #include "buttonagain.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <DHiDPIHelper>
 
@@ -22,6 +23,7 @@ Buttonagain::Buttonagain(QWidget *parent)
     , failAgainPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/fail_rest_press.svg"))
     , mResult(false)
 {
+    qCDebug(appLog) << "Buttonagain initializing";
     //设置大小
     setFixedSize(160, 42);
     currentPixmap = againNormal;
@@ -33,6 +35,7 @@ Buttonagain::Buttonagain(QWidget *parent)
  */
 void Buttonagain::setResult(bool result)
 {
+    qCDebug(appLog) << "Setting button result:" << result;
     mResult = result;
 }
 
@@ -42,6 +45,7 @@ void Buttonagain::setResult(bool result)
  */
 void Buttonagain::mousePressEvent(QMouseEvent *event)
 {
+    qCDebug(appLog) << "Buttonagain pressed, result:" << mResult;
     if (event->button() & Qt::LeftButton) {
         buttonPressed = true;
         //根据输赢情况设置不同图片
@@ -61,6 +65,7 @@ void Buttonagain::mousePressEvent(QMouseEvent *event)
  */
 void Buttonagain::mouseReleaseEvent(QMouseEvent *event)
 {
+    qCDebug(appLog) << "Buttonagain released, position valid:" << this->rect().contains(event->pos());
     if (event->button() & Qt::LeftButton) {
         buttonPressed = false;
         currentPixmap = againNormal;

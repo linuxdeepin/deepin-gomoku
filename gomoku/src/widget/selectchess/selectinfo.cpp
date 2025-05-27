@@ -5,10 +5,12 @@
 
 #include "selectinfo.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 Selectinfo::Selectinfo(QWidget *parent)
     : DLabel(parent)
 {
+    qCDebug(appLog) << "Selectinfo widget initializing";
     //设置大小
     setFixedSize(226, 40);
 }

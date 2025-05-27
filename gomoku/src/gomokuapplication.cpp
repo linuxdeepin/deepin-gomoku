@@ -5,19 +5,27 @@
 
 #include "gomokuapplication.h"
 #include "gomokumainwindow.h"
+#include "ddlog.h"
 
 Gomokuapplication::Gomokuapplication(int &argc, char **argv)
     : DApplication(argc, argv)
 {
-
+    qCDebug(appLog) << "Gomoku application initialized";
 }
 
 void Gomokuapplication::handleQuitAction()
 {
+    qCDebug(appLog) << "Handling quit action";
     QWidget *pWgt = activeWindow();
     GomokuMainWindow *pWindow = qobject_cast<GomokuMainWindow *>(pWgt); //在对应的MainWindow操作
 
+    qCInfo(appLog) << "Active window type:" << (pWindow ? "GomokuMainWindow" : "Other");
+
     // 处理点击退出事件
-    if (pWindow)
+    if (pWindow) {
+        qCDebug(appLog) << "Forwarding quit to main window";
         pWindow->handleQuit();
+    } else {
+        qCWarning(appLog) << "No valid main window found for quit action";
+    }
 }

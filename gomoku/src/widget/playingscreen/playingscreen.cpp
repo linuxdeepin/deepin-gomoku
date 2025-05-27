@@ -6,6 +6,7 @@
 #include "playingscreen.h"
 #include "constants.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -23,6 +24,7 @@ PlayingScreen::PlayingScreen(QGraphicsItem *parent)
     , userNotPlay(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/user_notplay.svg"))
     , aiNotPlay(DHiDPIHelper::loadNxPixmap(":/resources/playingscreen/ai_notplay.svg"))
 {
+    qCDebug(appLog) << "PlayingScreen initializing";
     sceneWidth = 300;
     sceneHeight = 100;
 }
@@ -35,6 +37,7 @@ PlayingScreen::~PlayingScreen()
 //棋子颜色
 void PlayingScreen::setCurrentChessColor(bool AIPlaying, int chesscolor)
 {
+    qCDebug(appLog) << "Setting current chess color - AI playing:" << AIPlaying << "color:" << chesscolor;
     //当时是否为AI下棋
     AIPlayer = AIPlaying;
     //转换棋子的颜色
@@ -48,6 +51,7 @@ void PlayingScreen::setCurrentChessColor(bool AIPlaying, int chesscolor)
  */
 void PlayingScreen::setGameOverStatus()
 {
+    qCInfo(appLog) << "Game over status set";
     gameOverStatus = true;
 }
 
@@ -194,6 +198,7 @@ void PlayingScreen::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 //游戏是否开始
 void PlayingScreen::slotStartGame()
 {
+    qCInfo(appLog) << "Game started";
     gamePlaying = true;
     //游戏开始后需要显示旗手,增加高度
     sceneHeight = 200;
@@ -205,6 +210,7 @@ void PlayingScreen::slotStartGame()
  */
 void PlayingScreen::slotNewGame()
 {
+    qCInfo(appLog) << "New game initialized, resetting playing screen";
     gamePlaying = false;
     AIPlayer = false;
     gameOverStatus = false;

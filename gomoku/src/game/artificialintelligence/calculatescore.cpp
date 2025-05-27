@@ -4,11 +4,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "calculatescore.h"
+#include "ddlog.h"
+
 #include <vector>
 
 CalculateScore::CalculateScore()
 {
-
+    qCDebug(appLog) << "CalculateScore object created";
 }
 
 /**
@@ -22,6 +24,7 @@ int CalculateScore::getLocationScore(const ChessState chessState,
                                      const int color, const Position position)
 {
     if (chessState[position.first][position.second]) { //该位置存在棋子
+        qCDebug(appLog) << "Position already occupied, return SCORE_SELECTED";
         return SCORE_SELECTED; // 没有任何威胁
     }
 
@@ -91,9 +94,11 @@ int CalculateScore::computeScore(std::unordered_map<ChessFrom, int> locationSitu
     int alive_two = locationSituation[ChessFrom::alive2] + locationSituation[ChessFrom::rush2];
 
     if (locationSituation[ChessFrom::lian5] >= 1) {
+        qCDebug(appLog) << "Detected lian5 formation, return SCORE_WIN5";
         return SCORE_WIN5; // 五连珠
     }
     if (locationSituation[ChessFrom::alive4] >= 1) {
+        qCDebug(appLog) << "Detected alive4 formation, return SCORE_ALIVE4";
         return SCORE_ALIVE4; //活四
     }
     if (sleep_four >= 2 || (sleep_four >= 1 && alive_three >= 1)) {
@@ -140,6 +145,7 @@ int CalculateScore::computeScore(std::unordered_map<ChessFrom, int> locationSitu
 Position CalculateScore::getBestLocation(const int AIScore[line_row][line_col],
                                          const int opponentScore[line_row][line_col])
 {
+    qCDebug(appLog) << "Finding best location to place chess";
     int AIMaxScore = 0; //AI最大分数
     int userMaxScore = 0; //用户最大分数
 
@@ -177,6 +183,7 @@ Position CalculateScore::getBestLocation(const int AIScore[line_row][line_col],
 
     //由AI和用户的最大值判断是进攻还是防守，最佳落子位置
     if (AIMaxScore >= userMaxScore) { //进攻
+        qCDebug(appLog) << "AI chooses to attack (AI score:" << AIMaxScore << "User score:" << userMaxScore << ")";
         int tempScore = 0;
         for (auto it : AIMaxPositions) {
             if (opponentScore[it.first][it.second] == tempScore) { //从AI的最大值中挑选用户也最大的位置
@@ -189,6 +196,7 @@ Position CalculateScore::getBestLocation(const int AIScore[line_row][line_col],
             }
         }
     } else { //防守
+        qCDebug(appLog) << "AI chooses to defend (AI score:" << AIMaxScore << "User score:" << userMaxScore << ")";
         int tempScore = 0;
         for (auto it : opponentMaxPositions) {
             if (AIScore[it.first][it.second] == tempScore) { //从用户的最大值中挑选AI也最大的位置
@@ -207,6 +215,7 @@ Position CalculateScore::getBestLocation(const int AIScore[line_row][line_col],
     if (allMaxPosition.size() == 1)
         return allMaxPosition.front();
     //最大值数目为多，随机选取其中一个
+    qCDebug(appLog) << "Multiple best positions found, randomly selecting one from" << allMaxPosition.size() << "options";
     srand(static_cast<unsigned>(time(nullptr)));
     int index = rand() % static_cast<int>(allMaxPosition.size());
     return allMaxPosition[static_cast<unsigned long>(index)];

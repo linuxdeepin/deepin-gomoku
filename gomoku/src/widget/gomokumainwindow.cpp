@@ -5,6 +5,7 @@
 
 #include "gomokumainwindow.h"
 #include "exitdialog/exitdialog.h"
+#include "ddlog.h"
 
 #include <QGraphicsView>
 #include <QHBoxLayout>
@@ -24,6 +25,7 @@
 GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     : DMainWindow(parent)
 {
+    qCDebug(appLog) << "GomokuMainWindow initializing";
     //禁用最大化窗口
     setWindowFlags(windowFlags() & ~ Qt::WindowMaximizeButtonHint);
     setFixedSize(QSize(widgetWidth, widgetHeight));
@@ -42,6 +44,7 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
 
 GomokuMainWindow::~GomokuMainWindow()
 {
+    qCDebug(appLog) << "GomokuMainWindow destroying";
     if (mTitleBar != nullptr) {
         delete  mTitleBar;
         mTitleBar = nullptr;
@@ -53,12 +56,14 @@ GomokuMainWindow::~GomokuMainWindow()
  */
 void GomokuMainWindow::handleQuit()
 {
+    qCDebug(appLog) << "Handling quit request";
     close();
 }
 
 //初始化界面
 void GomokuMainWindow::initUI()
 {
+    qCDebug(appLog) << "Initializing UI components";
     mTitleBar = titlebar();
     mTitleBar->setFrameShape(DFrame::NoFrame);
     mTitleBar->installEventFilter(this);
@@ -108,6 +113,7 @@ void GomokuMainWindow::initUI()
  */
 void GomokuMainWindow::initCompositingStatus()
 {
+    qCDebug(appLog) << "Initializing compositing status";
     QDBusInterface Interface(COMPOSITINGSERVICE, COMPOSITINGPATH, COMPOSITINGSERVICE, QDBusConnection::sessionBus());
     QDBusConnection::sessionBus().connect(COMPOSITINGSERVICE,
                                           COMPOSITINGPATH,
@@ -147,6 +153,7 @@ void GomokuMainWindow::paintTitleBar(QWidget *titlebar)
 void GomokuMainWindow::playWinMusic()
 {
     if (checkerboardScene->getMusicPlay()) {
+        qCDebug(appLog) << "Playing win music";
 #if QT_VERSION_MAJOR > 5
         m_player->setSource(QUrl("qrc:/resources/music/win.wav"));
         m_player->play();
@@ -162,6 +169,7 @@ void GomokuMainWindow::playWinMusic()
 void GomokuMainWindow::playFailMusic()
 {
     if (checkerboardScene->getMusicPlay()) {
+        qCDebug(appLog) << "Playing fail music";
 #if QT_VERSION_MAJOR > 5
         m_player->setSource(QUrl("qrc:/resources/music/fail.wav"));
         m_player->play();
@@ -176,6 +184,7 @@ void GomokuMainWindow::playFailMusic()
  */
 void GomokuMainWindow::viewtransparentFrame()
 {
+    qCDebug(appLog) << "Showing transparent frame overlay";
     DPalette tframepa = m_transparentFrame->palette();
     QColor tColor = "#000000";
     tColor.setAlphaF(0.3);
@@ -203,6 +212,7 @@ bool GomokuMainWindow::eventFilter(QObject *watched, QEvent *event)
  */
 void GomokuMainWindow::slotSelectChessPopup()
 {
+    qCDebug(appLog) << "Showing chess selection popup";
     m_selectChess = new Selectchess(compositingStatus, this);
     m_selectChess->setSelectChess(userChessColor);
     connect(this, &GomokuMainWindow::signalCompositingChanged, m_selectChess, &Selectchess::slotCompositingChanged);
@@ -249,6 +259,7 @@ void GomokuMainWindow::slotSelectChessPopup()
  */
 void GomokuMainWindow::slotReplayPopup()
 {
+    qCDebug(appLog) << "Showing replay popup dialog";
     ExitDialog exitDialog(compositingStatus, this);
     connect(this, &GomokuMainWindow::signalCompositingChanged, &exitDialog, &ExitDialog::slotCompositingChanged);
     viewtransparentFrame();
@@ -283,6 +294,7 @@ void GomokuMainWindow::slotReplayPopup()
  */
 void GomokuMainWindow::slotReplayFunction()
 {
+    qCDebug(appLog) << "Resetting game state for replay";
     checkerboardScene->setGameState(GameState::gameStart); //点击再来一次游戏状态为新游戏
     checkerboardScene->replayFunction();
     slotSelectChessPopup();

@@ -8,6 +8,7 @@
 #include "exitbutton.h"
 #include "exitlabel.h"
 #include "resultpopup/closepopup.h"
+#include "ddlog.h"
 
 #include <QPushButton>
 #include <DHiDPIHelper>
@@ -20,6 +21,7 @@ ExitDialog::ExitDialog(bool compositing, QWidget *parent)
     , result(BTType::BTCancel)
     , compositingStatus(compositing)
 {
+    qCDebug(appLog) << "ExitDialog initializing, compositing:" << compositing;
     setFixedSize(372, 219);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint); //取消标题栏
@@ -34,6 +36,7 @@ ExitDialog::ExitDialog(bool compositing, QWidget *parent)
  */
 ExitDialog::~ExitDialog()
 {
+    qCDebug(appLog) << "ExitDialog destroying";
     if (m_mainLayout != nullptr) {
         delete  m_mainLayout;
         m_mainLayout = nullptr;
@@ -46,6 +49,7 @@ ExitDialog::~ExitDialog()
  */
 void ExitDialog::initUI()
 {
+    qCDebug(appLog) << "ExitDialog UI initializing";
     //上层关闭按钮布局
     QHBoxLayout *m_titleLayout = new QHBoxLayout;
     Closepopup *closeButton = new Closepopup(this);
@@ -93,6 +97,7 @@ void ExitDialog::initUI()
  */
 void ExitDialog::initBackgroundPix()
 {
+    qCInfo(appLog) << "Loading background pixmap, compositing:" << compositingStatus;
     if (compositingStatus) {
         backgroundQPixmap = DHiDPIHelper::loadNxPixmap(":/resources/exitdialog/close-dialog.svg");
         setFixedSize(386, 234);
@@ -107,6 +112,7 @@ void ExitDialog::initBackgroundPix()
  */
 void ExitDialog::soltDialogClose()
 {
+    qCInfo(appLog) << "User clicked cancel, closing exit dialog";
     setResult(BTType::BTCancel); //将状态设置为取消
     emit signalClicked();
     this->done(0);
@@ -117,6 +123,7 @@ void ExitDialog::soltDialogClose()
  */
 void ExitDialog::soltGameExit()
 {
+    qCInfo(appLog) << "User clicked exit, quitting game";
     setResult(BTType::BTExit); //将状态设置为退出
     emit signalClicked();
     this->done(0);
@@ -128,6 +135,7 @@ void ExitDialog::soltGameExit()
  */
 void ExitDialog::slotCompositingChanged(bool compositing)
 {
+    qCInfo(appLog) << "Compositing status changed to:" << compositing;
     compositingStatus = compositing;
     initBackgroundPix();
     update();

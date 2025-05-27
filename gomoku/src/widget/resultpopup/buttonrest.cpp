@@ -5,6 +5,7 @@
 
 #include "buttonrest.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -22,6 +23,7 @@ Buttonrest::Buttonrest(QWidget *parent)
     , failRestPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/fail_rest_press.svg"))
     , mResult(false)
 {
+    qCDebug(appLog) << "Buttonrest initializing";
     //设置大小
     setFixedSize(160, 42);
 }
@@ -37,6 +39,7 @@ Buttonrest::~Buttonrest()
  */
 void Buttonrest::setResult(bool result)
 {
+    qCDebug(appLog) << "Setting button result:" << result;
     mResult = result;
     //根据输赢情况设置不同的图片
     if (mResult) {

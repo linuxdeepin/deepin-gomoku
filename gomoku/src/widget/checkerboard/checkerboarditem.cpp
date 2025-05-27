@@ -5,6 +5,7 @@
 
 #include "checkerboarditem.h"
 #include "constants.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -18,10 +19,12 @@ CheckerboardItem::CheckerboardItem(QGraphicsItem *parent)
     : QGraphicsItem(parent)
     , checkerboardPixmap(DHiDPIHelper::loadNxPixmap(":/resources/checkerboard.svg"))
 {
+    qCDebug(appLog) << "CheckerboardItem created";
 }
 
 CheckerboardItem::~CheckerboardItem()
 {
+    qCDebug(appLog) << "CheckerboardItem destroyed";
 }
 
 QRectF CheckerboardItem::boundingRect() const

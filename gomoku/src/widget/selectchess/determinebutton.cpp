@@ -5,6 +5,7 @@
 
 #include "determinebutton.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -18,6 +19,7 @@ Determinebutton::Determinebutton(QWidget *parent)
     , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/button_hover.svg"))
     , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/chessselected/button_press.svg"))
 {
+    qCDebug(appLog) << "Determinebutton initializing";
     setFixedSize(334, 46);
     currentPixmap = buttonNormal;
 }

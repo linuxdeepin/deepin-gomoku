@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "buttonitem.h"
+#include "ddlog.h"
 
 #include <QTimer>
 
@@ -14,16 +15,19 @@ ButtonItem::ButtonItem(QGraphicsItem *parent)
     , hoverBackgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/hover.svg"))
     , PressBackgrounePix(DHiDPIHelper::loadNxPixmap(":/resources/function_button/press.svg"))
 {
+    qCDebug(appLog) << "ButtonItem created";
     setAcceptHoverEvents(true);
 }
 
 ButtonItem::~ButtonItem()
 {
+    qCDebug(appLog) << "ButtonItem destroyed";
 }
 
 //设置鼠标hover状态图片
 void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 {
+    qCDebug(appLog) << "Button hover enter";
     backgrounePix = hoverBackgrounePix;
     update();
     QGraphicsItem::hoverEnterEvent(event);
@@ -32,6 +36,7 @@ void ButtonItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
 //设置正常图片
 void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 {
+    qCDebug(appLog) << "Button hover leave";
     pressStatus = false;
     backgrounePix =  normalBackgrounePix;
     update();
@@ -42,6 +47,7 @@ void ButtonItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
 void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() & Qt::LeftButton) {
+        qCDebug(appLog) << "Button pressed at position:" << event->pos();
         event->accept();
         pressStatus = true;
         backgrounePix = PressBackgrounePix;
@@ -53,12 +59,14 @@ void ButtonItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void ButtonItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() & Qt::LeftButton) {
+        qCDebug(appLog) << "Button released at position:" << event->pos();
         pressStatus = false;
         if (contains(event->pos())) {
             backgrounePix =  normalBackgrounePix;
             mouseReleased = !mouseReleased;
             //设置一个1ms的延时,保证按钮状态切换
             QTimer::singleShot(1, this, [ = ] {
+                qCDebug(appLog) << "Executing button function";
                 buttonFunction();
             });
         }
@@ -88,6 +96,7 @@ void ButtonItem::setElidedText(QString &text, QFontMetrics &fontMetrics, const i
  */
 void ButtonItem::setFirstGame(qreal &posHeight, const qreal firstGamePosHeight)
 {
+    qCDebug(appLog) << "Setting button to first game state";
     posHeight = firstGamePosHeight;
     firstStartGame = true;
     mouseReleased = true;

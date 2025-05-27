@@ -5,6 +5,7 @@
 
 #include "resultpopup.h"
 #include "closepopup.h"
+#include "ddlog.h"
 
 #include <DHiDPIHelper>
 
@@ -22,6 +23,7 @@ Resultpopup::Resultpopup(bool compositing, QWidget *parent)
     , buttonRest(new Buttonrest)
     , buttonAgain(new Buttonagain)
 {
+    qCDebug(appLog) << "Resultpopup initializing, compositing:" << compositing;
     //设置大小
     setFixedSize(1024, 768);
 
@@ -95,6 +97,7 @@ void Resultpopup::initBackgroundPix()
  */
 void Resultpopup::popupShow()
 {
+    qCInfo(appLog) << "Showing result popup, win status:" << hasWin;
     this->show();
 }
 
@@ -104,6 +107,7 @@ void Resultpopup::popupShow()
  */
 void Resultpopup::setHasWin(bool win)
 {
+    qCInfo(appLog) << "Setting win status:" << win;
     hasWin = win;
     resultInfo->setResult(hasWin);
     buttonRest->setResult(hasWin);
@@ -118,6 +122,7 @@ void Resultpopup::setHasWin(bool win)
  */
 void Resultpopup::popupClose()
 {
+    qCDebug(appLog) << "Closing result popup";
     this->close();
     emit signalHaveRest();
 }
@@ -128,6 +133,7 @@ void Resultpopup::popupClose()
  */
 void Resultpopup::slotCompositingChanged(bool compositing)
 {
+    qCDebug(appLog) << "Compositing status changed:" << compositing;
     compositingStatus = compositing;
     initBackgroundPix();
     update();

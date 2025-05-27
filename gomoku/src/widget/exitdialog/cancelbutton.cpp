@@ -5,6 +5,7 @@
 
 #include "cancelbutton.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 #include <QPainter>
 #include <QPainterPath>
@@ -30,6 +31,7 @@ CancelButton::CancelButton(QWidget *parent)
 void CancelButton::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() & Qt::LeftButton) {
+        qCDebug(appLog) << "CancelButton pressed";
         buttonPressed = true;
         currentPixmap = buttonPress;
         DWidget::mousePressEvent(event);
@@ -48,6 +50,7 @@ void CancelButton::mouseReleaseEvent(QMouseEvent *event)
         buttonPressed = false;
         currentPixmap = buttonNormal;
         if (this->rect().contains(event->pos())) {
+            qCDebug(appLog) << "CancelButton clicked, emitting signal";
             emit signalButtonOKClicked();
         }
 
@@ -67,6 +70,7 @@ void CancelButton::enterEvent(QEnterEvent *event)
 void CancelButton::enterEvent(QEvent *event)
 #endif
 {
+    qCDebug(appLog) << "Mouse entered CancelButton";
     currentPixmap = buttonHover;
     DWidget::enterEvent(event);
     update();
@@ -79,6 +83,7 @@ void CancelButton::enterEvent(QEvent *event)
  */
 void CancelButton::leaveEvent(QEvent *event)
 {
+    qCDebug(appLog) << "Mouse left CancelButton";
     buttonPressed = false;
     currentPixmap = buttonNormal;
     DWidget::leaveEvent(event);

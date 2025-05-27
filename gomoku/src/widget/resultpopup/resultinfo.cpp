@@ -5,12 +5,14 @@
 
 #include "resultinfo.h"
 #include "globaltool.h"
+#include "ddlog.h"
 
 Resultinfo::Resultinfo(QWidget *parent)
     : DLabel(parent)
     , mResult(true)
     , strResult("")
 {
+    qCDebug(appLog) << "Resultinfo initializing";
     //设置大小
     setFixedSize(332, 48);
 }
@@ -26,6 +28,7 @@ Resultinfo::~Resultinfo()
  */
 void Resultinfo::setResult(bool result)
 {
+    qCDebug(appLog) << "Setting result:" << result;
     mResult = result;
     if (mResult) {
         strResult = tr("You did great!");

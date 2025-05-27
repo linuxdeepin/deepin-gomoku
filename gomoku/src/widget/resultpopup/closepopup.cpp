@@ -4,6 +4,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "closepopup.h"
+#include "ddlog.h"
 
 #include <DHiDPIHelper>
 
@@ -18,6 +19,7 @@ Closepopup::Closepopup(QWidget *parent)
     , buttonHover(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/hover.svg"))
     , buttonPress(DHiDPIHelper::loadNxPixmap(":/resources/resultpopup/press.svg"))
 {
+    qCDebug(appLog) << "Closepopup button initializing";
     setFixedSize(32, 32);
     currentPixmap = buttonNormal;
 }
