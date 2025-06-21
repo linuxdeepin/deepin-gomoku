@@ -4,12 +4,12 @@
 <context>
     <name>BTMusicControl</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="77"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="79"/>
         <source>Sound Off</source>
         <translation>Sound Off</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="77"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btmusiccontrol.cpp" line="79"/>
         <source>Sound On</source>
         <translation>Sound On</translation>
     </message>
@@ -17,7 +17,7 @@
 <context>
     <name>BTReplay</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="81"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btreplay.cpp" line="83"/>
         <source>New Game</source>
         <translation>New Game</translation>
     </message>
@@ -25,18 +25,18 @@
 <context>
     <name>BTStartPause</name>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="100"/>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="144"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="106"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="150"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="146"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="152"/>
         <source>Continue</source>
         <translation>Continue</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="146"/>
+        <location filename="../gomoku/src/widget/buttonfunction/btstartpause.cpp" line="152"/>
         <source>Pause</source>
         <translation>Pause</translation>
     </message>
@@ -44,7 +44,7 @@
 <context>
     <name>Buttonagain</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="123"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonagain.cpp" line="140"/>
         <source>Play Again</source>
         <translation>Play Again</translation>
     </message>
@@ -52,7 +52,7 @@
 <context>
     <name>Buttonrest</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="144"/>
+        <location filename="../gomoku/src/widget/resultpopup/buttonrest.cpp" line="159"/>
         <source>Have a Rest</source>
         <translation>Have a Rest</translation>
     </message>
@@ -60,7 +60,7 @@
 <context>
     <name>CancelButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="107"/>
+        <location filename="../gomoku/src/widget/exitdialog/cancelbutton.cpp" line="116"/>
         <source>Keep Playing</source>
         <translation>Keep Playing</translation>
     </message>
@@ -68,7 +68,7 @@
 <context>
     <name>Determinebutton</name>
     <message>
-        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="100"/>
+        <location filename="../gomoku/src/widget/selectchess/determinebutton.cpp" line="106"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -76,7 +76,7 @@
 <context>
     <name>ExitButton</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="105"/>
+        <location filename="../gomoku/src/widget/exitdialog/exitbutton.cpp" line="115"/>
         <source>Exit</source>
         <translation>Exit</translation>
     </message>
@@ -84,7 +84,7 @@
 <context>
     <name>ExitLabel</name>
     <message>
-        <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="15"/>
+        <location filename="../gomoku/src/widget/exitdialog/exitlabel.cpp" line="17"/>
         <source>Are you sure you want to exit the game?</source>
         <translation>Are you sure you want to exit the game?</translation>
     </message>
@@ -92,13 +92,13 @@
 <context>
     <name>GomokuWindow</name>
     <message>
-        <location filename="../gomoku/src/main.cpp" line="48"/>
-        <location filename="../gomoku/src/main.cpp" line="49"/>
+        <location filename="../gomoku/src/main.cpp" line="54"/>
+        <location filename="../gomoku/src/main.cpp" line="55"/>
         <source>Gomoku</source>
         <translation>Gomoku</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/main.cpp" line="50"/>
+        <location filename="../gomoku/src/main.cpp" line="56"/>
         <source>Gomoku is a small chess game for two players.</source>
         <translation>Gomoku is a small chess game for two players.</translation>
     </message>
@@ -106,22 +106,22 @@
 <context>
     <name>PlayingScreen</name>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="109"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="113"/>
         <source>I am thinking...</source>
         <translation>I am thinking...</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="112"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="116"/>
         <source>Place your chess piece...</source>
         <translation>Place your chess piece...</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="182"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="186"/>
         <source>Welcome</source>
         <translation>Welcome</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="95"/>
+        <location filename="../gomoku/src/widget/playingscreen/playingscreen.cpp" line="99"/>
         <source>Game Over!</source>
         <translation>Game Over!</translation>
     </message>
@@ -129,12 +129,12 @@
 <context>
     <name>Resultinfo</name>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="31"/>
+        <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="34"/>
         <source>You did great!</source>
         <translation>You did great!</translation>
     </message>
     <message>
-        <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="33"/>
+        <location filename="../gomoku/src/widget/resultpopup/resultinfo.cpp" line="36"/>
         <source>Game Over</source>
         <translation>Game Over</translation>
     </message>
@@ -142,7 +142,7 @@
 <context>
     <name>Selectinfo</name>
     <message>
-        <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="33"/>
+        <location filename="../gomoku/src/widget/selectchess/selectinfo.cpp" line="35"/>
         <source>Play as</source>
         <translation>Play as</translation>
     </message>
