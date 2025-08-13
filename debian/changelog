@@ -1,3 +1,9 @@
+com.deepin.gomoku (6.0.7) unstable; urgency=medium
+
+  * feat: Update translations for Lao locale (#35)
+
+ -- dengzhongyuan <dengzhongyuan@uniontech.com>  Wed, 13 Aug 2025 16:19:46 +0800
+
 com.deepin.gomoku (6.0.6) unstable; urgency=medium
 
   *chore: New version 6.0.6. 
