@@ -45,26 +45,28 @@ TEST_F(UT_Artificialintelligence, UT_Artificialintelligence)
 TEST_F(UT_Artificialintelligence, UT_Artificialintelligence_getPosition_001)
 {
     ChessState chessState(line_row, QVector<int>(line_col, 0));
-    EXPECT_EQ(ArtificialIntelligence::getPosition(chessState, 1), std::make_pair(6, 6))
+    EXPECT_EQ(ArtificialIntelligence::getPosition(chessState, 1), std::make_pair(7, 7))
             << "check Artificialintelligence getPosition_001";
 }
 
 TEST_F(UT_Artificialintelligence, UT_Artificialintelligence_getPosition_002)
 {
     ChessState chessState = {
-           {0,0,0,0,0,0,0,0,0,0,0,0,0},
-           {0,0,0,0,0,0,0,0,0,0,0,0,0},
-           {0,0,0,0,0,0,0,0,0,0,0,0,0},
-           {0,0,0,0,2,2,2,0,0,0,0,0,0},
-           {0,0,0,0,0,1,1,0,0,0,0,0,0},
-           {0,0,0,0,0,1,1,2,1,0,0,0,0},
-           {0,0,0,0,2,1,1,1,2,0,0,0,0},
-           {0,0,0,0,0,1,1,0,1,0,0,0,0},
-           {0,0,0,0,0,2,2,1,2,0,0,0,0},
-           {0,0,0,0,0,0,0,0,0,0,0,0,0},
-           {0,0,0,0,0,0,0,0,0,0,0,0,0},
-           {0,0,0,0,0,0,0,0,0,0,0,0,0},
-           {0,0,0,0,0,0,0,0,0,0,0,0,0}
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,2,2,2,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,1,1,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,1,1,2,1,0,0,0,0,0,0},
+           {0,0,0,0,2,1,1,1,2,0,0,0,0,0,0},
+           {0,0,0,0,0,1,1,0,1,0,0,0,0,0,0},
+           {0,0,0,0,0,2,2,1,2,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
        };
     Position position = std::make_pair(7, 7);
     Stub stub;

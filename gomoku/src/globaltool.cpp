@@ -96,9 +96,9 @@ int titlewidth = fm.boundingRect(strText).width();
             str += strText.at(i);
 
 #if QT_VERSION_MAJOR > 5
-            int strWidth = fm.boundingRect(strText).width();
+            int strWidth = fm.boundingRect(str).width();
 #else
-            int strWidth = fm.width(strText);
+            int strWidth = fm.width(str);
 #endif
             if (strWidth > textWidth) {
                 str.remove(str.count() - 1, 1);
