@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -25,6 +25,8 @@ Selectbutton::Selectbutton(QWidget *parent)
     setCheckable(true);
     //互斥
     setAutoExclusive(true);
+    // AT-SPI accessibility: set accessible name for the chess color radio button
+    setAccessibleName("SelectChessRadioButton");
 }
 
 /**

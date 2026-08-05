@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -22,6 +22,8 @@ Determinebutton::Determinebutton(QWidget *parent)
     qCDebug(appLog) << "Determinebutton initializing";
     setFixedSize(334, 46);
     currentPixmap = buttonNormal;
+    // AT-SPI accessibility: set accessible name for the OK button
+    setAccessibleName("SelectChessOKButton");
 }
 
 /**

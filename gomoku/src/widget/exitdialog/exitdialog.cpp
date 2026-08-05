@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -25,6 +25,10 @@ ExitDialog::ExitDialog(bool compositing, QWidget *parent)
     setFixedSize(372, 219);
     setAttribute(Qt::WA_TranslucentBackground); //背景透明
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint); //取消标题栏
+
+    // AT-SPI accessibility: set accessible name for the exit confirmation dialog
+    setAccessibleName("ExitDialog");
+    setObjectName("ExitDialog");
 
     initBackgroundPix();
 
@@ -53,6 +57,7 @@ void ExitDialog::initUI()
     //上层关闭按钮布局
     QHBoxLayout *m_titleLayout = new QHBoxLayout;
     Closepopup *closeButton = new Closepopup(this);
+    closeButton->setAccessibleName("ExitDialogCloseButton");
     connect(closeButton, &Closepopup::signalCloseClicked, this, &ExitDialog::soltDialogClose);
 
     m_titleLayout->addStretch();
@@ -65,6 +70,7 @@ void ExitDialog::initUI()
     m_textLayout->addStretch();
 
     ExitLabel *exitLabel = new ExitLabel(this);
+    exitLabel->setAccessibleName("ExitDialogLabel");
     m_textLayout->addWidget(exitLabel);
     m_textLayout->addStretch();
 
@@ -73,7 +79,9 @@ void ExitDialog::initUI()
     m_BTLayout->addSpacing(14); //按钮距离左边界的距离
 
     CancelButton *cancelButton = new CancelButton(this);
+    cancelButton->setAccessibleName("ExitDialogCancelButton");
     ExitButton *exitButton = new ExitButton(this);
+    exitButton->setAccessibleName("ExitDialogExitButton");
     connect(cancelButton, &CancelButton::signalButtonOKClicked, this, &ExitDialog::soltDialogClose);
     connect(exitButton, &ExitButton::signalButtonOKClicked, this, &ExitDialog::soltGameExit);
 

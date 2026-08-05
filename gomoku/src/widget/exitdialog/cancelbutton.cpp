@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -21,6 +21,8 @@ CancelButton::CancelButton(QWidget *parent)
 {
     setFixedSize(160, 42); //设置尺寸
     currentPixmap = buttonNormal;
+    // AT-SPI accessibility: set accessible name for the cancel button
+    setAccessibleName("ExitDialogCancelButton");
 }
 
 /**

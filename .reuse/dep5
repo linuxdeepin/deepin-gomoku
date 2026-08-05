@@ -63,3 +63,8 @@ Files: gomoku/assets/*
 Copyright: UnionTech Software Technology Co., Ltd.
 License: GPL-3.0-or-later
 
+# AT-SPI test output
+Files: tests/at/spi/*
+Copyright: UnionTech Software Technology Co., Ltd.
+License: GPL-3.0-or-later
+

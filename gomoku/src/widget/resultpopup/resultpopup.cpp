@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -27,6 +27,10 @@ Resultpopup::Resultpopup(bool compositing, QWidget *parent)
     //设置大小
     setFixedSize(1024, 768);
 
+    // AT-SPI accessibility: set accessible name for the result popup
+    setAccessibleName("ResultPopup");
+    setObjectName("ResultPopup");
+
     initBackgroundPix();
 
     //休息一下, 关闭弹窗
@@ -50,6 +54,7 @@ void Resultpopup::initUI()
 
     QHBoxLayout *closeLayout = new QHBoxLayout();
     Closepopup *closeBt = new Closepopup();
+    closeBt->setAccessibleName("ResultPopupCloseButton");
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
         emit signalHaveRest();
@@ -58,12 +63,15 @@ void Resultpopup::initUI()
     closeLayout->addSpacing(328); //关闭按钮到右侧边界距离
 
     QHBoxLayout *labelLayout = new QHBoxLayout();
+    resultInfo->setAccessibleName("ResultPopupLabel");
     resultInfo->setMinimumWidth(this->width());
     labelLayout->addWidget(resultInfo, 0, Qt::AlignHCenter);
 
     QHBoxLayout *buttonLayout = new QHBoxLayout();
     buttonLayout->addSpacing(340); //按钮到左侧边界距离
+    buttonRest->setAccessibleName("ResultPopupRestButton");
     buttonLayout->addWidget(buttonRest);
+    buttonAgain->setAccessibleName("ResultPopupPlayAgainButton");
     buttonLayout->addWidget(buttonAgain);
     buttonLayout->addSpacing(340); //按钮到右侧边界距离
 

@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -30,6 +30,10 @@ GomokuMainWindow::GomokuMainWindow(QWidget *parent)
     setWindowFlags(windowFlags() & ~ Qt::WindowMaximizeButtonHint);
     setFixedSize(QSize(widgetWidth, widgetHeight));
     setContentsMargins(QMargins(0, 0, 0, 0));
+
+    // AT-SPI accessibility: set accessible name for the main window
+    setAccessibleName("GomokuMainWindow");
+    setObjectName("GomokuMainWindow");
 
     initCompositingStatus();
     initUI();
@@ -80,6 +84,9 @@ void GomokuMainWindow::initUI()
     wcheckerBoard->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     wcheckerBoard->setFixedSize(this->width(), this->height() - titlebar()->height());
     wcheckerBoard->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    // AT-SPI accessibility: set accessible name for the game board view
+    wcheckerBoard->setAccessibleName("CheckerboardView");
+    wcheckerBoard->setObjectName("CheckerboardView");
 
     checkerboardScene = new CheckerboardScene(0, 0, this->width(), this->height() - titlebar()->height(), wcheckerBoard);
     wcheckerBoard->setScene(checkerboardScene);

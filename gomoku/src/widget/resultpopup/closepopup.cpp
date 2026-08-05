@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -22,6 +22,8 @@ Closepopup::Closepopup(QWidget *parent)
     qCDebug(appLog) << "Closepopup button initializing";
     setFixedSize(32, 32);
     currentPixmap = buttonNormal;
+    // AT-SPI accessibility: set accessible name for the close button
+    setAccessibleName("DialogCloseButton");
 }
 
 /**

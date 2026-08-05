@@ -1,4 +1,4 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
@@ -29,6 +29,10 @@ Selectchess::Selectchess(bool compositing, QWidget *parent)
     //设置隐藏边框,以及popup,dialog属性
     setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
 
+    // AT-SPI accessibility: set accessible name for the chess selection dialog
+    setAccessibleName("SelectChessDialog");
+    setObjectName("SelectChessDialog");
+
     initBackgroundPix();
     initUI();
 }
@@ -55,6 +59,7 @@ void Selectchess::initUI()
 
     QHBoxLayout *m_closeLayout = new QHBoxLayout();
     Closepopup *closeBt = new Closepopup(this);
+    closeBt->setAccessibleName("SelectChessCloseButton");
     connect(closeBt, &Closepopup::signalCloseClicked, this, [ = ] {
         this->close();
         emit signalDialogClose();
@@ -64,6 +69,7 @@ void Selectchess::initUI()
 
     QHBoxLayout *m_seleceInfoLayout = new QHBoxLayout();
     Selectinfo *selectInfo = new Selectinfo(this);
+    selectInfo->setAccessibleName("SelectChessInfoLabel");
     selectInfo->setMinimumWidth((this->width()));
     m_seleceInfoLayout->addStretch();
     m_seleceInfoLayout->addWidget(selectInfo);
@@ -72,19 +78,24 @@ void Selectchess::initUI()
     QHBoxLayout *m_buttonLayout = new QHBoxLayout();
 
     Chessselected *LChessSelected = new Chessselected(chess_white);
+    LChessSelected->setAccessibleName("SelectChessWhitePiece");
     Chessselected *RchessSelected = new Chessselected(chess_black);
+    RchessSelected->setAccessibleName("SelectChessBlackPiece");
     selectRButton->setChecked(true);
     //选择的那个颜色棋子, 发送信号
     m_buttonLayout->addStretch(70);
     m_buttonLayout->addWidget(selectLButton);
+    selectLButton->setAccessibleName("SelectChessWhiteRadioButton");
     m_buttonLayout->addWidget(LChessSelected);
     m_buttonLayout->addStretch(40);
     m_buttonLayout->addWidget(selectRButton);
+    selectRButton->setAccessibleName("SelectChessBlackRadioButton");
     m_buttonLayout->addWidget(RchessSelected);
     m_buttonLayout->addStretch(70);
 
     QHBoxLayout *m_determineLayout = new QHBoxLayout();
     Determinebutton *determineButton = new Determinebutton(this);
+    determineButton->setAccessibleName("SelectChessOKButton");
     connect(determineButton, &Determinebutton::signalButtonOKClicked, this, &Selectchess::slotButtonOKClicked);
     m_determineLayout->addWidget(determineButton);
 

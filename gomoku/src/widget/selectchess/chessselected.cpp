@@ -1,9 +1,10 @@
-// Copyright (C) 2019 ~ 2020 Uniontech Software Technology Co.,Ltd.
+// Copyright (C) 2019 ~ 2026 Uniontech Software Technology Co.,Ltd.
 // SPDX-FileCopyrightText: 2022 UnionTech Software Technology Co., Ltd.
 //
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include "chessselected.h"
+#include "constants.h"
 #include "ddlog.h"
 
 #include <DHiDPIHelper>
@@ -20,6 +21,8 @@ Chessselected::Chessselected(int chessColor, QWidget *parent)
     qCDebug(appLog) << "Chessselected initializing with color:" << chessColor;
     //设置大小
     setFixedSize(44, 44);
+    // AT-SPI accessibility: set accessible name for the chess piece display
+    setAccessibleName(mChessColor == chess_black ? "SelectChessBlackPiece" : "SelectChessWhitePiece");
 }
 
 /**
