@@ -33,11 +33,6 @@ int main(int argc, char *argv[])
     app = new Gomokuapplication(argc, argv);
 
     app->setAutoActivateWindows(true);
-    //如果dtk版本为5.2.0.1以上则使用新的dtk接口
-#if (DTK_VERSION > DTK_VERSION_CHECK(5, 2, 0, 1))
-    //设置为-1将永久等待
-    DGuiApplicationHelper::setSingleInstanceInterval(-1);
-#endif
 
     bool isSingleInstance = DGuiApplicationHelper::setSingleInstance(app->applicationName(), DGuiApplicationHelper::UserScope);
     qCInfo(appLog) << "Single instance check result:" << isSingleInstance;
